@@ -1,5 +1,5 @@
 title: ledgerwerk
-description: Practical notes .
+description: Practical notes and tool documentation.
 url: "https://ledgerwerk.de"
 baseurl: ""
 
@@ -23,6 +23,7 @@ exclude:
   - Justfile
   - README.md
   - jekyll_starter.md
+  - scripts/vendor
 
 collections:
   pages:
@@ -31,6 +32,5 @@ collections:
 defaults:
   - scope:
       path: ""
-      type: "posts"
     values:
       layout: default
