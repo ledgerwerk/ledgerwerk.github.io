@@ -1,10 +1,12 @@
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
 layout: default
-title: archledger Python API
-description: Python API modules for archledger
+title: "archledger Python API"
+description: "Python API modules for archledger"
 permalink: /tools/archledger/api/
+generated_from: archledger/docs
+source_path: docs/api.md
 ---
-
 # API reference
 
 The public Python API is organized around these modules:
@@ -14,4 +16,4 @@ The public Python API is organized around these modules:
 - `archledger.source_tracking`
 - `archledger.storage.project_config`
 
-Install the package locally to inspect generated API details with Python help tools or your editor.
+Install the package locally to inspect generated API details with Python help tools, IDE indexers, or the Sphinx package docs.

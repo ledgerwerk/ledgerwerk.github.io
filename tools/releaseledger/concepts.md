@@ -1,61 +1,119 @@
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
 layout: default
-title: releaseledger concepts
-description: Core concepts in releaseledger
+title: "releaseledger concepts"
+description: "Release records, entries, refs, events, and indexes"
 permalink: /tools/releaseledger/concepts/
+generated_from: releaseledger/docs
+source_path: docs/concepts.md
 ---
-
-# releaseledger concepts
+# Concepts
 
 ## Git-first
 
-Releaseledger is git-first. Git tags and commit ranges define the shipped change set. The canonical evidence is every commit reachable from the release target and absent from the previous release.
+Releaseledger is git-first. Git tags and commit ranges define the shipped change
+set. The canonical evidence of what shipped is `git rev-list --reverse --topo-order <base>..<head>`
+— every commit reachable from the release target and absent from the previous release.
 
-Taskledger, issue trackers, and pull requests can enrich entries, but releaseledger works correctly with only git.
+Taskledger, issue trackers, and PR descriptions are optional provenance that enrich
+curated entries, but releaseledger works correctly with only git.
 
 ## Source refs
 
-A source ref is a coverage identity.
+A source ref is a coverage identity. Two kinds are accepted:
 
-Accepted refs include:
+- **Global refs** (taskledger, GitHub, etc.): `tl:task-0006`, `github:pr-42`.
+  Canonicalized by ledgercore.
+- **Git commit refs**: `git:<7-to-40 hex sha>`. The primary evidence type for
+  git-first workflows.
 
-- Global refs such as `tl:task-0006` or `github:pr-42`.
-- Git commit refs such as `git:<7-to-40 hex sha>`.
-
-`git-range:*`, `git-tag:*`, and `git-branch:*` are release metadata markers. They are useful as boundaries but do not create missing-coverage rows.
+A `git-range:*`, `git-tag:*`, or `git-branch:*` ref is a non-coverable
+range marker — useful as release metadata but never creating a missing-coverage row.
 
 ## Release
 
-A release is a versioned `release.md` record with YAML front matter and optional Markdown body. It tracks status, previous version, release date, source boundaries, source refs, and changelog file metadata.
+A release is a versioned record stored as `release.md` with YAML front matter
+and an optional Markdown body. It tracks status, previous version, release date,
+source boundary, source refs, and changelog file metadata.
 
-Release statuses: `planned`, `draft`, `candidate`, `released`, `yanked`, and `canceled`.
+Release statuses are:
 
-`canceled` means the release was never shipped. It is excluded from previous-version inference and public changelog builds by default.
+- `planned`
+- `draft`
+- `candidate`
+- `released`
+- `yanked`
+- `canceled`
+
+`canceled` means the release was never shipped: it is excluded from
+previous-version inference and not built into public changelogs by default.
+Canceled releases may carry `cancel_reason` and `superseded_by` metadata
+and remain visible in `release list` as an audit tombstone.
 
 ## Entry
 
-An entry is one release-note item stored under `releases/<version>/entries/entry-NNNN.md`.
+An entry is one release-note item stored under
+`releases/<version>/entries/entry-NNNN.md`. Entries are grouped by kind for
+changelog rendering.
 
-Entry kinds: `added`, `changed`, `fixed`, `removed`, `deprecated`, `security`, `docs`, `quality`, and `internal`.
+Entry kinds are:
 
-Entry statuses: `draft`, `accepted`, and `rejected`. Changelog builds include accepted entries by default.
+- `added`
+- `changed`
+- `fixed`
+- `removed`
+- `deprecated`
+- `security`
+- `docs`
+- `quality`
+- `internal`
+
+`documentation` and `doc` are accepted aliases for `docs`.
+
+Entry statuses are `draft`, `accepted`, and `rejected`. Changelog builds
+include accepted entries by default.
 
 ## Event
 
-Events are append-only operation rows. They omit wall-clock timestamps and before/after deltas. Git history supplies chronology; per-record revisions validate file changes.
+Events are append-only operation rows. They do not store wall-clock timestamps
+or before/after deltas. Releaseledger relies on git history for chronological
+review and on per-record revisions for validation.
 
 ## Commit audit sheet
 
-A commit audit sheet is a per-release review artifact. It maps every commit in the selected git range to a reviewer decision and, when applicable, to a release entry.
+A commit audit sheet is a per-release review artifact that maps every commit
+in the selected git range to a reviewer decision and, when applicable, to a
+release entry. It is evidence state, not changelog prose.
 
-Its purpose is to prevent release notes from becoming copied commit subjects. Public changelog entries should be written from reviewed behavior, API/docs impact, changed paths, tests, and diff evidence.
+The sheet exists to prevent release notes from being generated from commit
+subjects. Each row records the commit SHA, inspected paths,
+reviewer-observed behavior, public/internal impact, decision, and target
+release entry. Public changelog entries are written from reviewed behavior,
+API/docs impact, changed paths, tests, and diff evidence. Commit subjects are
+evidence-only and must not be copied or mechanically transformed into
+release summaries.
 
-Decisions: `needs_review`, `accepted`, `grouped`, `internal`, and `rejected`.
+Decisions are `needs_review`, `accepted`, `grouped`, `internal`, and
+`rejected`. Strict release review fails when rows remain uninspected, when
+public rows lack accepted entry coverage, or when an entry summary matches a
+commit subject.
 
-Strict review fails when rows remain uninspected, when public rows lack accepted entry coverage, or when an entry summary matches a commit subject.
+This concept keeps Git as the canonical source of shipped changes while making
+the human or agent review work durable and auditable.
 
-## Versioning and indexes
+## Versioning
 
-Release and entry files contain `versioning.schema_version` and `versioning.revision`. New records start at revision 1, and revisions increase by exactly one for meaningful changes.
+Release and entry files contain `versioning.schema_version` and a positive
+`versioning.revision`. New records start at revision 1, and the revision
+increases by exactly one whenever that record file meaningfully changes.
 
-Releaseledger rebuilds `indexes/releases.json` and `indexes/entries.json` after mutations. Indexes are derived state and should remain deterministic.
+## Index
+
+Releaseledger rebuilds `indexes/releases.json` and `indexes/entries.json`
+after mutations. Indexes are derived state and should remain deterministic.
+
+## Global refs
+
+External provenance is recorded as caller-supplied global refs, for example
+`tl:task-0103`. Releaseledger stores these refs but does not resolve or
+validate external ledger state.

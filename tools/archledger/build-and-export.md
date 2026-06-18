@@ -1,10 +1,12 @@
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
 layout: default
-title: archledger build and export
-description: Native builds, exports, and diagram handling for archledger
+title: "archledger build and export"
+description: "Native builds, exports, and diagram handling for archledger"
 permalink: /tools/archledger/build-and-export/
+generated_from: archledger/docs
+source_path: docs/build-and-export.md
 ---
-
 # Build and export
 
 ## Native builds
@@ -13,6 +15,7 @@ permalink: /tools/archledger/build-and-export/
 archledger build --format markdown
 archledger build --format asciidoc
 ```
+
 `[build].default_output_dir` is relative to the directory containing
 `archledger.toml` or `.archledger.toml`. New projects default to `build/`
 under the workspace root, and projects may override this path.
@@ -52,6 +55,7 @@ output_dir = "diagrams"
 image_format = "svg"
 kroki_url = ""
 ```
+
 Notes:
 
 - `renderer = "pass-through"` keeps diagram blocks unchanged (default).
@@ -67,6 +71,7 @@ Write mode is strict by default and requires `pandoc`:
 ```bash
 archledger source convert --to asciidoc --apply
 ```
+
 For an explicit temporary mixed-body migration:
 
 ```bash

@@ -1,11 +1,13 @@
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
 layout: default
-title: releaseledger storage
-description: releaseledger storage and configuration
+title: "releaseledger storage"
+description: "Releaseledger storage layout and diagnostics"
 permalink: /tools/releaseledger/storage/
+generated_from: releaseledger/docs
+source_path: docs/storage.md
 ---
-
-# releaseledger storage and configuration
+# Storage and configuration
 
 ## Default layout
 
@@ -48,30 +50,53 @@ Storage tree:
         entries.json
 ```
 
-Release and entry records are Markdown files with YAML front matter. Mutation dates are not stored; git history provides chronology. Indexes are derived and expose record revisions for inspection.
+Release and entry Markdown records use schema version 2 and include validated
+record metadata:
+
+```yaml
+schema_version: 2
+object_type: release
+versioning:
+  schema_version: 1
+  revision: 1
+version: 1.2.0
+status: released
+released_at: 2026-06-14
+```
+
+`released_at` is the public changelog date. Mutation dates are not stored.
+Indexes are derived and expose `record_revision` for inspection. Events are
+append-only operation rows with affected record revisions; git history provides
+chronology and exact before/after content.
 
 ## External state directories
 
-Projects that keep generated state in a sibling repository can opt into an external path:
+Projects that keep generated state in a sibling repository can opt in to an
+external path:
 
 ```toml
 releaseledger_dir = "../ledger/release/releaseledger"
 releaseledger_dir_policy = "external"
 ```
 
-CLI form:
+The CLI form is:
 
 ```bash
-releaseledger init   --releaseledger-dir ../ledger/release/releaseledger   --external-dir
+releaseledger init \
+  --releaseledger-dir ../ledger/release/releaseledger \
+  --external-dir
 
-releaseledger config set releaseledger_dir   ../ledger/release/releaseledger   --external-dir
+releaseledger config set releaseledger_dir \
+  ../ledger/release/releaseledger \
+  --external-dir
 ```
 
-Relative paths that escape the workspace are rejected unless the external policy is explicit.
+Relative paths that escape the workspace are rejected unless the external
+policy is explicit.
 
 ## Diagnostics
 
-Inspect effective paths and layout health without mutation:
+Inspect effective paths and layout health without mutating state:
 
 ```bash
 releaseledger storage where

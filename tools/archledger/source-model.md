@@ -1,10 +1,12 @@
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
 layout: default
-title: archledger source model
-description: Canonical source format and records for archledger
+title: "archledger source model"
+description: "Canonical source format and records for archledger"
 permalink: /tools/archledger/source-model/
+generated_from: archledger/docs
+source_path: docs/source-model.md
 ---
-
 # Source model
 
 ## Canonical source

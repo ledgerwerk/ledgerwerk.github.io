@@ -6,3 +6,4 @@ _site/
 .bundle/
 vendor/
 context_ledgerwerk_github_io*
+_vendor/

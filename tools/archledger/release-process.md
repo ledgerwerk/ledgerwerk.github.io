@@ -1,10 +1,12 @@
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
 layout: default
-title: archledger release process
-description: Release workflow for archledger
+title: "archledger release process"
+description: "Release workflow for archledger"
 permalink: /tools/archledger/release-process/
+generated_from: archledger/docs
+source_path: docs/release-process.md
 ---
-
 # Release process
 
 This checklist is for maintainers preparing a beta or public release.

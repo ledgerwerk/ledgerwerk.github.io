@@ -1,10 +1,12 @@
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
 layout: default
-title: archledger CLI guide
-description: Command line workflows for archledger
+title: "archledger CLI guide"
+description: "Command line workflows for archledger"
 permalink: /tools/archledger/cli/
+generated_from: archledger/docs
+source_path: docs/cli.md
 ---
-
 # CLI guide
 
 `--json` is a global option, so place it before the subcommand:
@@ -21,7 +23,6 @@ validation, `source` for change tracking, and mutation commands under
 `record`, `refs`, `links`, and `ac`. JSON Schemas are returned with
 `schema --format jsonschema --target TARGET`. `install` creates optional
 integration scaffolds and refuses overwrites unless `--force` is supplied.
-
 
 <a id="init"></a>
 
@@ -52,7 +53,7 @@ archledger init --source-format asciidoc
 
 Running `init` produces:
 
-- `archledger.toml` — project configuration (see [configuration]({{ '/tools/archledger/configuration/' | relative_url }}))
+- `archledger.toml` — project configuration (see {doc}`configuration`)
 - `<archledger-dir>/` — state directory (default `.archledger`)
 - `<archledger-dir>/sections/` — 12 arc42 section stubs (default `al_0001` through `al_0012`)
 - `<archledger-dir>/records/` — typed subdirectories:
@@ -91,140 +92,140 @@ archledger seed arc42-minimal
 ### Core options
 
 `--source-format FORMAT`
-   Canonical source dialect: `markdown` or `asciidoc`.
-   Default: `asciidoc`.
-   Determines file extensions, default build output name, and template
-   rendering for all generated section stubs.
+Canonical source dialect: `markdown` or `asciidoc`.
+Default: `asciidoc`.
+Determines file extensions, default build output name, and template
+rendering for all generated section stubs.
 
 `--archledger-dir PATH`
-   State directory to create, relative to the config path unless absolute.
-   Default: `.archledger`.
-   Use an absolute path to store state outside the project tree.
+State directory to create, relative to the config path unless absolute.
+Default: `.archledger`.
+Use an absolute path to store state outside the project tree.
 
 `--project-name TEXT`
-   Stable project identity stored in `archledger.toml`.
-   Defaults to the workspace directory basename (slug-normalized).
+Stable project identity stored in `archledger.toml`.
+Defaults to the workspace directory basename (slug-normalized).
 
 `--project-uuid TEXT`
-   Stable project UUID. Auto-generated when omitted.
-   Must be a valid UUID format.
+Stable project UUID. Auto-generated when omitted.
+Must be a valid UUID format.
 
 `--id-prefix TEXT`
-   Ledger ID prefix for generated section/record IDs (for example `al` or `ta`).
-   Default: `al`.
+Ledger ID prefix for generated section/record IDs (for example `al` or `ta`).
+Default: `al`.
 
 `--id-width N`
-   Minimum digit width for generated ledger IDs.
-   Default: `4`.
+Minimum digit width for generated ledger IDs.
+Default: `4`.
 
 `--id-segment-mode MODE`
-   Ledger ID segment mode: `none` or `type`.
-   Default: `none`.
+Ledger ID segment mode: `none` or `type`.
+Default: `none`.
 
 ### Build options
 
 `--build-default-format FORMAT`
-   Default build output format: `markdown`, `asciidoc`, `pdf`, or `docx`.
-   When omitted, defaults to the source format.
+Default build output format: `markdown`, `asciidoc`, `pdf`, or `docx`.
+When omitted, defaults to the source format.
 
 `--build-default-output FILENAME`
-   Default build output filename.
-   When omitted, defaults to `architecture.<ext>` matching the source format.
+Default build output filename.
+When omitted, defaults to `architecture.<ext>` matching the source format.
 
 `--build-default-output-dir DIR`
-   Build output directory, relative to the config path.
-   Default: `build`.
+Build output directory, relative to the config path.
+Default: `build`.
 
 `--build-include-draft`
-   Include draft records in build output.
+Include draft records in build output.
 
 `--build-include-superseded`
-   Include superseded records in build output.
+Include superseded records in build output.
 
 `--build-strict`
-   Enable strict build mode.
+Enable strict build mode.
 
 `--build-keep-intermediate`
-   Keep intermediate build files.
+Keep intermediate build files.
 
 `--build-converter TOOL`
-   Build converter tool: `auto`, `pandoc`, or `asciidoctor`.
-   Default: `auto`.
+Build converter tool: `auto`, `pandoc`, or `asciidoctor`.
+Default: `auto`.
 
 `--build-pdf-engine ENGINE`
-   PDF engine for pandoc builds.
+PDF engine for pandoc builds.
 
 `--build-reference-docx PATH`
-   Reference docx template for pandoc builds.
+Reference docx template for pandoc builds.
 
 ### Diagram options
 
 `--diagrams` / `--no-diagrams`
-   Enable diagram support.
-   Default: `--no-diagrams`.
+Enable diagram support.
+Default: `--no-diagrams`.
 
 `--diagram-renderer RENDERER`
-   Diagram renderer: `pass-through`, `mermaid-cli`, or
-   `asciidoctor-diagram`.
-   Default: `pass-through`.
+Diagram renderer: `pass-through`, `mermaid-cli`, or
+`asciidoctor-diagram`.
+Default: `pass-through`.
 
 `--diagram-default-type TYPE`
-   Default diagram type: `text`, `ascii`, `unicode`, `svgbob`, or
-   `mermaid`.
-   Default: `text`.
+Default diagram type: `text`, `ascii`, `unicode`, `svgbob`, or
+`mermaid`.
+Default: `text`.
 
 `--diagram-output-dir DIR`
-   Diagram output directory.
-   Default: `diagrams`.
+Diagram output directory.
+Default: `diagrams`.
 
 `--diagram-image-format FORMAT`
-   Diagram image format: `svg` or `png`.
-   Default: `svg`.
+Diagram image format: `svg` or `png`.
+Default: `svg`.
 
 `--diagram-kroki-url URL`
-   Kroki server URL (reserved for future renderers).
+Kroki server URL (reserved for future renderers).
 
 ### arc42 options
 
 `--arc42-title TEXT`
-   arc42 template title.
-   Default: `Architecture Documentation`.
+arc42 template title.
+Default: `Architecture Documentation`.
 
 `--arc42-language CODE`
-   arc42 template language.
-   Default: `en`.
+arc42 template language.
+Default: `en`.
 
 `--arc42-template-version VERSION`
-   arc42 template version.
-   Default: `9.0-EN`.
+arc42 template version.
+Default: `9.0-EN`.
 
 `--arc42-include-help` / `--no-arc42-include-help`
-   Include arc42 help sections in generated section stubs.
-   Default: `--no-arc42-include-help`.
+Include arc42 help sections in generated section stubs.
+Default: `--no-arc42-include-help`.
 
 ### Tracking options
 
 `--tracking` / `--no-tracking`
-   Enable source tracking.
-   Default: `--tracking`.
+Enable source tracking.
+Default: `--tracking`.
 
 `--tracking-scanner SCANNER`
-   Tracking scanner: `auto`, `git`, or `filesystem`.
-   Default: `auto`.
+Tracking scanner: `auto`, `git`, or `filesystem`.
+Default: `auto`.
 
 `--tracking-state-file FILENAME`
-   Tracking state filename.
-   Default: `source-state.json`.
+Tracking state filename.
+Default: `source-state.json`.
 
 `--tracking-max-file-bytes N`
-   Maximum file size in bytes for tracking.
-   Default: `1000000`.
+Maximum file size in bytes for tracking.
+Default: `1000000`.
 
 `--tracking-include GLOB`
-   Glob pattern for tracking includes. Repeatable.
+Glob pattern for tracking includes. Repeatable.
 
 `--tracking-exclude GLOB`
-   Glob pattern for tracking excludes. Repeatable.
+Glob pattern for tracking excludes. Repeatable.
 
 ### Examples
 
@@ -235,6 +236,7 @@ archledger init --source-format markdown \
   --build-default-output ARCHITECTURE.md \
   --build-default-output-dir .
 ```
+
 AsciiDoc project with diagram support, German arc42 template, and custom
 tracking excludes:
 
@@ -247,21 +249,25 @@ archledger init --source-format asciidoc \
   --tracking-exclude "vendor/**" \
   --tracking-exclude "**/__pycache__/**"
 ```
+
 External state directory:
 
 ```bash
 archledger init --archledger-dir /shared/archledger-state
 ```
+
 Segmented IDs for record-type-based naming:
 
 ```bash
 archledger init --source-format markdown --id-segment-mode type
 ```
+
 JSON output for automation:
 
 ```bash
 archledger --json init --source-format markdown
 ```
+
 <a id="other-commands"></a>
 
 ## Other commands
@@ -275,12 +281,14 @@ archledger --json check
 archledger --json doctor
 archledger --json read --body --include-drafts
 ```
+
 Track implementation drift:
 
 ```bash
 archledger --json source snapshot --reason after-archledger-update
 archledger --json source changed
 ```
+
 Create records:
 
 ```bash
@@ -288,6 +296,7 @@ archledger new requirement "Render architecture document" --status proposed
 archledger new adr "Treat source fragments as canonical" --status proposed
 archledger new diagram "Runtime login flow" --section runtime_view --status proposed
 ```
+
 Archive and repair:
 
 ```bash
@@ -295,6 +304,7 @@ archledger archive al_0022 --reason "obsolete after al_0041"
 archledger doctor
 archledger doctor --repair
 ```
+
 Renumber IDs and references:
 
 ```bash
@@ -304,6 +314,7 @@ archledger renumber --id-segment-mode type
 archledger renumber --id-segment-mode type --apply
 archledger renumber --id-segment-mode none --apply
 ```
+
 `check` is read-only. It validates numbering and integrity but does not mutate counters or source files.
 
 Build output:
