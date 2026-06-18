@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger Python API"
 description: "Python API modules for taskledger"
 permalink: /tools/taskledger/api/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/api.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # API reference
 
 `taskledger` exposes a task-first public API through `taskledger.api`.

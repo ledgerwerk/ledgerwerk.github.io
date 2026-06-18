@@ -1,12 +1,14 @@
-<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "archledger Python API"
 description: "Python API modules for archledger"
 permalink: /tools/archledger/api/
+nav_tool: archledger
 generated_from: archledger/docs
 source_path: docs/api.md
 ---
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
+
 # API reference
 
 The public Python API is organized around these modules:

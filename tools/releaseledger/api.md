@@ -1,12 +1,14 @@
-<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "releaseledger Python API"
 description: "Python API modules for releaseledger"
 permalink: /tools/releaseledger/api/
+nav_tool: releaseledger
 generated_from: releaseledger/docs
 source_path: docs/api.md
 ---
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
+
 # Python API
 
 Releaseledger exposes a narrow public API through `releaseledger.api` modules.

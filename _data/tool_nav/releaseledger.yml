@@ -1,0 +1,27 @@
+# GENERATED from releaseledger/docs. Do not edit by hand.
+tool: releaseledger
+entries:
+  - slug: index
+    title: "releaseledger"
+    url: /tools/releaseledger/
+  - slug: quickstart
+    title: "releaseledger quickstart"
+    url: /tools/releaseledger/quickstart/
+  - slug: concepts
+    title: "releaseledger concepts"
+    url: /tools/releaseledger/concepts/
+  - slug: commands
+    title: "releaseledger commands"
+    url: /tools/releaseledger/commands/
+  - slug: changelog
+    title: "releaseledger changelog"
+    url: /tools/releaseledger/changelog/
+  - slug: storage
+    title: "releaseledger storage"
+    url: /tools/releaseledger/storage/
+  - slug: api
+    title: "releaseledger Python API"
+    url: /tools/releaseledger/api/
+  - slug: development
+    title: "releaseledger development"
+    url: /tools/releaseledger/development/

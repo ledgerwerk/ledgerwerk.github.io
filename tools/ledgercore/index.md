@@ -1,12 +1,14 @@
-<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "ledgercore"
 description: "Shared primitives for ledgerwerk tools"
 permalink: /tools/ledgercore/
+nav_tool: ledgercore
 generated_from: ledgercore/docs
 source_path: docs/index.md
 ---
+<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
+
 # ledgercore documentation
 
 Welcome to the `ledgercore` documentation.

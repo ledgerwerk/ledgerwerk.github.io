@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger full task cycle"
 description: "End-to-end taskledger task lifecycle"
 permalink: /tools/taskledger/full_task_cycle/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/full_task_cycle.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Full Task Cycle
 
 This page shows one complete taskledger cycle, from a fresh task through

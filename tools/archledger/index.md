@@ -1,12 +1,14 @@
-<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "archledger"
 description: "Source-first arc42 architecture documentation records"
 permalink: /tools/archledger/
+nav_tool: archledger
 generated_from: archledger/docs
 source_path: docs/index.md
 ---
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
+
 # archledger
 
 `archledger` stores arc42 architecture knowledge as canonical source fragments and assembles output documents on demand.

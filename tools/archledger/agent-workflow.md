@@ -1,12 +1,14 @@
-<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "archledger agent workflow"
 description: "Agent workflow for maintaining archledger documentation"
 permalink: /tools/archledger/agent-workflow/
+nav_tool: archledger
 generated_from: archledger/docs
 source_path: docs/agent-workflow.md
 ---
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
+
 # Agent workflow
 
 Before editing architecture-sensitive code:

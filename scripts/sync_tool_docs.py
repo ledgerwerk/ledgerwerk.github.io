@@ -286,10 +286,11 @@ def front_matter(slug: str, source_name: str, tool: str, source_text: str) -> st
     return "\n".join(
         [
             "---",
-            "layout: default",
+            "layout: tool-doc",
             f"title: {yaml_string(title)}",
             f"description: {yaml_string(description)}",
             f"permalink: {permalink}",
+            f"nav_tool: {tool}",
             f"generated_from: {tool}/docs",
             f"source_path: docs/{source_name}",
             "---",
@@ -302,29 +303,94 @@ def render_page(src: Path, tool: str) -> str:
     slug = src.stem
     source_text = src.read_text(encoding="utf-8")
     body = transform_body(source_text, tool)
-    return generated_header(tool) + "\n" + front_matter(slug, src.name, tool, source_text) + body
+    return front_matter(slug, src.name, tool, source_text) + generated_header(tool) + "\n\n" + body
 
 
-def sync_docs(source_dir: Path, dest_dir: Path, tool: str, clean: bool) -> list[Path]:
+def nav_entries(tool: str, source_files: list[Path]) -> list[dict]:
+    """Build ordered nav entries for a tool.
+
+    Order: index first, then the curated TITLE_OVERRIDES keys, then any
+    remaining source files sorted by stem. Each entry has slug, title, url.
+    """
+    curated = TITLE_OVERRIDES.get(tool, {})
+    stems = {path.stem: path for path in source_files}
+
+    order: list[str] = []
+    seen: set[str] = set()
+    if "index" in stems:
+        order.append("index")
+        seen.add("index")
+    for slug in curated:
+        if slug in stems and slug not in seen:
+            order.append(slug)
+            seen.add(slug)
+    for slug in sorted(stems):
+        if slug not in seen:
+            order.append(slug)
+            seen.add(slug)
+
+    entries: list[dict] = []
+    for slug in order:
+        title = curated.get(slug, slug.replace("_", " ").replace("-", " ").title())
+        permalink = f"/tools/{tool}/" if slug == "index" else f"/tools/{tool}/{slug}/"
+        entries.append({"slug": slug, "title": title, "url": permalink})
+    return entries
+
+
+def render_nav_yaml(tool: str, entries: list[dict]) -> str:
+    lines = [
+        f"# GENERATED from {tool}/docs. Do not edit by hand.",
+        f"tool: {tool}",
+        "entries:",
+    ]
+    for entry in entries:
+        lines.append(f"  - slug: {entry['slug']}")
+        lines.append(f"    title: {yaml_string(entry['title'])}")
+        lines.append(f"    url: {entry['url']}")
+    return "\n".join(lines) + "\n"
+
+
+def write_nav_data(tool: str, entries: list[dict], data_dir: Path) -> Path:
+    nav_dir = data_dir / "tool_nav"
+    nav_dir.mkdir(parents=True, exist_ok=True)
+    out = nav_dir / f"{tool}.yml"
+    out.write_text(render_nav_yaml(tool, entries), encoding="utf-8", newline="\n")
+    return out
+
+
+def sync_docs(
+    source_dir: Path,
+    dest_dir: Path,
+    tool: str,
+    clean: bool,
+    data_dir: Path | None = None,
+) -> tuple[list[Path], Path | None]:
     if tool not in TOOL_REPOS:
         raise SystemExit(f"unsupported tool: {tool}")
     if not source_dir.is_dir():
         raise SystemExit(f"source docs directory does not exist: {source_dir}")
 
+    if data_dir is None:
+        # tools/<tool> -> tools -> repo root -> _data
+        data_dir = dest_dir.resolve().parent.parent / "_data"
+
     if clean and dest_dir.exists():
         shutil.rmtree(dest_dir)
     dest_dir.mkdir(parents=True, exist_ok=True)
 
+    source_files = sorted(source_dir.glob("*.md"))
+    if not source_files:
+        raise SystemExit(f"no markdown files found in {source_dir}")
+
     written: list[Path] = []
-    for src in sorted(source_dir.glob("*.md")):
+    for src in source_files:
         out = dest_dir / src.name
         out.write_text(render_page(src, tool), encoding="utf-8", newline="\n")
         written.append(out)
 
-    if not written:
-        raise SystemExit(f"no markdown files found in {source_dir}")
+    nav_file = write_nav_data(tool, nav_entries(tool, source_files), data_dir)
 
-    return written
+    return written, nav_file
 
 
 def main() -> None:
@@ -333,16 +399,25 @@ def main() -> None:
     parser.add_argument("--dest", required=True, type=Path, help="Destination, e.g. tools/archledger")
     parser.add_argument("--tool", default=DEFAULT_TOOL, choices=sorted(TOOL_REPOS))
     parser.add_argument("--no-clean", action="store_true", help="Do not delete destination before writing")
+    parser.add_argument(
+        "--data-dir",
+        type=Path,
+        default=None,
+        help="Repository _data directory for the generated tool_nav files (default: <dest>/../../_data)",
+    )
     args = parser.parse_args()
 
-    written = sync_docs(
+    written, nav_file = sync_docs(
         source_dir=args.source,
         dest_dir=args.dest,
         tool=args.tool,
         clean=not args.no_clean,
+        data_dir=args.data_dir,
     )
     for path in written:
         print(path)
+    if nav_file is not None:
+        print(nav_file)
 
 
 if __name__ == "__main__":

@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger"
 description: "Task-first durable state for staged coding work"
 permalink: /tools/taskledger/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/index.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # taskledger
 
 `taskledger` is a task-first durable state layer for staged coding work.

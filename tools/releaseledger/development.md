@@ -1,12 +1,14 @@
-<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "releaseledger development"
 description: "Development workflow for releaseledger"
 permalink: /tools/releaseledger/development/
+nav_tool: releaseledger
 generated_from: releaseledger/docs
 source_path: docs/development.md
 ---
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
+
 # Development
 
 ## Setup

@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger service boundary whitelist"
 description: "Allowed service boundary imports"
 permalink: /tools/taskledger/service_boundary_whitelist/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/service_boundary_whitelist.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Service boundary whitelist
 
 This note tracks temporary static-boundary whitelist entries enforced by

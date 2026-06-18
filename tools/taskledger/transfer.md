@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger transfer"
 description: "Task transfer and handoff workflows"
 permalink: /tools/taskledger/transfer/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/transfer.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Transfer archives
 
 Transfer archives are portable taskledger state bundles for moving work between

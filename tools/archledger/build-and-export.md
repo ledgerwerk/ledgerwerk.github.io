@@ -1,12 +1,14 @@
-<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "archledger build and export"
 description: "Native builds, exports, and diagram handling for archledger"
 permalink: /tools/archledger/build-and-export/
+nav_tool: archledger
 generated_from: archledger/docs
 source_path: docs/build-and-export.md
 ---
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
+
 # Build and export
 
 ## Native builds

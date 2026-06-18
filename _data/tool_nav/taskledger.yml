@@ -1,0 +1,36 @@
+# GENERATED from taskledger/docs. Do not edit by hand.
+tool: taskledger
+entries:
+  - slug: index
+    title: "taskledger"
+    url: /tools/taskledger/
+  - slug: usage
+    title: "taskledger usage"
+    url: /tools/taskledger/usage/
+  - slug: full_task_cycle
+    title: "taskledger full task cycle"
+    url: /tools/taskledger/full_task_cycle/
+  - slug: architecture_taskledger_split
+    title: "taskledger architecture split"
+    url: /tools/taskledger/architecture_taskledger_split/
+  - slug: multi_repo
+    title: "taskledger multi-repo workflows"
+    url: /tools/taskledger/multi_repo/
+  - slug: api
+    title: "taskledger Python API"
+    url: /tools/taskledger/api/
+  - slug: public_surface
+    title: "taskledger public surface"
+    url: /tools/taskledger/public_surface/
+  - slug: command_contract
+    title: "taskledger command contract"
+    url: /tools/taskledger/command_contract/
+  - slug: transfer
+    title: "taskledger transfer"
+    url: /tools/taskledger/transfer/
+  - slug: sync
+    title: "taskledger sync"
+    url: /tools/taskledger/sync/
+  - slug: service_boundary_whitelist
+    title: "taskledger service boundary whitelist"
+    url: /tools/taskledger/service_boundary_whitelist/

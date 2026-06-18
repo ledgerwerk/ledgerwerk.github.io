@@ -1,12 +1,14 @@
-<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "releaseledger concepts"
 description: "Release records, entries, refs, events, and indexes"
 permalink: /tools/releaseledger/concepts/
+nav_tool: releaseledger
 generated_from: releaseledger/docs
 source_path: docs/concepts.md
 ---
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
+
 # Concepts
 
 ## Git-first

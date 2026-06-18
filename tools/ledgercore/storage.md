@@ -1,12 +1,14 @@
-<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "ledgercore storage"
 description: "Storage helpers and file layout primitives"
 permalink: /tools/ledgercore/storage/
+nav_tool: ledgercore
 generated_from: ledgercore/docs
 source_path: docs/storage.md
 ---
+<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
+
 # Storage helpers
 
 `ledgercore` provides several storage primitives for safely reading and writing

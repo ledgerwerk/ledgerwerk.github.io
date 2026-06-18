@@ -1,12 +1,14 @@
-<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "ledgercore release process"
 description: "Release workflow for ledgercore"
 permalink: /tools/ledgercore/release/
+nav_tool: ledgercore
 generated_from: ledgercore/docs
 source_path: docs/release.md
 ---
+<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
+
 # Release process
 
 This document describes how to build, validate, and publish a `ledgercore`

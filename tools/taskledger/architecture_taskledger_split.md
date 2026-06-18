@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger architecture split"
 description: "Taskledger architecture and split boundaries"
 permalink: /tools/taskledger/architecture_taskledger_split/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/architecture_taskledger_split.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Taskledger architecture
 
 `taskledger` is a task-first CLI and Python package for staged coding work.

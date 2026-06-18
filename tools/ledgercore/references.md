@@ -1,12 +1,14 @@
-<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "ledgercore references"
 description: "Cross-ledger reference primitives"
 permalink: /tools/ledgercore/references/
+nav_tool: ledgercore
 generated_from: ledgercore/docs
 source_path: docs/references.md
 ---
+<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
+
 # Cross-ledger references
 
 `ledgercore.refs` provides a canonical scheme for referencing records across

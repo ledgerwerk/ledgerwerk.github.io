@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger public surface"
 description: "Supported public surface for integrations"
 permalink: /tools/taskledger/public_surface/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/public_surface.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Public surface
 
 `taskledger` supports the task-first workflow:

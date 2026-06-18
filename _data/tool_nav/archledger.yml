@@ -1,0 +1,30 @@
+# GENERATED from archledger/docs. Do not edit by hand.
+tool: archledger
+entries:
+  - slug: index
+    title: "archledger"
+    url: /tools/archledger/
+  - slug: cli
+    title: "archledger CLI guide"
+    url: /tools/archledger/cli/
+  - slug: configuration
+    title: "archledger configuration"
+    url: /tools/archledger/configuration/
+  - slug: source-model
+    title: "archledger source model"
+    url: /tools/archledger/source-model/
+  - slug: source-tracking
+    title: "archledger source tracking"
+    url: /tools/archledger/source-tracking/
+  - slug: build-and-export
+    title: "archledger build and export"
+    url: /tools/archledger/build-and-export/
+  - slug: release-process
+    title: "archledger release process"
+    url: /tools/archledger/release-process/
+  - slug: agent-workflow
+    title: "archledger agent workflow"
+    url: /tools/archledger/agent-workflow/
+  - slug: api
+    title: "archledger Python API"
+    url: /tools/archledger/api/

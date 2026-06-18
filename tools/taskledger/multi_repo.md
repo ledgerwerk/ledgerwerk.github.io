@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger multi-repo workflows"
 description: "Multi-repository taskledger workflows"
 permalink: /tools/taskledger/multi_repo/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/multi_repo.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Multi-repo context
 
 `taskledger` does not own repository checkout orchestration. It records the

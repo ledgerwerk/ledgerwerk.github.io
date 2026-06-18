@@ -1,12 +1,14 @@
-<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "releaseledger storage"
 description: "Releaseledger storage layout and diagnostics"
 permalink: /tools/releaseledger/storage/
+nav_tool: releaseledger
 generated_from: releaseledger/docs
 source_path: docs/storage.md
 ---
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
+
 # Storage and configuration
 
 ## Default layout

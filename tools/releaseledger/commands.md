@@ -1,12 +1,14 @@
-<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "releaseledger commands"
 description: "CLI command groups and common releaseledger workflows"
 permalink: /tools/releaseledger/commands/
+nav_tool: releaseledger
 generated_from: releaseledger/docs
 source_path: docs/commands.md
 ---
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
+
 # Commands
 
 ## Root options

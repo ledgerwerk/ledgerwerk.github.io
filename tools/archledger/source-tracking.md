@@ -1,12 +1,14 @@
-<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "archledger source tracking"
 description: "Workspace source tracking for archledger"
 permalink: /tools/archledger/source-tracking/
+nav_tool: archledger
 generated_from: archledger/docs
 source_path: docs/source-tracking.md
 ---
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
+
 # Source tracking
 
 ## Snapshots

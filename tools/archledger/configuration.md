@@ -1,12 +1,14 @@
-<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "archledger configuration"
 description: "Configuration reference for archledger"
 permalink: /tools/archledger/configuration/
+nav_tool: archledger
 generated_from: archledger/docs
 source_path: docs/configuration.md
 ---
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
+
 # Configuration
 
 Configuration lives in `archledger.toml`.

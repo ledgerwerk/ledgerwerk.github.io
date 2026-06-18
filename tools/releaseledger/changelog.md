@@ -1,12 +1,14 @@
-<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "releaseledger changelog"
 description: "Changelog context, review, and rendering workflows"
 permalink: /tools/releaseledger/changelog/
+nav_tool: releaseledger
 generated_from: releaseledger/docs
 source_path: docs/changelog.md
 ---
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
+
 # Changelog rendering
 
 ## Two-step model

@@ -1,12 +1,14 @@
-<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "releaseledger quickstart"
 description: "Initialize releaseledger and publish a changelog"
 permalink: /tools/releaseledger/quickstart/
+nav_tool: releaseledger
 generated_from: releaseledger/docs
 source_path: docs/quickstart.md
 ---
+<!-- GENERATED from releaseledger/docs. Do not edit by hand. -->
+
 # Quickstart
 
 ## Install

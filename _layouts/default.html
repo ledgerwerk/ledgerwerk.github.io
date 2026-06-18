@@ -7,13 +7,15 @@
     <meta name="description" content="{{ page.description | default: site.description | escape }}">
     <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
   </head>
-  <body>
+  <body{% if page.nav_tool %} class="tool-doc-page"{% endif %}>
     <header class="site-header">
       <a class="brand" href="{{ '/' | relative_url }}">ledgerwerk</a>
-      <nav aria-label="Main navigation">
+      <nav class="site-nav" aria-label="Main navigation">
         <a href="{{ '/tools/' | relative_url }}">Tools</a>
         <a href="{{ '/tools/releaseledger/' | relative_url }}">releaseledger</a>
+        <a href="{{ '/tools/taskledger/' | relative_url }}">taskledger</a>
         <a href="{{ '/tools/archledger/' | relative_url }}">archledger</a>
+        <a href="{{ '/tools/ledgercore/' | relative_url }}">ledgercore</a>
         <a href="{{ '/impressum/' | relative_url }}">Impressum</a>
         <a href="{{ '/datenschutz/' | relative_url }}">Datenschutz</a>
       </nav>

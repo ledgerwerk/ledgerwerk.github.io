@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger sync"
 description: "Taskledger sync workflows"
 permalink: /tools/taskledger/sync/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/sync.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Sync taskledger state across PCs
 
 Taskledger already supports keeping durable task state outside the source

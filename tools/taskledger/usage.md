@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger usage"
 description: "Command usage and common taskledger workflows"
 permalink: /tools/taskledger/usage/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/usage.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # Usage
 
 ## Installation

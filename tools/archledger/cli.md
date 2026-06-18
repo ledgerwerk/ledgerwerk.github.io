@@ -1,12 +1,14 @@
-<!-- GENERATED from archledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "archledger CLI guide"
 description: "Command line workflows for archledger"
 permalink: /tools/archledger/cli/
+nav_tool: archledger
 generated_from: archledger/docs
 source_path: docs/cli.md
 ---
+<!-- GENERATED from archledger/docs. Do not edit by hand. -->
+
 # CLI guide
 
 `--json` is a global option, so place it before the subcommand:

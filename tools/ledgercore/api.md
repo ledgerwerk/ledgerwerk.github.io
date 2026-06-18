@@ -1,12 +1,14 @@
-<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "ledgercore Python API"
 description: "Python API modules for ledgercore"
 permalink: /tools/ledgercore/api/
+nav_tool: ledgercore
 generated_from: ledgercore/docs
 source_path: docs/api.md
 ---
+<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
+
 # API reference
 
 Public API grouped by module.

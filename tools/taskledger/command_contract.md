@@ -1,12 +1,14 @@
-<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
 ---
-layout: default
+layout: tool-doc
 title: "taskledger command contract"
 description: "Command behavior and output contracts"
 permalink: /tools/taskledger/command_contract/
+nav_tool: taskledger
 generated_from: taskledger/docs
 source_path: docs/command_contract.md
 ---
+<!-- GENERATED from taskledger/docs. Do not edit by hand. -->
+
 # CLI Command Contract
 
 Taskledger uses a task-first command grammar:

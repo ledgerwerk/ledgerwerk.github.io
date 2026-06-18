@@ -1,0 +1,18 @@
+# GENERATED from ledgercore/docs. Do not edit by hand.
+tool: ledgercore
+entries:
+  - slug: index
+    title: "ledgercore"
+    url: /tools/ledgercore/
+  - slug: api
+    title: "ledgercore Python API"
+    url: /tools/ledgercore/api/
+  - slug: references
+    title: "ledgercore references"
+    url: /tools/ledgercore/references/
+  - slug: storage
+    title: "ledgercore storage"
+    url: /tools/ledgercore/storage/
+  - slug: release
+    title: "ledgercore release process"
+    url: /tools/ledgercore/release/
