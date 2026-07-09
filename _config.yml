@@ -24,6 +24,7 @@ exclude:
   - README.md
   - jekyll_starter.md
   - scripts/vendor
+  - vendor
 
 collections:
   pages:
