@@ -1,244 +1,468 @@
 ---
 layout: tool-doc
-title: "ledgercore Python API"
-description: "Python API modules for ledgercore"
+title: "ledgercore API reference"
 permalink: /tools/ledgercore/api/
 nav_tool: ledgercore
-generated_from: ledgercore/docs
-source_path: docs/api.md
+render_with_liquid: false
 ---
-<!-- GENERATED from ledgercore/docs. Do not edit by hand. -->
 
-# API reference
-
-Public API grouped by module.
-
-<a id="ledgercoreconfig"></a>
-
-## `ledgercore.config`
-
-Shared ledger workspace config discovery and namespaced mapping selection.
-This module does not parse TOML or define tool-specific schemas.
-
-`LEDGER_CONFIG_FILENAMES`
-
-: Canonical hidden-first names: `(".ledger.toml", "ledger.toml")`.
-
-`ledger_config_filenames(*legacy, include_visible=True)`
-
-: Append caller-provided legacy names after canonical names.
-
-`locate_ledger_config(start, *, legacy_filenames=(), ...)`
-
-: Locate a canonical config or legacy fallback.
-
-`select_project_config(document, *, table_name="project")`
-
-: Select the optional shared project mapping.
-
-`select_tool_config(document, tool_name, *, table_name="tools")`
-
-: Select a required tool mapping.
-
-<a id="ledgercoreatomic"></a>
-
-## `ledgercore.atomic`
-
-Atomic UTF-8 text writes and race-safe file creation.
-
-| Function                                                                                  | Description                                                         |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `atomic_write_text(path, contents, *, normalize=False, fsync=True, fast_io_env_var=None)` | Write text to a file atomically using a temp file and `os.replace`. |
-| `atomic_create_text(path, contents, *, fsync=True, fast_io_env_var=None)`                 | Create a new file atomically using exclusive creation flags.        |
-
-<a id="ledgercoreerrors"></a>
-
-## `ledgercore.errors`
-
-Shared exception hierarchy with stable error codes.
-
-| Class                 | Code                    | Description                                           |
-| --------------------- | ----------------------- | ----------------------------------------------------- |
-| `LedgerCoreError`     | `LEDGERCORE_ERROR`      | Base exception for all ledgercore errors.             |
-| `LedgerConfigError`   | `LEDGER_CONFIG_ERROR`   | Raised for missing or invalid shared config tables.   |
-| `StorageError`        | `STORAGE_ERROR`         | Base exception for storage-related errors.            |
-| `AtomicWriteError`    | `ATOMIC_WRITE_ERROR`    | Raised when an atomic write operation fails.          |
-| `FrontMatterError`    | `FRONTMATTER_ERROR`     | Raised when front matter parsing or writing fails.    |
-| `JsonStoreError`      | `JSON_STORE_ERROR`      | Raised when a JSON store operation fails.             |
-| `YamlStoreError`      | `YAML_STORE_ERROR`      | Raised when a YAML store operation fails.             |
-| `PathValidationError` | `PATH_VALIDATION_ERROR` | Raised when a path fails validation.                  |
-| `IdFormatError`       | `ID_FORMAT_ERROR`       | Raised when an ID does not match the expected format. |
-
-All exceptions accept an optional `code` keyword argument to override the default code.
-
-<a id="ledgercorefrontmatter"></a>
-
-## `ledgercore.frontmatter`
-
-YAML front matter reader/writer and source file iteration.
-
-| Symbol                                                                                    | Description                                                      |
-| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `MissingFrontMatterMode`                                                                  | Literal type: `"error"` or `"empty"`.                            |
-| `BodyMode`                                                                                | Body preservation and newline normalization policy.              |
-| `ScalarStyle`                                                                             | Literal type: `"pyyaml"` or `"minimal"`.                         |
-| `RemainingKeyOrder`                                                                       | Literal type: `"input"` or `"sorted"`.                           |
-| `EmptyStringStyle`                                                                        | Literal type: `"single"` or `"double"`.                          |
-| `TemplatePlaceholderMode`                                                                 | Boolean-compatible placeholder parsing mode.                     |
-| `FrontMatterRenderOptions`                                                                | Frozen collection of all front matter rendering options.         |
-| `split_front_matter_text(text, *, ...)`                                                   | Parse front matter from in-memory text.                          |
-| `render_front_matter_text(metadata, body="", *, ...)`                                     | Render ordered metadata and body.                                |
-| `update_front_matter_text(text, updates, *, ...)`                                         | Merge metadata updates into in-memory text.                      |
-| `read_front_matter_document(path)`                                                        | Read a YAML front matter document, returning `(metadata, body)`. |
-| `write_front_matter_document(path, metadata, body, *, body_mode="preserve", atomic=True)` | Write a YAML front matter document.                              |
-| `iter_source_files(directory, extensions, *, recursive=True)`                             | Iterate source files matching given extensions in sorted order.  |
-| `iter_markdown_files(directory, *, recursive=False)`                                      | Iterate markdown files in sorted order.                          |
-| `read_markdown_front_matter`                                                              | Compatibility alias for `read_front_matter_document`.            |
-| `write_markdown_front_matter`                                                             | Compatibility alias for `write_front_matter_document`.           |
-
-<a id="ledgercoreids"></a>
-
-## `ledgercore.ids`
-
-Prefixed numeric ID formatting, parsing, next-ID generation, and slug helpers.
-
-| Symbol                                                                                           | Description                                                                                                                      |
-| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `LedgerIdParts`                                                                                  | Frozen dataclass: `prefix`, `number`, `segment`.                                                                                 |
-| `LedgerIdFormat(prefix, separator="-", width=4, segment_separator=None, segment_required=False)` | Configurable ID format with optional segment support. Methods: `format`, `parse`, `parse_parts`, `next`, `is_valid`, `filename`. |
-| `NumericIdFormat(prefix, separator="-", width=4)`                                                | Simpler ID format for compatibility. Methods: `format`, `parse`, `next`.                                                         |
-| `parse_prefixed_number(value, *, prefix, separator="-", width=4)`                                | Parse a prefixed numeric ID and return the number.                                                                               |
-| `next_prefixed_id(prefix, existing_ids, *, separator="-", width=4)`                              | Return the next prefixed ID given existing IDs.                                                                                  |
-| `slugify_ref(value, *, empty="item")`                                                            | Lowercase, trim, collapse non-alphanumeric runs to dashes.                                                                       |
-
-<a id="ledgercoreio"></a>
-
-## `ledgercore.io`
-
-UTF-8 text helpers, newline normalization, content hash, text merging.
-
-| Function                                          | Description                                              |
-| ------------------------------------------------- | -------------------------------------------------------- |
-| `normalize_newlines(text)`                        | Convert CRLF and CR to LF.                               |
-| `ensure_dir(path)`                                | Create parent directories as needed.                     |
-| `read_text(path, *, normalize=True)`              | Read UTF-8 text from a file.                             |
-| `write_text(path, text, *, normalize=True)`       | Write UTF-8 text to a file, creating parent directories. |
-| `content_hash(text)`                              | Return a stable SHA-256 hex digest of UTF-8 text.        |
-| `summarize_text(text, max_chars=80)`              | Collapse whitespace and truncate safely.                 |
-| `merge_text(current, incoming, *, prepend=False)` | Combine text blocks without excessive blank lines.       |
-
-<a id="ledgercorejsonio"></a>
-
-## `ledgercore.jsonio`
-
-Validated JSON object/array loading and deterministic JSON writing.
-
-| Function                                                                           | Description                                                |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `load_json_object(path, *, label="JSON document", missing="error", empty="empty")` | Load and validate a JSON object.                           |
-| `load_json_array(path, *, label="JSON document", missing="error", empty="empty")`  | Load and validate a JSON array.                            |
-| `dumps_json(payload, *, ...)`                                                      | Render configurable deterministic JSON text.               |
-| `write_json(path, payload, *, ...)`                                                | Write JSON with configurable indentation and compact mode. |
-| `canonical_json(payload)`                                                          | Render compact sorted-key JSON for hashing.                |
-
-<a id="ledgercorejsonl"></a>
-
-## `ledgercore.jsonl`
-
-Recoverable JSON Lines object loading and deterministic writing.
-
-| Symbol                                     | Description                                                |
-| ------------------------------------------ | ---------------------------------------------------------- |
-| `JsonlLoadIssue`                           | Frozen line issue: `line`, `code`, and `message`.          |
-| `JsonlLoadResult`                          | Valid `rows` plus recoverable `issues`.                    |
-| `JsonlObjectRow`                           | Valid object plus its source line number.                  |
-| `JsonlLoadRowsResult`                      | Line-aware valid rows plus recoverable issues.             |
-| `JsonlObjectMapLoadResult`                 | Object rows keyed by a selected string field plus issues.  |
-| `DuplicateKeyPolicy`                       | Literal type: `"last"`, `"first"`, or `"error"`.           |
-| `load_jsonl_object_rows(path, *, ...)`     | Load object rows while preserving source line numbers.     |
-| `load_jsonl_object_map(path, *, key, ...)` | Load object rows into a keyed map with recoverable issues. |
-| `load_jsonl_objects(path, *, ...)`         | Load object rows while reporting malformed lines.          |
-| `write_jsonl_objects(path, rows, *, ...)`  | Write compact object rows atomically by default.           |
-
-<a id="ledgercorepaths"></a>
-
-## `ledgercore.paths`
-
-Safe relative POSIX path validation, config discovery, config-relative resolution.
-
-| Symbol                                                                                  | Description                                                         |
-| --------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `is_relative_to(path, parent)`                                                          | Check whether path is relative to parent.                           |
-| `validate_relative_posix_path(value, *, field_name="path", allow_trailing_slash=False)` | Validate that a path is a safe relative POSIX path.                 |
-| `resolve_relative_child(base_dir, relative_path, *, field_name="path")`                 | Validate and resolve a relative path under a base directory.        |
-| `ensure_inside_base(base_dir, path, *, field_name="path")`                              | Resolve a path and reject paths outside the base.                   |
-| `relative_to_base(base_dir, path, *, field_name="path")`                                | Return a safe POSIX base-relative path string.                      |
-| `resolve_under_base(base_dir, relative_path, *, ...)`                                   | Resolve a safe relative path with optional existence checking.      |
-| `find_config_upwards(start, filenames)`                                                 | Walk from start upward, returning the first matching file, or None. |
-| `ConfigLocator`                                                                         | Frozen dataclass: `workspace_root`, `config_path`, `source`.        |
-| `locate_config(start, filenames, *, default_filename=None)`                             | Find a config file and return a `ConfigLocator`.                    |
-| `resolve_config_relative_path(config_path, value, *, field_name)`                       | Resolve a relative path relative to the config file's directory.    |
-
-<a id="ledgercorepath-text"></a>
-
-## `ledgercore.path_text`
-
-Human-authored path matching helpers. These functions do not authorize
-filesystem access.
-
-| Symbol                                  | Description                                                    |
-| --------------------------------------- | -------------------------------------------------------------- |
-| `PunctuationProfile`                    | Literal type: `"basic"`, `"wide"`, or `"none"`.                |
-| `decode_unicode_escape_literals(value)` | Decode literal `\uXXXX` and `\UXXXXXXXX` sequences only.       |
-| `normalize_path_text(value, *, ...)`    | Normalize Unicode, punctuation, slashes, whitespace, and case. |
-
-<a id="ledgercorehashing"></a>
-
-## `ledgercore.hashing`
-
-| Symbol                                   | Description                                              |
-| ---------------------------------------- | -------------------------------------------------------- |
-| `TextFingerprint`                        | Full, body, and canonical metadata SHA-256 values.       |
-| `sha256_text(text)`                      | Hash UTF-8 text.                                         |
-| `sha256_bytes(data)`                     | Hash bytes directly.                                     |
-| `front_matter_fingerprint(text, *, ...)` | Fingerprint components with front matter parser options. |
-
-<a id="ledgercorerefs"></a>
-
-## `ledgercore.refs`
-
-Canonical cross-ledger resource references.
-
-| Symbol                                 | Description                                                                                                            |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `RefStyle`                             | Literal type: `"canonical"`, `"file"`, `"local"`.                                                                      |
-| `LedgerResourceRef`                    | Frozen dataclass with properties: `local_id`, `is_global`, `global_ref`, `file_ref`. Methods: `format`, `with_ledger`. |
-| `parse_resource_ref(value, *, ...)`    | Parse a canonical, file-safe, legacy, or local resource reference.                                                     |
-| `parse_global_ref(value, **kwargs)`    | Parse and require a ledger namespace.                                                                                  |
-| `parse_local_ref(value, *, width=4)`   | Parse a local kind-number ID without assigning a ledger.                                                               |
-| `is_resource_ref(value, **kwargs)`     | Return True if value is a valid resource ref.                                                                          |
-| `normalize_ref_token(value, *, label)` | Lowercase and validate a short token.                                                                                  |
-| `normalize_kind(value)`                | Lowercase, replace underscores with hyphens, and validate a resource kind.                                             |
-
-<a id="ledgercoretime"></a>
-
-## `ledgercore.time`
-
-UTC timestamp generation with configurable precision and suffix style.
-
-| Symbol          | Description                                                  |
-| --------------- | ------------------------------------------------------------ |
-| `Timespec`      | Supported `datetime.isoformat()` precision values.           |
-| `TimezoneStyle` | Literal type: `"z"` or `"offset"`.                           |
-| `utc_now_iso()` | Normalize an aware datetime to UTC and render ISO-8601 text. |
-
-<a id="ledgercoreyamlio"></a>
-
-## `ledgercore.yamlio`
-
-Validated YAML mapping loading and deterministic YAML writing.
-
-| Function                                                                           | Description                                                |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `load_yaml_object(path, *, label="YAML document", missing="error", empty="empty")` | Load and validate a YAML mapping.                          |
-| `write_yaml(path, payload, *, atomic=True, sort_keys=False)`                       | Write a YAML mapping with block style and a final newline. |
+<!-- GENERATED by sphinxpress. Do not edit by hand. -->
+{% raw %}
+
+<section id="api-reference">
+<h1>API reference</h1>
+<p>Public API grouped by module.</p>
+<section id="ledgercore-config">
+<span id="ledgercoreconfig"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.config</span></code></h2>
+<p>Shared ledger workspace config discovery and namespaced mapping selection.
+This module does not parse TOML or define tool-specific schemas.</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">LEDGER_CONFIG_FILENAMES</span></code></dt><dd><p>Canonical hidden-first names: <code class="docutils literal notranslate"><span class="pre">(&quot;.ledger.toml&quot;,</span> <span class="pre">&quot;ledger.toml&quot;)</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ledger_config_filenames(*legacy,</span> <span class="pre">include_visible=True)</span></code></dt><dd><p>Append caller-provided legacy names after canonical names.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">locate_ledger_config(start,</span> <span class="pre">*,</span> <span class="pre">legacy_filenames=(),</span> <span class="pre">...)</span></code></dt><dd><p>Locate a canonical config or legacy fallback.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">select_project_config(document,</span> <span class="pre">*,</span> <span class="pre">table_name=&quot;project&quot;)</span></code></dt><dd><p>Select the optional shared project mapping.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">select_tool_config(document,</span> <span class="pre">tool_name,</span> <span class="pre">*,</span> <span class="pre">table_name=&quot;tools&quot;)</span></code></dt><dd><p>Select a required tool mapping.</p>
+</dd>
+</dl>
+</section>
+<section id="ledgercore-atomic">
+<span id="ledgercoreatomic"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.atomic</span></code></h2>
+<p>Atomic UTF-8 text writes and race-safe file creation.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">atomic_write_text(path,</span> <span class="pre">contents,</span> <span class="pre">*,</span> <span class="pre">normalize=False,</span> <span class="pre">fsync=True,</span> <span class="pre">fast_io_env_var=None)</span></code></p></td>
+<td><p>Write text to a file atomically using a temp file and <code class="docutils literal notranslate"><span class="pre">os.replace</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">atomic_create_text(path,</span> <span class="pre">contents,</span> <span class="pre">*,</span> <span class="pre">fsync=True,</span> <span class="pre">fast_io_env_var=None)</span></code></p></td>
+<td><p>Create a new file atomically using exclusive creation flags.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-errors">
+<span id="ledgercoreerrors"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.errors</span></code></h2>
+<p>Shared exception hierarchy with stable error codes.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerCoreError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LEDGERCORE_ERROR</span></code></p></td>
+<td><p>Base exception for all ledgercore errors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerConfigError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LEDGER_CONFIG_ERROR</span></code></p></td>
+<td><p>Raised for missing or invalid shared config tables.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StorageError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">STORAGE_ERROR</span></code></p></td>
+<td><p>Base exception for storage-related errors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AtomicWriteError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ATOMIC_WRITE_ERROR</span></code></p></td>
+<td><p>Raised when an atomic write operation fails.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FrontMatterError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FRONTMATTER_ERROR</span></code></p></td>
+<td><p>Raised when front matter parsing or writing fails.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">JsonStoreError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">JSON_STORE_ERROR</span></code></p></td>
+<td><p>Raised when a JSON store operation fails.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">YamlStoreError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">YAML_STORE_ERROR</span></code></p></td>
+<td><p>Raised when a YAML store operation fails.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PathValidationError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PATH_VALIDATION_ERROR</span></code></p></td>
+<td><p>Raised when a path fails validation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IdFormatError</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID_FORMAT_ERROR</span></code></p></td>
+<td><p>Raised when an ID does not match the expected format.</p></td>
+</tr>
+</tbody>
+</table>
+<p>All exceptions accept an optional <code class="docutils literal notranslate"><span class="pre">code</span></code> keyword argument to override the default code.</p>
+</section>
+<section id="ledgercore-frontmatter">
+<span id="ledgercorefrontmatter"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.frontmatter</span></code></h2>
+<p>YAML front matter reader/writer and source file iteration.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MissingFrontMatterMode</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;empty&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BodyMode</span></code></p></td>
+<td><p>Body preservation and newline normalization policy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ScalarStyle</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;pyyaml&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;minimal&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RemainingKeyOrder</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;input&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;sorted&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EmptyStringStyle</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;single&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;double&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TemplatePlaceholderMode</span></code></p></td>
+<td><p>Boolean-compatible placeholder parsing mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FrontMatterRenderOptions</span></code></p></td>
+<td><p>Frozen collection of all front matter rendering options.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">split_front_matter_text(text,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Parse front matter from in-memory text.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">render_front_matter_text(metadata,</span> <span class="pre">body=&quot;&quot;,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Render ordered metadata and body.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">update_front_matter_text(text,</span> <span class="pre">updates,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Merge metadata updates into in-memory text.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_front_matter_document(path)</span></code></p></td>
+<td><p>Read a YAML front matter document, returning <code class="docutils literal notranslate"><span class="pre">(metadata,</span> <span class="pre">body)</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_front_matter_document(path,</span> <span class="pre">metadata,</span> <span class="pre">body,</span> <span class="pre">*,</span> <span class="pre">body_mode=&quot;preserve&quot;,</span> <span class="pre">atomic=True)</span></code></p></td>
+<td><p>Write a YAML front matter document.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iter_source_files(directory,</span> <span class="pre">extensions,</span> <span class="pre">*,</span> <span class="pre">recursive=True)</span></code></p></td>
+<td><p>Iterate source files matching given extensions in sorted order.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iter_markdown_files(directory,</span> <span class="pre">*,</span> <span class="pre">recursive=False)</span></code></p></td>
+<td><p>Iterate markdown files in sorted order.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_markdown_front_matter</span></code></p></td>
+<td><p>Compatibility alias for <code class="docutils literal notranslate"><span class="pre">read_front_matter_document</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_markdown_front_matter</span></code></p></td>
+<td><p>Compatibility alias for <code class="docutils literal notranslate"><span class="pre">write_front_matter_document</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-ids">
+<span id="ledgercoreids"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.ids</span></code></h2>
+<p>Prefixed numeric ID formatting, parsing, next-ID generation, and slug helpers.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerIdParts</span></code></p></td>
+<td><p>Frozen dataclass: <code class="docutils literal notranslate"><span class="pre">prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">number</span></code>, <code class="docutils literal notranslate"><span class="pre">segment</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerIdFormat(prefix,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4,</span> <span class="pre">segment_separator=None,</span> <span class="pre">segment_required=False)</span></code></p></td>
+<td><p>Configurable ID format with optional segment support. Methods: <code class="docutils literal notranslate"><span class="pre">format</span></code>, <code class="docutils literal notranslate"><span class="pre">parse</span></code>, <code class="docutils literal notranslate"><span class="pre">parse_parts</span></code>, <code class="docutils literal notranslate"><span class="pre">next</span></code>, <code class="docutils literal notranslate"><span class="pre">is_valid</span></code>, <code class="docutils literal notranslate"><span class="pre">filename</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NumericIdFormat(prefix,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
+<td><p>Simpler ID format for compatibility. Methods: <code class="docutils literal notranslate"><span class="pre">format</span></code>, <code class="docutils literal notranslate"><span class="pre">parse</span></code>, <code class="docutils literal notranslate"><span class="pre">next</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_prefixed_number(value,</span> <span class="pre">*,</span> <span class="pre">prefix,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
+<td><p>Parse a prefixed numeric ID and return the number.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">next_prefixed_id(prefix,</span> <span class="pre">existing_ids,</span> <span class="pre">*,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
+<td><p>Return the next prefixed ID given existing IDs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">slugify_ref(value,</span> <span class="pre">*,</span> <span class="pre">empty=&quot;item&quot;)</span></code></p></td>
+<td><p>Lowercase, trim, collapse non-alphanumeric runs to dashes.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-io">
+<span id="ledgercoreio"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.io</span></code></h2>
+<p>UTF-8 text helpers, newline normalization, content hash, text merging.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_newlines(text)</span></code></p></td>
+<td><p>Convert CRLF and CR to LF.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ensure_dir(path)</span></code></p></td>
+<td><p>Create parent directories as needed.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_text(path,</span> <span class="pre">*,</span> <span class="pre">normalize=True)</span></code></p></td>
+<td><p>Read UTF-8 text from a file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_text(path,</span> <span class="pre">text,</span> <span class="pre">*,</span> <span class="pre">normalize=True)</span></code></p></td>
+<td><p>Write UTF-8 text to a file, creating parent directories.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">content_hash(text)</span></code></p></td>
+<td><p>Return a stable SHA-256 hex digest of UTF-8 text.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">summarize_text(text,</span> <span class="pre">max_chars=80)</span></code></p></td>
+<td><p>Collapse whitespace and truncate safely.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">merge_text(current,</span> <span class="pre">incoming,</span> <span class="pre">*,</span> <span class="pre">prepend=False)</span></code></p></td>
+<td><p>Combine text blocks without excessive blank lines.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-jsonio">
+<span id="ledgercorejsonio"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.jsonio</span></code></h2>
+<p>Validated JSON object/array loading and deterministic JSON writing.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load_json_object(path,</span> <span class="pre">*,</span> <span class="pre">label=&quot;JSON</span> <span class="pre">document&quot;,</span> <span class="pre">missing=&quot;error&quot;,</span> <span class="pre">empty=&quot;empty&quot;)</span></code></p></td>
+<td><p>Load and validate a JSON object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">load_json_array(path,</span> <span class="pre">*,</span> <span class="pre">label=&quot;JSON</span> <span class="pre">document&quot;,</span> <span class="pre">missing=&quot;error&quot;,</span> <span class="pre">empty=&quot;empty&quot;)</span></code></p></td>
+<td><p>Load and validate a JSON array.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dumps_json(payload,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Render configurable deterministic JSON text.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_json(path,</span> <span class="pre">payload,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Write JSON with configurable indentation and compact mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">canonical_json(payload)</span></code></p></td>
+<td><p>Render compact sorted-key JSON for hashing.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-jsonl">
+<span id="ledgercorejsonl"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.jsonl</span></code></h2>
+<p>Recoverable JSON Lines object loading and deterministic writing.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">JsonlLoadIssue</span></code></p></td>
+<td><p>Frozen line issue: <code class="docutils literal notranslate"><span class="pre">line</span></code>, <code class="docutils literal notranslate"><span class="pre">code</span></code>, and <code class="docutils literal notranslate"><span class="pre">message</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">JsonlLoadResult</span></code></p></td>
+<td><p>Valid <code class="docutils literal notranslate"><span class="pre">rows</span></code> plus recoverable <code class="docutils literal notranslate"><span class="pre">issues</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">JsonlObjectRow</span></code></p></td>
+<td><p>Valid object plus its source line number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">JsonlLoadRowsResult</span></code></p></td>
+<td><p>Line-aware valid rows plus recoverable issues.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">JsonlObjectMapLoadResult</span></code></p></td>
+<td><p>Object rows keyed by a selected string field plus issues.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DuplicateKeyPolicy</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;last&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;first&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load_jsonl_object_rows(path,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Load object rows while preserving source line numbers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">load_jsonl_object_map(path,</span> <span class="pre">*,</span> <span class="pre">key,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Load object rows into a keyed map with recoverable issues.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load_jsonl_objects(path,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Load object rows while reporting malformed lines.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_jsonl_objects(path,</span> <span class="pre">rows,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Write compact object rows atomically by default.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-paths">
+<span id="ledgercorepaths"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.paths</span></code></h2>
+<p>Safe relative POSIX path validation, config discovery, config-relative resolution.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_relative_to(path,</span> <span class="pre">parent)</span></code></p></td>
+<td><p>Check whether path is relative to parent.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">validate_relative_posix_path(value,</span> <span class="pre">*,</span> <span class="pre">field_name=&quot;path&quot;,</span> <span class="pre">allow_trailing_slash=False)</span></code></p></td>
+<td><p>Validate that a path is a safe relative POSIX path.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resolve_relative_child(base_dir,</span> <span class="pre">relative_path,</span> <span class="pre">*,</span> <span class="pre">field_name=&quot;path&quot;)</span></code></p></td>
+<td><p>Validate and resolve a relative path under a base directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ensure_inside_base(base_dir,</span> <span class="pre">path,</span> <span class="pre">*,</span> <span class="pre">field_name=&quot;path&quot;)</span></code></p></td>
+<td><p>Resolve a path and reject paths outside the base.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">relative_to_base(base_dir,</span> <span class="pre">path,</span> <span class="pre">*,</span> <span class="pre">field_name=&quot;path&quot;)</span></code></p></td>
+<td><p>Return a safe POSIX base-relative path string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resolve_under_base(base_dir,</span> <span class="pre">relative_path,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Resolve a safe relative path with optional existence checking.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">find_config_upwards(start,</span> <span class="pre">filenames)</span></code></p></td>
+<td><p>Walk from start upward, returning the first matching file, or None.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ConfigLocator</span></code></p></td>
+<td><p>Frozen dataclass: <code class="docutils literal notranslate"><span class="pre">workspace_root</span></code>, <code class="docutils literal notranslate"><span class="pre">config_path</span></code>, <code class="docutils literal notranslate"><span class="pre">source</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">locate_config(start,</span> <span class="pre">filenames,</span> <span class="pre">*,</span> <span class="pre">default_filename=None)</span></code></p></td>
+<td><p>Find a config file and return a <code class="docutils literal notranslate"><span class="pre">ConfigLocator</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resolve_config_relative_path(config_path,</span> <span class="pre">value,</span> <span class="pre">*,</span> <span class="pre">field_name)</span></code></p></td>
+<td><p>Resolve a relative path relative to the config file’s directory.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-path-text">
+<span id="ledgercorepath-text"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.path_text</span></code></h2>
+<p>Human-authored path matching helpers. These functions do not authorize
+filesystem access.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PunctuationProfile</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;basic&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;wide&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">decode_unicode_escape_literals(value)</span></code></p></td>
+<td><p>Decode literal <code class="docutils literal notranslate"><span class="pre">\uXXXX</span></code> and <code class="docutils literal notranslate"><span class="pre">\UXXXXXXXX</span></code> sequences only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_path_text(value,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Normalize Unicode, punctuation, slashes, whitespace, and case.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-hashing">
+<span id="ledgercorehashing"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.hashing</span></code></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TextFingerprint</span></code></p></td>
+<td><p>Full, body, and canonical metadata SHA-256 values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sha256_text(text)</span></code></p></td>
+<td><p>Hash UTF-8 text.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sha256_bytes(data)</span></code></p></td>
+<td><p>Hash bytes directly.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">front_matter_fingerprint(text,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Fingerprint components with front matter parser options.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-refs">
+<span id="ledgercorerefs"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.refs</span></code></h2>
+<p>Canonical cross-ledger resource references.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RefStyle</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;canonical&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;file&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerResourceRef</span></code></p></td>
+<td><p>Frozen dataclass with properties: <code class="docutils literal notranslate"><span class="pre">local_id</span></code>, <code class="docutils literal notranslate"><span class="pre">is_global</span></code>, <code class="docutils literal notranslate"><span class="pre">global_ref</span></code>, <code class="docutils literal notranslate"><span class="pre">file_ref</span></code>. Methods: <code class="docutils literal notranslate"><span class="pre">format</span></code>, <code class="docutils literal notranslate"><span class="pre">with_ledger</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_resource_ref(value,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Parse a canonical, file-safe, legacy, or local resource reference.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_global_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
+<td><p>Parse and require a ledger namespace.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_local_ref(value,</span> <span class="pre">*,</span> <span class="pre">width=4)</span></code></p></td>
+<td><p>Parse a local kind-number ID without assigning a ledger.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_resource_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
+<td><p>Return True if value is a valid resource ref.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_ref_token(value,</span> <span class="pre">*,</span> <span class="pre">label)</span></code></p></td>
+<td><p>Lowercase and validate a short token.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_kind(value)</span></code></p></td>
+<td><p>Lowercase, replace underscores with hyphens, and validate a resource kind.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-time">
+<span id="ledgercoretime"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.time</span></code></h2>
+<p>UTC timestamp generation with configurable precision and suffix style.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Timespec</span></code></p></td>
+<td><p>Supported <code class="docutils literal notranslate"><span class="pre">datetime.isoformat()</span></code> precision values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TimezoneStyle</span></code></p></td>
+<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;z&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;offset&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">utc_now_iso()</span></code></p></td>
+<td><p>Normalize an aware datetime to UTC and render ISO-8601 text.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ledgercore-yamlio">
+<span id="ledgercoreyamlio"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.yamlio</span></code></h2>
+<p>Validated YAML mapping loading and deterministic YAML writing.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load_yaml_object(path,</span> <span class="pre">*,</span> <span class="pre">label=&quot;YAML</span> <span class="pre">document&quot;,</span> <span class="pre">missing=&quot;error&quot;,</span> <span class="pre">empty=&quot;empty&quot;)</span></code></p></td>
+<td><p>Load and validate a YAML mapping.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_yaml(path,</span> <span class="pre">payload,</span> <span class="pre">*,</span> <span class="pre">atomic=True,</span> <span class="pre">sort_keys=False)</span></code></p></td>
+<td><p>Write a YAML mapping with block style and a final newline.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+{% endraw %}

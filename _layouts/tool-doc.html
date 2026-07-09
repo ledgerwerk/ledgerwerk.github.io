@@ -8,6 +8,12 @@ layout: default
     {% if nav and nav.entries %}
     <nav class="tool-nav-menu">
       <a class="tool-nav-title" href="{{ '/tools/' | append: page.nav_tool | append: '/' | relative_url }}">{{ page.nav_tool }}</a>
+      {% if nav.repo_url %}
+      <a class="tool-nav-repo" href="{{ nav.repo_url }}" rel="external noopener">View on GitHub</a>
+      {% endif %}
+      {% if nav.release_tag and nav.release_url %}
+      <a class="tool-nav-release" href="{{ nav.release_url }}" rel="external noopener">Latest release: {{ nav.release_tag }}</a>
+      {% endif %}
       <ul>
         {% for entry in nav.entries %}
         {% assign label = entry.title %}
