@@ -1,0 +1,34 @@
+- name: releaseledger
+  description: Project-local release management and deterministic changelog workflows.
+  docs_url: /tools/releaseledger/
+  repo_url: https://github.com/ledgerwerk/releaseledger
+- name: taskledger
+  description: Durable task state for staged coding work, validation, and handoffs.
+  docs_url: /tools/taskledger/
+  repo_url: https://github.com/ledgerwerk/taskledger
+- name: archledger
+  description: Source-first arc42 architecture documentation and decision records.
+  docs_url: /tools/archledger/
+  repo_url: https://github.com/ledgerwerk/archledger
+- name: ledgercore
+  description: Shared typed storage and cross-ledger reference primitives.
+  docs_url: /tools/ledgercore/
+  repo_url: https://github.com/ledgerwerk/ledgercore
+- name: memoryledger
+  description: Auditable project memory and deterministic AGENTS.md rendering.
+  repo_url: https://github.com/ledgerwerk/memoryledger
+- name: documentledger
+  description: Documentation freshness tracking linked to the source units it describes.
+  repo_url: https://github.com/ledgerwerk/documentledger
+- name: repairledger
+  description: Versioned observations for tool failures and workflow repairs.
+  repo_url: https://github.com/ledgerwerk/repairledger
+- name: specmason
+  description: Behavior specs, pytest mappings, coverage reports, and execution evidence.
+  repo_url: https://github.com/ledgerwerk/specmason
+- name: reqledger
+  description: Readable requirement records and acceptance criteria for product behavior.
+  repo_url: https://github.com/ledgerwerk/reqledger
+- name: wikimason
+  description: A filesystem-backed wiki toolkit for LLM and knowledge workflows.
+  repo_url: https://github.com/ledgerwerk/wikimason

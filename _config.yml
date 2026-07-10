@@ -2,6 +2,7 @@ title: ledgerwerk
 description: Practical notes and tool documentation.
 url: "https://ledgerwerk.de"
 baseurl: ""
+repository: ledgerwerk/ledgerwerk.github.io
 
 markdown: kramdown
 highlighter: rouge
