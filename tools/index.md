@@ -12,3 +12,6 @@ permalink: /tools/
 - [taskledger](/tools/taskledger/)
 - [archledger](/tools/archledger/)
 - [ledgercore](/tools/ledgercore/)
+- [documentledger](/tools/documentledger/)
+- [repairledger](/tools/repairledger/)
+- [wikimason](/tools/wikimason/)

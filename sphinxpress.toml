@@ -33,6 +33,9 @@ packages = [
   "-e", "../../odoo17/taskledger",
   "-e", "../../odoo17/releaseledger",
   "-e", "../../odoo17/ledgercore",
+  "-e", "../../odoo17/documentledger",
+  "-e", "../../odoo17/repairledger",
+  "-e", "../../odoo17/wikimason",
   "-e", "../sphinxpress",
 ]
 
@@ -40,7 +43,7 @@ packages = [
 title = "ledgerwerk Tool Documentation"
 author = "ledgerwerk"
 language = "en"
-project_order = ["releaseledger", "taskledger", "archledger", "ledgercore"]
+project_order = ["releaseledger", "taskledger", "archledger", "ledgercore", "documentledger", "repairledger", "wikimason"]
 
 [pdf]
 builder = "latexpdf"
@@ -88,4 +91,31 @@ docs_root = "../../odoo17/ledgercore/docs"
 conf_dir = "../../odoo17/ledgercore/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/ledgercore"
+release_strategy = "git_tag"
+
+[[projects]]
+name = "documentledger"
+title = "documentledger"
+docs_root = "../../odoo17/documentledger/docs"
+conf_dir = "../../odoo17/documentledger/docs"
+root_doc = "index"
+repo_url = "https://github.com/ledgerwerk/documentledger"
+release_strategy = "git_tag"
+
+[[projects]]
+name = "repairledger"
+title = "repairledger"
+docs_root = "../../odoo17/repairledger/docs"
+conf_dir = "../../odoo17/repairledger/docs"
+root_doc = "index"
+repo_url = "https://github.com/ledgerwerk/repairledger"
+release_strategy = "git_tag"
+
+[[projects]]
+name = "wikimason"
+title = "wikimason"
+docs_root = "../../odoo17/wikimason/docs"
+conf_dir = "../../odoo17/wikimason/docs"
+root_doc = "index"
+repo_url = "https://github.com/ledgerwerk/wikimason"
 release_strategy = "git_tag"
