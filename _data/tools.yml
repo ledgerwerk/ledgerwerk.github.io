@@ -19,9 +19,11 @@
   repo_url: https://github.com/ledgerwerk/memoryledger
 - name: documentledger
   description: Documentation freshness tracking linked to the source units it describes.
+  docs_url: /tools/documentledger/
   repo_url: https://github.com/ledgerwerk/documentledger
 - name: repairledger
   description: Versioned observations for tool failures and workflow repairs.
+  docs_url: /tools/repairledger/
   repo_url: https://github.com/ledgerwerk/repairledger
 - name: specmason
   description: Behavior specs, pytest mappings, coverage reports, and execution evidence.
@@ -31,4 +33,5 @@
   repo_url: https://github.com/ledgerwerk/reqledger
 - name: wikimason
   description: A filesystem-backed wiki toolkit for LLM and knowledge workflows.
+  docs_url: /tools/wikimason/
   repo_url: https://github.com/ledgerwerk/wikimason

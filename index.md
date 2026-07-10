@@ -16,7 +16,7 @@ description: Open source tools for durable engineering workflows
   </div>
   <div class="hero-panel" aria-label="ledgerwerk toolkit summary">
     <div class="hero-panel-label">The toolkit</div>
-    <div class="hero-stat">10<span>focused tools</span></div>
+    <div class="hero-stat">{{ site.data.tools | size }}<span>focused tools</span></div>
     <p>File-based, reviewable state for coding workflows.</p>
   </div>
 </section>
