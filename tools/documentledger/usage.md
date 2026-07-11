@@ -189,10 +189,12 @@ nav_tool: documentledger
 <p>Status reports the workspace <code class="docutils literal notranslate"><span class="pre">state</span></code>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">uninitialized</span></code>: no <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> was found.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">config_only</span></code>: a config file exists but <code class="docutils literal notranslate"><span class="pre">.documentledger/storage.yaml</span></code> is missing. Re-run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">init</span></code> from the project root to create the storage metadata.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">initialized</span></code>: both config and storage metadata exist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bootstrap_required</span></code>: there is no baseline scan yet, or there is a baseline but no usable doc links.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">incremental_clean</span></code>: the latest scan has no affected linked sections.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">incremental_affected</span></code>: the latest scan has affected linked sections that should be reviewed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mapping_incomplete</span></code>: changed source files are not yet fully linked to documentation.</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">initialized</span></code> field is <code class="docutils literal notranslate"><span class="pre">true</span></code> only in the fully initialized state. The result also reports <code class="docutils literal notranslate"><span class="pre">storage_present</span></code>, the config path, the storage directory, the project name, the project UUID, and the latest scan version.</p>
+<p>The result also reports <code class="docutils literal notranslate"><span class="pre">recommended_command</span></code>, <code class="docutils literal notranslate"><span class="pre">recommended_reason</span></code>, compact latest-scan counts, and any root-layout diagnostics that should be fixed before trusting a baseline.</p>
 <!-- docledger-section: usage-run-scan -->
 </section>
 <section id="scan-source-and-documentation-files">
@@ -203,7 +205,7 @@ nav_tool: documentledger
 <p>A scan collects files from the configured source and documentation roots, hashes them, indexes Python source units, and compares the current state to the previous scan. The first scan establishes a baseline and does not report changed, deleted, stale, or unlinked sources.</p>
 <p>Later scans report:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">unchanged</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code> when the source and documentation hashes match the previous scan exactly. No scan state is rewritten and the previous scan version is reused; the human output prints <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">tracked</span> <span class="pre">file</span> <span class="pre">changes</span> <span class="pre">since</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">&lt;version&gt;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Recorded</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">&lt;version&gt;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unchanged</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code> when the source and documentation hashes match the previous scan exactly. No scan state is rewritten, no source files are re-indexed, and the previous scan version is reused; the human output prints <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">tracked</span> <span class="pre">file</span> <span class="pre">changes</span> <span class="pre">since</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">&lt;version&gt;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Recorded</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">&lt;version&gt;</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">changed_sources</span></code>, source files whose hash changed or that are new since the previous scan.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">changed_units</span></code>, source units whose tracked semantic hashes changed. For Python this is usually the changed function, method, class, or module contract rather than the whole file.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">deleted_sources</span></code>, source files that were present in the previous scan and are now gone.</p></li>
@@ -234,7 +236,7 @@ nav_tool: documentledger
 docledger<span class="w"> </span>links<span class="w"> </span>remove<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--source<span class="w"> </span>documentledger/cli.py
 docledger<span class="w"> </span>links<span class="w"> </span>remove-section<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--section<span class="w"> </span>usage-validate-ledger-state<span class="w"> </span>--source-unit<span class="w"> </span>py:function:documentledger/cli.py::doctor
 docledger<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--file<span class="w"> </span>/tmp/documentledger-map.yaml<span class="w"> </span>--validate
-docledger<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--file<span class="w"> </span>/tmp/documentledger-map.yaml<span class="w"> </span>--apply
+docledger<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/documentledger-maps<span class="w"> </span>--check-and-apply
 </pre></div>
 </div>
 <!-- docledger-section: usage-find-and-update-stale-documentation -->
@@ -242,7 +244,7 @@ docledger<span class="w"> </span>links<span class="w"> </span>import-map<span cl
 <section id="find-and-update-stale-documentation">
 <h2>Find and update stale documentation</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>--json<span class="w"> </span>docs<span class="w"> </span>affected
-docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--affected<span class="w"> </span>--print
+docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--affected<span class="w"> </span>--out<span class="w"> </span>/tmp/docledger-context.md
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">affected</span></code> reports the live affected sections for the latest scan. After a section is updated and marked fresh, it disappears from <code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">affected</span></code> immediately; a follow-up scan is optional confirmation, not the only way to clear affectedness.</p>
@@ -251,13 +253,15 @@ docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span 
 </section>
 <section id="bootstrapping-a-new-repository">
 <h2>Bootstrapping a new repository</h2>
-<p>A fresh repository has no links yet, so the first scan reports no stale docs. To drive an initial documentation pass, include sources that have no documentation link:</p>
+<p>A fresh repository has no links yet, so the first scan reports no stale docs. To drive an initial documentation pass, use the explicit bootstrap flow:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
 docledger<span class="w"> </span>scan
-docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--all<span class="w"> </span>--include-unlinked<span class="w"> </span>--print
+docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--bootstrap<span class="w"> </span>--out<span class="w"> </span>/tmp/docledger-bootstrap.md
+docledger<span class="w"> </span>links<span class="w"> </span>propose<span class="w"> </span>--all-docs<span class="w"> </span>--out-dir<span class="w"> </span>/tmp/docledger-maps
+docledger<span class="w"> </span>--json<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/docledger-maps<span class="w"> </span>--check-and-apply
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">--include-unlinked</span></code> flag adds a bootstrap section that lists every source file with no linked documentation. Create docs for those sources, add links with <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">links</span> <span class="pre">add</span></code> or <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">links</span> <span class="pre">add-section</span></code>, scan again, validate, then mark the docs fresh. See <a class="reference internal" href="../bootstrap/"><span class="std std-doc">Bootstrap</span></a> for the full setup sequence.</p>
+<p>The bootstrap context and proposal flow give agents a deterministic first-pass link graph without applying anything until the full batch validates. See <a class="reference internal" href="../bootstrap/"><span class="std std-doc">Bootstrap</span></a> for the full setup sequence.</p>
 <!-- docledger-section: usage-mark-documentation-fresh -->
 </section>
 <section id="mark-documentation-fresh">
@@ -280,7 +284,7 @@ docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span cl
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>doctor
 </pre></div>
 </div>
-<p>Doctor checks storage schema metadata, document record paths, missing documentation files, missing source files, duplicate edges, missing source-unit ids, and missing section ids.</p>
+<p>Doctor checks storage schema metadata, document record paths, suspicious root configuration, missing documentation files, missing source files, duplicate edges, missing source-unit ids, and missing section ids.</p>
 <!-- docledger-section: usage-json-and-human-output -->
 </section>
 <section id="json-and-human-output">

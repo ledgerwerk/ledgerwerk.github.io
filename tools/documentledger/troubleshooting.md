@@ -171,9 +171,9 @@ nav_tool: documentledger
 <div class="sphinxpress-doc">
 <section id="troubleshooting">
 <h1>Troubleshooting</h1>
-<section id="status-reports-config-only">
-<h2><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">config_only</span></code></h2>
-<p>A <code class="docutils literal notranslate"><span class="pre">config_only</span></code> state means <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> (or <code class="docutils literal notranslate"><span class="pre">.documentledger.toml</span></code>) exists but <code class="docutils literal notranslate"><span class="pre">.documentledger/storage.yaml</span></code> is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:</p>
+<section id="status-reports-uninitialized">
+<h2><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code></h2>
+<p>An <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> result can mean there is no config yet, or that <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> exists but <code class="docutils literal notranslate"><span class="pre">.documentledger/storage.yaml</span></code> is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
 </pre></div>
 </div>
@@ -181,7 +181,7 @@ nav_tool: documentledger
 </section>
 <section id="scan-fails-with-storage-missing">
 <h2><code class="docutils literal notranslate"><span class="pre">scan</span></code> fails with <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code></h2>
-<p>A command that requires an initialized workspace raises <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code> when the config exists but storage metadata is absent. Resolve it the same way as <code class="docutils literal notranslate"><span class="pre">config_only</span></code>: run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">init</span></code>.</p>
+<p>A command that requires an initialized workspace raises <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code> when the config exists but storage metadata is absent. Resolve it the same way as the missing-storage <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> case: run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">init</span></code>.</p>
 </section>
 <section id="mark-fresh-fails-with-unlinked-doc">
 <h2><code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> fails with <code class="docutils literal notranslate"><span class="pre">unlinked_doc</span></code></h2>
@@ -205,7 +205,7 @@ nav_tool: documentledger
 <section id="a-changed-source-is-reported-as-unlinked">
 <h2>A changed source is reported as unlinked</h2>
 <p><code class="docutils literal notranslate"><span class="pre">unlinked_changed_sources</span></code> lists source files that changed since the last scan but have no doc record link. Decide for each one whether it needs documentation, then either add a link or leave it untracked. Use the bootstrap flag to surface all unlinked sources, not just changed ones:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--all<span class="w"> </span>--include-unlinked<span class="w"> </span>--print
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--bootstrap<span class="w"> </span>--out<span class="w"> </span>/tmp/docledger-bootstrap.md
 </pre></div>
 </div>
 </section>

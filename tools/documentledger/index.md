@@ -377,7 +377,7 @@ nav_tool: documentledger
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting/">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#status-reports-config-only"><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">config_only</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#status-reports-uninitialized"><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#scan-fails-with-storage-missing"><code class="docutils literal notranslate"><span class="pre">scan</span></code> fails with <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#mark-fresh-fails-with-unlinked-doc"><code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> fails with <code class="docutils literal notranslate"><span class="pre">unlinked_doc</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#every-change-makes-too-many-docs-stale">Every change makes too many docs stale</a></li>

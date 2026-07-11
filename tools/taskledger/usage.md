@@ -296,7 +296,7 @@ taskledger<span class="w"> </span>plan<span class="w"> </span>guidance<span clas
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>start
 taskledger<span class="w"> </span>plan<span class="w"> </span>guidance
 taskledger<span class="w"> </span>plan<span class="w"> </span>template<span class="w"> </span>--include-guidance<span class="w"> </span>--file<span class="w"> </span>plan.md
-<span class="w">  </span><span class="c1"># edit plan.md</span>
+<span class="c1"># edit plan.md</span>
 taskledger<span class="w"> </span>plan<span class="w"> </span>check<span class="w"> </span>--file<span class="w"> </span>plan.md
 taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--file<span class="w"> </span>plan.md
 taskledger<span class="w"> </span>plan<span class="w"> </span>lint<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>
@@ -306,7 +306,7 @@ taskledger<span class="w"> </span>plan<span class="w"> </span>review<span class=
 <p>Revising a proposed plan safely:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>revise
 taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--version<span class="w"> </span>latest<span class="w"> </span>--file<span class="w"> </span>./plan.md
-<span class="w">  </span><span class="c1"># edit ./plan.md (never edit .taskledger/ directly)</span>
+<span class="c1"># edit ./plan.md (never edit .taskledger/ directly)</span>
 taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--file<span class="w"> </span>./plan.md
 taskledger<span class="w"> </span>plan<span class="w"> </span>diff<span class="w"> </span>--from<span class="w"> </span><span class="m">1</span><span class="w"> </span>--to<span class="w"> </span><span class="m">2</span>
 </pre></div>
@@ -519,7 +519,7 @@ over a broad generated context read:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>next-action
 taskledger<span class="w"> </span>--json<span class="w"> </span>todo<span class="w"> </span>next
 taskledger<span class="w"> </span>todo<span class="w"> </span>show<span class="w"> </span>todo-0003
-<span class="w">  </span><span class="c1"># implement only that todo</span>
+<span class="c1"># implement only that todo</span>
 pytest<span class="w"> </span>tests/...
 taskledger<span class="w"> </span>todo<span class="w"> </span><span class="k">done</span><span class="w"> </span>todo-0003<span class="w"> </span>--evidence<span class="w"> </span><span class="s2">&quot;pytest tests/... passed&quot;</span>
 taskledger<span class="w"> </span>--json<span class="w"> </span>next-action
@@ -819,13 +819,13 @@ restoration behavior.</p>
 </section>
 <section id="single-task-transfer-from-a-config-only-checkout">
 <h2>Single-task transfer from a config-only checkout</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># fresh checkout on another PC</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># fresh checkout on another PC</span>
 taskledger<span class="w"> </span>init
 taskledger<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;Fix import edge case&quot;</span><span class="w"> </span>--slug<span class="w"> </span>fix-import-edge-case<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;...&quot;</span>
-<span class="w">  </span><span class="c1"># ... normal plan / implementation / validation lifecycle ...</span>
+<span class="c1"># ... normal plan / implementation / validation lifecycle ...</span>
 taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0040
 
-<span class="w">  </span><span class="c1"># main dev repo</span>
+<span class="c1"># main dev repo</span>
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz
 taskledger<span class="w"> </span>task<span class="w"> </span>list
 taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>task-0040

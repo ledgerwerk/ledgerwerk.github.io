@@ -181,29 +181,31 @@ nav_tool: documentledger
 <ol class="arabic">
 <li><p>Initialize the workspace and record a baseline scan:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
-docledger<span class="w"> </span>scan
+docledger<span class="w"> </span>--json<span class="w"> </span>scan
 </pre></div>
 </div>
 </li>
-<li><p>Render a bootstrap context that includes sources with no linked documentation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--all<span class="w"> </span>--include-unlinked<span class="w"> </span>--print
+<li><p>Render a bootstrap context that includes the unlinked source inventory and current doc inventory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--bootstrap<span class="w"> </span>--out<span class="w"> </span>/tmp/docledger-bootstrap.md
 </pre></div>
 </div>
-<p>The bootstrap section lists every source file that has no doc record link. These are the sources that need documentation.</p>
+<p>The bootstrap context file lists every source file that has no doc record link. These are the sources that need documentation or explicit omission.</p>
 </li>
 <li><p>Create documentation files for those sources under a configured documentation root (for example <code class="docutils literal notranslate"><span class="pre">docs/</span></code>).</p></li>
-<li><p>Link each new document to the source files it describes, keeping the links precise:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>add<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--source<span class="w"> </span>documentledger/cli.py<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Documents the CLI workflow.&quot;</span>
+<li><p>Generate deterministic proposal files and review them before applying:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>propose<span class="w"> </span>--all-docs<span class="w"> </span>--out-dir<span class="w"> </span>/tmp/docledger-maps
+docledger<span class="w"> </span>--json<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/docledger-maps<span class="w"> </span>--check-and-apply
 </pre></div>
 </div>
 </li>
-<li><p>Scan again so the link graph takes effect:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>scan
+<li><p>Run a link audit and coverage review:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>--json<span class="w"> </span>links<span class="w"> </span>audit
+docledger<span class="w"> </span>--json<span class="w"> </span>coverage
 </pre></div>
 </div>
 </li>
 <li><p>Validate the documentation with the configured validation commands, then mark the new docs fresh:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Initial docs after scan version 2.&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--all<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Initial docs after bootstrap link application.&quot;</span>
 </pre></div>
 </div>
 </li>

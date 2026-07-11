@@ -348,7 +348,7 @@ taskledger<span class="w"> </span>context<span class="w"> </span>--for<span clas
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>next-action
 taskledger<span class="w"> </span>--json<span class="w"> </span>todo<span class="w"> </span>next
 taskledger<span class="w"> </span>todo<span class="w"> </span>show<span class="w"> </span>todo-0003
-<span class="w">  </span><span class="c1"># implement only that todo</span>
+<span class="c1"># implement only that todo</span>
 pytest<span class="w"> </span>tests/test_parser.py<span class="w"> </span>-q
 taskledger<span class="w"> </span>todo<span class="w"> </span><span class="k">done</span><span class="w"> </span>todo-0003<span class="w"> </span>--evidence<span class="w"> </span><span class="s2">&quot;pytest tests/test_parser.py -q&quot;</span>
 taskledger<span class="w"> </span>--json<span class="w"> </span>next-action
