@@ -171,22 +171,76 @@ nav_tool: archledger
 <div class="sphinxpress-doc">
 <section id="agent-workflow">
 <h1>Agent workflow</h1>
-<p>Before editing architecture-sensitive code:</p>
+<p>Use this workflow when an agent is updating Archledger-managed architecture records.</p>
+<section id="independent-preflight">
+<h2>Independent preflight</h2>
+<p>Run these commands independently instead of chaining them with <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, because <code class="docutils literal notranslate"><span class="pre">check</span></code> may intentionally fail and should not block later diagnostics:</p>
 <ol class="arabic simple">
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">context</span> <span class="pre">--for-file</span> <span class="pre">PATH</span></code> or <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">context</span> <span class="pre">--changed</span></code>.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">trace</span> <span class="pre">RECORD_ID</span></code> for affected requirements or decisions.</p></li>
-<li><p>Keep source-ref roles, test refs, acceptance criteria, and links current.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">source</span> <span class="pre">changed</span> <span class="pre">--fail-on-unlinked</span></code>.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">check</span> <span class="pre">--strict</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">paths</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">status</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">check</span></code></p></li>
 </ol>
-<section id="recommended-loop">
-<h2>Recommended loop</h2>
+<p>For machine extraction from either success or failure payloads:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>check<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;(.result // .error.details) | {errors, warnings}&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="migration-branch">
+<h2>Migration branch</h2>
+<p>If <code class="docutils literal notranslate"><span class="pre">check</span></code> reports legacy IDs or legacy timestamp metadata:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>ids<span class="w"> </span>--to<span class="w"> </span>ledgercore
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>metadata<span class="w"> </span>--to<span class="w"> </span>versioned
+</pre></div>
+</div>
+<p>Apply the migrations only after the surrounding change is approved:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>ids<span class="w"> </span>--to<span class="w"> </span>ledgercore<span class="w"> </span>--apply
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>metadata<span class="w"> </span>--to<span class="w"> </span>versioned<span class="w"> </span>--apply
+</pre></div>
+</div>
+<p>Re-run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">check</span></code> before content edits.</p>
+</section>
+<section id="impact-and-context">
+<h2>Impact and context</h2>
+<p>For broad refreshes:</p>
 <ol class="arabic simple">
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">paths</span></code>.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">source</span> <span class="pre">changed</span></code> before broad architecture refreshes.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">read</span> <span class="pre">--body</span> <span class="pre">--include-drafts</span></code>.</p></li>
-<li><p>Edit only the fragment files under <code class="docutils literal notranslate"><span class="pre">sections/</span></code> and <code class="docutils literal notranslate"><span class="pre">records/</span></code>.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">check</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">source</span> <span class="pre">changed</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">read</span> <span class="pre">--body</span> <span class="pre">--include-drafts</span></code></p></li>
+</ol>
+<p>Prefer narrower reads when possible:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">context</span> <span class="pre">--changed</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">context</span> <span class="pre">--for-file</span> <span class="pre">PATH</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">trace</span> <span class="pre">RECORD_ID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">read</span> <span class="pre">--section</span> <span class="pre">SECTION</span> <span class="pre">--body</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">read</span> <span class="pre">--kind</span> <span class="pre">KIND</span> <span class="pre">--body</span></code></p></li>
+</ul>
+</section>
+<section id="mutation-rules">
+<h2>Mutation rules</h2>
+<ul class="simple">
+<li><p>Edit only source fragments under <code class="docutils literal notranslate"><span class="pre">archledger_dir/sections</span></code> and <code class="docutils literal notranslate"><span class="pre">archledger_dir/records</span></code>.</p></li>
+<li><p>Prefer Archledger mutation commands so record versions stay consistent.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">record</span> <span class="pre">body</span> <span class="pre">set</span> <span class="pre">RECORD_ID</span> <span class="pre">--from-file</span> <span class="pre">/tmp/body.md</span></code> for substantial body updates.</p></li>
+<li><p>For list or object metadata, use <code class="docutils literal notranslate"><span class="pre">--json-value</span></code>.</p></li>
+<li><p>For raw strings that begin with option-like prefixes such as <code class="docutils literal notranslate"><span class="pre">--json</span></code>, use <code class="docutils literal notranslate"><span class="pre">--string-value</span></code>.</p></li>
+<li><p>Do not pass semicolon-delimited strings to list-valued fields.</p></li>
+<li><p>Do not mutate archived records merely to silence live completeness warnings.</p></li>
+</ul>
+</section>
+<section id="record-creation">
+<h2>Record creation</h2>
+<p>IDs use one ledger-wide numeric sequence. Do not predict the next ID. Capture the returned <code class="docutils literal notranslate"><span class="pre">result.id</span></code> from:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>new<span class="w"> </span>KIND<span class="w"> </span><span class="s2">&quot;Title&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="final-gates">
+<h2>Final gates</h2>
+<p>Before finalizing updates:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">check</span> <span class="pre">--strict</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">source</span> <span class="pre">changed</span> <span class="pre">--fail-on-unlinked</span></code></p></li>
+<li><p>Run project-specific tests that validate the documented boundaries.</p></li>
 <li><p>Build only when the user needs an exported artifact.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">source</span> <span class="pre">snapshot</span> <span class="pre">--reason</span> <span class="pre">after-archledger-update</span></code> after updates are validated.</p></li>
 </ol>

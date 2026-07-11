@@ -396,19 +396,33 @@ archledger<span class="w"> </span>--json<span class="w"> </span>doctor
 archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--body<span class="w"> </span>--include-drafts
 </pre></div>
 </div>
+<p>When <code class="docutils literal notranslate"><span class="pre">check</span></code> reports legacy IDs or legacy timestamp metadata, inspect the migration dry runs first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>ids<span class="w"> </span>--to<span class="w"> </span>ledgercore
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>metadata<span class="w"> </span>--to<span class="w"> </span>versioned
+</pre></div>
+</div>
 <p>Track implementation drift:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>snapshot<span class="w"> </span>--reason<span class="w"> </span>after-archledger-update
-archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed
+archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed<span class="w"> </span>--fail-on-unlinked
+archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>snapshot<span class="w"> </span>--reason<span class="w"> </span>after-archledger-update
 </pre></div>
 </div>
 <p>Create records:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>new<span class="w"> </span>requirement<span class="w"> </span><span class="s2">&quot;Render architecture document&quot;</span><span class="w"> </span>--status<span class="w"> </span>proposed
-archledger<span class="w"> </span>new<span class="w"> </span>adr<span class="w"> </span><span class="s2">&quot;Treat source fragments as canonical&quot;</span><span class="w"> </span>--status<span class="w"> </span>proposed
-archledger<span class="w"> </span>new<span class="w"> </span>diagram<span class="w"> </span><span class="s2">&quot;Runtime login flow&quot;</span><span class="w"> </span>--section<span class="w"> </span>runtime_view<span class="w"> </span>--status<span class="w"> </span>proposed
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>new<span class="w"> </span>requirement<span class="w"> </span><span class="s2">&quot;Render architecture document&quot;</span><span class="w"> </span>--status<span class="w"> </span>proposed
+archledger<span class="w"> </span>--json<span class="w"> </span>new<span class="w"> </span>adr<span class="w"> </span><span class="s2">&quot;Treat source fragments as canonical&quot;</span><span class="w"> </span>--status<span class="w"> </span>proposed
+archledger<span class="w"> </span>--json<span class="w"> </span>new<span class="w"> </span>diagram<span class="w"> </span><span class="s2">&quot;Runtime login flow&quot;</span><span class="w"> </span>--section<span class="w"> </span>runtime_view<span class="w"> </span>--status<span class="w"> </span>proposed
+</pre></div>
+</div>
+<p>Capture the returned <code class="docutils literal notranslate"><span class="pre">result.id</span></code> from <code class="docutils literal notranslate"><span class="pre">new</span></code>; do not predict record IDs.</p>
+<p>Typed metadata mutation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>record<span class="w"> </span>meta<span class="w"> </span><span class="nb">set</span><span class="w"> </span>runtime-0013<span class="w"> </span>participants<span class="w"> </span>--json-value<span class="w"> </span><span class="s1">&#39;[&quot;caller&quot;, &quot;service&quot;]&#39;</span>
+archledger<span class="w"> </span>record<span class="w"> </span>meta<span class="w"> </span><span class="nb">set</span><span class="w"> </span>content-0013<span class="w"> </span><span class="nb">source</span><span class="w"> </span>--string-value<span class="w"> </span><span class="s2">&quot;--json envelopes are supported&quot;</span>
+archledger<span class="w"> </span>record<span class="w"> </span>meta<span class="w"> </span><span class="nb">set</span><span class="w"> </span>runtime-0013<span class="w"> </span>participants<span class="w"> </span>--from-file<span class="w"> </span>participants.yaml
+archledger<span class="w"> </span>record<span class="w"> </span>body<span class="w"> </span><span class="nb">set</span><span class="w"> </span>runtime-0013<span class="w"> </span>--from-file<span class="w"> </span>/tmp/runtime-body.md
 </pre></div>
 </div>
 <p>Archive and repair:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>archive<span class="w"> </span>al_0022<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;obsolete after al_0041&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>archive<span class="w"> </span>content-0022<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;obsolete after content-0041&quot;</span>
 archledger<span class="w"> </span>doctor
 archledger<span class="w"> </span>doctor<span class="w"> </span>--repair
 </pre></div>
@@ -421,7 +435,7 @@ archledger<span class="w"> </span>renumber<span class="w"> </span>--id-segment-m
 archledger<span class="w"> </span>renumber<span class="w"> </span>--id-segment-mode<span class="w"> </span>none<span class="w"> </span>--apply
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">check</span></code> is read-only. It validates numbering and integrity but does not mutate counters or source files.</p>
+<p><code class="docutils literal notranslate"><span class="pre">check</span></code> is read-only. It validates numbering and integrity but does not mutate counters or source files. Use <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">--json</span> <span class="pre">check</span> <span class="pre">--strict</span></code> before finalizing agent-driven updates.</p>
 <p>Build output:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>markdown
 archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>asciidoc

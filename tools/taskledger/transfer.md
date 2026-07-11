@@ -201,13 +201,13 @@ safety still depends on UUID checks, not name matching.</p>
 </section>
 <section id="single-task-transfer-from-a-config-only-checkout">
 <h2>Single-task transfer from a config-only checkout</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># fresh checkout on another PC</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># fresh checkout on another PC</span>
 taskledger<span class="w"> </span>init
 taskledger<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;Fix import edge case&quot;</span><span class="w"> </span>--slug<span class="w"> </span>fix-import-edge-case<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;...&quot;</span>
-<span class="c1"># ... normal plan/implement/validate workflow ...</span>
+<span class="w">  </span><span class="c1"># ... normal plan/implement/validate workflow ...</span>
 taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0040
 
-<span class="c1"># main dev repo</span>
+<span class="w">  </span><span class="c1"># main dev repo</span>
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz
 taskledger<span class="w"> </span>task<span class="w"> </span>list
 taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>task-0040

@@ -185,6 +185,7 @@ sizes. Directory hashes are derived from file hashes after scanning.</p>
 <h2>Changes</h2>
 <p><code class="docutils literal notranslate"><span class="pre">changed</span></code> compares the current workspace against the stored baseline:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed
+archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed<span class="w"> </span>--fail-on-unlinked
 archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed<span class="w"> </span>--include-drafts
 </pre></div>
 </div>
@@ -214,8 +215,9 @@ directory references with <code class="docutils literal notranslate"><span class
 <h2>Recommended workflow</h2>
 <p>Use tracking as a repeatable drift loop instead of a one-off report:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed
+archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>changed<span class="w"> </span>--fail-on-unlinked
 archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--body<span class="w"> </span>--include-drafts
-archledger<span class="w"> </span>--json<span class="w"> </span>check
+archledger<span class="w"> </span>--json<span class="w"> </span>check<span class="w"> </span>--strict
 archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">source</span><span class="w"> </span>snapshot<span class="w"> </span>--reason<span class="w"> </span>after-archledger-update
 </pre></div>
 </div>
@@ -223,8 +225,8 @@ archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb"
 <ol class="arabic simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">source_refs</span></code> when a fragment describes real code, configuration, or directories.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">changed</span></code> to see what moved since the last accepted baseline.</p></li>
-<li><p>Update only the impacted fragments and validate them with <code class="docutils literal notranslate"><span class="pre">check</span></code>.</p></li>
-<li><p>Record a fresh snapshot after the documentation update is complete.</p></li>
+<li><p>Update only the impacted fragments and validate them with <code class="docutils literal notranslate"><span class="pre">check</span> <span class="pre">--strict</span></code>.</p></li>
+<li><p>Record a fresh snapshot only after the documentation update is complete and all validation passes.</p></li>
 </ol>
 </section>
 </section>

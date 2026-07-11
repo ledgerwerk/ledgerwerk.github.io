@@ -218,7 +218,9 @@ nav_tool: taskledger
 <li class="toctree-l1"><a class="reference internal" href="architecture_taskledger_split/">Taskledger architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#owning-layers">Owning layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#storage-model">Storage model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#lifecycle-flow">Lifecycle flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#command-surface">Command surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#architecture-records">Architecture records</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="multi_repo/">Multi-repo context</a><ul>
@@ -306,6 +308,13 @@ nav_tool: taskledger
 <li class="toctree-l2"><a class="reference internal" href="service_boundary_whitelist/#function-line-budget-whitelist-250-lines">Function line budget whitelist (&gt;250 lines)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service_boundary_whitelist/#cliservices-import-whitelist">CLI→services import whitelist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service_boundary_whitelist/#catch-all-exception-whitelist-except-exception">Catch-all exception whitelist (<code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">Exception</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation_freshness/">Documentation freshness</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#detect-documentation-affected-by-code-changes">Detect documentation affected by code changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#maintain-section-links">Maintain section links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#validate-and-mark-sections-fresh">Validate and mark sections fresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#review-boundaries">Review boundaries</a></li>
 </ul>
 </li>
 </ul>

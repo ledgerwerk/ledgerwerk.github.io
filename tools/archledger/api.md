@@ -417,6 +417,8 @@ nav_tool: archledger
 :module: archledger.model</p>
 <p>.. py:function:: validate_record(record: ~archledger.model.ArchitectureRecord, *, id_format: ~archledger.ids.LedgerIdFormat | None = None, expected_segment: str | None = None, id_prefix: str = ‘al’, id_width: int = 4) -&gt; list[str]
 :module: archledger.model</p>
+<p>.. py:function:: validate_record_metadata_shape(record: ~archledger.model.ArchitectureRecord) -&gt; list[str]
+:module: archledger.model</p>
 <p>.. py:class:: SourceFormatSpec(extension: str, native_output: str, section_body_placeholder: str, empty_section_placeholder: str)
 :module: archledger.model</p>
 <p>All per-format attributes for a source format.</p>

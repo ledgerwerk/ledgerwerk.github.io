@@ -219,7 +219,12 @@ nav_tool: archledger
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="agent-workflow/">Agent workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="agent-workflow/#recommended-loop">Recommended loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent-workflow/#independent-preflight">Independent preflight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent-workflow/#migration-branch">Migration branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent-workflow/#impact-and-context">Impact and context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent-workflow/#mutation-rules">Mutation rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent-workflow/#record-creation">Record creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent-workflow/#final-gates">Final gates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agent-workflow/#rules">Rules</a></li>
 </ul>
 </li>

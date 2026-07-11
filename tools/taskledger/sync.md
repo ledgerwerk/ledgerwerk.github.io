@@ -283,7 +283,7 @@ taskledger<span class="w"> </span>sync<span class="w"> </span>import<span class=
 <p>If work must move mid-run, prefer task-scoped transfer archives instead of
 syncing the full live state directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0040
-<span class="c1"># copy archive to the other PC</span>
+<span class="w">  </span><span class="c1"># copy archive to the other PC</span>
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-task-project-a-main-task-0040-...tar.gz
 taskledger<span class="w"> </span>next-action
 taskledger<span class="w"> </span>implement<span class="w"> </span>resume<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Continue imported implementation.&quot;</span>
