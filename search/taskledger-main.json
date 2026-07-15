@@ -1,0 +1,912 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "taskledger-main",
+  "entries": [
+    {
+      "url": "/tools/taskledger/main/api/",
+      "title": "taskledger API reference",
+      "snippet": "taskledger exposes a task-first public API through taskledger.api.\ntaskledger.api.project\n\n\ntaskledger.api.tasks\n\n\ntaskledger.api.plans\n\n\nta …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "API reference",
+          "text": "taskledger exposes a task-first public API through taskledger.api.",
+          "lower": "taskledger exposes a task-first public api through taskledger.api."
+        },
+        {
+          "anchor": "",
+          "heading": "Supported modules",
+          "text": "taskledger.api.project\n\n\ntaskledger.api.tasks\n\n\ntaskledger.api.plans\n\n\ntaskledger.api.questions\n\n\ntaskledger.api.task_runs\n\n\ntaskledger.api.reviews\n\n\ntaskledger.api.introductions\n\n\ntaskledger.api.locks\n\n\ntaskledger.api.handoff\n\n\ntaskledger.api.releases\n\n\ntaskledger.api.storage\n\n\ntaskledger.api.sync\n\n\ntaskledger.api.search",
+          "lower": "taskledger.api.project\n\n\ntaskledger.api.tasks\n\n\ntaskledger.api.plans\n\n\ntaskledger.api.questions\n\n\ntaskledger.api.task_runs\n\n\ntaskledger.api.reviews\n\n\ntaskledger.api.introductions\n\n\ntaskledger.api.locks\n\n\ntaskledger.api.handoff\n\n\ntaskledger.api.releases\n\n\ntaskledger.api.storage\n\n\ntaskledger.api.sync\n\n\ntaskledger.api.search"
+        },
+        {
+          "anchor": "",
+          "heading": "Import boundary",
+          "text": "Consumers should not import from taskledger.storage, taskledger.services,\ntaskledger.domain, or taskledger.search directly.",
+          "lower": "consumers should not import from taskledger.storage, taskledger.services,\ntaskledger.domain, or taskledger.search directly."
+        },
+        {
+          "anchor": "",
+          "heading": "Project API",
+          "text": "init_project\n\n\nproject_status\n\n\nproject_status_summary\n\n\nproject_doctor\n\n\nproject_export\n\n\nproject_import\n\n\nproject_export_archive\n\n\nproject_import_archive\n\n\nproject_snapshot\n\n\nproject_tree",
+          "lower": "init_project\n\n\nproject_status\n\n\nproject_status_summary\n\n\nproject_doctor\n\n\nproject_export\n\n\nproject_import\n\n\nproject_export_archive\n\n\nproject_import_archive\n\n\nproject_snapshot\n\n\nproject_tree"
+        },
+        {
+          "anchor": "",
+          "heading": "Task API",
+          "text": "create_task\n\n\nrecord_completed_task\n\n\nshow_active_task\n\n\nactivate_task\n\n\ndeactivate_task\n\n\nclear_active_task\n\n\nresolve_active_task\n\n\nlist_task_summaries\n\n\nshow_task\n\n\nedit_task\n\n\ncancel_task\n\n\nuncancel_task\n\n\nclose_task\n\n\narchive_task\n\n\nunarchive_task\n\n\ncreate_follow_up_task\n\n\nlist_archived_task_summaries\n\n\nadd_requirement\n\n\nremove_requirement\n\n\nwaive_requirement\n\n\nadd_file_link\n\n\nfile_status\n\n\nremove_file_link\n\n\nlist_file_links\n\n\nrefresh_file_baseline\n\n\nadd_todo\n\n\nset_todo_done\n\n\nshow_todo\n\n\ntodo_status\n\n\nnext_todo\n\n\ntask_dossier\n\n\nrender_task_report\n\n\nTaskReportOptions\n\n\nexport_task_markdown\n\n\nTaskMarkdownExportOptions\n\n\nnext_action\n\n\ncan_perform\n\n\nreindex\n\n\nrepair_task_record\n\n\nrepair_orphaned_planning_run\n\n\nrepair_planning_command_changes",
+          "lower": "create_task\n\n\nrecord_completed_task\n\n\nshow_active_task\n\n\nactivate_task\n\n\ndeactivate_task\n\n\nclear_active_task\n\n\nresolve_active_task\n\n\nlist_task_summaries\n\n\nshow_task\n\n\nedit_task\n\n\ncancel_task\n\n\nuncancel_task\n\n\nclose_task\n\n\narchive_task\n\n\nunarchive_task\n\n\ncreate_follow_up_task\n\n\nlist_archived_task_summaries\n\n\nadd_requirement\n\n\nremove_requirement\n\n\nwaive_requirement\n\n\nadd_file_link\n\n\nfile_status\n\n\nremove_file_link\n\n\nlist_file_links\n\n\nrefresh_file_baseline\n\n\nadd_todo\n\n\nset_todo_done\n\n\nshow_todo\n\n\ntodo_status\n\n\nnext_todo\n\n\ntask_dossier\n\n\nrender_task_report\n\n\ntaskreportoptions\n\n\nexport_task_markdown\n\n\ntaskmarkdownexportoptions\n\n\nnext_action\n\n\ncan_perform\n\n\nreindex\n\n\nrepair_task_record\n\n\nrepair_orphaned_planning_run\n\n\nrepair_planning_command_changes"
+        },
+        {
+          "anchor": "",
+          "heading": "Plan API",
+          "text": "start_planning\n\n\npropose_plan\n\n\nplan_template\n\n\nupsert_plan\n\n\ncheck_plan_input\n\n\nplan_input_schema_text\n\n\nPlanReviewOptions\n\n\nbuild_plan_review_payload\n\n\nrender_plan_review\n\n\nexport_plan\n\n\namend_plan\n\n\nlist_plan_versions\n\n\nshow_plan\n\n\ndiff_plan\n\n\nlint_plan\n\n\nplan_guidance\n\n\napprove_plan\n\n\nreject_plan\n\n\nrevise_plan\n\n\nregenerate_plan_from_answers\n\n\nmaterialize_plan_todos\n\n\nrun_planning_command\n\n\n\nPlanning guidance example:\n\nfrom pathlib import Path\nfrom taskledger.api.plans import plan_guidance\n\npayload = plan_guidance(Path.cwd(), \"task-0001\")",
+          "lower": "start_planning\n\n\npropose_plan\n\n\nplan_template\n\n\nupsert_plan\n\n\ncheck_plan_input\n\n\nplan_input_schema_text\n\n\nplanreviewoptions\n\n\nbuild_plan_review_payload\n\n\nrender_plan_review\n\n\nexport_plan\n\n\namend_plan\n\n\nlist_plan_versions\n\n\nshow_plan\n\n\ndiff_plan\n\n\nlint_plan\n\n\nplan_guidance\n\n\napprove_plan\n\n\nreject_plan\n\n\nrevise_plan\n\n\nregenerate_plan_from_answers\n\n\nmaterialize_plan_todos\n\n\nrun_planning_command\n\n\n\nplanning guidance example:\n\nfrom pathlib import path\nfrom taskledger.api.plans import plan_guidance\n\npayload = plan_guidance(path.cwd(), \"task-0001\")"
+        },
+        {
+          "anchor": "",
+          "heading": "Question API",
+          "text": "add_question\n\n\nadd_questions\n\n\nanswer_question\n\n\nanswer_questions\n\n\nlist_questions\n\n\nlist_open_questions\n\n\ndismiss_question\n\n\nquestion_status",
+          "lower": "add_question\n\n\nadd_questions\n\n\nanswer_question\n\n\nanswer_questions\n\n\nlist_questions\n\n\nlist_open_questions\n\n\ndismiss_question\n\n\nquestion_status"
+        },
+        {
+          "anchor": "",
+          "heading": "Run API",
+          "text": "start_implementation\n\n\nrestart_implementation\n\n\nresume_implementation\n\n\nrefresh_implementation_snapshot\n\n\nlog_implementation\n\n\nadd_implementation_deviation\n\n\nadd_implementation_artifact\n\n\nadd_change\n\n\nscan_changes\n\n\nrun_implementation_command\n\n\nfinish_implementation\n\n\nshow_task_run\n\n\nstart_validation\n\n\nadd_validation_check\n\n\nvalidation_status\n\n\nwaive_criterion\n\n\nfinish_validation\n\n\nlist_runs\n\n\nlist_changes",
+          "lower": "start_implementation\n\n\nrestart_implementation\n\n\nresume_implementation\n\n\nrefresh_implementation_snapshot\n\n\nlog_implementation\n\n\nadd_implementation_deviation\n\n\nadd_implementation_artifact\n\n\nadd_change\n\n\nscan_changes\n\n\nrun_implementation_command\n\n\nfinish_implementation\n\n\nshow_task_run\n\n\nstart_validation\n\n\nadd_validation_check\n\n\nvalidation_status\n\n\nwaive_criterion\n\n\nfinish_validation\n\n\nlist_runs\n\n\nlist_changes"
+        },
+        {
+          "anchor": "",
+          "heading": "Review API",
+          "text": "record_code_review\n\n\nlist_code_review_records\n\n\nshow_code_review",
+          "lower": "record_code_review\n\n\nlist_code_review_records\n\n\nshow_code_review"
+        },
+        {
+          "anchor": "",
+          "heading": "Introduction API",
+          "text": "create_introduction\n\n\nlist_introductions\n\n\nresolve_introduction\n\n\nlink_introduction",
+          "lower": "create_introduction\n\n\nlist_introductions\n\n\nresolve_introduction\n\n\nlink_introduction"
+        },
+        {
+          "anchor": "",
+          "heading": "Lock API",
+          "text": "show_lock\n\n\nbreak_lock\n\n\nlist_locks\n\n\nload_active_locks",
+          "lower": "show_lock\n\n\nbreak_lock\n\n\nlist_locks\n\n\nload_active_locks"
+        },
+        {
+          "anchor": "",
+          "heading": "Handoff API",
+          "text": "render_handoff\n\n\ncreate_handoff\n\n\nlist_all_handoffs\n\n\nshow_handoff\n\n\nclaim_handoff_api\n\n\nclose_handoff_api\n\n\ncancel_handoff_api",
+          "lower": "render_handoff\n\n\ncreate_handoff\n\n\nlist_all_handoffs\n\n\nshow_handoff\n\n\nclaim_handoff_api\n\n\nclose_handoff_api\n\n\ncancel_handoff_api"
+        },
+        {
+          "anchor": "",
+          "heading": "Release API",
+          "text": "list_release_records\n\n\nshow_release\n\n\ntag_release",
+          "lower": "list_release_records\n\n\nshow_release\n\n\ntag_release"
+        },
+        {
+          "anchor": "",
+          "heading": "Storage API",
+          "text": "storage_where\n\n\nstorage_path\n\n\nstorage_move\n\n\nsync_preflight\n\n\nsync_status\n\n\nsync_commit",
+          "lower": "storage_where\n\n\nstorage_path\n\n\nstorage_move\n\n\nsync_preflight\n\n\nsync_status\n\n\nsync_commit"
+        },
+        {
+          "anchor": "",
+          "heading": "Search API",
+          "text": "search_workspace\n\n\ngrep_workspace\n\n\nsymbols_workspace\n\n\ndependencies_for_module",
+          "lower": "search_workspace\n\n\ngrep_workspace\n\n\nsymbols_workspace\n\n\ndependencies_for_module"
+        },
+        {
+          "anchor": "",
+          "heading": "Sync API",
+          "text": "sync_git_init\n\n\nsync_git_paths\n\n\nsync_git_status\n\n\nsync_git_import_local\n\n\nsync_git_commit\n\n\nsync_git_export_local\n\n\nsync_git_pull\n\n\nsync_git_push\n\n\nsync_git_sync\n\n\nsync_git_hooks_install\n\n\nsync_git_hooks_status\n\n\nsync_git_hooks_uninstall",
+          "lower": "sync_git_init\n\n\nsync_git_paths\n\n\nsync_git_status\n\n\nsync_git_import_local\n\n\nsync_git_commit\n\n\nsync_git_export_local\n\n\nsync_git_pull\n\n\nsync_git_push\n\n\nsync_git_sync\n\n\nsync_git_hooks_install\n\n\nsync_git_hooks_status\n\n\nsync_git_hooks_uninstall"
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical layout APIs",
+          "text": "Project and storage APIs resolve identity from .ledger/ledger.toml and expose named mount reports. Taskledger does not expose Ledgercore dataclasses as a public API.",
+          "lower": "project and storage apis resolve identity from .ledger/ledger.toml and expose named mount reports. taskledger does not expose ledgercore dataclasses as a public api."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/architecture_taskledger_split/",
+      "title": "Taskledger architecture",
+      "snippet": "taskledger is a task-first CLI and Python package for staged coding work.\nThe canonical workflow is:\n\ntask -> plan -> approval -> implement …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Taskledger architecture",
+          "text": "taskledger is a task-first CLI and Python package for staged coding work.\nThe canonical workflow is:\n\ntask -> plan -> approval -> implement -> validate -> done",
+          "lower": "taskledger is a task-first cli and python package for staged coding work.\nthe canonical workflow is:\n\ntask -> plan -> approval -> implement -> validate -> done"
+        },
+        {
+          "anchor": "",
+          "heading": "Owning layers",
+          "text": "taskledger/domain/ owns lifecycle enums, policies, record models, and the\ncanonical TASKLEDGER_STORAGE_LAYOUT_VERSION constant.\n\n\ntaskledger/storage/ owns persisted task bundles, locks, and the\ntask_sidecars.json summary index. Low-level atomic I/O, JSON I/O, YAML\nI/O, front matter parsing, and cross-ledger ref parsing are delegated to\nledgercore.\n\n\ntaskledger/services/ owns task lifecycle orchestration, including\nplan_input.py, plan_lint.py, plan_review.py, planning_flow.py,\nimplementation_flow.py, workspace_snapshot.py, validation_flow.py,\nhandoff.py, doctor.py, and navigation.py.\n\n\ntaskledger/api/* exposes stable public wrappers.\n\n\ntaskledger/cli*.py wires Typer commands only.",
+          "lower": "taskledger/domain/ owns lifecycle enums, policies, record models, and the\ncanonical taskledger_storage_layout_version constant.\n\n\ntaskledger/storage/ owns persisted task bundles, locks, and the\ntask_sidecars.json summary index. low-level atomic i/o, json i/o, yaml\ni/o, front matter parsing, and cross-ledger ref parsing are delegated to\nledgercore.\n\n\ntaskledger/services/ owns task lifecycle orchestration, including\nplan_input.py, plan_lint.py, plan_review.py, planning_flow.py,\nimplementation_flow.py, workspace_snapshot.py, validation_flow.py,\nhandoff.py, doctor.py, and navigation.py.\n\n\ntaskledger/api/* exposes stable public wrappers.\n\n\ntaskledger/cli*.py wires typer commands only."
+        },
+        {
+          "anchor": "",
+          "heading": "Storage model",
+          "text": "Markdown records are canonical. Task, plan, and run reads come from those\nrecords directly. The task_sidecars.json summary index under\n.taskledger/ledgers/<ledger_ref>/ is a derived cache that per-task sidecar\nwrites update in place. Action and event logging is enabled by default and\nappends immutable TaskEvent records to the ledger-level events/\ndirectory. Active stages require visible lock files, and stale locks are\nreported instead of being cleared silently.",
+          "lower": "markdown records are canonical. task, plan, and run reads come from those\nrecords directly. the task_sidecars.json summary index under\n.taskledger/ledgers/<ledger_ref>/ is a derived cache that per-task sidecar\nwrites update in place. action and event logging is enabled by default and\nappends immutable taskevent records to the ledger-level events/\ndirectory. active stages require visible lock files, and stale locks are\nreported instead of being cleared silently."
+        },
+        {
+          "anchor": "",
+          "heading": "Lifecycle flow",
+          "text": "plan start opens planning. plan guidance reports the active project\nplanning profile. plan template writes a fresh plan skeleton, and\nplan check --file plan.md runs the preflight parser in\ntaskledger/services/plan_input.py without mutating state. plan upsert\npersists the plan; plan lint surfaces blocking issues; plan review\nproduces the approval brief; plan accept --note \"...\" records the\nuser-only decision.\n\nimplement start acquires a lock, starts a run, and captures a workspace\nsnapshot through taskledger/services/workspace_snapshot.py. validate start\nblocks when the current workspace diverges; implement snapshot refresh --reason \"...\" is the only sanctioned recovery path. Validation checks\ngate completion. Code-review records extend traceability as append-only\nevidence without creating…",
+          "lower": "plan start opens planning. plan guidance reports the active project\nplanning profile. plan template writes a fresh plan skeleton, and\nplan check --file plan.md runs the preflight parser in\ntaskledger/services/plan_input.py without mutating state. plan upsert\npersists the plan; plan lint surfaces blocking issues; plan review\nproduces the approval brief; plan accept --note \"...\" records the\nuser-only decision.\n\nimplement start acquires a lock, starts a run, and captures a workspace\nsnapshot through taskledger/services/workspace_snapshot.py. validate start\nblocks when the current workspace diverges; implement snapshot refresh --reason \"...\" is the only sanctioned recovery path. validation checks\ngate completion. code-review records extend traceability as append-only\nevidence without creating…"
+        },
+        {
+          "anchor": "",
+          "heading": "Command surface",
+          "text": "The supported command groups are task, plan, question, implement,\nvalidate, todo, intro, file, link, require, release, lock,\nhandoff, context, actor, harness, view, tree, next-action,\ncan, search, grep, symbols, deps, doctor, repair, reindex,\nmigrate, init, status, export, import, snapshot, storage,\nsync, ledger, pipeline, commands, review, monitor, usage, and\nref. The authoritative source for the complete command surface and flags\nis taskledger/command_inventory.py and docs/command_contract.md.",
+          "lower": "the supported command groups are task, plan, question, implement,\nvalidate, todo, intro, file, link, require, release, lock,\nhandoff, context, actor, harness, view, tree, next-action,\ncan, search, grep, symbols, deps, doctor, repair, reindex,\nmigrate, init, status, export, import, snapshot, storage,\nsync, ledger, pipeline, commands, review, monitor, usage, and\nref. the authoritative source for the complete command surface and flags\nis taskledger/command_inventory.py and docs/command_contract.md."
+        },
+        {
+          "anchor": "",
+          "heading": "Architecture records",
+          "text": "Arc42 architecture records live under .archledger/ and are the source of\ntruth for ARCHITECTURE.md. Skills (skills/taskledger/SKILL.md) and\ndocs/architecture_taskledger_split.md live outside the Python package and\noutside the archledger build output.",
+          "lower": "arc42 architecture records live under .archledger/ and are the source of\ntruth for architecture.md. skills (skills/taskledger/skill.md) and\ndocs/architecture_taskledger_split.md live outside the python package and\noutside the archledger build output."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/command_contract/",
+      "title": "taskledger CLI Command Contract",
+      "snippet": "Taskledger uses a task-first command grammar:\n\ntaskledger [--root PATH] [--json] <area> <verb> [RESOURCE_REF] [--task TASK_REF] [options]\n-- …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "CLI Command Contract",
+          "text": "Taskledger uses a task-first command grammar:\n\ntaskledger [--root PATH] [--json] <area> <verb> [RESOURCE_REF] [--task TASK_REF] [options]",
+          "lower": "taskledger uses a task-first command grammar:\n\ntaskledger [--root path] [--json] <area> <verb> [resource_ref] [--task task_ref] [options]"
+        },
+        {
+          "anchor": "",
+          "heading": "Global Options",
+          "text": "--root PATH selects the workspace root.\n\n\n--json is root-level only and must appear before the command group.\n\n\nCommand-local --json options are not part of the public contract.\n\n\n\n--cwd remains accepted as a compatibility root alias, but docs and examples\nshould prefer --root.",
+          "lower": "--root path selects the workspace root.\n\n\n--json is root-level only and must appear before the command group.\n\n\ncommand-local --json options are not part of the public contract.\n\n\n\n--cwd remains accepted as a compatibility root alias, but docs and examples\nshould prefer --root."
+        },
+        {
+          "anchor": "",
+          "heading": "Task Scoping",
+          "text": "Task-scoped workflow commands default to the active task. Use\n--task TASK_REF when explicitly targeting another task.\n\ntaskledger plan start\ntaskledger plan start --task task-0001\ntaskledger implement resume --task task-0001 --reason \"Reacquire implementation lock.\"\ntaskledger implement restart --task task-0001 --summary \"Fix validation findings.\"\ntaskledger implement finish --task task-0001 --summary \"Implemented.\"\ntaskledger implement snapshot refresh --task task-0001 --reason \"Accept current workspace as the implementation snapshot.\"\ntaskledger review record --task task-0001 --result pass --summary \"No blocking issues.\"\ntaskledger validate status --task task-0001\n\n\n\n\nTask-resource commands accept the task as their direct positional resource:\n\ntaskledger task show task-0001\ntaskledger t…",
+          "lower": "task-scoped workflow commands default to the active task. use\n--task task_ref when explicitly targeting another task.\n\ntaskledger plan start\ntaskledger plan start --task task-0001\ntaskledger implement resume --task task-0001 --reason \"reacquire implementation lock.\"\ntaskledger implement restart --task task-0001 --summary \"fix validation findings.\"\ntaskledger implement finish --task task-0001 --summary \"implemented.\"\ntaskledger implement snapshot refresh --task task-0001 --reason \"accept current workspace as the implementation snapshot.\"\ntaskledger review record --task task-0001 --result pass --summary \"no blocking issues.\"\ntaskledger validate status --task task-0001\n\n\n\n\ntask-resource commands accept the task as their direct positional resource:\n\ntaskledger task show task-0001\ntaskledger t…"
+        },
+        {
+          "anchor": "",
+          "heading": "Plan guidance command",
+          "text": "taskledger plan guidance is a read-only planning helper command that always\nprints built-in plan-input guidance. When a project prompt profile is configured\nit appends project-local advisory guidance:\n\ntaskledger plan guidance [--task TASK_REF] [--format markdown|json]\n\n\n\n\nRules:\n\n\ndefaults to the active task when --task is omitted;\n\n\n--format accepts only markdown or json;\n\n\nwhen a planning run is active, it records a one-time guidance-view marker for\nthat run and appends a plan.guidance.viewed event;\n\n\nroot --json continues to return the standard CLI success/error envelope;\n\n\nhas_project_guidance indicates whether a project prompt profile exists,\nnot whether any guidance is available. Built-in guidance is always returned.\n\n\n\nThe command payload shape is:\n\n\nkind\n\n\ntask_id\n\n\nhas_project_g…",
+          "lower": "taskledger plan guidance is a read-only planning helper command that always\nprints built-in plan-input guidance. when a project prompt profile is configured\nit appends project-local advisory guidance:\n\ntaskledger plan guidance [--task task_ref] [--format markdown|json]\n\n\n\n\nrules:\n\n\ndefaults to the active task when --task is omitted;\n\n\n--format accepts only markdown or json;\n\n\nwhen a planning run is active, it records a one-time guidance-view marker for\nthat run and appends a plan.guidance.viewed event;\n\n\nroot --json continues to return the standard cli success/error envelope;\n\n\nhas_project_guidance indicates whether a project prompt profile exists,\nnot whether any guidance is available. built-in guidance is always returned.\n\n\n\nthe command payload shape is:\n\n\nkind\n\n\ntask_id\n\n\nhas_project_g…"
+        },
+        {
+          "anchor": "",
+          "heading": "Plan revision commands",
+          "text": "taskledger plan export renders an editable plan draft outside durable\nstorage, and taskledger plan amend applies structured plan-review edits:\n\ntaskledger plan export [--task TASK_REF] [--version latest|N] [--file PATH] [--overwrite] [--stdout]\ntaskledger plan amend [--task TASK_REF] [--drop-criterion CRITERION_ID ...] [--drop-todo TODO_ID ...] [--remove-file PATH ...] --reason \"...\"\n\n\n\n\nPlan proposal commands that accept --file reject file paths under\n.taskledger/ because that directory is private durable ledger state.",
+          "lower": "taskledger plan export renders an editable plan draft outside durable\nstorage, and taskledger plan amend applies structured plan-review edits:\n\ntaskledger plan export [--task task_ref] [--version latest|n] [--file path] [--overwrite] [--stdout]\ntaskledger plan amend [--task task_ref] [--drop-criterion criterion_id ...] [--drop-todo todo_id ...] [--remove-file path ...] --reason \"...\"\n\n\n\n\nplan proposal commands that accept --file reject file paths under\n.taskledger/ because that directory is private durable ledger state."
+        },
+        {
+          "anchor": "",
+          "heading": "Plan check command",
+          "text": "taskledger plan check validates editable plan input without creating,\nrevising, proposing, accepting, locking, or releasing anything:\n\ntaskledger plan check [--task TASK_REF] [--file PATH] [--strict]\n\n\n\n\nRules:\n\n\n--file defaults to plan.md when omitted;\n\n\n--strict upgrades unknown-field warnings to errors and fails on any warning;\n\n\ntask context is optional; task_id appears in the payload when resolvable;\n\n\nJSON uses the root --json option:\n\ntaskledger --json plan check --file ./plan.md\n\n\n\n\n\n\n\nPayload shape:\n\n\nkind (plan_input_check)\n\n\ntask_id\n\n\npassed\n\n\nstrict\n\n\nsummary ({errors, warnings})\n\n\nissues\n\n\nparsed",
+          "lower": "taskledger plan check validates editable plan input without creating,\nrevising, proposing, accepting, locking, or releasing anything:\n\ntaskledger plan check [--task task_ref] [--file path] [--strict]\n\n\n\n\nrules:\n\n\n--file defaults to plan.md when omitted;\n\n\n--strict upgrades unknown-field warnings to errors and fails on any warning;\n\n\ntask context is optional; task_id appears in the payload when resolvable;\n\n\njson uses the root --json option:\n\ntaskledger --json plan check --file ./plan.md\n\n\n\n\n\n\n\npayload shape:\n\n\nkind (plan_input_check)\n\n\ntask_id\n\n\npassed\n\n\nstrict\n\n\nsummary ({errors, warnings})\n\n\nissues\n\n\nparsed"
+        },
+        {
+          "anchor": "",
+          "heading": "Plan schema command",
+          "text": "taskledger plan schema prints the editable plan input schema and one valid\nexample:\n\ntaskledger plan schema\n\n\n\n\nPayload shape:\n\n\nkind (plan_input_schema)\n\n\nschema",
+          "lower": "taskledger plan schema prints the editable plan input schema and one valid\nexample:\n\ntaskledger plan schema\n\n\n\n\npayload shape:\n\n\nkind (plan_input_schema)\n\n\nschema"
+        },
+        {
+          "anchor": "",
+          "heading": "Plan review command",
+          "text": "taskledger plan review is a read-only approval-facing plan renderer:\n\ntaskledger plan review [--task TASK_REF] [--version N] [--format markdown|json] [-o PATH]\n\n\n\n\nRules:\n\n\ndefaults to the active task when --task is omitted;\n\n\ndefaults to the latest proposed plan in plan_review stage when --version is omitted;\n\n\nrenders Markdown by default and can emit JSON-formatted content with --format json;\n\n\nwhen -o/--output is provided, writes rendered content to a file path.\n\n\n\nTaskledger stores task-local work state and opaque links. Cross-ledger\nsemantics belong to an organizer such as ledgerdeck.\n\nRelevant commands for external artifact references:\n\ntaskledger link add --url specs/behavior/features/checkout/payment.feature --label \"behavior spec\"\ntaskledger file link specs/behavior/features/chec…",
+          "lower": "taskledger plan review is a read-only approval-facing plan renderer:\n\ntaskledger plan review [--task task_ref] [--version n] [--format markdown|json] [-o path]\n\n\n\n\nrules:\n\n\ndefaults to the active task when --task is omitted;\n\n\ndefaults to the latest proposed plan in plan_review stage when --version is omitted;\n\n\nrenders markdown by default and can emit json-formatted content with --format json;\n\n\nwhen -o/--output is provided, writes rendered content to a file path.\n\n\n\ntaskledger stores task-local work state and opaque links. cross-ledger\nsemantics belong to an organizer such as ledgerdeck.\n\nrelevant commands for external artifact references:\n\ntaskledger link add --url specs/behavior/features/checkout/payment.feature --label \"behavior spec\"\ntaskledger file link specs/behavior/features/chec…"
+        },
+        {
+          "anchor": "",
+          "heading": "Archive import lock policy",
+          "text": "Archive imports support explicit lock handling:\n\ntaskledger import ./taskledger-transfer.tar.gz --replace [--lock-policy drop|quarantine|keep]\ntaskledger import ./taskledger-task-<project>-<ledger>-task-0040-<ts>.tar.gz [--id-policy preserve|renumber-on-conflict|fail-on-conflict]\n\n\n\n\nThe default is quarantine so imported source-machine runtime locks are not\nrestored as active lock.yaml files. keep is diagnostic-only behavior\nfor full-fidelity lock restoration.",
+          "lower": "archive imports support explicit lock handling:\n\ntaskledger import ./taskledger-transfer.tar.gz --replace [--lock-policy drop|quarantine|keep]\ntaskledger import ./taskledger-task-<project>-<ledger>-task-0040-<ts>.tar.gz [--id-policy preserve|renumber-on-conflict|fail-on-conflict]\n\n\n\n\nthe default is quarantine so imported source-machine runtime locks are not\nrestored as active lock.yaml files. keep is diagnostic-only behavior\nfor full-fidelity lock restoration."
+        },
+        {
+          "anchor": "",
+          "heading": "Transfer archive manifest contract",
+          "text": "Transfer archives include both machine identity and human-readable metadata:\nmanifest.project.name and manifest.project.slug are display metadata,\nwhile manifest.project.uuid remains the safety identity.\n\n{\n  \"project\": {\n    \"uuid\": \"<project_uuid>\",\n    \"name\": \"<project_name>\",\n    \"slug\": \"<project_slug>\",\n    \"ledger_ref\": \"<ledger_ref>\"\n  }\n}\n\n\n\n\nImport compatibility is backward-safe: older archives that only contain\nproject.uuid and project.ledger_ref remain valid. UUID comparison is\nstill authoritative for import safety.\n\ntaskledger import --dry-run must not mutate taskledger state for either\narchive or JSON payload imports.",
+          "lower": "transfer archives include both machine identity and human-readable metadata:\nmanifest.project.name and manifest.project.slug are display metadata,\nwhile manifest.project.uuid remains the safety identity.\n\n{\n  \"project\": {\n    \"uuid\": \"<project_uuid>\",\n    \"name\": \"<project_name>\",\n    \"slug\": \"<project_slug>\",\n    \"ledger_ref\": \"<ledger_ref>\"\n  }\n}\n\n\n\n\nimport compatibility is backward-safe: older archives that only contain\nproject.uuid and project.ledger_ref remain valid. uuid comparison is\nstill authoritative for import safety.\n\ntaskledger import --dry-run must not mutate taskledger state for either\narchive or json payload imports."
+        },
+        {
+          "anchor": "",
+          "heading": "Export task selection",
+          "text": "Taskledger export supports full-ledger and task-scoped archives:\n\ntaskledger export\ntaskledger export ./backup.tar.gz\ntaskledger export --task task-0040\ntaskledger export task-0040\ntaskledger export task-0040 -o ./task0040.tar.gz",
+          "lower": "taskledger export supports full-ledger and task-scoped archives:\n\ntaskledger export\ntaskledger export ./backup.tar.gz\ntaskledger export --task task-0040\ntaskledger export task-0040\ntaskledger export task-0040 -o ./task0040.tar.gz"
+        },
+        {
+          "anchor": "",
+          "heading": "Positional Resource Refs",
+          "text": "Positional refs are reserved for the direct resource being changed or shown:\n\ntaskledger task create TITLE [options]\ntaskledger task record TITLE [options]\ntaskledger task activate TASK_REF\ntaskledger task follow-up PARENT_REF TITLE [options]\ntaskledger todo done TODO_ID --task TASK_REF --evidence \"pytest -q\"\ntaskledger question answer QUESTION_ID --task TASK_REF --text \"Yes.\"\ntaskledger handoff show HANDOFF_ID --task TASK_REF\ntaskledger require add REQUIRED_TASK_REF --task TASK_REF\ntaskledger release show 0.4.1",
+          "lower": "positional refs are reserved for the direct resource being changed or shown:\n\ntaskledger task create title [options]\ntaskledger task record title [options]\ntaskledger task activate task_ref\ntaskledger task follow-up parent_ref title [options]\ntaskledger todo done todo_id --task task_ref --evidence \"pytest -q\"\ntaskledger question answer question_id --task task_ref --text \"yes.\"\ntaskledger handoff show handoff_id --task task_ref\ntaskledger require add required_task_ref --task task_ref\ntaskledger release show 0.4.1"
+        },
+        {
+          "anchor": "",
+          "heading": "Release commands",
+          "text": "Release boundaries are durable project records, not task lifecycle states:\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release list\ntaskledger release show 0.4.1\n\n\n\n\nrelease tag writes a durable release record under the current ledger’s\nreleases/ directory. Release boundaries must point to done tasks.\nTaskledger does not provide changelog entry, changelog context, or\nCHANGELOG.md build commands; those belong to the separate releaseledger\ntool. Load both skills when cross-ledger release notes need task context.",
+          "lower": "release boundaries are durable project records, not task lifecycle states:\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release list\ntaskledger release show 0.4.1\n\n\n\n\nrelease tag writes a durable release record under the current ledger’s\nreleases/ directory. release boundaries must point to done tasks.\ntaskledger does not provide changelog entry, changelog context, or\nchangelog.md build commands; those belong to the separate releaseledger\ntool. load both skills when cross-ledger release notes need task context."
+        },
+        {
+          "anchor": "",
+          "heading": "Ledger commands",
+          "text": "Branch-scoped ledgers isolate ignored local task state by the checked-in\nledger_ref stored in taskledger.toml:\n\ntaskledger ledger status\ntaskledger ledger list\ntaskledger ledger fork feature-a\ntaskledger ledger switch main\ntaskledger ledger adopt --from feature-a task-0030\ntaskledger ledger doctor\n\n\n\n\nledger fork creates a new local namespace under\n.taskledger/ledgers/<ref>/ and updates only Taskledger-owned ledger keys in\ntaskledger.toml. ledger switch changes the checked-in pointer to an\nexisting local ledger. ledger adopt copies a task from another local ledger\ninto the current ledger and renumbers on collision.",
+          "lower": "branch-scoped ledgers isolate ignored local task state by the checked-in\nledger_ref stored in taskledger.toml:\n\ntaskledger ledger status\ntaskledger ledger list\ntaskledger ledger fork feature-a\ntaskledger ledger switch main\ntaskledger ledger adopt --from feature-a task-0030\ntaskledger ledger doctor\n\n\n\n\nledger fork creates a new local namespace under\n.taskledger/ledgers/<ref>/ and updates only taskledger-owned ledger keys in\ntaskledger.toml. ledger switch changes the checked-in pointer to an\nexisting local ledger. ledger adopt copies a task from another local ledger\ninto the current ledger and renumbers on collision."
+        },
+        {
+          "anchor": "",
+          "heading": "Storage and sync helper commands",
+          "text": "Taskledger also exposes local storage discovery and sync helpers:\n\ntaskledger storage where\ntaskledger storage move --to ../taskledger-state/project-a --mode copy|move [--adopt-existing] [--force]\ntaskledger sync preflight\ntaskledger sync status\ntaskledger sync commit --message \"Sync project-a taskledger state\"\ntaskledger sync export --output ./taskledger-transfer.tar.gz\ntaskledger sync import ./taskledger-transfer.tar.gz --dry-run\ntaskledger sync git status\ntaskledger sync git init --repo ../taskledger-state --project-path project-a\ntaskledger sync git commit --message \"Sync project-a taskledger state\"\ncd \"$(taskledger sync git cd)\"\ngit pull --ff-only\ngit push\ntaskledger sync git hooks install\ntaskledger sync git hooks status\ntaskledger sync git hooks uninstall\n\n\n\n\nRules:\n\n\nstorage where…",
+          "lower": "taskledger also exposes local storage discovery and sync helpers:\n\ntaskledger storage where\ntaskledger storage move --to ../taskledger-state/project-a --mode copy|move [--adopt-existing] [--force]\ntaskledger sync preflight\ntaskledger sync status\ntaskledger sync commit --message \"sync project-a taskledger state\"\ntaskledger sync export --output ./taskledger-transfer.tar.gz\ntaskledger sync import ./taskledger-transfer.tar.gz --dry-run\ntaskledger sync git status\ntaskledger sync git init --repo ../taskledger-state --project-path project-a\ntaskledger sync git commit --message \"sync project-a taskledger state\"\ncd \"$(taskledger sync git cd)\"\ngit pull --ff-only\ngit push\ntaskledger sync git hooks install\ntaskledger sync git hooks status\ntaskledger sync git hooks uninstall\n\n\n\n\nrules:\n\n\nstorage where…"
+        },
+        {
+          "anchor": "",
+          "heading": "Config commands",
+          "text": "Project config inspection and edits are available under config:\n\ntaskledger config list\ntaskledger config show\ntaskledger config keys\ntaskledger config get prompt_profiles.planning.max_required_questions\ntaskledger config describe prompt_profiles.planning.plan_body_detail\ntaskledger config set prompt_profiles.planning.max_required_questions 3\ntaskledger config set prompt_profiles.planning.question_policy always_before_plan\n\n\n\n\nRules:\n\n\ndotted keys target nested TOML tables (for example\nprompt_profiles.planning.max_required_questions);\n\n\nconfig keys lists available key names and path patterns;\n\n\nconfig describe provides key semantics, allowed values, defaults, and\nwhether a key is explicitly set;\n\n\nconfig set accepts TOML literals (numbers, booleans, arrays, inline\ntables); when TOML parsi…",
+          "lower": "project config inspection and edits are available under config:\n\ntaskledger config list\ntaskledger config show\ntaskledger config keys\ntaskledger config get prompt_profiles.planning.max_required_questions\ntaskledger config describe prompt_profiles.planning.plan_body_detail\ntaskledger config set prompt_profiles.planning.max_required_questions 3\ntaskledger config set prompt_profiles.planning.question_policy always_before_plan\n\n\n\n\nrules:\n\n\ndotted keys target nested toml tables (for example\nprompt_profiles.planning.max_required_questions);\n\n\nconfig keys lists available key names and path patterns;\n\n\nconfig describe provides key semantics, allowed values, defaults, and\nwhether a key is explicitly set;\n\n\nconfig set accepts toml literals (numbers, booleans, arrays, inline\ntables); when toml parsi…"
+        },
+        {
+          "anchor": "",
+          "heading": "next-action result contract",
+          "text": "taskledger next-action is the preferred fresh-context entrypoint for agents\nand operators. It should identify the next concrete question, todo, criterion,\nplan, dependency, or repair target instead of only naming a lifecycle bucket.\n\nHuman output should stay concise but actionable:\n\ntodo-work: Implementation is in progress; 1 todos remain.\nNext todo: todo-0001 -- Update next-action JSON payload.\nCommand: taskledger todo show todo-0001\nWorker step: tester\nWorker context: taskledger pipeline context tester\nWorker handoff: taskledger handoff create --worker tester --summary \"...\"\nMark todo done after evidence exists: taskledger todo done todo-0001 --evidence \"...\"\nProgress: 0/1 todos done\n\n\n\n\nJSON output preserves the existing fields:\n\n\nkind\n\n\ntask_id\n\n\nstatus_stage\n\n\nactive_stage\n\n\naction…",
+          "lower": "taskledger next-action is the preferred fresh-context entrypoint for agents\nand operators. it should identify the next concrete question, todo, criterion,\nplan, dependency, or repair target instead of only naming a lifecycle bucket.\n\nhuman output should stay concise but actionable:\n\ntodo-work: implementation is in progress; 1 todos remain.\nnext todo: todo-0001 -- update next-action json payload.\ncommand: taskledger todo show todo-0001\nworker step: tester\nworker context: taskledger pipeline context tester\nworker handoff: taskledger handoff create --worker tester --summary \"...\"\nmark todo done after evidence exists: taskledger todo done todo-0001 --evidence \"...\"\nprogress: 0/1 todos done\n\n\n\n\njson output preserves the existing fields:\n\n\nkind\n\n\ntask_id\n\n\nstatus_stage\n\n\nactive_stage\n\n\naction…"
+        },
+        {
+          "anchor": "",
+          "heading": "Compact mutation output",
+          "text": "Mutation commands emit compact acknowledgements instead of full task or run records.\nThis reduces LLM context consumption during implementation loops.\n\nThe following commands produce compact output:\n\n\ntodo add: emits todo_added result with new todo, progress, and next command.\n\n\ntodo done / todo undone: emits todo_update result with todo id, status, progress, and next command.\n\n\nimplement finish: emits task_lifecycle result with task id, run id, status, and next command.\n\n\n\nHuman mode shows a one-line summary:\n\nadded todo-0001 on task-0001  (0/3 done)\ndone todo-0001 on task-0001  (1/3 done)\nfinished implementation run-0001  task task-0001 -> implemented\n\n\n\n\nJSON mode wraps the compact result in the standard success envelope with result_type.\n\nFor full task, run, or todo details after a mu…",
+          "lower": "mutation commands emit compact acknowledgements instead of full task or run records.\nthis reduces llm context consumption during implementation loops.\n\nthe following commands produce compact output:\n\n\ntodo add: emits todo_added result with new todo, progress, and next command.\n\n\ntodo done / todo undone: emits todo_update result with todo id, status, progress, and next command.\n\n\nimplement finish: emits task_lifecycle result with task id, run id, status, and next command.\n\n\n\nhuman mode shows a one-line summary:\n\nadded todo-0001 on task-0001  (0/3 done)\ndone todo-0001 on task-0001  (1/3 done)\nfinished implementation run-0001  task task-0001 -> implemented\n\n\n\n\njson mode wraps the compact result in the standard success envelope with result_type.\n\nfor full task, run, or todo details after a mu…"
+        },
+        {
+          "anchor": "",
+          "heading": "Managed command wrappers",
+          "text": "plan command and implement command mirror the inner command exit code by\ndefault.\n\nUse --allow-failure when you intentionally want to record a non-zero inner\nexit code while returning wrapper exit code 0:\n\ntaskledger plan command -- pytest tests/ -q\ntaskledger plan command --allow-failure -- pytest tests/ -q\ntaskledger implement command -- ruff check --config=.ruff.toml .\ntaskledger implement command --allow-failure -- python -c \"raise SystemExit(7)\"",
+          "lower": "plan command and implement command mirror the inner command exit code by\ndefault.\n\nuse --allow-failure when you intentionally want to record a non-zero inner\nexit code while returning wrapper exit code 0:\n\ntaskledger plan command -- pytest tests/ -q\ntaskledger plan command --allow-failure -- pytest tests/ -q\ntaskledger implement command -- ruff check --config=.ruff.toml .\ntaskledger implement command --allow-failure -- python -c \"raise systemexit(7)\""
+        },
+        {
+          "anchor": "",
+          "heading": "Transcript review modes",
+          "text": "task transcript defaults to review mode, which groups wrapper +\nmanaged-shell pairs, highlights failures and wrapper/managed mismatches, and\nflags late lifecycle commands. Raw per-record audit table is available with\n--raw.\n\ntaskledger task transcript --task TASK_REF\ntaskledger task transcript --task TASK_REF --raw\ntaskledger task transcript --task TASK_REF --failures\n\n\n\n\n--review is the default (no flag needed). --raw shows every record\nwithout collapsing. --failures renders only failed command rows and retry\ndetection. --raw, --review, and --failures are mutually exclusive.\n\ntask export writes a Markdown file with a deterministic body combining a curated\narchive report, raw task-bundle record files, and optional source-file snapshots.\nIt is the recommended command for handing a task to…",
+          "lower": "task transcript defaults to review mode, which groups wrapper +\nmanaged-shell pairs, highlights failures and wrapper/managed mismatches, and\nflags late lifecycle commands. raw per-record audit table is available with\n--raw.\n\ntaskledger task transcript --task task_ref\ntaskledger task transcript --task task_ref --raw\ntaskledger task transcript --task task_ref --failures\n\n\n\n\n--review is the default (no flag needed). --raw shows every record\nwithout collapsing. --failures renders only failed command rows and retry\ndetection. --raw, --review, and --failures are mutually exclusive.\n\ntask export writes a markdown file with a deterministic body combining a curated\narchive report, raw task-bundle record files, and optional source-file snapshots.\nit is the recommended command for handing a task to…"
+        },
+        {
+          "anchor": "",
+          "heading": "Post-completion follow-up deltas",
+          "text": "taskledger task follow-up PARENT_REF TITLE is the supported path for small\npost-completion changes. It requires a done parent task, creates a new draft\nchild task with parent_task_id and parent_relation=follow_up, and keeps\nthe parent task terminal.",
+          "lower": "taskledger task follow-up parent_ref title is the supported path for small\npost-completion changes. it requires a done parent task, creates a new draft\nchild task with parent_task_id and parent_relation=follow_up, and keeps\nthe parent task terminal."
+        },
+        {
+          "anchor": "",
+          "heading": "Human monitoring UI",
+          "text": "taskledger usage is the compact fresh-session startup command:\n\ntaskledger usage [TASK_REF] [--task TASK_REF] [-q]\ntaskledger --json usage\n\n\n\n\nRules:\n\n\nit is read-only and must not claim handoffs, repair locks, or mutate task\nstate;\n\n\nroot --json returns the standard CLI envelope with result.kind == \"usage\";\n\n\nit summarizes actor, harness, active work, inbox items, and ready tasks;\n\n\nagents should continue to use next-action, todo next, and other JSON\ncommands as the canonical same-session automation interface.\n\n\n\ntaskledger monitor is the dependency-free human-oriented terminal monitor:\n\ntaskledger monitor [TASK_REF] [--task TASK_REF] [--refresh-seconds 2] [--once] [--max-events 10] [--max-ready 10] [--plain] [--no-clear]\n\n\n\n\nRules:\n\n\nit is read-only and never mutates .taskledger/ state;…",
+          "lower": "taskledger usage is the compact fresh-session startup command:\n\ntaskledger usage [task_ref] [--task task_ref] [-q]\ntaskledger --json usage\n\n\n\n\nrules:\n\n\nit is read-only and must not claim handoffs, repair locks, or mutate task\nstate;\n\n\nroot --json returns the standard cli envelope with result.kind == \"usage\";\n\n\nit summarizes actor, harness, active work, inbox items, and ready tasks;\n\n\nagents should continue to use next-action, todo next, and other json\ncommands as the canonical same-session automation interface.\n\n\n\ntaskledger monitor is the dependency-free human-oriented terminal monitor:\n\ntaskledger monitor [task_ref] [--task task_ref] [--refresh-seconds 2] [--once] [--max-events 10] [--max-ready 10] [--plain] [--no-clear]\n\n\n\n\nrules:\n\n\nit is read-only and never mutates .taskledger/ state;…"
+        },
+        {
+          "anchor": "",
+          "heading": "Code review commands",
+          "text": "review stores optional durable code-review evidence without adding a new\nlifecycle stage. Review evidence may be recorded before validation or after a\ntask has reached done; storing the review remains append-only and does not\nreopen the completed task:\n\ntaskledger review record [--task TASK_REF] --result pass|fail|blocked (--summary TEXT | --summary-file PATH) [--from-git] [--commit COMMIT] [--worker STEP_ID] [--handoff HANDOFF_ID] [--run RUN_ID]\ntaskledger review list [--task TASK_REF]\ntaskledger review show REVIEW_REF [--task TASK_REF]\n\n\n\n\nJSON mode returns a stable payload with kind = \"code_review_recorded\" for\nreview record and includes review_id, task_id, result,\nsource, implementation_run, worker_step_id, and compact git\nmetadata fields when present.\n\nWhen a user explicitly asks an…",
+          "lower": "review stores optional durable code-review evidence without adding a new\nlifecycle stage. review evidence may be recorded before validation or after a\ntask has reached done; storing the review remains append-only and does not\nreopen the completed task:\n\ntaskledger review record [--task task_ref] --result pass|fail|blocked (--summary text | --summary-file path) [--from-git] [--commit commit] [--worker step_id] [--handoff handoff_id] [--run run_id]\ntaskledger review list [--task task_ref]\ntaskledger review show review_ref [--task task_ref]\n\n\n\n\njson mode returns a stable payload with kind = \"code_review_recorded\" for\nreview record and includes review_id, task_id, result,\nsource, implementation_run, worker_step_id, and compact git\nmetadata fields when present.\n\nwhen a user explicitly asks an…"
+        },
+        {
+          "anchor": "",
+          "heading": "Removed Pre-Release Aliases",
+          "text": "These aliases are intentionally not registered:\n\n\ntask new\n\n\ntask clear-active\n\n\nimplement add-change\n\n\nvalidate add-check\n\n\nfile unlink\n\n\nlink link\n\n\nlink unlink\n\n\n\nUse task create, task deactivate, implement change,\nvalidate check, file add, file remove, link add, and\nlink remove instead.",
+          "lower": "these aliases are intentionally not registered:\n\n\ntask new\n\n\ntask clear-active\n\n\nimplement add-change\n\n\nvalidate add-check\n\n\nfile unlink\n\n\nlink link\n\n\nlink unlink\n\n\n\nuse task create, task deactivate, implement change,\nvalidate check, file add, file remove, link add, and\nlink remove instead."
+        },
+        {
+          "anchor": "",
+          "heading": "Approval escape hatches",
+          "text": "Plan approval escape hatches require --reason to prevent silent bypass:\n\nApproval also requires --note for user approval. Agent approval additionally\nrequires --allow-agent-approval --reason \"...\".",
+          "lower": "plan approval escape hatches require --reason to prevent silent bypass:\n\napproval also requires --note for user approval. agent approval additionally\nrequires --allow-agent-approval --reason \"...\"."
+        },
+        {
+          "anchor": "",
+          "heading": "Todo source inference",
+          "text": "When todo add is called without an explicit --source, the source is\ninferred from the active lock:\n\n\n\nActive lock stage\n\nInferred source\n\n\n\n\n\nimplementing\n\nimplementer\n\n\n\nplanning\n\nplanner\n\n\n\nNo active lock\n\nuser\n\n\n\n\n\nPlan-materialized todos always use source=plan.",
+          "lower": "when todo add is called without an explicit --source, the source is\ninferred from the active lock:\n\n\n\nactive lock stage\n\ninferred source\n\n\n\n\n\nimplementing\n\nimplementer\n\n\n\nplanning\n\nplanner\n\n\n\nno active lock\n\nuser\n\n\n\n\n\nplan-materialized todos always use source=plan."
+        },
+        {
+          "anchor": "",
+          "heading": "Storage Compatibility",
+          "text": "Taskledger stores canonical project configuration in .ledger/ledger.toml\nand .ledger/task/config.toml. Legacy taskledger.toml and .taskledger.toml\nremain readable during migration.\n\nPlain taskledger init keeps authoritative data under .ledger and never\ninfers a sibling store. External storage requires\ntaskledger init --sibling-ledger-root PATH --create-store; each project is\nisolated under PATH/taskledger/<project-uuid>, with a matching binding.\nCommands keep --root scoped to the source workspace, not the storage root.\n\nTaskledger uses:\n\n\na workspace storage layout version in taskledger_dir/storage.yaml\n\n\nper-record schema_version\n\n\nper-record object_type\n\n\nper-file file_version for durable Markdown/YAML/JSON record files\n\n\n\nStorage layout version history:\n\n\nLayout 2: Introduced branch-sc…",
+          "lower": "taskledger stores canonical project configuration in .ledger/ledger.toml\nand .ledger/task/config.toml. legacy taskledger.toml and .taskledger.toml\nremain readable during migration.\n\nplain taskledger init keeps authoritative data under .ledger and never\ninfers a sibling store. external storage requires\ntaskledger init --sibling-ledger-root path --create-store; each project is\nisolated under path/taskledger/<project-uuid>, with a matching binding.\ncommands keep --root scoped to the source workspace, not the storage root.\n\ntaskledger uses:\n\n\na workspace storage layout version in taskledger_dir/storage.yaml\n\n\nper-record schema_version\n\n\nper-record object_type\n\n\nper-file file_version for durable markdown/yaml/json record files\n\n\n\nstorage layout version history:\n\n\nlayout 2: introduced branch-sc…"
+        },
+        {
+          "anchor": "",
+          "heading": "Lock recovery contract",
+          "text": "Lock diagnostics are exposed through three surfaces:\n\n\ntaskledger lock show --task TASK returns a diagnostics object and\na structured human block. The classification field names the lock\nstate: none, expired, active_dead_local_process,\nactive_live_local_process, active_unverifiable_remote_or_unknown_process,\nactive_no_pid, active_same_actor, or active_other_actor.\n\n\ntaskledger --json next-action returns lock_status whenever a lock\nexists, and sets action=repair-lock with a diagnostics blocker when the\nactive implementation lock has a dead local holder PID.\n\n\ntaskledger implement resume --repair-expired-lock returns a\nLOCK_CONFLICT error (exit code 4) with diagnostics and remediation\ncommands when the existing lock is non-expired.\n\n\n\n--repair-expired-lock is not a general stale-lock takeov…",
+          "lower": "lock diagnostics are exposed through three surfaces:\n\n\ntaskledger lock show --task task returns a diagnostics object and\na structured human block. the classification field names the lock\nstate: none, expired, active_dead_local_process,\nactive_live_local_process, active_unverifiable_remote_or_unknown_process,\nactive_no_pid, active_same_actor, or active_other_actor.\n\n\ntaskledger --json next-action returns lock_status whenever a lock\nexists, and sets action=repair-lock with a diagnostics blocker when the\nactive implementation lock has a dead local holder pid.\n\n\ntaskledger implement resume --repair-expired-lock returns a\nlock_conflict error (exit code 4) with diagnostics and remediation\ncommands when the existing lock is non-expired.\n\n\n\n--repair-expired-lock is not a general stale-lock takeov…"
+        },
+        {
+          "anchor": "",
+          "heading": "Layout and migration commands",
+          "text": "taskledger config path reports the project-located Taskledger configuration. taskledger storage path data|indexes reports a named mount. Legacy layout conversion is explicit and requires a destination: migrate status, migrate plan, and migrate apply --sibling-ledger-root PATH --backup; canonical storage move is rejected because storage mode is selected through explicit Ledger local configuration.",
+          "lower": "taskledger config path reports the project-located taskledger configuration. taskledger storage path data|indexes reports a named mount. legacy layout conversion is explicit and requires a destination: migrate status, migrate plan, and migrate apply --sibling-ledger-root path --backup; canonical storage move is rejected because storage mode is selected through explicit ledger local configuration."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/documentation_freshness/",
+      "title": "taskledger Documentation freshness",
+      "snippet": "Taskledger uses Documentledger to connect sections under docs/ to the Python source units they describe. The committed .documentledger.toml …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Documentation freshness",
+          "text": "Taskledger uses Documentledger to connect sections under docs/ to the Python source units they describe. The committed .documentledger.toml defines the scan roots and validation commands. The committed .documentledger/ records hold the current scan baseline, section links, tracked source hashes, and freshness state.\n\nDo not edit .documentledger/ records directly. Use the docledger commands below so record validation and versioning remain intact.",
+          "lower": "taskledger uses documentledger to connect sections under docs/ to the python source units they describe. the committed .documentledger.toml defines the scan roots and validation commands. the committed .documentledger/ records hold the current scan baseline, section links, tracked source hashes, and freshness state.\n\ndo not edit .documentledger/ records directly. use the docledger commands below so record validation and versioning remain intact."
+        },
+        {
+          "anchor": "",
+          "heading": "Detect documentation affected by code changes",
+          "text": "Run the freshness workflow from the repository root:\n\ndocledger --json status\ndocledger --json scan\ndocledger --json docs affected\ndocledger docs build-context --affected --print\n\n\n\n\nInspect each affected section and its linked changed source units before editing. Update only the affected sections unless the changed contract requires a broader consistency correction. The generated context also reports changed source files that have no documentation links. Review those files explicitly instead of treating an empty affected-section list as proof that no documentation work is needed.",
+          "lower": "run the freshness workflow from the repository root:\n\ndocledger --json status\ndocledger --json scan\ndocledger --json docs affected\ndocledger docs build-context --affected --print\n\n\n\n\ninspect each affected section and its linked changed source units before editing. update only the affected sections unless the changed contract requires a broader consistency correction. the generated context also reports changed source files that have no documentation links. review those files explicitly instead of treating an empty affected-section list as proof that no documentation work is needed."
+        },
+        {
+          "anchor": "",
+          "heading": "Maintain section links",
+          "text": "Prefer links from one documentation section to the smallest source unit that owns the documented behavior. A CLI section should normally link to its command callback or owning CLI module. API reference sections should link to the corresponding public API module. Lifecycle and storage explanations may link to the owning service, policy, model, or storage module.\n\nFor a single edge, use links add-section with a source unit returned by docledger sources list or docledger sources show:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --source-unit py:module:taskledger/services/workflow_guidance.py \\\n  --coverage workflow \\\n  --impact behavior \\\n  --reason \"Documents project planning guidance behavior.\"\n\n\n\n\nFor a reviewed set of links, write a d…",
+          "lower": "prefer links from one documentation section to the smallest source unit that owns the documented behavior. a cli section should normally link to its command callback or owning cli module. api reference sections should link to the corresponding public api module. lifecycle and storage explanations may link to the owning service, policy, model, or storage module.\n\nfor a single edge, use links add-section with a source unit returned by docledger sources list or docledger sources show:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --source-unit py:module:taskledger/services/workflow_guidance.py \\\n  --coverage workflow \\\n  --impact behavior \\\n  --reason \"documents project planning guidance behavior.\"\n\n\n\n\nfor a reviewed set of links, write a d…"
+        },
+        {
+          "anchor": "",
+          "heading": "Validate and mark sections fresh",
+          "text": "The configured validation commands are authoritative for this documentation set. Run them after updating affected sections:\n\npytest tests/test_docs_and_skill.py tests/test_command_example_linter.py\nsphinx-build -W -b html docs docs/_build/html\ndocledger --json links audit\n\n\n\n\nMark a section fresh only after its content and links have been validated against the latest scan:\n\ndocledger mark-fresh \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --reason \"Docs updated and validated after scan version 3.\"\n\n\n\n\nThen run docledger --json docs affected again. A section-level mark updates its tracked source hashes immediately, so a follow-up scan is optional confirmation rather than a prerequisite for clearing affectedness.",
+          "lower": "the configured validation commands are authoritative for this documentation set. run them after updating affected sections:\n\npytest tests/test_docs_and_skill.py tests/test_command_example_linter.py\nsphinx-build -w -b html docs docs/_build/html\ndocledger --json links audit\n\n\n\n\nmark a section fresh only after its content and links have been validated against the latest scan:\n\ndocledger mark-fresh \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --reason \"docs updated and validated after scan version 3.\"\n\n\n\n\nthen run docledger --json docs affected again. a section-level mark updates its tracked source hashes immediately, so a follow-up scan is optional confirmation rather than a prerequisite for clearing affectedness."
+        },
+        {
+          "anchor": "",
+          "heading": "Review boundaries",
+          "text": "Documentledger reports evidence, not documentation policy. Internal implementation units do not need links when a change cannot affect user, integrator, operator, or contributor documentation. Conversely, public CLI grammar, JSON contracts, lifecycle gates, public Python APIs, persisted storage behavior, transfer semantics, and operational recovery rules should have an owning documentation section and source link.",
+          "lower": "documentledger reports evidence, not documentation policy. internal implementation units do not need links when a change cannot affect user, integrator, operator, or contributor documentation. conversely, public cli grammar, json contracts, lifecycle gates, public python apis, persisted storage behavior, transfer semantics, and operational recovery rules should have an owning documentation section and source link."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/full_task_cycle/",
+      "title": "taskledger Full Task Cycle",
+      "snippet": "This page shows one complete taskledger cycle, from a fresh task through\nplanning, questions, implementation, validation, and closure. It us …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Full Task Cycle",
+          "text": "This page shows one complete taskledger cycle, from a fresh task through\nplanning, questions, implementation, validation, and closure. It uses the\nstrict task-first command grammar:\n\ntaskledger [--root PATH] [--json] <area> <verb> [RESOURCE_REF] [--task TASK_REF] [options]\n\n\n\n\nThe examples assume the task is the active task after creation. If another task\nis active, add --task parser-fix to each task-scoped command.",
+          "lower": "this page shows one complete taskledger cycle, from a fresh task through\nplanning, questions, implementation, validation, and closure. it uses the\nstrict task-first command grammar:\n\ntaskledger [--root path] [--json] <area> <verb> [resource_ref] [--task task_ref] [options]\n\n\n\n\nthe examples assume the task is the active task after creation. if another task\nis active, add --task parser-fix to each task-scoped command."
+        },
+        {
+          "anchor": "",
+          "heading": "1. Initialize The Ledger",
+          "text": "Run this once per workspace:\n\ntaskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\ntaskledger doctor\ntaskledger status --full\n\n\n\n\ninit writes taskledger.toml in the workspace root and points it at the\ndefault .taskledger/ storage root unless --taskledger-dir chooses an\nexternal location. doctor checks integrity. status --full shows the\ncurrent task, counts, health, and resolved storage paths.",
+          "lower": "run this once per workspace:\n\ntaskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\ntaskledger doctor\ntaskledger status --full\n\n\n\n\ninit writes taskledger.toml in the workspace root and points it at the\ndefault .taskledger/ storage root unless --taskledger-dir chooses an\nexternal location. doctor checks integrity. status --full shows the\ncurrent task, counts, health, and resolved storage paths."
+        },
+        {
+          "anchor": "",
+          "heading": "2. Create And Activate A Task",
+          "text": "Create the task, then make it active:\n\ntaskledger task create \"Fix parser edge case\" --slug parser-fix --description \"Repair parser handling for nested expressions.\"\ntaskledger task activate parser-fix --reason \"Start parser fix\"\ntaskledger task active\ntaskledger next-action\n\n\n\n\ntask create records the task but does not implicitly activate it. Active task\nselection is explicit so agents can safely switch between tasks.\n\nOptional setup commands are useful when the task depends on context outside the\ndescription:\n\ntaskledger intro create \"Parser architecture\" --text \"The parser is staged into tokenize, parse, and normalize passes.\"\ntaskledger intro link intro-0001\ntaskledger file add --path taskledger/parser.py --kind code --label \"Parser implementation\"\ntaskledger file add --path tests/tes…",
+          "lower": "create the task, then make it active:\n\ntaskledger task create \"fix parser edge case\" --slug parser-fix --description \"repair parser handling for nested expressions.\"\ntaskledger task activate parser-fix --reason \"start parser fix\"\ntaskledger task active\ntaskledger next-action\n\n\n\n\ntask create records the task but does not implicitly activate it. active task\nselection is explicit so agents can safely switch between tasks.\n\noptional setup commands are useful when the task depends on context outside the\ndescription:\n\ntaskledger intro create \"parser architecture\" --text \"the parser is staged into tokenize, parse, and normalize passes.\"\ntaskledger intro link intro-0001\ntaskledger file add --path taskledger/parser.py --kind code --label \"parser implementation\"\ntaskledger file add --path tests/tes…"
+        },
+        {
+          "anchor": "",
+          "heading": "3. Start Planning",
+          "text": "Start the planning stage and inspect planning context:\n\ntaskledger can plan\ntaskledger plan start\ntaskledger context --for planning --format markdown\ntaskledger handoff plan-context --format markdown\n\n\n\n\nplan start acquires a visible planning lock. The context commands render the\ncurrent task, linked files, questions, requirements, and prior records.",
+          "lower": "start the planning stage and inspect planning context:\n\ntaskledger can plan\ntaskledger plan start\ntaskledger context --for planning --format markdown\ntaskledger handoff plan-context --format markdown\n\n\n\n\nplan start acquires a visible planning lock. the context commands render the\ncurrent task, linked files, questions, requirements, and prior records."
+        },
+        {
+          "anchor": "",
+          "heading": "4. Ask And Answer Questions",
+          "text": "Questions capture missing decisions before approval:\n\ntaskledger question add --text \"Should the parser reject or normalize unmatched delimiters?\" --required-for-plan\ntaskledger question add --text \"Which files must validation cover?\"\ntaskledger question open\ntaskledger question answer-many --text \"q-0001: Reject unmatched delimiters with a clear parse error.\"\ntaskledger question dismiss QUESTION_ID --reason \"Validation files are already linked.\"\ntaskledger question status\ntaskledger question answers --format markdown\n\n\n\n\nUse question answer-many or question answer for decisions that should\naffect the plan. Use question dismiss when the question is no longer\nrelevant.",
+          "lower": "questions capture missing decisions before approval:\n\ntaskledger question add --text \"should the parser reject or normalize unmatched delimiters?\" --required-for-plan\ntaskledger question add --text \"which files must validation cover?\"\ntaskledger question open\ntaskledger question answer-many --text \"q-0001: reject unmatched delimiters with a clear parse error.\"\ntaskledger question dismiss question_id --reason \"validation files are already linked.\"\ntaskledger question status\ntaskledger question answers --format markdown\n\n\n\n\nuse question answer-many or question answer for decisions that should\naffect the plan. use question dismiss when the question is no longer\nrelevant."
+        },
+        {
+          "anchor": "",
+          "heading": "5. Propose A Plan",
+          "text": "Write the plan body in a Markdown file and propose it:\n\ntaskledger plan draft\ntaskledger plan upsert --file ./plan.md --criterion \"Parser rejects unmatched delimiters.\" --criterion \"Regression tests cover nested expressions.\"\ntaskledger plan show --version 1\ntaskledger plan diff --from 1 --to 1\n\n\n\n\nplan upsert ends the active planning run and creates a reviewable plan\nversion. Acceptance criteria become validation criteria such as ac-0001.\n\nIf answers changed after the plan was proposed, regenerate before approval:\n\ntaskledger question answer-many --text \"q-0001: Reject unmatched delimiters and keep the original token offset.\"\ntaskledger plan upsert --from-answers --file ./plan-v2.md\ntaskledger plan show --version 2\n\n\n\n\nRegeneration keeps the durable answer snapshot aligned with the plan.…",
+          "lower": "write the plan body in a markdown file and propose it:\n\ntaskledger plan draft\ntaskledger plan upsert --file ./plan.md --criterion \"parser rejects unmatched delimiters.\" --criterion \"regression tests cover nested expressions.\"\ntaskledger plan show --version 1\ntaskledger plan diff --from 1 --to 1\n\n\n\n\nplan upsert ends the active planning run and creates a reviewable plan\nversion. acceptance criteria become validation criteria such as ac-0001.\n\nif answers changed after the plan was proposed, regenerate before approval:\n\ntaskledger question answer-many --text \"q-0001: reject unmatched delimiters and keep the original token offset.\"\ntaskledger plan upsert --from-answers --file ./plan-v2.md\ntaskledger plan show --version 2\n\n\n\n\nregeneration keeps the durable answer snapshot aligned with the plan.…"
+        },
+        {
+          "anchor": "",
+          "heading": "6. Materialize Todos And Approve",
+          "text": "Plans can include todos in front matter, or todos can be added manually. Approval\nmay also materialize structured plan todos:\n\ntaskledger plan materialize-todos --version 2 --dry-run\ntaskledger plan accept --version 2 --note \"Ready to implement.\"\ntaskledger todo list\ntaskledger todo add --text \"Add parser regression tests.\" --mandatory\ntaskledger todo add --text \"Update parser error message docs.\" --optional\ntaskledger todo status\n\n\n\n\nMandatory todos gate implementation completion. Optional todos remain visible but\ndo not block implement finish.\n\nIf the project has an enabled worker pipeline, plan todos may optionally target\nconfigured worker steps. This is an advisory overlay, not a new lifecycle stage:\n\ntodos:\n  - id: plan-todo-0001\n    text: \"Add failing regression tests.\"\n    worker_s…",
+          "lower": "plans can include todos in front matter, or todos can be added manually. approval\nmay also materialize structured plan todos:\n\ntaskledger plan materialize-todos --version 2 --dry-run\ntaskledger plan accept --version 2 --note \"ready to implement.\"\ntaskledger todo list\ntaskledger todo add --text \"add parser regression tests.\" --mandatory\ntaskledger todo add --text \"update parser error message docs.\" --optional\ntaskledger todo status\n\n\n\n\nmandatory todos gate implementation completion. optional todos remain visible but\ndo not block implement finish.\n\nif the project has an enabled worker pipeline, plan todos may optionally target\nconfigured worker steps. this is an advisory overlay, not a new lifecycle stage:\n\ntodos:\n  - id: plan-todo-0001\n    text: \"add failing regression tests.\"\n    worker_s…"
+        },
+        {
+          "anchor": "",
+          "heading": "7. Start Implementation",
+          "text": "Begin implementation and keep durable notes as work progresses:\n\ntaskledger can implement\ntaskledger context --for implementation --format markdown\ntaskledger implement start\ntaskledger implement checklist\ntaskledger implement log --message \"Started parser fix.\"\ntaskledger implement command -- pytest tests/test_parser.py -q\ntaskledger implement change --path taskledger/parser.py --kind edit --summary \"Reject unmatched delimiters with source offsets.\"\ntaskledger implement change --path tests/test_parser.py --kind test --summary \"Added nested expression and delimiter regression tests.\"\ntaskledger implement deviation --message \"Kept tokenizer unchanged because parser-level validation is sufficient.\"\ntaskledger implement artifact --path .taskledger-artifacts/parser-test-output.txt --summary \"…",
+          "lower": "begin implementation and keep durable notes as work progresses:\n\ntaskledger can implement\ntaskledger context --for implementation --format markdown\ntaskledger implement start\ntaskledger implement checklist\ntaskledger implement log --message \"started parser fix.\"\ntaskledger implement command -- pytest tests/test_parser.py -q\ntaskledger implement change --path taskledger/parser.py --kind edit --summary \"reject unmatched delimiters with source offsets.\"\ntaskledger implement change --path tests/test_parser.py --kind test --summary \"added nested expression and delimiter regression tests.\"\ntaskledger implement deviation --message \"kept tokenizer unchanged because parser-level validation is sufficient.\"\ntaskledger implement artifact --path .taskledger-artifacts/parser-test-output.txt --summary \"…"
+        },
+        {
+          "anchor": "",
+          "heading": "Fresh-worker implementation",
+          "text": "taskledger handoff create --mode implementation --todo todo-0003\ntaskledger context --for implementer --todo todo-0003",
+          "lower": "taskledger handoff create --mode implementation --todo todo-0003\ntaskledger context --for implementer --todo todo-0003"
+        },
+        {
+          "anchor": "",
+          "heading": "8. Complete Implementation Todos",
+          "text": "Mark mandatory todos done with evidence:\n\nCompact same-session loop:\n\ntaskledger --json next-action\ntaskledger --json todo next\ntaskledger todo show todo-0003\n# implement only that todo\npytest tests/test_parser.py -q\ntaskledger todo done todo-0003 --evidence \"pytest tests/test_parser.py -q\"\ntaskledger --json next-action\n\n\n\n\nPrefer this loop over broad generated context during normal work. Use\nvalidation_hint before marking a todo done. Create a handoff or wider\ncontext only when the task needs a harness or session switch.\n\ntaskledger todo next\ntaskledger todo done TODO_ID --evidence \"pytest tests/test_parser.py -q\" --artifact .taskledger-artifacts/parser-test-output.txt\ntaskledger todo done TODO_ID --evidence \"Reviewed parser docs.\"\ntaskledger todo status\ntaskledger implement finish --sum…",
+          "lower": "mark mandatory todos done with evidence:\n\ncompact same-session loop:\n\ntaskledger --json next-action\ntaskledger --json todo next\ntaskledger todo show todo-0003\n# implement only that todo\npytest tests/test_parser.py -q\ntaskledger todo done todo-0003 --evidence \"pytest tests/test_parser.py -q\"\ntaskledger --json next-action\n\n\n\n\nprefer this loop over broad generated context during normal work. use\nvalidation_hint before marking a todo done. create a handoff or wider\ncontext only when the task needs a harness or session switch.\n\ntaskledger todo next\ntaskledger todo done todo_id --evidence \"pytest tests/test_parser.py -q\" --artifact .taskledger-artifacts/parser-test-output.txt\ntaskledger todo done todo_id --evidence \"reviewed parser docs.\"\ntaskledger todo status\ntaskledger implement finish --sum…"
+        },
+        {
+          "anchor": "",
+          "heading": "9. Validate The Work",
+          "text": "Start validation, run checks against each acceptance criterion, and finish the\nvalidation stage:\n\ntaskledger can validate\ntaskledger context --for validation --format markdown\ntaskledger validate start\ntaskledger validate status\ntaskledger validate check --criterion ac-0001 --status pass --evidence \"pytest tests/test_parser.py -q\"\ntaskledger validate check --criterion ac-0002 --status pass --evidence \"pytest tests/test_parser.py -q\"\ntaskledger validate show\ntaskledger validate finish --result passed --summary \"Parser fix validated with regression tests.\"",
+          "lower": "start validation, run checks against each acceptance criterion, and finish the\nvalidation stage:\n\ntaskledger can validate\ntaskledger context --for validation --format markdown\ntaskledger validate start\ntaskledger validate status\ntaskledger validate check --criterion ac-0001 --status pass --evidence \"pytest tests/test_parser.py -q\"\ntaskledger validate check --criterion ac-0002 --status pass --evidence \"pytest tests/test_parser.py -q\"\ntaskledger validate show\ntaskledger validate finish --result passed --summary \"parser fix validated with regression tests.\""
+        },
+        {
+          "anchor": "",
+          "heading": "If validation finds a bug",
+          "text": "taskledger validate check --criterion ac-0002 --status fail --evidence \"pytest tests/test_parser.py -q\"\ntaskledger validate finish --result failed --summary \"ac-0002 failed.\"\ntaskledger next-action\ntaskledger context --for implementation --format markdown\ntaskledger implement restart --summary \"Fix ac-0002 validation failure.\"\n\n\n\n\nIf a criterion is intentionally not validated, a user can waive it:\n\ntaskledger validate waive --criterion ac-0003 --reason \"Covered by upstream integration test.\" --actor user\n\n\n\n\nWaivers should be rare and explicit.",
+          "lower": "taskledger validate check --criterion ac-0002 --status fail --evidence \"pytest tests/test_parser.py -q\"\ntaskledger validate finish --result failed --summary \"ac-0002 failed.\"\ntaskledger next-action\ntaskledger context --for implementation --format markdown\ntaskledger implement restart --summary \"fix ac-0002 validation failure.\"\n\n\n\n\nif a criterion is intentionally not validated, a user can waive it:\n\ntaskledger validate waive --criterion ac-0003 --reason \"covered by upstream integration test.\" --actor user\n\n\n\n\nwaivers should be rare and explicit."
+        },
+        {
+          "anchor": "",
+          "heading": "Fresh-worker review",
+          "text": "taskledger context --for spec-reviewer --run run-0008\ntaskledger context --for code-reviewer --run run-0008",
+          "lower": "taskledger context --for spec-reviewer --run run-0008\ntaskledger context --for code-reviewer --run run-0008"
+        },
+        {
+          "anchor": "",
+          "heading": "10. Close The Task",
+          "text": "After validation passes, close the task and inspect final state:\n\ntaskledger task dossier --format markdown\ntaskledger handoff create --mode validation --summary \"Parser fix is implemented and validated.\"\ntaskledger handoff show HANDOFF_ID --format text\ntaskledger task close --note \"Fixed parser delimiter handling and validated parser regressions.\"\ntaskledger release tag 0.4.2 --at-task parser-fix --note \"0.4.2 released.\"\ntaskledger task show\ntaskledger task show parser-fix\ntaskledger status --full\ntaskledger doctor\n\n\n\n\nAfter validation passes, the task is in done state. task close is a\nfinal acknowledgement command for an already-done task. Release boundaries are\ntracked by taskledger release tag. The dossier and handoff commands preserve\na fresh-context summary for future agents or revi…",
+          "lower": "after validation passes, close the task and inspect final state:\n\ntaskledger task dossier --format markdown\ntaskledger handoff create --mode validation --summary \"parser fix is implemented and validated.\"\ntaskledger handoff show handoff_id --format text\ntaskledger task close --note \"fixed parser delimiter handling and validated parser regressions.\"\ntaskledger release tag 0.4.2 --at-task parser-fix --note \"0.4.2 released.\"\ntaskledger task show\ntaskledger task show parser-fix\ntaskledger status --full\ntaskledger doctor\n\n\n\n\nafter validation passes, the task is in done state. task close is a\nfinal acknowledgement command for an already-done task. release boundaries are\ntracked by taskledger release tag. the dossier and handoff commands preserve\na fresh-context summary for future agents or revi…"
+        },
+        {
+          "anchor": "",
+          "heading": "Post-completion follow-up deltas",
+          "text": "When the original task is complete and a later small delta is needed, keep the\nparent task closed and create a new follow-up child task:\n\ntaskledger task follow-up parser-fix \"Rename parser error copy\" --description \"Small post-completion delta.\" --activate\ntaskledger plan start\ntaskledger plan upsert --file ./plan.md\ntaskledger plan accept --version 1 --note \"Approved tiny follow-up delta.\"\n\n\n\n\nUse the normal lifecycle on the follow-up task. Do not reopen the completed\nparent task for ordinary deltas.",
+          "lower": "when the original task is complete and a later small delta is needed, keep the\nparent task closed and create a new follow-up child task:\n\ntaskledger task follow-up parser-fix \"rename parser error copy\" --description \"small post-completion delta.\" --activate\ntaskledger plan start\ntaskledger plan upsert --file ./plan.md\ntaskledger plan accept --version 1 --note \"approved tiny follow-up delta.\"\n\n\n\n\nuse the normal lifecycle on the follow-up task. do not reopen the completed\nparent task for ordinary deltas."
+        },
+        {
+          "anchor": "",
+          "heading": "11. Recovery And Maintenance Commands",
+          "text": "These commands are not part of the happy path, but they complete the operational\ncycle:\n\ntaskledger lock show\ntaskledger doctor locks\ntaskledger lock break --reason \"Recover stale planning lock.\"\ntaskledger implement resume --reason \"Reacquire implementation lock for existing running run.\"\ntaskledger task uncancel --task TASK_REF --reason \"Restore the task to a safe durable stage.\"\ntaskledger repair index\ntaskledger repair task --reason \"Inspect task record after manual edit.\"\ntaskledger reindex\ntaskledger --json export\ntaskledger snapshot ./taskledger-snapshot --include-bodies --include-run-artifacts\n\n\n\n\nLocks are never cleared silently. Use lock break only after inspecting the\nlock and recording a reason. If a broken stale lock leaves an implementation run\nstill marked running, continue…",
+          "lower": "these commands are not part of the happy path, but they complete the operational\ncycle:\n\ntaskledger lock show\ntaskledger doctor locks\ntaskledger lock break --reason \"recover stale planning lock.\"\ntaskledger implement resume --reason \"reacquire implementation lock for existing running run.\"\ntaskledger task uncancel --task task_ref --reason \"restore the task to a safe durable stage.\"\ntaskledger repair index\ntaskledger repair task --reason \"inspect task record after manual edit.\"\ntaskledger reindex\ntaskledger --json export\ntaskledger snapshot ./taskledger-snapshot --include-bodies --include-run-artifacts\n\n\n\n\nlocks are never cleared silently. use lock break only after inspecting the\nlock and recording a reason. if a broken stale lock leaves an implementation run\nstill marked running, continue…"
+        },
+        {
+          "anchor": "",
+          "heading": "Task-centered traceability",
+          "text": "Taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\nCross-ledger links are opaque file or ID references.\n\nUse taskledger trace TASK --format json to emit a read-only\ntaskledger.trace.v1 task bundle. The bundle links task IDs, accepted AC IDs,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nEvidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ....",
+          "lower": "taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\ncross-ledger links are opaque file or id references.\n\nuse taskledger trace task --format json to emit a read-only\ntaskledger.trace.v1 task bundle. the bundle links task ids, accepted ac ids,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nevidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ...."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/",
+      "title": "taskledger",
+      "snippet": "taskledger is a task-first durable state layer for staged coding work.\nDocumentation\n\n\nUsage\nInstallation\n\nShell completion\n\nInitialize stat …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "taskledger",
+          "text": "taskledger is a task-first durable state layer for staged coding work.",
+          "lower": "taskledger is a task-first durable state layer for staged coding work."
+        },
+        {
+          "anchor": "",
+          "heading": "Contents",
+          "text": "Documentation\n\n\nUsage\nInstallation\n\nShell completion\n\nInitialize state\n\nBranch-local task work\n\nOpaque links and external artifacts\n\nPlanning guidance profiles\n\nOptional worker pipelines\n\nRelease boundary tags\n\nRecording manually completed work\n\nArchiving tasks\n\nPost-completion follow-up deltas\n\nFresh-context entrypoint\n\nCompact implementation loop\n\nFresh-session startup and monitoring\n\nMachine-readable output\n\nCloud-backed storage\n\nIntegrity and recovery\n\nExport and snapshots\n\nSingle-task transfer from a config-only checkout\n\nTask-centered traceability\n\nCanonical project layout\n\n\n\n\nFull Task Cycle\n1. Initialize The Ledger\n\n2. Create And Activate A Task\n\n3. Start Planning\n\n4. Ask And Answer Questions\n\n5. Propose A Plan\n\n6. Materialize Todos And Approve\n\n7. Start Implementation\n\n8. Complet…",
+          "lower": "documentation\n\n\nusage\ninstallation\n\nshell completion\n\ninitialize state\n\nbranch-local task work\n\nopaque links and external artifacts\n\nplanning guidance profiles\n\noptional worker pipelines\n\nrelease boundary tags\n\nrecording manually completed work\n\narchiving tasks\n\npost-completion follow-up deltas\n\nfresh-context entrypoint\n\ncompact implementation loop\n\nfresh-session startup and monitoring\n\nmachine-readable output\n\ncloud-backed storage\n\nintegrity and recovery\n\nexport and snapshots\n\nsingle-task transfer from a config-only checkout\n\ntask-centered traceability\n\ncanonical project layout\n\n\n\n\nfull task cycle\n1. initialize the ledger\n\n2. create and activate a task\n\n3. start planning\n\n4. ask and answer questions\n\n5. propose a plan\n\n6. materialize todos and approve\n\n7. start implementation\n\n8. complet…"
+        },
+        {
+          "anchor": "",
+          "heading": "Indices and tables",
+          "text": "Index\n\n\nModule Index\n\n\nSearch Page",
+          "lower": "index\n\n\nmodule index\n\n\nsearch page"
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/multi_repo/",
+      "title": "taskledger Multi-repo context",
+      "snippet": "taskledger does not own repository checkout orchestration. It records the\ntask, links the files and external resources that matter, and rend …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Multi-repo context",
+          "text": "taskledger does not own repository checkout orchestration. It records the\ntask, links the files and external resources that matter, and renders handoff\ncontext that another harness can use.",
+          "lower": "taskledger does not own repository checkout orchestration. it records the\ntask, links the files and external resources that matter, and renders handoff\ncontext that another harness can use."
+        },
+        {
+          "anchor": "",
+          "heading": "Common workflow",
+          "text": "Create or activate the task first:\n\ntaskledger init\ntaskledger task create \"Fix sale customization\" --description \"Repair sale order behavior.\"\n\n\n\n\nAttach files from the current workspace or from neighboring checkouts:\n\ntaskledger file add --path ../odoo/addons/sale/models/sale_order.py --kind code --label \"Upstream sale order reference\"\ntaskledger file add --path custom_sale/models/sale_order.py --kind code --label \"Custom sale implementation\" --required-for-validation\ntaskledger link add --url https://example.invalid/ticket/123 --label \"Support ticket\"\n\n\n\n\nUse search helpers to inspect the workspace:\n\ntaskledger search sale_order\ntaskledger grep \"action_confirm\"\ntaskledger symbols sale_order.py\ntaskledger deps custom_sale.models.sale_order\n\n\n\n\nThen render fresh context for the next stag…",
+          "lower": "create or activate the task first:\n\ntaskledger init\ntaskledger task create \"fix sale customization\" --description \"repair sale order behavior.\"\n\n\n\n\nattach files from the current workspace or from neighboring checkouts:\n\ntaskledger file add --path ../odoo/addons/sale/models/sale_order.py --kind code --label \"upstream sale order reference\"\ntaskledger file add --path custom_sale/models/sale_order.py --kind code --label \"custom sale implementation\" --required-for-validation\ntaskledger link add --url https://example.invalid/ticket/123 --label \"support ticket\"\n\n\n\n\nuse search helpers to inspect the workspace:\n\ntaskledger search sale_order\ntaskledger grep \"action_confirm\"\ntaskledger symbols sale_order.py\ntaskledger deps custom_sale.models.sale_order\n\n\n\n\nthen render fresh context for the next stag…"
+        },
+        {
+          "anchor": "",
+          "heading": "Mental model",
+          "text": "file add records task-specific source and implementation files.\n\n\nlink add records issue trackers, design notes, pull requests, or other\nexternal references.\n\n\nsearch, grep, symbols, and deps are read-only helpers.\n\n\nThe active task remains explicit. Without an active task, task-scoped commands\nrequire --task or a positional task reference.",
+          "lower": "file add records task-specific source and implementation files.\n\n\nlink add records issue trackers, design notes, pull requests, or other\nexternal references.\n\n\nsearch, grep, symbols, and deps are read-only helpers.\n\n\nthe active task remains explicit. without an active task, task-scoped commands\nrequire --task or a positional task reference."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/public_surface/",
+      "title": "taskledger Public surface",
+      "snippet": "taskledger supports the task-first workflow:\n\ntask -> plan -> approval -> implement -> validate -> done\nThe command inventory tracks 44 top- …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Public surface",
+          "text": "taskledger supports the task-first workflow:\n\ntask -> plan -> approval -> implement -> validate -> done",
+          "lower": "taskledger supports the task-first workflow:\n\ntask -> plan -> approval -> implement -> validate -> done"
+        },
+        {
+          "anchor": "",
+          "heading": "Supported CLI entries",
+          "text": "The command inventory tracks 44 top-level CLI entries. Some are groups and some\nare root commands. The normal agent path is intentionally smaller than the full\nregistered surface.",
+          "lower": "the command inventory tracks 44 top-level cli entries. some are groups and some\nare root commands. the normal agent path is intentionally smaller than the full\nregistered surface."
+        },
+        {
+          "anchor": "",
+          "heading": "Core agent path",
+          "text": "Agents should start with this durable lifecycle path:\n\nplan start -> plan guidance -> plan template -> plan check -> plan upsert -> plan lint -> plan accept is\nthe normal planning/approval path for agents.\n\n\nactor whoami\n\n\ntask active, task show, task create, task activate, task follow-up\n\n\nnext-action, context, can\n\n\nplan start, plan guidance, plan template, plan check, plan upsert, plan lint, plan accept\n\n\nquestion add, question add-many, question answer, question answer-many, question status, question answers\n\n\ntodo next, todo show, todo done, todo status\n\n\nimplement start, implement resume, implement change, implement scan-changes, implement finish\n\n\nvalidate start, validate status, validate check, validate finish\n\n\nreview record\n\n\nhandoff create, handoff show, handoff claim, handoff…",
+          "lower": "agents should start with this durable lifecycle path:\n\nplan start -> plan guidance -> plan template -> plan check -> plan upsert -> plan lint -> plan accept is\nthe normal planning/approval path for agents.\n\n\nactor whoami\n\n\ntask active, task show, task create, task activate, task follow-up\n\n\nnext-action, context, can\n\n\nplan start, plan guidance, plan template, plan check, plan upsert, plan lint, plan accept\n\n\nquestion add, question add-many, question answer, question answer-many, question status, question answers\n\n\ntodo next, todo show, todo done, todo status\n\n\nimplement start, implement resume, implement change, implement scan-changes, implement finish\n\n\nvalidate start, validate status, validate check, validate finish\n\n\nreview record\n\n\nhandoff create, handoff show, handoff claim, handoff…"
+        },
+        {
+          "anchor": "",
+          "heading": "Top-level entry categories",
+          "text": "Primary groups — core task-first lifecycle:\n\n\ntask, plan, question, implement, validate, review, todo\n\n\ncontext, next-action, init, handoff\n\n\n\nSupport entries — auxiliary operations:\n\n\nintro, file, link, require, lock, config, actor, harness, usage\n\n\nexport, import, snapshot, pipeline, can, commands\n\n\n\nAdvanced entries — power-user, storage, transfer, and project operations:\n\n\nledger, storage, sync, release, migrate\n\n\n\nHuman-oriented entries — interactive inspection and reporting:\n\n\nstatus, view, monitor, tree, search, grep, symbols, deps\n\n\n\nRepair and migration groups — exceptional recovery:\n\n\ndoctor, repair, reindex, migrate\n\n\n\nusage is the compact fresh-session startup command. It summarizes actor,\nharness, active work, inbox items, and ready tasks without mutating ledger\nstate.\n\nmonit…",
+          "lower": "primary groups — core task-first lifecycle:\n\n\ntask, plan, question, implement, validate, review, todo\n\n\ncontext, next-action, init, handoff\n\n\n\nsupport entries — auxiliary operations:\n\n\nintro, file, link, require, lock, config, actor, harness, usage\n\n\nexport, import, snapshot, pipeline, can, commands\n\n\n\nadvanced entries — power-user, storage, transfer, and project operations:\n\n\nledger, storage, sync, release, migrate\n\n\n\nhuman-oriented entries — interactive inspection and reporting:\n\n\nstatus, view, monitor, tree, search, grep, symbols, deps\n\n\n\nrepair and migration groups — exceptional recovery:\n\n\ndoctor, repair, reindex, migrate\n\n\n\nusage is the compact fresh-session startup command. it summarizes actor,\nharness, active work, inbox items, and ready tasks without mutating ledger\nstate.\n\nmonit…"
+        },
+        {
+          "anchor": "",
+          "heading": "question subcommands",
+          "text": "question add, question list [--status STATUS], question answers [--format markdown|json]\n\n\nquestion add-many [--text TEXT|--yaml-file PATH] [--required-for-plan]\n\n\nquestion answer, question answer-many, question dismiss, question open, question status",
+          "lower": "question add, question list [--status status], question answers [--format markdown|json]\n\n\nquestion add-many [--text text|--yaml-file path] [--required-for-plan]\n\n\nquestion answer, question answer-many, question dismiss, question open, question status"
+        },
+        {
+          "anchor": "",
+          "heading": "plan subcommands",
+          "text": "Normal path: plan start -> plan guidance -> plan template -> plan check -> plan upsert -> plan lint -> plan accept\n\n\nSupport reads/records: plan show, plan review, plan list, plan diff, plan export, plan command -- ...\n\n\nAdvanced or compatibility paths: plan approve, plan propose, plan draft, plan regenerate --from-answers, plan materialize-todos, plan revise, plan amend, plan reject\n\n\n\nPrefer plan accept for explicit chat approval. plan approve remains for\nadvanced metadata control and compatibility.",
+          "lower": "normal path: plan start -> plan guidance -> plan template -> plan check -> plan upsert -> plan lint -> plan accept\n\n\nsupport reads/records: plan show, plan review, plan list, plan diff, plan export, plan command -- ...\n\n\nadvanced or compatibility paths: plan approve, plan propose, plan draft, plan regenerate --from-answers, plan materialize-todos, plan revise, plan amend, plan reject\n\n\n\nprefer plan accept for explicit chat approval. plan approve remains for\nadvanced metadata control and compatibility."
+        },
+        {
+          "anchor": "",
+          "heading": "task reporting and transcripts",
+          "text": "next-action answers what should happen next.\n\n\ntask show summarizes current task state.\n\n\ncontext renders agent continuation context.\n\n\nhandoff create/show/claim/close manages durable transfer between sessions or actors.\n\n\ntask report supports section control including --include command-log\n\n\ntask export writes a full single-file LLM/archive bundle.\n\n\ntask transcript renders a per-task command transcript in markdown or json\n\n\n\ntask dossier, root view, and handoff plan-context /\nhandoff implementation-context / handoff validation-context remain\nadvanced/compatibility read surfaces; prefer context --for ... and\nhandoff show for new agent protocols.",
+          "lower": "next-action answers what should happen next.\n\n\ntask show summarizes current task state.\n\n\ncontext renders agent continuation context.\n\n\nhandoff create/show/claim/close manages durable transfer between sessions or actors.\n\n\ntask report supports section control including --include command-log\n\n\ntask export writes a full single-file llm/archive bundle.\n\n\ntask transcript renders a per-task command transcript in markdown or json\n\n\n\ntask dossier, root view, and handoff plan-context /\nhandoff implementation-context / handoff validation-context remain\nadvanced/compatibility read surfaces; prefer context --for ... and\nhandoff show for new agent protocols."
+        },
+        {
+          "anchor": "",
+          "heading": "todo subcommands",
+          "text": "todo add, todo list, todo done, todo show, todo status, todo next\n\n\nTodo source is inferred from active lock: implementer during implementation, planner during planning, user otherwise.",
+          "lower": "todo add, todo list, todo done, todo show, todo status, todo next\n\n\ntodo source is inferred from active lock: implementer during implementation, planner during planning, user otherwise."
+        },
+        {
+          "anchor": "",
+          "heading": "file subcommands",
+          "text": "file add, file link, file remove, file list, file status, file refresh\n\n\nfile link records or updates a task-linked file with an optional baseline snapshot.\n\n\nfile status reports new, modified, deleted, unchanged, and unbaselined drift states.",
+          "lower": "file add, file link, file remove, file list, file status, file refresh\n\n\nfile link records or updates a task-linked file with an optional baseline snapshot.\n\n\nfile status reports new, modified, deleted, unchanged, and unbaselined drift states."
+        },
+        {
+          "anchor": "",
+          "heading": "storage and sync subcommands",
+          "text": "storage where, storage move --to PATH --mode copy|move [--adopt-existing] [--force]\n\n\nsync preflight, sync status, sync commit --message \"...\"",
+          "lower": "storage where, storage move --to path --mode copy|move [--adopt-existing] [--force]\n\n\nsync preflight, sync status, sync commit --message \"...\""
+        },
+        {
+          "anchor": "",
+          "heading": "Supported Python API modules",
+          "text": "taskledger.api.project\n\n\ntaskledger.api.tasks\n\n\ntaskledger.api.plans\n\n\ntaskledger.api.questions\n\n\ntaskledger.api.task_runs\n\n\ntaskledger.api.reviews\n\n\ntaskledger.api.introductions\n\n\ntaskledger.api.locks\n\n\ntaskledger.api.handoff\n\n\ntaskledger.api.releases\n\n\ntaskledger.api.storage\n\n\ntaskledger.api.sync\n\n\ntaskledger.api.search\n\n\n\ntaskledger.api.task_runs includes the public lifecycle helpers\nstart_implementation, restart_implementation, resume_implementation,\nstart_validation, and finish_validation. taskledger.api.tasks also\nexposes uncancel_task for restoring truly cancelled tasks to a safe durable\nstage.",
+          "lower": "taskledger.api.project\n\n\ntaskledger.api.tasks\n\n\ntaskledger.api.plans\n\n\ntaskledger.api.questions\n\n\ntaskledger.api.task_runs\n\n\ntaskledger.api.reviews\n\n\ntaskledger.api.introductions\n\n\ntaskledger.api.locks\n\n\ntaskledger.api.handoff\n\n\ntaskledger.api.releases\n\n\ntaskledger.api.storage\n\n\ntaskledger.api.sync\n\n\ntaskledger.api.search\n\n\n\ntaskledger.api.task_runs includes the public lifecycle helpers\nstart_implementation, restart_implementation, resume_implementation,\nstart_validation, and finish_validation. taskledger.api.tasks also\nexposes uncancel_task for restoring truly cancelled tasks to a safe durable\nstage."
+        },
+        {
+          "anchor": "",
+          "heading": "Removed legacy surfaces",
+          "text": "The old item/memory/repo/run/workflow/context/compose execution surfaces are not\npart of the public compatibility contract. The corresponding CLI groups and\nPython API modules have been removed rather than migrated.",
+          "lower": "the old item/memory/repo/run/workflow/context/compose execution surfaces are not\npart of the public compatibility contract. the corresponding cli groups and\npython api modules have been removed rather than migrated."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/service_boundary_whitelist/",
+      "title": "taskledger Service boundary whitelist",
+      "snippet": "This note tracks temporary static-boundary whitelist entries enforced by\ntests/test_service_boundaries.py.\n\nThe whitelist is debt tracking, …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Service boundary whitelist",
+          "text": "This note tracks temporary static-boundary whitelist entries enforced by\ntests/test_service_boundaries.py.\n\nThe whitelist is debt tracking, not a permanent exception list. When an item\ndrops below budget or is removed, update this note and the related test\nconstants.",
+          "lower": "this note tracks temporary static-boundary whitelist entries enforced by\ntests/test_service_boundaries.py.\n\nthe whitelist is debt tracking, not a permanent exception list. when an item\ndrops below budget or is removed, update this note and the related test\nconstants."
+        },
+        {
+          "anchor": "",
+          "heading": "Module line budget whitelist (>2000 lines)",
+          "text": "taskledger/services/tasks.py\n\n\nCurrent reason: Temporary compatibility facade while workflow services\nare extracted.\n\n\nTarget split direction: Continue reducing to a smaller compatibility\nfacade and move residual helpers into focused modules.",
+          "lower": "taskledger/services/tasks.py\n\n\ncurrent reason: temporary compatibility facade while workflow services\nare extracted.\n\n\ntarget split direction: continue reducing to a smaller compatibility\nfacade and move residual helpers into focused modules."
+        },
+        {
+          "anchor": "",
+          "heading": "Current split status",
+          "text": "Implemented in this tranche:\n\n\ntaskledger/services/planning_flow.py\n\n\ntaskledger/services/implementation_flow.py\n\n\ntaskledger/services/validation_flow.py\n\n\ntaskledger/services/tasks.py delegates plan, implement, and validate\nentrypoints to the new modules.\n\n\n\nRemaining target: continue reducing taskledger/services/tasks.py to a\nsmaller compatibility facade and move residual helpers into focused modules.",
+          "lower": "implemented in this tranche:\n\n\ntaskledger/services/planning_flow.py\n\n\ntaskledger/services/implementation_flow.py\n\n\ntaskledger/services/validation_flow.py\n\n\ntaskledger/services/tasks.py delegates plan, implement, and validate\nentrypoints to the new modules.\n\n\n\nremaining target: continue reducing taskledger/services/tasks.py to a\nsmaller compatibility facade and move residual helpers into focused modules."
+        },
+        {
+          "anchor": "",
+          "heading": "Function line budget whitelist (>250 lines)",
+          "text": "taskledger/services/doctor_checks/task_checks.py::scan_task_integrity\n\n\nCurrent reason: Consolidated per-task integrity scan with change/lock\nvalidation; further splitting into focused inspectors is planned.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\nCurrent reason: Sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.",
+          "lower": "taskledger/services/doctor_checks/task_checks.py::scan_task_integrity\n\n\ncurrent reason: consolidated per-task integrity scan with change/lock\nvalidation; further splitting into focused inspectors is planned.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\ncurrent reason: sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring."
+        },
+        {
+          "anchor": "",
+          "heading": "CLI→services import whitelist",
+          "text": "CLI modules may import from taskledger.services only when listed in\ntests/test_service_boundaries.py under CLI_SERVICES_IMPORT_WHITELIST.\n\nCurrent sanctioned imports:\n\n\ntaskledger/cli.py:taskledger.services.dashboard — Dashboard and view\nrendering are currently service-level read models.\n\n\ntaskledger/cli.py:taskledger.services.agent_logging — Root CLI\ninitializes recorder and payload/error notes.\n\n\ntaskledger/cli.py:taskledger.services.tree — Tree rendering currently\nlives in services/tree.py.\n\n\ntaskledger/cli.py:taskledger.services.doctor — Repair command uses\ndoctor cleanup helper pending API wrapper.\n\n\ntaskledger/cli.py:taskledger.services.monitor — Root monitor command\nrenders the terminal monitor read model.\n\n\ntaskledger/cli.py:taskledger.services.usage — Root usage command renders\nt…",
+          "lower": "cli modules may import from taskledger.services only when listed in\ntests/test_service_boundaries.py under cli_services_import_whitelist.\n\ncurrent sanctioned imports:\n\n\ntaskledger/cli.py:taskledger.services.dashboard — dashboard and view\nrendering are currently service-level read models.\n\n\ntaskledger/cli.py:taskledger.services.agent_logging — root cli\ninitializes recorder and payload/error notes.\n\n\ntaskledger/cli.py:taskledger.services.tree — tree rendering currently\nlives in services/tree.py.\n\n\ntaskledger/cli.py:taskledger.services.doctor — repair command uses\ndoctor cleanup helper pending api wrapper.\n\n\ntaskledger/cli.py:taskledger.services.monitor — root monitor command\nrenders the terminal monitor read model.\n\n\ntaskledger/cli.py:taskledger.services.usage — root usage command renders\nt…"
+        },
+        {
+          "anchor": "",
+          "heading": "Catch-all exception whitelist (except Exception)",
+          "text": "Current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under EXCEPT_EXCEPTION_WHITELIST.\n\nPolicy intent:\n\n\nAllow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nBlock new catch-all sites unless explicitly reviewed and justified.\n\n\nRequire whitelist edits to be intentional and reasoned.",
+          "lower": "current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under except_exception_whitelist.\n\npolicy intent:\n\n\nallow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nblock new catch-all sites unless explicitly reviewed and justified.\n\n\nrequire whitelist edits to be intentional and reasoned."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/sync/",
+      "title": "taskledger Sync taskledger state across PCs",
+      "snippet": "Taskledger already supports keeping durable task state outside the source\nrepository. The recommended workflow is to commit only taskledger. …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Sync taskledger state across PCs",
+          "text": "Taskledger already supports keeping durable task state outside the source\nrepository. The recommended workflow is to commit only taskledger.toml in\nthe source repo, point taskledger_dir at an external sibling directory, and\nsync that external directory with a private Git repository.",
+          "lower": "taskledger already supports keeping durable task state outside the source\nrepository. the recommended workflow is to commit only taskledger.toml in\nthe source repo, point taskledger_dir at an external sibling directory, and\nsync that external directory with a private git repository."
+        },
+        {
+          "anchor": "",
+          "heading": "External state directory",
+          "text": "Use taskledger init --taskledger-dir or edit taskledger.toml so the\nworkspace keeps only config while the durable state lives elsewhere:\n\nconfig_version = 2\ntaskledger_dir = \"../taskledger-state/project-a\"\nproject_uuid = \"keep-existing-uuid\"\nproject_name = \"project-a\"\nledger_ref = \"main\"\n\n\n\n\nRelative paths are preferred because they keep the same sibling layout working\nacross multiple PCs.",
+          "lower": "use taskledger init --taskledger-dir or edit taskledger.toml so the\nworkspace keeps only config while the durable state lives elsewhere:\n\nconfig_version = 2\ntaskledger_dir = \"../taskledger-state/project-a\"\nproject_uuid = \"keep-existing-uuid\"\nproject_name = \"project-a\"\nledger_ref = \"main\"\n\n\n\n\nrelative paths are preferred because they keep the same sibling layout working\nacross multiple pcs."
+        },
+        {
+          "anchor": "",
+          "heading": "Private state Git repo",
+          "text": "Recommended layout:\n\n/home/me/src/project-a/                  # source repo\n/home/me/src/taskledger-state/           # private state repo\n/home/me/src/taskledger-state/project-a/\n  storage.yaml\n  ledgers/\n    main/\n      tasks/\n      events/\n      releases/\n      indexes/\n\n\n\n\nThe source repository keeps taskledger.toml and ignores .taskledger/.\nThe private state repository stores the external taskledger_dir contents.",
+          "lower": "recommended layout:\n\n/home/me/src/project-a/                  # source repo\n/home/me/src/taskledger-state/           # private state repo\n/home/me/src/taskledger-state/project-a/\n  storage.yaml\n  ledgers/\n    main/\n      tasks/\n      events/\n      releases/\n      indexes/\n\n\n\n\nthe source repository keeps taskledger.toml and ignores .taskledger/.\nthe private state repository stores the external taskledger_dir contents."
+        },
+        {
+          "anchor": "",
+          "heading": "Second PC bootstrap",
+          "text": "Clone both repositories as siblings:\n\ncd ~/src\ngit clone <source-repo-url> project-a\ngit clone <private-state-repo-url> taskledger-state\n\ncd project-a\ntaskledger status --full\ntaskledger doctor\ntaskledger task list",
+          "lower": "clone both repositories as siblings:\n\ncd ~/src\ngit clone <source-repo-url> project-a\ngit clone <private-state-repo-url> taskledger-state\n\ncd project-a\ntaskledger status --full\ntaskledger doctor\ntaskledger task list"
+        },
+        {
+          "anchor": "",
+          "heading": "Daily sync protocol",
+          "text": "Taskledger provides a Git sync command group that supports this workflow:\n\ntaskledger sync git init --repo ../taskledger-state --project-path project-a\ntaskledger sync git status\ntaskledger sync git pull\ntaskledger sync git push\ntaskledger sync git push --message \"Sync project-a taskledger state\"\n\n\n\n\nIn a shared taskledger-state repository, Taskledger can safely inspect and\nreport project-local vs outside-project dirty paths. sync git push commits\nrepository-wide changes by design to match the standard Git workflow. Use\nsync git cd for advanced manual inspection or conflict resolution.\n\nFor manual conflict resolution or debugging:\n\ncd \"$(taskledger sync git cd)\"\ngit status --short\n\n\n\n\nBefore starting work on a PC:\n\ncd ~/src/project-a\ntaskledger sync git status\ntaskledger sync git pull\ntas…",
+          "lower": "taskledger provides a git sync command group that supports this workflow:\n\ntaskledger sync git init --repo ../taskledger-state --project-path project-a\ntaskledger sync git status\ntaskledger sync git pull\ntaskledger sync git push\ntaskledger sync git push --message \"sync project-a taskledger state\"\n\n\n\n\nin a shared taskledger-state repository, taskledger can safely inspect and\nreport project-local vs outside-project dirty paths. sync git push commits\nrepository-wide changes by design to match the standard git workflow. use\nsync git cd for advanced manual inspection or conflict resolution.\n\nfor manual conflict resolution or debugging:\n\ncd \"$(taskledger sync git cd)\"\ngit status --short\n\n\n\n\nbefore starting work on a pc:\n\ncd ~/src/project-a\ntaskledger sync git status\ntaskledger sync git pull\ntas…"
+        },
+        {
+          "anchor": "",
+          "heading": "Active lock rule",
+          "text": "Do not use the same Taskledger state concurrently from multiple PCs. Prefer to\nswitch machines only when:\n\n\nthe task is done;\n\n\nthe task is approved and no implementation lock exists;\n\n\nimplementation is finished and validation has not started; or\n\n\nno active lock is present.\n\n\n\nKeep one active writer per project. Concurrent writes can produce Git conflicts\nor semantic conflicts across canonical task records.",
+          "lower": "do not use the same taskledger state concurrently from multiple pcs. prefer to\nswitch machines only when:\n\n\nthe task is done;\n\n\nthe task is approved and no implementation lock exists;\n\n\nimplementation is finished and validation has not started; or\n\n\nno active lock is present.\n\n\n\nkeep one active writer per project. concurrent writes can produce git conflicts\nor semantic conflicts across canonical task records."
+        },
+        {
+          "anchor": "",
+          "heading": "When to use export/import instead",
+          "text": "Archive commands are still the transfer primitive and remain available at both\nthe root and under sync:\n\ntaskledger export task-0040\ntaskledger import ./taskledger-task-project-a-main-task-0040-...tar.gz\ntaskledger sync export --output ./taskledger-transfer.tar.gz\ntaskledger sync import ./taskledger-transfer.tar.gz --dry-run\n\n\n\n\nIf work must move mid-run, prefer task-scoped transfer archives instead of\nsyncing the full live state directory:\n\ntaskledger export task-0040\n# copy archive to the other PC\ntaskledger import ./taskledger-task-project-a-main-task-0040-...tar.gz\ntaskledger next-action\ntaskledger implement resume --reason \"Continue imported implementation.\"\n\n\n\n\nImported runtime locks are quarantined by default, which makes archive transfer\nsafer than syncing an active lock between m…",
+          "lower": "archive commands are still the transfer primitive and remain available at both\nthe root and under sync:\n\ntaskledger export task-0040\ntaskledger import ./taskledger-task-project-a-main-task-0040-...tar.gz\ntaskledger sync export --output ./taskledger-transfer.tar.gz\ntaskledger sync import ./taskledger-transfer.tar.gz --dry-run\n\n\n\n\nif work must move mid-run, prefer task-scoped transfer archives instead of\nsyncing the full live state directory:\n\ntaskledger export task-0040\n# copy archive to the other pc\ntaskledger import ./taskledger-task-project-a-main-task-0040-...tar.gz\ntaskledger next-action\ntaskledger implement resume --reason \"continue imported implementation.\"\n\n\n\n\nimported runtime locks are quarantined by default, which makes archive transfer\nsafer than syncing an active lock between m…"
+        },
+        {
+          "anchor": "",
+          "heading": "Syncthing/rclone caveats",
+          "text": "Syncthing and rclone bisync can transport the external state directory, but\nGit is the safer default for Taskledger’s text-first state because it preserves\nhistory and exposes conflicts directly.\n\nIf Syncthing is used:\n\n\navoid concurrent writers;\n\n\nstop one agent before starting another PC;\n\n\nrun taskledger doctor after sync; and\n\n\nresolve conflict files before continuing.\n\n\n\nTreat rclone bisync as an advanced workflow. Keep Git push/pull under user\ncontrol and do not automate network sync from Taskledger itself.",
+          "lower": "syncthing and rclone bisync can transport the external state directory, but\ngit is the safer default for taskledger’s text-first state because it preserves\nhistory and exposes conflicts directly.\n\nif syncthing is used:\n\n\navoid concurrent writers;\n\n\nstop one agent before starting another pc;\n\n\nrun taskledger doctor after sync; and\n\n\nresolve conflict files before continuing.\n\n\n\ntreat rclone bisync as an advanced workflow. keep git push/pull under user\ncontrol and do not automate network sync from taskledger itself."
+        },
+        {
+          "anchor": "",
+          "heading": "Task-centered traceability",
+          "text": "Taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\nCross-ledger links are opaque file or ID references.\n\nUse taskledger trace TASK --format json to emit a read-only\ntaskledger.trace.v1 task bundle. The bundle links task IDs, accepted AC IDs,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nEvidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ....",
+          "lower": "taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\ncross-ledger links are opaque file or id references.\n\nuse taskledger trace task --format json to emit a read-only\ntaskledger.trace.v1 task bundle. the bundle links task ids, accepted ac ids,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nevidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ...."
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical mounts",
+          "text": "Canonical sync includes the durable data mount and optional logs mount. Cache indexes are excluded and can be deleted and rebuilt. Workspace and cache family roots are resolved by Ledgercore and are not changed by taskledger storage move.",
+          "lower": "canonical sync includes the durable data mount and optional logs mount. cache indexes are excluded and can be deleted and rebuilt. workspace and cache family roots are resolved by ledgercore and are not changed by taskledger storage move."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/transfer/",
+      "title": "taskledger Transfer archives",
+      "snippet": "Transfer archives are portable taskledger state bundles for moving work between\nmachines and harnesses.\nCurrent-ledger durable records (task …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Transfer archives",
+          "text": "Transfer archives are portable taskledger state bundles for moving work between\nmachines and harnesses.",
+          "lower": "transfer archives are portable taskledger state bundles for moving work between\nmachines and harnesses."
+        },
+        {
+          "anchor": "",
+          "heading": "What transfer archives include",
+          "text": "Current-ledger durable records (tasks, plans, questions, runs, changes, todos, links, requirements, events, releases, handoffs).\n\n\nProject identity metadata:\n- project.uuid (safety identity)\n- project.name (human-facing label)\n- project.slug (filename/report slug)\n- project.ledger_ref (exported ledger)\n\n\nOptional run artifacts under artifacts/ when --include-run-artifacts is set.",
+          "lower": "current-ledger durable records (tasks, plans, questions, runs, changes, todos, links, requirements, events, releases, handoffs).\n\n\nproject identity metadata:\n- project.uuid (safety identity)\n- project.name (human-facing label)\n- project.slug (filename/report slug)\n- project.ledger_ref (exported ledger)\n\n\noptional run artifacts under artifacts/ when --include-run-artifacts is set."
+        },
+        {
+          "anchor": "",
+          "heading": "Filename policy",
+          "text": "When no output path is passed to taskledger export, taskledger writes into\nthe resolved workspace root:\n\ntaskledger-export-{project_slug}-{ledger_ref}-{timestamp}.tar.gz\n\n\n\n\nFor task-scoped exports, the same workspace-root default applies:\n\ntaskledger-task-{project_slug}-{ledger_ref}-{task_id}-{timestamp}.tar.gz\n\n\n\n\nproject_slug comes from project_name (or workspace fallback). Import\nsafety still depends on UUID checks, not name matching.",
+          "lower": "when no output path is passed to taskledger export, taskledger writes into\nthe resolved workspace root:\n\ntaskledger-export-{project_slug}-{ledger_ref}-{timestamp}.tar.gz\n\n\n\n\nfor task-scoped exports, the same workspace-root default applies:\n\ntaskledger-task-{project_slug}-{ledger_ref}-{task_id}-{timestamp}.tar.gz\n\n\n\n\nproject_slug comes from project_name (or workspace fallback). import\nsafety still depends on uuid checks, not name matching."
+        },
+        {
+          "anchor": "",
+          "heading": "Single-task transfer from a config-only checkout",
+          "text": "# fresh checkout on another PC\ntaskledger init\ntaskledger task create \"Fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan/implement/validate workflow ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz\ntaskledger task list\ntaskledger task show task-0040\n\n\n\n\nRules:\n\n\nKeep project_uuid committed in taskledger.toml (or legacy .taskledger.toml if the project still uses it).\n\n\n.taskledger/ is local operational state and can be absent on another PC.\n\n\nRun taskledger init after cloning to create local state.\n\n\ntaskledger export --task TASK_REF and taskledger export TASK_REF export task-scoped archives.\n\n\ntaskledger sync export and taskledger sync import are aliases for the same…",
+          "lower": "# fresh checkout on another pc\ntaskledger init\ntaskledger task create \"fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan/implement/validate workflow ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509t101500z.tar.gz\ntaskledger task list\ntaskledger task show task-0040\n\n\n\n\nrules:\n\n\nkeep project_uuid committed in taskledger.toml (or legacy .taskledger.toml if the project still uses it).\n\n\n.taskledger/ is local operational state and can be absent on another pc.\n\n\nrun taskledger init after cloning to create local state.\n\n\ntaskledger export --task task_ref and taskledger export task_ref export task-scoped archives.\n\n\ntaskledger sync export and taskledger sync import are aliases for the same…"
+        },
+        {
+          "anchor": "",
+          "heading": "Dry-run import",
+          "text": "Use taskledger import --dry-run to validate archive or JSON payload imports\nwithout mutating local state:\n\ntaskledger import ./taskledger-transfer.tar.gz --dry-run\ntaskledger import ./taskledger-export.json --dry-run",
+          "lower": "use taskledger import --dry-run to validate archive or json payload imports\nwithout mutating local state:\n\ntaskledger import ./taskledger-transfer.tar.gz --dry-run\ntaskledger import ./taskledger-export.json --dry-run"
+        },
+        {
+          "anchor": "",
+          "heading": "Lock policy and next action",
+          "text": "Imported runtime locks are quarantined by default. After import, follow:\n\ntaskledger next-action\ntaskledger implement resume --reason \"Continue imported implementation.\"",
+          "lower": "imported runtime locks are quarantined by default. after import, follow:\n\ntaskledger next-action\ntaskledger implement resume --reason \"continue imported implementation.\""
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical identity",
+          "text": "Archive identity comes from the shared Ledger manifest. Mutable ledger state remains in the canonical data mount. Physical mount paths are not part of the archive record schema.",
+          "lower": "archive identity comes from the shared ledger manifest. mutable ledger state remains in the canonical data mount. physical mount paths are not part of the archive record schema."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/main/usage/",
+      "title": "taskledger Usage",
+      "snippet": "python -m pip install -e .\npython -m pip install -e \".[dev]\"\nAfter installing taskledger, install completion for the current shell:\n\ntaskled …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Installation",
+          "text": "python -m pip install -e .\npython -m pip install -e \".[dev]\"",
+          "lower": "python -m pip install -e .\npython -m pip install -e \".[dev]\""
+        },
+        {
+          "anchor": "",
+          "heading": "Shell completion",
+          "text": "After installing taskledger, install completion for the current shell:\n\ntaskledger --install-completion\n\n\n\n\nTo print the generated completion script without installing it:\n\ntaskledger --show-completion\n\n\n\n\nRestart your shell session after installation.\n\nAgent workflows work best when the taskledger skill is installed in the\ncoding harness. The CLI uses a task-first lifecycle with explicit planning,\napproval, implementation, validation, locks, and handoff gates; without the\nskill, an agent may not know the intended command sequence or gate semantics.",
+          "lower": "after installing taskledger, install completion for the current shell:\n\ntaskledger --install-completion\n\n\n\n\nto print the generated completion script without installing it:\n\ntaskledger --show-completion\n\n\n\n\nrestart your shell session after installation.\n\nagent workflows work best when the taskledger skill is installed in the\ncoding harness. the cli uses a task-first lifecycle with explicit planning,\napproval, implementation, validation, locks, and handoff gates; without the\nskill, an agent may not know the intended command sequence or gate semantics."
+        },
+        {
+          "anchor": "",
+          "heading": "Initialize state",
+          "text": "taskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\ntaskledger init writes taskledger.toml in the workspace root. The\nconfig defaults to taskledger_dir = \".taskledger\" and stores only safe\nbranch-scoped ledger state such as ledger_ref and\nledger_next_task_number. .taskledger/ remains ignored and stores\noperational task state under .taskledger/ledgers/<ledger_ref>/.",
+          "lower": "taskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\ntaskledger init writes taskledger.toml in the workspace root. the\nconfig defaults to taskledger_dir = \".taskledger\" and stores only safe\nbranch-scoped ledger state such as ledger_ref and\nledger_next_task_number. .taskledger/ remains ignored and stores\noperational task state under .taskledger/ledgers/<ledger_ref>/."
+        },
+        {
+          "anchor": "",
+          "heading": "Branch-local task work",
+          "text": "When creating a long-lived Git branch, fork the Taskledger ledger pointer so\nactive task state, plans, todos, events, indexes, and releases stay isolated\nfrom the parent branch:\n\ngit checkout -b feature-a\ntaskledger ledger fork feature-a\ngit add taskledger.toml\n\n\n\n\nWhen Git later restores the parent branch’s taskledger.toml, default\ncommands read the parent ledger again. Duplicate logical IDs such as\ntask-0030 in two ledgers are expected. Use taskledger ledger adopt --from feature-a task-0030 to copy branch-local task history into the current ledger.\nTask-first workflow\n——————-\n\ntaskledger task create rewrite-v2 --description \"Migrate to the task-first design.\"\ntaskledger task activate rewrite-v2\ntaskledger plan start\ntaskledger question add --text \"Should exports include v2?\"\ntaskledger…",
+          "lower": "when creating a long-lived git branch, fork the taskledger ledger pointer so\nactive task state, plans, todos, events, indexes, and releases stay isolated\nfrom the parent branch:\n\ngit checkout -b feature-a\ntaskledger ledger fork feature-a\ngit add taskledger.toml\n\n\n\n\nwhen git later restores the parent branch’s taskledger.toml, default\ncommands read the parent ledger again. duplicate logical ids such as\ntask-0030 in two ledgers are expected. use taskledger ledger adopt --from feature-a task-0030 to copy branch-local task history into the current ledger.\ntask-first workflow\n——————-\n\ntaskledger task create rewrite-v2 --description \"migrate to the task-first design.\"\ntaskledger task activate rewrite-v2\ntaskledger plan start\ntaskledger question add --text \"should exports include v2?\"\ntaskledger…"
+        },
+        {
+          "anchor": "",
+          "heading": "Opaque links and external artifacts",
+          "text": "Taskledger stores task-local work state and opaque links.\nCross-ledger semantics belong to an organizer such as ledgerdeck.\nUse taskledger link or taskledger file for references to external artifacts;\nTaskledger treats those references as opaque and does not interpret them.\n\nLocal IDs remain the stored identity. Global refs are derived as\n<ledger.code>:<local_id>. Canonical output is lowercase colon refs\n(tl:task-0001); uppercase and file-safe forms are accepted aliases.\nTask records must not store global_id.\n\ntaskledger link add --url specs/behavior/features/checkout/payment.feature --label \"behavior spec\"\ntaskledger file link specs/behavior/features/checkout/payment.feature --kind doc --label \"behavior spec\"\ntaskledger validate check --criterion ac-0001 --status pass --evidence \"pytest…",
+          "lower": "taskledger stores task-local work state and opaque links.\ncross-ledger semantics belong to an organizer such as ledgerdeck.\nuse taskledger link or taskledger file for references to external artifacts;\ntaskledger treats those references as opaque and does not interpret them.\n\nlocal ids remain the stored identity. global refs are derived as\n<ledger.code>:<local_id>. canonical output is lowercase colon refs\n(tl:task-0001); uppercase and file-safe forms are accepted aliases.\ntask records must not store global_id.\n\ntaskledger link add --url specs/behavior/features/checkout/payment.feature --label \"behavior spec\"\ntaskledger file link specs/behavior/features/checkout/payment.feature --kind doc --label \"behavior spec\"\ntaskledger validate check --criterion ac-0001 --status pass --evidence \"pytest…"
+        },
+        {
+          "anchor": "",
+          "heading": "Planning guidance profiles",
+          "text": "Taskledger always provides built-in planning guidance via taskledger plan guidance.\nProject-local advisory guidance can extend this with project-specific advice. Configure\nit in the active project config file discovered for your workspace. Newer\nprojects usually use taskledger.toml. Existing projects may still use\n.taskledger.toml; if both files exist, .taskledger.toml is discovered\nfirst.\n\nConfigure [prompt_profiles.planning] in that active config:\n\n[prompt_profiles.planning]\nprofile = \"strict\"\nquestion_policy = \"always_before_plan\"\nmax_required_questions = 3\nmin_acceptance_criteria = 2\ntodo_granularity = \"atomic\"\nrequire_files = true\nrequire_test_commands = true\nrequire_expected_outputs = true\nrequire_validation_hints = true\nplan_body_detail = \"detailed\"\nrequired_question_topics = [\"sco…",
+          "lower": "taskledger always provides built-in planning guidance via taskledger plan guidance.\nproject-local advisory guidance can extend this with project-specific advice. configure\nit in the active project config file discovered for your workspace. newer\nprojects usually use taskledger.toml. existing projects may still use\n.taskledger.toml; if both files exist, .taskledger.toml is discovered\nfirst.\n\nconfigure [prompt_profiles.planning] in that active config:\n\n[prompt_profiles.planning]\nprofile = \"strict\"\nquestion_policy = \"always_before_plan\"\nmax_required_questions = 3\nmin_acceptance_criteria = 2\ntodo_granularity = \"atomic\"\nrequire_files = true\nrequire_test_commands = true\nrequire_expected_outputs = true\nrequire_validation_hints = true\nplan_body_detail = \"detailed\"\nrequired_question_topics = [\"sco…"
+        },
+        {
+          "anchor": "",
+          "heading": "Optional worker pipelines",
+          "text": "Projects may optionally configure worker pipelines in taskledger.toml to\nguide fresh-context handoffs without changing the underlying task lifecycle.\nWorker pipelines are advisory overlays on the existing planning,\nimplementation, and validation lifecycle. They can be three steps, four steps,\nfive steps, or custom. When no worker pipeline is configured, taskledger\nbehavior is unchanged.\n\nExample configuration:\n\n[worker_pipeline]\nenabled = true\nname = \"api-contract-first\"\nmode = \"guided\"\n\n[[worker_pipeline.steps]]\nid = \"planner\"\nlifecycle_stage = \"planning\"\nbase_context = \"planner\"\n\n[[worker_pipeline.steps]]\nid = \"tester\"\nlabel = \"Test Writer\"\nlifecycle_stage = \"implementation\"\nbase_context = \"implementer\"\nactor_role = \"implementer\"\nkind = \"check\"\ndescription = \"Add or update failing tests…",
+          "lower": "projects may optionally configure worker pipelines in taskledger.toml to\nguide fresh-context handoffs without changing the underlying task lifecycle.\nworker pipelines are advisory overlays on the existing planning,\nimplementation, and validation lifecycle. they can be three steps, four steps,\nfive steps, or custom. when no worker pipeline is configured, taskledger\nbehavior is unchanged.\n\nexample configuration:\n\n[worker_pipeline]\nenabled = true\nname = \"api-contract-first\"\nmode = \"guided\"\n\n[[worker_pipeline.steps]]\nid = \"planner\"\nlifecycle_stage = \"planning\"\nbase_context = \"planner\"\n\n[[worker_pipeline.steps]]\nid = \"tester\"\nlabel = \"test writer\"\nlifecycle_stage = \"implementation\"\nbase_context = \"implementer\"\nactor_role = \"implementer\"\nkind = \"check\"\ndescription = \"add or update failing tests…"
+        },
+        {
+          "anchor": "",
+          "heading": "Release boundary tags",
+          "text": "Use taskledger only to record the task boundary for a release. Taskledger does not\nmanage changelog entries or edit CHANGELOG.md; that belongs to the separate\nreleaseledger tool.\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release show 0.4.1\ntaskledger release list\n\n\n\n\nRelease boundaries must point to done tasks. When the user asks for release notes,\nchangelog entries, or CHANGELOG.md updates, use releaseledger. Load both\nskills when cross-ledger release notes need task context.",
+          "lower": "use taskledger only to record the task boundary for a release. taskledger does not\nmanage changelog entries or edit changelog.md; that belongs to the separate\nreleaseledger tool.\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release show 0.4.1\ntaskledger release list\n\n\n\n\nrelease boundaries must point to done tasks. when the user asks for release notes,\nchangelog entries, or changelog.md updates, use releaseledger. load both\nskills when cross-ledger release notes need task context."
+        },
+        {
+          "anchor": "",
+          "heading": "Recording manually completed work",
+          "text": "For work completed outside the task-first lifecycle (operational tasks,\nexploratory work, or manual testing), use task record to create a done\ntask directly without acquiring locks or lifecycle gates. Never use\ntask record as a shortcut for active task management.\n\ntaskledger task record \"Deploy v0.4.1\" --summary \"Deployed to production\" --change \"deploy.sh:run:Updated config\" --evidence \"Monitoring shows no errors\"\ntaskledger task record \"Manual testing\" --summary \"Tested new API endpoints\" --allow-empty-record --reason \"Exploratory testing\"",
+          "lower": "for work completed outside the task-first lifecycle (operational tasks,\nexploratory work, or manual testing), use task record to create a done\ntask directly without acquiring locks or lifecycle gates. never use\ntask record as a shortcut for active task management.\n\ntaskledger task record \"deploy v0.4.1\" --summary \"deployed to production\" --change \"deploy.sh:run:updated config\" --evidence \"monitoring shows no errors\"\ntaskledger task record \"manual testing\" --summary \"tested new api endpoints\" --allow-empty-record --reason \"exploratory testing\""
+        },
+        {
+          "anchor": "",
+          "heading": "Archiving tasks",
+          "text": "Archiving hides tasks from default list/tree/dashboard views without deleting\nhistory. It is a visibility operation, not an export archive operation.\n\ntaskledger task archive task-0030 --reason \"Hide historical task\"\ntaskledger task list --archived\ntaskledger task unarchive task-0030 --reason \"Reopen historical task\" --slug task-0030-reopened\ntaskledger tree --include-archived",
+          "lower": "archiving hides tasks from default list/tree/dashboard views without deleting\nhistory. it is a visibility operation, not an export archive operation.\n\ntaskledger task archive task-0030 --reason \"hide historical task\"\ntaskledger task list --archived\ntaskledger task unarchive task-0030 --reason \"reopen historical task\" --slug task-0030-reopened\ntaskledger tree --include-archived"
+        },
+        {
+          "anchor": "",
+          "heading": "Post-completion follow-up deltas",
+          "text": "When a task is already done and the user requests a small later change, do\nnot reopen the completed task. Create a follow-up task linked to the completed\nparent and run the normal lifecycle on that child:\n\ntaskledger task follow-up rewrite-v2 \"Rename submit label\" --description \"Small post-completion delta.\" --activate\ntaskledger plan start\ntaskledger plan upsert --file ./plan.md\ntaskledger plan review --version 1\ntaskledger plan accept --version 1 --note \"Ready.\"\ntaskledger implement start\ntaskledger validate start\n\n\n\n\ntask follow-up keeps done terminal on the parent task while preserving a\ntraceable child record for the new delta.",
+          "lower": "when a task is already done and the user requests a small later change, do\nnot reopen the completed task. create a follow-up task linked to the completed\nparent and run the normal lifecycle on that child:\n\ntaskledger task follow-up rewrite-v2 \"rename submit label\" --description \"small post-completion delta.\" --activate\ntaskledger plan start\ntaskledger plan upsert --file ./plan.md\ntaskledger plan review --version 1\ntaskledger plan accept --version 1 --note \"ready.\"\ntaskledger implement start\ntaskledger validate start\n\n\n\n\ntask follow-up keeps done terminal on the parent task while preserving a\ntraceable child record for the new delta."
+        },
+        {
+          "anchor": "",
+          "heading": "Fresh-context entrypoint",
+          "text": "Use taskledger next-action before a broad context read when you need the\nnext concrete work item instead of a generic stage summary.\n\ntaskledger next-action\ntaskledger --json next-action\n\n\n\n\nHuman output now names the next question, todo, criterion, or repair step and\nincludes the primary command hint. JSON output preserves the existing\ntask_next_action fields and also includes next_item, commands, and\nprogress.\n\nAgents should inspect next_item first, run next_command when it is safe,\navoid inventing question answers, and only mark todos done after evidence exists.\n\nIf next-action reports an orphaned implementation state or an active lock\nrecovery situation, inspect the task and lock first, then choose the recovery\npath that matches the lock state:\n\ntaskledger task show\ntaskledger task sh…",
+          "lower": "use taskledger next-action before a broad context read when you need the\nnext concrete work item instead of a generic stage summary.\n\ntaskledger next-action\ntaskledger --json next-action\n\n\n\n\nhuman output now names the next question, todo, criterion, or repair step and\nincludes the primary command hint. json output preserves the existing\ntask_next_action fields and also includes next_item, commands, and\nprogress.\n\nagents should inspect next_item first, run next_command when it is safe,\navoid inventing question answers, and only mark todos done after evidence exists.\n\nif next-action reports an orphaned implementation state or an active lock\nrecovery situation, inspect the task and lock first, then choose the recovery\npath that matches the lock state:\n\ntaskledger task show\ntaskledger task sh…"
+        },
+        {
+          "anchor": "",
+          "heading": "Compact implementation loop",
+          "text": "For routine same-session implementation, prefer next-action and the next todo\nover a broad generated context read:\n\ntaskledger --json next-action\ntaskledger --json todo next\ntaskledger todo show todo-0003\n# implement only that todo\npytest tests/...\ntaskledger todo done todo-0003 --evidence \"pytest tests/... passed\"\ntaskledger --json next-action\n\n\n\n\nRules for agents:\n\n\nInstall the taskledger skill in the coding harness before relying on agent-driven workflows.\n\n\nPrefer next-action and todo next over generated context during normal work.\n\n\nUse the todo validation_hint before marking a todo done.\n\n\nRecord concise evidence with todo done.\n\n\nDo not create handoffs or context bundles unless the user asked to switch harness or session.",
+          "lower": "for routine same-session implementation, prefer next-action and the next todo\nover a broad generated context read:\n\ntaskledger --json next-action\ntaskledger --json todo next\ntaskledger todo show todo-0003\n# implement only that todo\npytest tests/...\ntaskledger todo done todo-0003 --evidence \"pytest tests/... passed\"\ntaskledger --json next-action\n\n\n\n\nrules for agents:\n\n\ninstall the taskledger skill in the coding harness before relying on agent-driven workflows.\n\n\nprefer next-action and todo next over generated context during normal work.\n\n\nuse the todo validation_hint before marking a todo done.\n\n\nrecord concise evidence with todo done.\n\n\ndo not create handoffs or context bundles unless the user asked to switch harness or session."
+        },
+        {
+          "anchor": "",
+          "heading": "Fresh-session startup and monitoring",
+          "text": "Use taskledger usage as the compact startup command for a fresh coding-agent\nsession:\n\ntaskledger usage\ntaskledger --json usage\ntaskledger usage -q\ntaskledger usage --task task-0040\n\n\n\n\nusage is read-only. It summarizes actor/harness identity, active work,\nclaimable handoffs, review-ready items, stale locks, open questions, and ready\ntasks. JSON output preserves the existing envelope and returns\nresult.kind == \"usage\".\n\ntaskledger monitor replaces the removed browser/TUI surfaces with a\ndependency-free terminal snapshot:\n\ntaskledger monitor --once\ntaskledger monitor --refresh-seconds 2\ntaskledger monitor --task task-0040\ntaskledger --json monitor --once\n\n\n\n\nmonitor is read-only, works on narrow terminals such as Termux, and keeps\nusing taskledger’s normal read models instead of introducin…",
+          "lower": "use taskledger usage as the compact startup command for a fresh coding-agent\nsession:\n\ntaskledger usage\ntaskledger --json usage\ntaskledger usage -q\ntaskledger usage --task task-0040\n\n\n\n\nusage is read-only. it summarizes actor/harness identity, active work,\nclaimable handoffs, review-ready items, stale locks, open questions, and ready\ntasks. json output preserves the existing envelope and returns\nresult.kind == \"usage\".\n\ntaskledger monitor replaces the removed browser/tui surfaces with a\ndependency-free terminal snapshot:\n\ntaskledger monitor --once\ntaskledger monitor --refresh-seconds 2\ntaskledger monitor --task task-0040\ntaskledger --json monitor --once\n\n\n\n\nmonitor is read-only, works on narrow terminals such as termux, and keeps\nusing taskledger’s normal read models instead of introducin…"
+        },
+        {
+          "anchor": "",
+          "heading": "Linked file baselines and drift",
+          "text": "Linked files can now capture a baseline snapshot and later report drift:\n\ntaskledger file link task-0040 src/foo.py --kind code --snapshot\ntaskledger file status task-0040\ntaskledger file refresh task-0040 src/foo.py --reason \"Rebaseline after accepted implementation\"\n\n\n\n\nfile status reports new, modified, deleted, unchanged, and\nunbaselined states. It also keeps context: canonical fresh continuation\ncontext and handoff show as the richer advanced/compatibility read\nsurfaces when broader state transfer is needed.\n\ntask report generates a human-readable Markdown report for a single task.\nIt is for humans who want to review, archive, or share a task outside the terminal.\n\ntaskledger task report --task task-0030 -o task30.md\ntaskledger task report --preset planning --without todos -o plan-re…",
+          "lower": "linked files can now capture a baseline snapshot and later report drift:\n\ntaskledger file link task-0040 src/foo.py --kind code --snapshot\ntaskledger file status task-0040\ntaskledger file refresh task-0040 src/foo.py --reason \"rebaseline after accepted implementation\"\n\n\n\n\nfile status reports new, modified, deleted, unchanged, and\nunbaselined states. it also keeps context: canonical fresh continuation\ncontext and handoff show as the richer advanced/compatibility read\nsurfaces when broader state transfer is needed.\n\ntask report generates a human-readable markdown report for a single task.\nit is for humans who want to review, archive, or share a task outside the terminal.\n\ntaskledger task report --task task-0030 -o task30.md\ntaskledger task report --preset planning --without todos -o plan-re…"
+        },
+        {
+          "anchor": "",
+          "heading": "Machine-readable output",
+          "text": "taskledger --json status --full\ntaskledger --json task active\ntaskledger --json task show\ntaskledger --json task show task-0001\ntaskledger --json context --for validation --format json\ntaskledger --json review list --task task-0001\n\n\n\n\n{\n  \"ok\": true,\n  \"command\": \"status\",\n  \"result\": {\n    \"kind\": \"taskledger_status\",\n    \"workspace_root\": \"/workspace\",\n    \"config_path\": \"/workspace/taskledger.toml\",\n    \"taskledger_dir\": \"/workspace/.taskledger\",\n    \"project_dir\": \"/workspace/.taskledger\",\n    \"counts\": {\n      \"tasks\": 1,\n      \"introductions\": 0,\n      \"plans\": 1,\n      \"questions\": 1,\n      \"runs\": 2,\n      \"changes\": 1,\n      \"locks\": 0\n    },\n    \"active_task\": null,\n    \"healthy\": true\n  },\n  \"events\": []\n}",
+          "lower": "taskledger --json status --full\ntaskledger --json task active\ntaskledger --json task show\ntaskledger --json task show task-0001\ntaskledger --json context --for validation --format json\ntaskledger --json review list --task task-0001\n\n\n\n\n{\n  \"ok\": true,\n  \"command\": \"status\",\n  \"result\": {\n    \"kind\": \"taskledger_status\",\n    \"workspace_root\": \"/workspace\",\n    \"config_path\": \"/workspace/taskledger.toml\",\n    \"taskledger_dir\": \"/workspace/.taskledger\",\n    \"project_dir\": \"/workspace/.taskledger\",\n    \"counts\": {\n      \"tasks\": 1,\n      \"introductions\": 0,\n      \"plans\": 1,\n      \"questions\": 1,\n      \"runs\": 2,\n      \"changes\": 1,\n      \"locks\": 0\n    },\n    \"active_task\": null,\n    \"healthy\": true\n  },\n  \"events\": []\n}"
+        },
+        {
+          "anchor": "",
+          "heading": "Cloud-backed storage",
+          "text": "Use one storage root per source project:\n\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\nDo not point two unrelated repositories at the same taskledger_dir.\nSee Sync taskledger state across PCs for the recommended private-Git workflow when you want to use\nthe same Taskledger state across multiple PCs without committing .taskledger/.",
+          "lower": "use one storage root per source project:\n\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\ndo not point two unrelated repositories at the same taskledger_dir.\nsee sync taskledger state across pcs for the recommended private-git workflow when you want to use\nthe same taskledger state across multiple pcs without committing .taskledger/."
+        },
+        {
+          "anchor": "",
+          "heading": "Integrity and recovery",
+          "text": "taskledger doctor\ntaskledger doctor locks\ntaskledger lock show\ntaskledger repair lock --reason \"recover stale planning lock\"\ntaskledger implement resume --reason \"Reacquire implementation lock for existing running run.\"\ntaskledger task uncancel --task TASK_REF --reason \"Restore the task to a safe durable stage.\"\ntaskledger next-action\ntaskledger repair index",
+          "lower": "taskledger doctor\ntaskledger doctor locks\ntaskledger lock show\ntaskledger repair lock --reason \"recover stale planning lock\"\ntaskledger implement resume --reason \"reacquire implementation lock for existing running run.\"\ntaskledger task uncancel --task task_ref --reason \"restore the task to a safe durable stage.\"\ntaskledger next-action\ntaskledger repair index"
+        },
+        {
+          "anchor": "",
+          "heading": "Export and snapshots",
+          "text": "taskledger init --project-name \"Taskledger\"\ntaskledger export\ntaskledger export --task task-0040\ntaskledger export task-0040\ntaskledger sync export --output ./taskledger-transfer.tar.gz\ntaskledger import ./taskledger-transfer.tar.gz --dry-run\ntaskledger sync import ./taskledger-transfer.tar.gz --dry-run\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz --id-policy fail-on-conflict\ntaskledger import ./taskledger-transfer.tar.gz --replace\n\n\n\n\nFor private multi-PC full-state sync with external storage, use:\n\ntaskledger sync git init --repo ../taskledger-state --project-path project-a\ntaskledger sync git status\ntaskledger sync git pull\ntaskledger sync git push\ntaskledger s…",
+          "lower": "taskledger init --project-name \"taskledger\"\ntaskledger export\ntaskledger export --task task-0040\ntaskledger export task-0040\ntaskledger sync export --output ./taskledger-transfer.tar.gz\ntaskledger import ./taskledger-transfer.tar.gz --dry-run\ntaskledger sync import ./taskledger-transfer.tar.gz --dry-run\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509t101500z.tar.gz\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509t101500z.tar.gz --id-policy fail-on-conflict\ntaskledger import ./taskledger-transfer.tar.gz --replace\n\n\n\n\nfor private multi-pc full-state sync with external storage, use:\n\ntaskledger sync git init --repo ../taskledger-state --project-path project-a\ntaskledger sync git status\ntaskledger sync git pull\ntaskledger sync git push\ntaskledger s…"
+        },
+        {
+          "anchor": "",
+          "heading": "Single-task transfer from a config-only checkout",
+          "text": "# fresh checkout on another PC\ntaskledger init\ntaskledger task create \"Fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan / implementation / validation lifecycle ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz\ntaskledger task list\ntaskledger task show task-0040",
+          "lower": "# fresh checkout on another pc\ntaskledger init\ntaskledger task create \"fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan / implementation / validation lifecycle ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509t101500z.tar.gz\ntaskledger task list\ntaskledger task show task-0040"
+        },
+        {
+          "anchor": "",
+          "heading": "Task-centered traceability",
+          "text": "Taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\nCross-ledger links are opaque file or ID references.\n\nUse taskledger trace TASK --format json to emit a read-only\ntaskledger.trace.v1 task bundle. The bundle links task IDs, accepted AC IDs,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nEvidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ....",
+          "lower": "taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\ncross-ledger links are opaque file or id references.\n\nuse taskledger trace task --format json to emit a read-only\ntaskledger.trace.v1 task bundle. the bundle links task ids, accepted ac ids,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nevidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ...."
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical project layout",
+          "text": "Taskledger uses .ledger/ledger.toml and .ledger/task/config.toml. Plain init resolves authoritative data under .ledger; explicit sibling storage uses --sibling-ledger-root PATH and isolates data under PATH/taskledger/<project-uuid>. taskledger storage where reports the resolved data and indexes mounts. Use taskledger storage path data|indexes for one mount without initializing lazy mounts.",
+          "lower": "taskledger uses .ledger/ledger.toml and .ledger/task/config.toml. plain init resolves authoritative data under .ledger; explicit sibling storage uses --sibling-ledger-root path and isolates data under path/taskledger/<project-uuid>. taskledger storage where reports the resolved data and indexes mounts. use taskledger storage path data|indexes for one mount without initializing lazy mounts."
+        }
+      ]
+    }
+  ]
+}

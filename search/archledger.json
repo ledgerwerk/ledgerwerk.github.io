@@ -1,0 +1,351 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "archledger",
+  "entries": [
+    {
+      "url": "/tools/archledger/agent-workflow/",
+      "title": "archledger Agent workflow",
+      "snippet": "Use this workflow when an agent is updating Archledger-managed architecture records.\nRun these commands independently instead of chaining th …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Agent workflow",
+          "text": "Use this workflow when an agent is updating Archledger-managed architecture records.",
+          "lower": "use this workflow when an agent is updating archledger-managed architecture records."
+        },
+        {
+          "anchor": "",
+          "heading": "Independent preflight",
+          "text": "Run these commands independently instead of chaining them with &&, because check may intentionally fail and should not block later diagnostics:\n\n\narchledger --json paths\n\n\narchledger --json status\n\n\narchledger --json check\n\n\n\nFor machine extraction from either success or failure payloads:\n\narchledger --json check | jq '(.result // .error.details) | {errors, warnings}'",
+          "lower": "run these commands independently instead of chaining them with &&, because check may intentionally fail and should not block later diagnostics:\n\n\narchledger --json paths\n\n\narchledger --json status\n\n\narchledger --json check\n\n\n\nfor machine extraction from either success or failure payloads:\n\narchledger --json check | jq '(.result // .error.details) | {errors, warnings}'"
+        },
+        {
+          "anchor": "",
+          "heading": "Migration branch",
+          "text": "If check reports legacy IDs or legacy timestamp metadata:\n\narchledger --json migrate ids --to ledgercore\narchledger --json migrate metadata --to versioned\n\n\n\n\nApply the migrations only after the surrounding change is approved:\n\narchledger --json migrate ids --to ledgercore --apply\narchledger --json migrate metadata --to versioned --apply\n\n\n\n\nRe-run archledger --json check before content edits.",
+          "lower": "if check reports legacy ids or legacy timestamp metadata:\n\narchledger --json migrate ids --to ledgercore\narchledger --json migrate metadata --to versioned\n\n\n\n\napply the migrations only after the surrounding change is approved:\n\narchledger --json migrate ids --to ledgercore --apply\narchledger --json migrate metadata --to versioned --apply\n\n\n\n\nre-run archledger --json check before content edits."
+        },
+        {
+          "anchor": "",
+          "heading": "Impact and context",
+          "text": "For broad refreshes:\n\n\narchledger --json source changed\n\n\narchledger --json read --body --include-drafts\n\n\n\nPrefer narrower reads when possible:\n\n\narchledger --json context --changed\n\n\narchledger --json context --for-file PATH\n\n\narchledger --json trace RECORD_ID\n\n\narchledger --json read --section SECTION --body\n\n\narchledger --json read --kind KIND --body",
+          "lower": "for broad refreshes:\n\n\narchledger --json source changed\n\n\narchledger --json read --body --include-drafts\n\n\n\nprefer narrower reads when possible:\n\n\narchledger --json context --changed\n\n\narchledger --json context --for-file path\n\n\narchledger --json trace record_id\n\n\narchledger --json read --section section --body\n\n\narchledger --json read --kind kind --body"
+        },
+        {
+          "anchor": "",
+          "heading": "Mutation rules",
+          "text": "Edit only source fragments under archledger_dir/sections and archledger_dir/records.\n\n\nPrefer Archledger mutation commands so record versions stay consistent.\n\n\nUse archledger record body set RECORD_ID --from-file /tmp/body.md for substantial body updates.\n\n\nFor list or object metadata, use --json-value.\n\n\nFor raw strings that begin with option-like prefixes such as --json, use --string-value.\n\n\nDo not pass semicolon-delimited strings to list-valued fields.\n\n\nDo not mutate archived records merely to silence live completeness warnings.",
+          "lower": "edit only source fragments under archledger_dir/sections and archledger_dir/records.\n\n\nprefer archledger mutation commands so record versions stay consistent.\n\n\nuse archledger record body set record_id --from-file /tmp/body.md for substantial body updates.\n\n\nfor list or object metadata, use --json-value.\n\n\nfor raw strings that begin with option-like prefixes such as --json, use --string-value.\n\n\ndo not pass semicolon-delimited strings to list-valued fields.\n\n\ndo not mutate archived records merely to silence live completeness warnings."
+        },
+        {
+          "anchor": "",
+          "heading": "Record creation",
+          "text": "IDs use one ledger-wide numeric sequence. Do not predict the next ID. Capture the returned result.id from:\n\narchledger --json new KIND \"Title\"",
+          "lower": "ids use one ledger-wide numeric sequence. do not predict the next id. capture the returned result.id from:\n\narchledger --json new kind \"title\""
+        },
+        {
+          "anchor": "",
+          "heading": "Final gates",
+          "text": "Before finalizing updates:\n\n\narchledger --json check --strict\n\n\narchledger --json source changed --fail-on-unlinked\n\n\nRun project-specific tests that validate the documented boundaries.\n\n\nBuild only when the user needs an exported artifact.\n\n\nRun archledger --json source snapshot --reason after-archledger-update after updates are validated.",
+          "lower": "before finalizing updates:\n\n\narchledger --json check --strict\n\n\narchledger --json source changed --fail-on-unlinked\n\n\nrun project-specific tests that validate the documented boundaries.\n\n\nbuild only when the user needs an exported artifact.\n\n\nrun archledger --json source snapshot --reason after-archledger-update after updates are validated."
+        },
+        {
+          "anchor": "",
+          "heading": "Rules",
+          "text": "Treat the fragment tree as the source of truth.\n\n\nDo not edit generated build output as source.\n\n\nAdd source_refs when a fragment describes concrete implementation artifacts.\n\n\nKeep external references generic; Archledger stores links but does not resolve external semantics.",
+          "lower": "treat the fragment tree as the source of truth.\n\n\ndo not edit generated build output as source.\n\n\nadd source_refs when a fragment describes concrete implementation artifacts.\n\n\nkeep external references generic; archledger stores links but does not resolve external semantics."
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/api/",
+      "title": "archledger API reference",
+      "snippet": ".. py:module:: archledger.repository\n\n.. py:class:: InitResult(workspace_root: ‘Path’, config_path: ‘Path’, archledger_dir: ‘Path’, created_ …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "API reference",
+          "text": ".. py:module:: archledger.repository\n\n.. py:class:: InitResult(workspace_root: ‘Path’, config_path: ‘Path’, archledger_dir: ‘Path’, created_paths: ‘tuple[Path, …]’)\n:module: archledger.repository\n\n.. py:attribute:: InitResult.workspace_root\n:module: archledger.repository\n:type: ~pathlib.Path\n\n.. py:attribute:: InitResult.config_path\n:module: archledger.repository\n:type: ~pathlib.Path\n\n.. py:attribute:: InitResult.archledger_dir\n:module: archledger.repository\n:type: ~pathlib.Path\n\n.. py:attribute:: InitResult.created_paths\n:module: archledger.repository\n:type: tuple[~pathlib.Path, …]\n\n.. py:method:: InitResult.init(workspace_root: ~pathlib.Path, config_path: ~pathlib.Path, archledger_dir: ~pathlib.Path, created_paths: tuple[~pathlib.Path, …]) -> None\n:module: archledger.repository\n\n.. py:c…",
+          "lower": ".. py:module:: archledger.repository\n\n.. py:class:: initresult(workspace_root: ‘path’, config_path: ‘path’, archledger_dir: ‘path’, created_paths: ‘tuple[path, …]’)\n:module: archledger.repository\n\n.. py:attribute:: initresult.workspace_root\n:module: archledger.repository\n:type: ~pathlib.path\n\n.. py:attribute:: initresult.config_path\n:module: archledger.repository\n:type: ~pathlib.path\n\n.. py:attribute:: initresult.archledger_dir\n:module: archledger.repository\n:type: ~pathlib.path\n\n.. py:attribute:: initresult.created_paths\n:module: archledger.repository\n:type: tuple[~pathlib.path, …]\n\n.. py:method:: initresult.init(workspace_root: ~pathlib.path, config_path: ~pathlib.path, archledger_dir: ~pathlib.path, created_paths: tuple[~pathlib.path, …]) -> none\n:module: archledger.repository\n\n.. py:c…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/build-and-export/",
+      "title": "archledger Build and export",
+      "snippet": "archledger build --format markdown\narchledger build --format asciidoc\n\n\n\n\n[build].default_output_dir is relative to the directory containing …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Native builds",
+          "text": "archledger build --format markdown\narchledger build --format asciidoc\n\n\n\n\n[build].default_output_dir is relative to the directory containing\narchledger.toml or .archledger.toml. New projects default to build/\nunder the workspace root, and projects may override this path.",
+          "lower": "archledger build --format markdown\narchledger build --format asciidoc\n\n\n\n\n[build].default_output_dir is relative to the directory containing\narchledger.toml or .archledger.toml. new projects default to build/\nunder the workspace root, and projects may override this path."
+        },
+        {
+          "anchor": "",
+          "heading": "Converter-backed exports",
+          "text": "Markdown source uses pandoc for HTML, DOCX, RST, Textile, PDF, and AsciiDoc.\n\n\nAsciiDoc source uses asciidoctor for HTML.\n\n\nAsciiDoc source uses asciidoctor-pdf for PDF.\n\n\nAsciiDoc source uses Asciidoctor DocBook plus pandoc for DOCX, Markdown, RST, and Textile.\n\n\n\nThese export paths are supported when the external tools are installed and the\ncorresponding integration checks pass. Native Markdown and AsciiDoc assembly\nremain the lowest-friction path because they do not depend on external converters.",
+          "lower": "markdown source uses pandoc for html, docx, rst, textile, pdf, and asciidoc.\n\n\nasciidoc source uses asciidoctor for html.\n\n\nasciidoc source uses asciidoctor-pdf for pdf.\n\n\nasciidoc source uses asciidoctor docbook plus pandoc for docx, markdown, rst, and textile.\n\n\n\nthese export paths are supported when the external tools are installed and the\ncorresponding integration checks pass. native markdown and asciidoc assembly\nremain the lowest-friction path because they do not depend on external converters."
+        },
+        {
+          "anchor": "",
+          "heading": "Diagram records",
+          "text": "Diagram records are plain text by default. Dense architecture diagrams should use\ndiagram_type = \"text\" or \"unicode\" so they remain readable in source,\nGit diffs, terminal output, and native Markdown/AsciiDoc builds. Mermaid remains\navailable for compact sequence or flow diagrams, but it is not the default.\n\nSupported diagram_type values: text (default), ascii, unicode,\nsvgbob, mermaid.\n\nNative builds preserve text diagram blocks as readable fenced code blocks or\nliteral blocks — no external tool is required.\n\nOptional materialization for converter-backed outputs can be enabled with:\n\n[diagrams]\nenabled = true\nrenderer = \"mermaid-cli\"\ndefault_type = \"text\"\noutput_dir = \"diagrams\"\nimage_format = \"svg\"\nkroki_url = \"\"\n\n\n\n\nNotes:\n\n\nrenderer = \"pass-through\" keeps diagram blocks unchanged (def…",
+          "lower": "diagram records are plain text by default. dense architecture diagrams should use\ndiagram_type = \"text\" or \"unicode\" so they remain readable in source,\ngit diffs, terminal output, and native markdown/asciidoc builds. mermaid remains\navailable for compact sequence or flow diagrams, but it is not the default.\n\nsupported diagram_type values: text (default), ascii, unicode,\nsvgbob, mermaid.\n\nnative builds preserve text diagram blocks as readable fenced code blocks or\nliteral blocks — no external tool is required.\n\noptional materialization for converter-backed outputs can be enabled with:\n\n[diagrams]\nenabled = true\nrenderer = \"mermaid-cli\"\ndefault_type = \"text\"\noutput_dir = \"diagrams\"\nimage_format = \"svg\"\nkroki_url = \"\"\n\n\n\n\nnotes:\n\n\nrenderer = \"pass-through\" keeps diagram blocks unchanged (def…"
+        },
+        {
+          "anchor": "",
+          "heading": "Source migration",
+          "text": "source convert migrates Markdown-source projects to AsciiDoc-source projects.\nWrite mode is strict by default and requires pandoc:\n\narchledger source convert --to asciidoc --apply\n\n\n\n\nFor an explicit temporary mixed-body migration:\n\narchledger source convert --to asciidoc --apply --allow-mixed-body-format",
+          "lower": "source convert migrates markdown-source projects to asciidoc-source projects.\nwrite mode is strict by default and requires pandoc:\n\narchledger source convert --to asciidoc --apply\n\n\n\n\nfor an explicit temporary mixed-body migration:\n\narchledger source convert --to asciidoc --apply --allow-mixed-body-format"
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/cli/",
+      "title": "archledger CLI guide",
+      "snippet": "--json is a global option, so place it before the subcommand:\narchledger --json read ... rather than archledger read --json.\nArchledger is a …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "CLI guide",
+          "text": "--json is a global option, so place it before the subcommand:\narchledger --json read ... rather than archledger read --json.",
+          "lower": "--json is a global option, so place it before the subcommand:\narchledger --json read ... rather than archledger read --json."
+        },
+        {
+          "anchor": "",
+          "heading": "Ledger boundary",
+          "text": "Archledger is an isolated architecture ledger. It stores architecture records,\nrecord links, and source references. It does not import/export behavior specs,\nenforce SDD policy, or coordinate external ledgers.\n\nUse context and trace for architecture retrieval, check for ledger\nvalidation, source for change tracking, and mutation commands under\nrecord, refs, links, and ac. JSON Schemas are returned with\nschema --format jsonschema --target TARGET. install creates optional\nintegration scaffolds and refuses overwrites unless --force is supplied.",
+          "lower": "archledger is an isolated architecture ledger. it stores architecture records,\nrecord links, and source references. it does not import/export behavior specs,\nenforce sdd policy, or coordinate external ledgers.\n\nuse context and trace for architecture retrieval, check for ledger\nvalidation, source for change tracking, and mutation commands under\nrecord, refs, links, and ac. json schemas are returned with\nschema --format jsonschema --target target. install creates optional\nintegration scaffolds and refuses overwrites unless --force is supplied."
+        },
+        {
+          "anchor": "",
+          "heading": "init — Initialize a workspace",
+          "text": "Creates archledger.toml, the state directory, section stubs, record-type\nsubdirectories, and storage.yaml in one step.\n\nFails if a config file already exists in the target workspace.",
+          "lower": "creates archledger.toml, the state directory, section stubs, record-type\nsubdirectories, and storage.yaml in one step.\n\nfails if a config file already exists in the target workspace."
+        },
+        {
+          "anchor": "",
+          "heading": "Synopsis",
+          "text": "archledger init [OPTIONS]",
+          "lower": "archledger init [options]"
+        },
+        {
+          "anchor": "",
+          "heading": "Quick start",
+          "text": "# Markdown project\narchledger init --source-format markdown\n\n# AsciiDoc project (default when --source-format is omitted)\narchledger init --source-format asciidoc",
+          "lower": "# markdown project\narchledger init --source-format markdown\n\n# asciidoc project (default when --source-format is omitted)\narchledger init --source-format asciidoc"
+        },
+        {
+          "anchor": "",
+          "heading": "What init creates",
+          "text": "Running init produces:\n\n\narchledger.toml — project configuration (see Configuration)\n\n\n<archledger-dir>/ — state directory (default .archledger)\n\n\n<archledger-dir>/sections/ — 12 arc42 section stubs (default al_0001 through al_0012)\n\n\n<archledger-dir>/records/ — typed subdirectories:\n\nbuilding_blocks, concepts, constraints, contexts,\ndecisions, deployment, diagrams, glossary,\nquality_goals, quality_requirements, quality_scenarios,\nrequirements, risks, runtime, stakeholders, strategy\n\n\n\n<archledger-dir>/archive/ — for archived records\n\n\n<archledger-dir>/build/ — default build output directory\n\n\n<archledger-dir>/storage.yaml — ledger counter state\n\n\n\nSection files are numbered by configured [ids] format (default al_0001 through al_0012) matching the 12\nmajor arc42 sections:\n\n\nIntroduction a…",
+          "lower": "running init produces:\n\n\narchledger.toml — project configuration (see configuration)\n\n\n<archledger-dir>/ — state directory (default .archledger)\n\n\n<archledger-dir>/sections/ — 12 arc42 section stubs (default al_0001 through al_0012)\n\n\n<archledger-dir>/records/ — typed subdirectories:\n\nbuilding_blocks, concepts, constraints, contexts,\ndecisions, deployment, diagrams, glossary,\nquality_goals, quality_requirements, quality_scenarios,\nrequirements, risks, runtime, stakeholders, strategy\n\n\n\n<archledger-dir>/archive/ — for archived records\n\n\n<archledger-dir>/build/ — default build output directory\n\n\n<archledger-dir>/storage.yaml — ledger counter state\n\n\n\nsection files are numbered by configured [ids] format (default al_0001 through al_0012) matching the 12\nmajor arc42 sections:\n\n\nintroduction a…"
+        },
+        {
+          "anchor": "",
+          "heading": "Core options",
+          "text": "--source-format FORMAT\nCanonical source dialect: markdown or asciidoc.\nDefault: asciidoc.\nDetermines file extensions, default build output name, and template\nrendering for all generated section stubs.\n\n--archledger-dir PATH\nState directory to create, relative to the config path unless absolute.\nDefault: .archledger.\nUse an absolute path to store state outside the project tree.\n\n--project-name TEXT\nStable project identity stored in archledger.toml.\nDefaults to the workspace directory basename (slug-normalized).\n\n--project-uuid TEXT\nStable project UUID. Auto-generated when omitted.\nMust be a valid UUID format.\n\n--id-prefix TEXT\nLedger ID prefix for generated section/record IDs (for example al or ta).\nDefault: al.\n\n--id-width N\nMinimum digit width for generated ledger IDs.\nDefault: 4.\n\n--id-…",
+          "lower": "--source-format format\ncanonical source dialect: markdown or asciidoc.\ndefault: asciidoc.\ndetermines file extensions, default build output name, and template\nrendering for all generated section stubs.\n\n--archledger-dir path\nstate directory to create, relative to the config path unless absolute.\ndefault: .archledger.\nuse an absolute path to store state outside the project tree.\n\n--project-name text\nstable project identity stored in archledger.toml.\ndefaults to the workspace directory basename (slug-normalized).\n\n--project-uuid text\nstable project uuid. auto-generated when omitted.\nmust be a valid uuid format.\n\n--id-prefix text\nledger id prefix for generated section/record ids (for example al or ta).\ndefault: al.\n\n--id-width n\nminimum digit width for generated ledger ids.\ndefault: 4.\n\n--id-…"
+        },
+        {
+          "anchor": "",
+          "heading": "Build options",
+          "text": "--build-default-format FORMAT\nDefault build output format: markdown, asciidoc, pdf, or docx.\nWhen omitted, defaults to the source format.\n\n--build-default-output FILENAME\nDefault build output filename.\nWhen omitted, defaults to architecture.<ext> matching the source format.\n\n--build-default-output-dir DIR\nBuild output directory, relative to the config path.\nDefault: build.\n\n--build-include-draft\nInclude draft records in build output.\n\n--build-include-superseded\nInclude superseded records in build output.\n\n--build-strict\nEnable strict build mode.\n\n--build-keep-intermediate\nKeep intermediate build files.\n\n--build-converter TOOL\nBuild converter tool: auto, pandoc, or asciidoctor.\nDefault: auto.\n\n--build-pdf-engine ENGINE\nPDF engine for pandoc builds.\n\n--build-reference-docx PATH\nReference do…",
+          "lower": "--build-default-format format\ndefault build output format: markdown, asciidoc, pdf, or docx.\nwhen omitted, defaults to the source format.\n\n--build-default-output filename\ndefault build output filename.\nwhen omitted, defaults to architecture.<ext> matching the source format.\n\n--build-default-output-dir dir\nbuild output directory, relative to the config path.\ndefault: build.\n\n--build-include-draft\ninclude draft records in build output.\n\n--build-include-superseded\ninclude superseded records in build output.\n\n--build-strict\nenable strict build mode.\n\n--build-keep-intermediate\nkeep intermediate build files.\n\n--build-converter tool\nbuild converter tool: auto, pandoc, or asciidoctor.\ndefault: auto.\n\n--build-pdf-engine engine\npdf engine for pandoc builds.\n\n--build-reference-docx path\nreference do…"
+        },
+        {
+          "anchor": "",
+          "heading": "Diagram options",
+          "text": "--diagrams / --no-diagrams\nEnable diagram support.\nDefault: --no-diagrams.\n\n--diagram-renderer RENDERER\nDiagram renderer: pass-through, mermaid-cli, or\nasciidoctor-diagram.\nDefault: pass-through.\n\n--diagram-default-type TYPE\nDefault diagram type: text, ascii, unicode, svgbob, or\nmermaid.\nDefault: text.\n\n--diagram-output-dir DIR\nDiagram output directory.\nDefault: diagrams.\n\n--diagram-image-format FORMAT\nDiagram image format: svg or png.\nDefault: svg.\n\n--diagram-kroki-url URL\nKroki server URL (reserved for future renderers).",
+          "lower": "--diagrams / --no-diagrams\nenable diagram support.\ndefault: --no-diagrams.\n\n--diagram-renderer renderer\ndiagram renderer: pass-through, mermaid-cli, or\nasciidoctor-diagram.\ndefault: pass-through.\n\n--diagram-default-type type\ndefault diagram type: text, ascii, unicode, svgbob, or\nmermaid.\ndefault: text.\n\n--diagram-output-dir dir\ndiagram output directory.\ndefault: diagrams.\n\n--diagram-image-format format\ndiagram image format: svg or png.\ndefault: svg.\n\n--diagram-kroki-url url\nkroki server url (reserved for future renderers)."
+        },
+        {
+          "anchor": "",
+          "heading": "arc42 options",
+          "text": "--arc42-title TEXT\narc42 template title.\nDefault: Architecture Documentation.\n\n--arc42-language CODE\narc42 template language.\nDefault: en.\n\n--arc42-template-version VERSION\narc42 template version.\nDefault: 9.0-EN.\n\n--arc42-include-help / --no-arc42-include-help\nInclude arc42 help sections in generated section stubs.\nDefault: --no-arc42-include-help.",
+          "lower": "--arc42-title text\narc42 template title.\ndefault: architecture documentation.\n\n--arc42-language code\narc42 template language.\ndefault: en.\n\n--arc42-template-version version\narc42 template version.\ndefault: 9.0-en.\n\n--arc42-include-help / --no-arc42-include-help\ninclude arc42 help sections in generated section stubs.\ndefault: --no-arc42-include-help."
+        },
+        {
+          "anchor": "",
+          "heading": "Tracking options",
+          "text": "--tracking / --no-tracking\nEnable source tracking.\nDefault: --tracking.\n\n--tracking-scanner SCANNER\nTracking scanner: auto, git, or filesystem.\nDefault: auto.\n\n--tracking-state-file FILENAME\nTracking state filename.\nDefault: source-state.json.\n\n--tracking-max-file-bytes N\nMaximum file size in bytes for tracking.\nDefault: 1000000.\n\n--tracking-include GLOB\nGlob pattern for tracking includes. Repeatable.\n\n--tracking-exclude GLOB\nGlob pattern for tracking excludes. Repeatable.",
+          "lower": "--tracking / --no-tracking\nenable source tracking.\ndefault: --tracking.\n\n--tracking-scanner scanner\ntracking scanner: auto, git, or filesystem.\ndefault: auto.\n\n--tracking-state-file filename\ntracking state filename.\ndefault: source-state.json.\n\n--tracking-max-file-bytes n\nmaximum file size in bytes for tracking.\ndefault: 1000000.\n\n--tracking-include glob\nglob pattern for tracking includes. repeatable.\n\n--tracking-exclude glob\nglob pattern for tracking excludes. repeatable."
+        },
+        {
+          "anchor": "",
+          "heading": "Examples",
+          "text": "Minimal Markdown project with build output at the project root:\n\narchledger init --source-format markdown \\\n  --build-default-output ARCHITECTURE.md \\\n  --build-default-output-dir .\n\n\n\n\nAsciiDoc project with diagram support, German arc42 template, and custom\ntracking excludes:\n\narchledger init --source-format asciidoc \\\n  --diagrams \\\n  --diagram-default-type mermaid \\\n  --arc42-title \"Meine Systemarchitektur\" \\\n  --arc42-language de \\\n  --tracking-exclude \"vendor/**\" \\\n  --tracking-exclude \"**/__pycache__/**\"\n\n\n\n\nExternal state directory:\n\narchledger init --archledger-dir /shared/archledger-state\n\n\n\n\nSegmented IDs for record-type-based naming:\n\narchledger init --source-format markdown --id-segment-mode type\n\n\n\n\nJSON output for automation:\n\narchledger --json init --source-format markdown",
+          "lower": "minimal markdown project with build output at the project root:\n\narchledger init --source-format markdown \\\n  --build-default-output architecture.md \\\n  --build-default-output-dir .\n\n\n\n\nasciidoc project with diagram support, german arc42 template, and custom\ntracking excludes:\n\narchledger init --source-format asciidoc \\\n  --diagrams \\\n  --diagram-default-type mermaid \\\n  --arc42-title \"meine systemarchitektur\" \\\n  --arc42-language de \\\n  --tracking-exclude \"vendor/**\" \\\n  --tracking-exclude \"**/__pycache__/**\"\n\n\n\n\nexternal state directory:\n\narchledger init --archledger-dir /shared/archledger-state\n\n\n\n\nsegmented ids for record-type-based naming:\n\narchledger init --source-format markdown --id-segment-mode type\n\n\n\n\njson output for automation:\n\narchledger --json init --source-format markdown"
+        },
+        {
+          "anchor": "",
+          "heading": "Other commands",
+          "text": "Inspect the current source state:\n\narchledger --json paths\narchledger --json status\narchledger --json check\narchledger --json doctor\narchledger --json read --body --include-drafts\n\n\n\n\nWhen check reports legacy IDs or legacy timestamp metadata, inspect the migration dry runs first:\n\narchledger --json migrate ids --to ledgercore\narchledger --json migrate metadata --to versioned\n\n\n\n\nTrack implementation drift:\n\narchledger --json source changed\narchledger --json source changed --fail-on-unlinked\narchledger --json source snapshot --reason after-archledger-update\n\n\n\n\nCreate records:\n\narchledger --json new requirement \"Render architecture document\" --status proposed\narchledger --json new adr \"Treat source fragments as canonical\" --status proposed\narchledger --json new diagram \"Runtime login flow…",
+          "lower": "inspect the current source state:\n\narchledger --json paths\narchledger --json status\narchledger --json check\narchledger --json doctor\narchledger --json read --body --include-drafts\n\n\n\n\nwhen check reports legacy ids or legacy timestamp metadata, inspect the migration dry runs first:\n\narchledger --json migrate ids --to ledgercore\narchledger --json migrate metadata --to versioned\n\n\n\n\ntrack implementation drift:\n\narchledger --json source changed\narchledger --json source changed --fail-on-unlinked\narchledger --json source snapshot --reason after-archledger-update\n\n\n\n\ncreate records:\n\narchledger --json new requirement \"render architecture document\" --status proposed\narchledger --json new adr \"treat source fragments as canonical\" --status proposed\narchledger --json new diagram \"runtime login flow…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/configuration/",
+      "title": "archledger Configuration",
+      "snippet": "Configuration lives in archledger.toml.\n[source] controls the canonical source dialect and extensions.\n\n\n[ids] controls ledger ID prefix/wid …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Configuration",
+          "text": "Configuration lives in archledger.toml.",
+          "lower": "configuration lives in archledger.toml."
+        },
+        {
+          "anchor": "",
+          "heading": "Important sections",
+          "text": "[source] controls the canonical source dialect and extensions.\n\n\n[ids] controls ledger ID prefix/width and optional ID segment behavior.\n\n\n[build] controls default output behavior and converter selection.\n\n\n[tracking] controls workspace snapshots and change detection.\n\n\n[arc42] controls document metadata defaults.\n\n\n[skill] points agents at the repository skill file.",
+          "lower": "[source] controls the canonical source dialect and extensions.\n\n\n[ids] controls ledger id prefix/width and optional id segment behavior.\n\n\n[build] controls default output behavior and converter selection.\n\n\n[tracking] controls workspace snapshots and change detection.\n\n\n[arc42] controls document metadata defaults.\n\n\n[skill] points agents at the repository skill file."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "config_version = 7\narchledger_dir = \".archledger\"\n\n[ids]\nprefix = \"al\"\nwidth = 4\nsegment_mode = \"none\"\ndefault_segment = \"content\"\n\n[ids.segment_map]\nsection = \"content\"\nrequirement = \"content\"\nrisk = \"risk\"\n\n[source]\nformat = \"markdown\"\nsection_extension = \".md\"\nrecord_extension = \".md\"\nschema_version = 2\n\n[build]\ndefault_output = \"architecture.md\"\ndefault_format = \"markdown\"\ndefault_output_dir = \"build\"\nconverter = \"auto\"\n\n[tracking]\nenabled = true\nstate_file = \"source-state.json\"\nscanner = \"auto\"\n\n\n\n\n[build].default_output_dir is relative to the directory containing\narchledger.toml or .archledger.toml.\n\nsource-state.json stores SHA-256 content hashes only for files. It does not\npersist mtimes or file sizes. Directory hashes are derived from file hashes.\n\nThe archive path is fixed at <a…",
+          "lower": "config_version = 7\narchledger_dir = \".archledger\"\n\n[ids]\nprefix = \"al\"\nwidth = 4\nsegment_mode = \"none\"\ndefault_segment = \"content\"\n\n[ids.segment_map]\nsection = \"content\"\nrequirement = \"content\"\nrisk = \"risk\"\n\n[source]\nformat = \"markdown\"\nsection_extension = \".md\"\nrecord_extension = \".md\"\nschema_version = 2\n\n[build]\ndefault_output = \"architecture.md\"\ndefault_format = \"markdown\"\ndefault_output_dir = \"build\"\nconverter = \"auto\"\n\n[tracking]\nenabled = true\nstate_file = \"source-state.json\"\nscanner = \"auto\"\n\n\n\n\n[build].default_output_dir is relative to the directory containing\narchledger.toml or .archledger.toml.\n\nsource-state.json stores sha-256 content hashes only for files. it does not\npersist mtimes or file sizes. directory hashes are derived from file hashes.\n\nthe archive path is fixed at <a…"
+        },
+        {
+          "anchor": "",
+          "heading": "ID segment modes",
+          "text": "segment_mode = \"none\"\nIDs use <prefix>_<number> (for example al_0013).\n\nsegment_mode = \"type\"\nIDs use <prefix>_<segment>_<number> (for example al_risk_0014).\n\nSegment resolution order is deterministic:\n\n\nid_segment metadata on the record\n\n\n[ids.segment_map] by record type\n\n\ndefault_segment\n\n\n\nThe numeric ledger sequence remains global across all segments.",
+          "lower": "segment_mode = \"none\"\nids use <prefix>_<number> (for example al_0013).\n\nsegment_mode = \"type\"\nids use <prefix>_<segment>_<number> (for example al_risk_0014).\n\nsegment resolution order is deterministic:\n\n\nid_segment metadata on the record\n\n\n[ids.segment_map] by record type\n\n\ndefault_segment\n\n\n\nthe numeric ledger sequence remains global across all segments."
+        },
+        {
+          "anchor": "",
+          "heading": "Per-output overrides",
+          "text": "Use [build.outputs.<format>] for format-specific settings. Supported keys are\ntool, pdf_engine, reference_docx, and enabled.",
+          "lower": "use [build.outputs.<format>] for format-specific settings. supported keys are\ntool, pdf_engine, reference_docx, and enabled."
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/",
+      "title": "archledger",
+      "snippet": "archledger stores arc42 architecture knowledge as canonical source fragments and assembles output documents on demand.\n\n\nUser guide\n\n\nCLI gu …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "archledger",
+          "text": "archledger stores arc42 architecture knowledge as canonical source fragments and assembles output documents on demand.\n\n\nUser guide\n\n\nCLI guide\nLedger boundary\n\ninit — Initialize a workspace\n\nOther commands\n\n\n\n\nConfiguration\nImportant sections\n\nExample\n\nID segment modes\n\nPer-output overrides\n\n\n\n\nSource model\nCanonical source\n\nLedger ID format\n\nTraceability\n\nGenerated output\n\nExternal references\n\n\n\n\nSource tracking\nSnapshots\n\nChanges\n\nLinking source_refs\n\nRecommended workflow\n\n\n\n\nBuild and export\nNative builds\n\nConverter-backed exports\n\nDiagram records\n\nSource migration\n\n\n\n\nRelease process\nPre-release checks\n\nBuild and metadata validation\n\nInstalled-wheel smoke test\n\nConverter-backed release confidence\n\nRelease decision\n\n\n\n\nAgent workflow\nIndependent preflight\n\nMigration branch\n\nImpact and…",
+          "lower": "archledger stores arc42 architecture knowledge as canonical source fragments and assembles output documents on demand.\n\n\nuser guide\n\n\ncli guide\nledger boundary\n\ninit — initialize a workspace\n\nother commands\n\n\n\n\nconfiguration\nimportant sections\n\nexample\n\nid segment modes\n\nper-output overrides\n\n\n\n\nsource model\ncanonical source\n\nledger id format\n\ntraceability\n\ngenerated output\n\nexternal references\n\n\n\n\nsource tracking\nsnapshots\n\nchanges\n\nlinking source_refs\n\nrecommended workflow\n\n\n\n\nbuild and export\nnative builds\n\nconverter-backed exports\n\ndiagram records\n\nsource migration\n\n\n\n\nrelease process\npre-release checks\n\nbuild and metadata validation\n\ninstalled-wheel smoke test\n\nconverter-backed release confidence\n\nrelease decision\n\n\n\n\nagent workflow\nindependent preflight\n\nmigration branch\n\nimpact and…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/release-process/",
+      "title": "archledger Release process",
+      "snippet": "This checklist is for maintainers preparing a beta or public release.\nRun the standard quality gates from a clean checkout:\n\npython -m pip i …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Release process",
+          "text": "This checklist is for maintainers preparing a beta or public release.",
+          "lower": "this checklist is for maintainers preparing a beta or public release."
+        },
+        {
+          "anchor": "",
+          "heading": "Pre-release checks",
+          "text": "Run the standard quality gates from a clean checkout:\n\npython -m pip install -e \".[dev,docs]\"\npython -m pytest -q\npython -m ruff check .\npython -m mypy archledger tests\npython -m sphinx -b html docs docs/_build/html",
+          "lower": "run the standard quality gates from a clean checkout:\n\npython -m pip install -e \".[dev,docs]\"\npython -m pytest -q\npython -m ruff check .\npython -m mypy archledger tests\npython -m sphinx -b html docs docs/_build/html"
+        },
+        {
+          "anchor": "",
+          "heading": "Build and metadata validation",
+          "text": "Build the actual distribution artifacts and verify their metadata:\n\nrm -rf dist build *.egg-info\npython -m build\npython -m twine check dist/*",
+          "lower": "build the actual distribution artifacts and verify their metadata:\n\nrm -rf dist build *.egg-info\npython -m build\npython -m twine check dist/*"
+        },
+        {
+          "anchor": "",
+          "heading": "Installed-wheel smoke test",
+          "text": "Always verify the built wheel from outside the source checkout:\n\npython -m venv /tmp/archledger-wheel-test\n/tmp/archledger-wheel-test/bin/python -m pip install dist/*.whl\n/tmp/archledger-wheel-test/bin/python -I - <<'PY'\nimport importlib.metadata\nimport archledger\n\nassert importlib.metadata.version(\"archledger\") == archledger.__version__\nprint(archledger.__version__)\nPY\nworkdir=\"$(mktemp -d)\"\ncd \"$workdir\"\n/tmp/archledger-wheel-test/bin/archledger --version\n/tmp/archledger-wheel-test/bin/archledger init --source-format markdown\n/tmp/archledger-wheel-test/bin/archledger seed arc42-minimal\n/tmp/archledger-wheel-test/bin/archledger new requirement --title \"Smoke\" --status accepted\n/tmp/archledger-wheel-test/bin/archledger build --format markdown\n/tmp/archledger-wheel-test/bin/archledger --js…",
+          "lower": "always verify the built wheel from outside the source checkout:\n\npython -m venv /tmp/archledger-wheel-test\n/tmp/archledger-wheel-test/bin/python -m pip install dist/*.whl\n/tmp/archledger-wheel-test/bin/python -i - <<'py'\nimport importlib.metadata\nimport archledger\n\nassert importlib.metadata.version(\"archledger\") == archledger.__version__\nprint(archledger.__version__)\npy\nworkdir=\"$(mktemp -d)\"\ncd \"$workdir\"\n/tmp/archledger-wheel-test/bin/archledger --version\n/tmp/archledger-wheel-test/bin/archledger init --source-format markdown\n/tmp/archledger-wheel-test/bin/archledger seed arc42-minimal\n/tmp/archledger-wheel-test/bin/archledger new requirement --title \"smoke\" --status accepted\n/tmp/archledger-wheel-test/bin/archledger build --format markdown\n/tmp/archledger-wheel-test/bin/archledger --js…"
+        },
+        {
+          "anchor": "",
+          "heading": "Converter-backed release confidence",
+          "text": "If the release promises converter-backed exports, run the optional integration coverage in an environment with the tools installed:\n\npython -m pytest -q -m integration tests/test_converter_integration.py",
+          "lower": "if the release promises converter-backed exports, run the optional integration coverage in an environment with the tools installed:\n\npython -m pytest -q -m integration tests/test_converter_integration.py"
+        },
+        {
+          "anchor": "",
+          "heading": "Release decision",
+          "text": "Before tagging or publishing:\n\n\nConfirm the changelog is updated.\n\n\nConfirm CI is green on the supported Python versions.\n\n\nConfirm the built artifact version matches archledger.__version__ when installed.\n\n\nConfirm the installed console script works outside the repository checkout.",
+          "lower": "before tagging or publishing:\n\n\nconfirm the changelog is updated.\n\n\nconfirm ci is green on the supported python versions.\n\n\nconfirm the built artifact version matches archledger.__version__ when installed.\n\n\nconfirm the installed console script works outside the repository checkout."
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/source-model/",
+      "title": "archledger Source model",
+      "snippet": "The source of truth is the fragment tree under archledger_dir:\n\n\nsections/ for the major arc42 chapter skeleton\n\n\nrecords/ for individual ar …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Canonical source",
+          "text": "The source of truth is the fragment tree under archledger_dir:\n\n\nsections/ for the major arc42 chapter skeleton\n\n\nrecords/ for individual architecture facts\n\n\narchive/ for archived records and tombstones that preserve allocated ledger IDs\n\n\n\nRecords include structural, behavioral, and decision artifacts plus first-class\ndiagram records. Diagram records default to plain text diagrams (diagram_type = \"text\").\nText diagrams stay embedded in Markdown/AsciiDoc record bodies as readable fenced blocks.\nMermaid is available for compact sequence, state, or flow diagrams but is not the default.\n\nFragments contain YAML front matter and a body in the configured dialect.\nArchived fragments keep normal front matter and use status: archived.\nArchledger does not store creation, update, or archive timesta…",
+          "lower": "the source of truth is the fragment tree under archledger_dir:\n\n\nsections/ for the major arc42 chapter skeleton\n\n\nrecords/ for individual architecture facts\n\n\narchive/ for archived records and tombstones that preserve allocated ledger ids\n\n\n\nrecords include structural, behavioral, and decision artifacts plus first-class\ndiagram records. diagram records default to plain text diagrams (diagram_type = \"text\").\ntext diagrams stay embedded in markdown/asciidoc record bodies as readable fenced blocks.\nmermaid is available for compact sequence, state, or flow diagrams but is not the default.\n\nfragments contain yaml front matter and a body in the configured dialect.\narchived fragments keep normal front matter and use status: archived.\narchledger does not store creation, update, or archive timesta…"
+        },
+        {
+          "anchor": "",
+          "heading": "Ledger ID format",
+          "text": "Default IDs use <prefix>_<number> (for example al_0013).\n\nWhen [ids].segment_mode = \"type\", IDs use\n<prefix>_<segment>_<number> (for example al_content_0013 and\nal_risk_0014). Segment values come from metadata/config mapping, while\nthe numeric sequence remains one global ledger-wide counter.",
+          "lower": "default ids use <prefix>_<number> (for example al_0013).\n\nwhen [ids].segment_mode = \"type\", ids use\n<prefix>_<segment>_<number> (for example al_content_0013 and\nal_risk_0014). segment values come from metadata/config mapping, while\nthe numeric sequence remains one global ledger-wide counter."
+        },
+        {
+          "anchor": "",
+          "heading": "Traceability",
+          "text": "Use source_refs when fragments describe real files or directories.\nDirectory refs must end with / and must exist in the workspace.",
+          "lower": "use source_refs when fragments describe real files or directories.\ndirectory refs must end with / and must exist in the workspace."
+        },
+        {
+          "anchor": "",
+          "heading": "Generated output",
+          "text": "Generated build outputs are derived artifacts and should not be edited as\nsource. New projects default to build/ under the workspace root, and\n[build].default_output_dir may place outputs elsewhere.",
+          "lower": "generated build outputs are derived artifacts and should not be edited as\nsource. new projects default to build/ under the workspace root, and\n[build].default_output_dir may place outputs elsewhere."
+        },
+        {
+          "anchor": "",
+          "heading": "External references",
+          "text": "Use generic links and source_refs for artifacts outside the architecture\nledger. Archledger preserves these references as data and does not interpret\nexternal domain semantics.\n\nExample:\n\nlinks:\n  - rel: documents\n    target_kind: path\n    target: specs/behavior/features/task-management/plan-gates.feature\n    reason: External artifact documents the runtime flow.",
+          "lower": "use generic links and source_refs for artifacts outside the architecture\nledger. archledger preserves these references as data and does not interpret\nexternal domain semantics.\n\nexample:\n\nlinks:\n  - rel: documents\n    target_kind: path\n    target: specs/behavior/features/task-management/plan-gates.feature\n    reason: external artifact documents the runtime flow."
+        }
+      ]
+    },
+    {
+      "url": "/tools/archledger/source-tracking/",
+      "title": "archledger Source tracking",
+      "snippet": "snapshot stores a baseline of the tracked workspace files:\n\narchledger --json source snapshot --reason after-archledger-update\n\n\n\n\nsource-st …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Snapshots",
+          "text": "snapshot stores a baseline of the tracked workspace files:\n\narchledger --json source snapshot --reason after-archledger-update\n\n\n\n\nsource-state.json stores a monotonic snapshot version and SHA-256\ncontent hashes only for files. It does not persist timestamps, mtimes, or file\nsizes. Directory hashes are derived from file hashes after scanning.",
+          "lower": "snapshot stores a baseline of the tracked workspace files:\n\narchledger --json source snapshot --reason after-archledger-update\n\n\n\n\nsource-state.json stores a monotonic snapshot version and sha-256\ncontent hashes only for files. it does not persist timestamps, mtimes, or file\nsizes. directory hashes are derived from file hashes after scanning."
+        },
+        {
+          "anchor": "",
+          "heading": "Changes",
+          "text": "changed compares the current workspace against the stored baseline:\n\narchledger --json source changed\narchledger --json source changed --fail-on-unlinked\narchledger --json source changed --include-drafts\n\n\n\n\nResults report baseline and current versions rather than scan dates.\n\nIf [tracking].enabled = false, both commands fail explicitly instead of\ncreating or reading misleading tracking state.",
+          "lower": "changed compares the current workspace against the stored baseline:\n\narchledger --json source changed\narchledger --json source changed --fail-on-unlinked\narchledger --json source changed --include-drafts\n\n\n\n\nresults report baseline and current versions rather than scan dates.\n\nif [tracking].enabled = false, both commands fail explicitly instead of\ncreating or reading misleading tracking state."
+        },
+        {
+          "anchor": "",
+          "heading": "Linking source_refs",
+          "text": "When a fragment documents concrete implementation artifacts, add source_refs\nthat point at relative workspace paths:\n\nsource_refs:\n  - archledger/repository.py#ArchitectureRepository\n  - path: archledger/storage/project_config.py\n    symbols:\n      - ProjectConfig\n      - load_project_config\n    reason: \"Tracking configuration validation\"\n  - path: archledger/templates/\n    reason: \"Bundled templates\"\n\n\n\n\nUse POSIX separators, keep the paths relative to the workspace root, and end\ndirectory references with /.",
+          "lower": "when a fragment documents concrete implementation artifacts, add source_refs\nthat point at relative workspace paths:\n\nsource_refs:\n  - archledger/repository.py#architecturerepository\n  - path: archledger/storage/project_config.py\n    symbols:\n      - projectconfig\n      - load_project_config\n    reason: \"tracking configuration validation\"\n  - path: archledger/templates/\n    reason: \"bundled templates\"\n\n\n\n\nuse posix separators, keep the paths relative to the workspace root, and end\ndirectory references with /."
+        },
+        {
+          "anchor": "",
+          "heading": "Recommended workflow",
+          "text": "Use tracking as a repeatable drift loop instead of a one-off report:\n\narchledger --json source changed\narchledger --json source changed --fail-on-unlinked\narchledger --json read --body --include-drafts\narchledger --json check --strict\narchledger --json source snapshot --reason after-archledger-update\n\n\n\n\nIn practice:\n\n\nAdd source_refs when a fragment describes real code, configuration, or directories.\n\n\nRun changed to see what moved since the last accepted baseline.\n\n\nUpdate only the impacted fragments and validate them with check --strict.\n\n\nRecord a fresh snapshot only after the documentation update is complete and all validation passes.",
+          "lower": "use tracking as a repeatable drift loop instead of a one-off report:\n\narchledger --json source changed\narchledger --json source changed --fail-on-unlinked\narchledger --json read --body --include-drafts\narchledger --json check --strict\narchledger --json source snapshot --reason after-archledger-update\n\n\n\n\nin practice:\n\n\nadd source_refs when a fragment describes real code, configuration, or directories.\n\n\nrun changed to see what moved since the last accepted baseline.\n\n\nupdate only the impacted fragments and validate them with check --strict.\n\n\nrecord a fresh snapshot only after the documentation update is complete and all validation passes."
+        }
+      ]
+    }
+  ]
+}

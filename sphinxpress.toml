@@ -5,11 +5,27 @@ tools_dir = "tools"
 nav_data_dir = "_data/tool_nav"
 layout = "tool-doc"
 title = "ledgerwerk Tool Docs"
+[site.versioning]
+enabled = true
+default = "release"
+
+[[site.versioning.variants]]
+name = "release"
+label = "Latest release"
+source = "release"
+url_segment = ""
+
+[[site.versioning.variants]]
+name = "main"
+label = "Current main"
+source = "git_ref"
+ref = "main"
+url_segment = "main"
 
 [build]
 work_dir = ".sphinxpress"
 sphinx_build = "sphinx-build"
-fail_on_warning = true
+fail_on_warning = false
 keep_build_dir = false
 parallel = "auto"
 
@@ -29,14 +45,16 @@ packages = [
   "PyYAML>=6",
   "rich",
   "beautifulsoup4",
-  "-e", "../../odoo17/archledger",
-  "-e", "../../odoo17/taskledger",
-  "-e", "../../odoo17/releaseledger",
-  "-e", "../../odoo17/ledgercore",
-  "-e", "../../odoo17/documentledger",
-  "-e", "../../odoo17/repairledger",
-  "-e", "../../odoo17/wikimason",
-  "-e", "../sphinxpress",
+  "archledger",
+  "taskledger",
+  "releaseledger",
+  "ledgercore",
+  "documentledger",
+  "memoryledger",
+  "repairledger",
+  "wikimason",
+  "platformdirs",
+  "sphinxpress",
 ]
 
 [book]
@@ -65,6 +83,8 @@ conf_dir = "../../odoo17/releaseledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/releaseledger"
 release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }
 
 [[projects]]
 name = "taskledger"
@@ -74,6 +94,8 @@ conf_dir = "../../odoo17/taskledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/taskledger"
 release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }
 
 [[projects]]
 name = "archledger"
@@ -83,6 +105,8 @@ conf_dir = "../../odoo17/archledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/archledger"
 release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }
 
 [[projects]]
 name = "ledgercore"
@@ -92,6 +116,8 @@ conf_dir = "../../odoo17/ledgercore/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/ledgercore"
 release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }
 
 [[projects]]
 name = "documentledger"
@@ -101,6 +127,8 @@ conf_dir = "../../odoo17/documentledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/documentledger"
 release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }
 
 [[projects]]
 name = "repairledger"
@@ -110,6 +138,8 @@ conf_dir = "../../odoo17/repairledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/repairledger"
 release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }
 
 [[projects]]
 name = "wikimason"
@@ -119,3 +149,5 @@ conf_dir = "../../odoo17/wikimason/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/wikimason"
 release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }

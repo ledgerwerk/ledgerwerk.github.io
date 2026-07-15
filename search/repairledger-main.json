@@ -1,0 +1,335 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "repairledger-main",
+  "entries": [
+    {
+      "url": "/tools/repairledger/main/agent-workflow/",
+      "title": "repairledger Agent workflow",
+      "snippet": "# Check workspace status\nrepairledger --json status\n\n# Initialize\nrepairledger init\n\n# Create via structured bundle\ncat <<'JSON' | repairled …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Normal observation logging",
+          "text": "# Check workspace status\nrepairledger --json status\n\n# Initialize\nrepairledger init\n\n# Create via structured bundle\ncat <<'JSON' | repairledger repair apply --file - --dry-run\n{\n  \"schema\": \"repairledger.structured_repair.v1\",\n  \"operation\": \"create\",\n  \"repair\": {\n    \"title\": \"Example tool failure\",\n    \"target_tool\": \"example\",\n    \"kind\": \"tool_failure\",\n    \"severity\": \"medium\",\n    \"status\": \"observed\",\n    \"components\": {\n      \"summary\": \"Summary here.\",\n      \"context\": \"Context here.\",\n      \"tool_call\": \"example command\",\n      \"expected_behavior\": \"Expected behavior.\",\n      \"actual_behavior\": \"Actual behavior.\",\n      \"reproduction\": \"1. Step one.\\n2. Step two.\",\n      \"impact\": \"This matters because...\",\n      \"suggested_fix\": \"Add validation.\"\n    }\n  }\n}\nJSON\n\n# Create for…",
+          "lower": "# check workspace status\nrepairledger --json status\n\n# initialize\nrepairledger init\n\n# create via structured bundle\ncat <<'json' | repairledger repair apply --file - --dry-run\n{\n  \"schema\": \"repairledger.structured_repair.v1\",\n  \"operation\": \"create\",\n  \"repair\": {\n    \"title\": \"example tool failure\",\n    \"target_tool\": \"example\",\n    \"kind\": \"tool_failure\",\n    \"severity\": \"medium\",\n    \"status\": \"observed\",\n    \"components\": {\n      \"summary\": \"summary here.\",\n      \"context\": \"context here.\",\n      \"tool_call\": \"example command\",\n      \"expected_behavior\": \"expected behavior.\",\n      \"actual_behavior\": \"actual behavior.\",\n      \"reproduction\": \"1. step one.\\n2. step two.\",\n      \"impact\": \"this matters because...\",\n      \"suggested_fix\": \"add validation.\"\n    }\n  }\n}\njson\n\n# create for…"
+        },
+        {
+          "anchor": "",
+          "heading": "Convenience log path",
+          "text": "repairledger log \\\n  --title \"Tool rejects valid input\" \\\n  --target-tool mytool \\\n  --kind validation_false_positive \\\n  --severity high \\\n  --summary \"Tool rejected valid config.\" \\\n  --context \"Agent was configuring tool.\" \\\n  --tool-call \"mytool validate\" \\\n  --expected \"Should pass.\" \\\n  --actual \"Was rejected.\" \\\n  --reproduction \"1. Run validate. 2. Observe.\" \\\n  --impact \"Blocks workflow.\" \\\n  --suggested-fix \"Make field-aware.\" \\\n  --status observed",
+          "lower": "repairledger log \\\n  --title \"tool rejects valid input\" \\\n  --target-tool mytool \\\n  --kind validation_false_positive \\\n  --severity high \\\n  --summary \"tool rejected valid config.\" \\\n  --context \"agent was configuring tool.\" \\\n  --tool-call \"mytool validate\" \\\n  --expected \"should pass.\" \\\n  --actual \"was rejected.\" \\\n  --reproduction \"1. run validate. 2. observe.\" \\\n  --impact \"blocks workflow.\" \\\n  --suggested-fix \"make field-aware.\" \\\n  --status observed"
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/api/",
+      "title": "repairledger API reference",
+      "snippet": "Structured business error with code, message, remediation, and exit_code.\nformat_repair_id(number: int) -> str\n\n\nparse_repair_number(repair_ …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "RepairledgerError",
+          "text": "Structured business error with code, message, remediation, and exit_code.",
+          "lower": "structured business error with code, message, remediation, and exit_code."
+        },
+        {
+          "anchor": "",
+          "heading": "repairledger.identity",
+          "text": "format_repair_id(number: int) -> str\n\n\nparse_repair_number(repair_id: str) -> int\n\n\nrepair_global_ref(repair_id, ledger_code) -> str\n\n\nrepair_file_ref(repair_id, ledger_code) -> str\n\n\nnormalize_repair_selector(value, ledger_code) -> str",
+          "lower": "format_repair_id(number: int) -> str\n\n\nparse_repair_number(repair_id: str) -> int\n\n\nrepair_global_ref(repair_id, ledger_code) -> str\n\n\nrepair_file_ref(repair_id, ledger_code) -> str\n\n\nnormalize_repair_selector(value, ledger_code) -> str"
+        },
+        {
+          "anchor": "",
+          "heading": "repairledger.storage",
+          "text": "Full CRUD operations, workspace discovery, version snapshots, component operations, status transitions, doctor, next-action.",
+          "lower": "full crud operations, workspace discovery, version snapshots, component operations, status transitions, doctor, next-action."
+        },
+        {
+          "anchor": "",
+          "heading": "repairledger.guardrails",
+          "text": "validate_observed_contents(contents, metadata) -> list[str]\n\n\ncontains_placeholder_only(text) -> bool\n\n\ncontains_unredacted_secret(text) -> bool",
+          "lower": "validate_observed_contents(contents, metadata) -> list[str]\n\n\ncontains_placeholder_only(text) -> bool\n\n\ncontains_unredacted_secret(text) -> bool"
+        },
+        {
+          "anchor": "",
+          "heading": "repairledger.render",
+          "text": "render_repair_markdown(repair, ...) -> str\n\n\nbuild_repair(workspace, repair_id, ...) -> dict\n\n\nexport_repair(workspace, repair_id, ...) -> dict",
+          "lower": "render_repair_markdown(repair, ...) -> str\n\n\nbuild_repair(workspace, repair_id, ...) -> dict\n\n\nexport_repair(workspace, repair_id, ...) -> dict"
+        },
+        {
+          "anchor": "",
+          "heading": "repairledger.report",
+          "text": "select_repairs(workspace, ...) -> list[Repair]\n\n\nrender_report_markdown(workspace, repairs, ...) -> str\n\n\nbuild_report(workspace, ...) -> dict\n\n\nexport_report(workspace, ...) -> dict",
+          "lower": "select_repairs(workspace, ...) -> list[repair]\n\n\nrender_report_markdown(workspace, repairs, ...) -> str\n\n\nbuild_report(workspace, ...) -> dict\n\n\nexport_report(workspace, ...) -> dict"
+        },
+        {
+          "anchor": "",
+          "heading": "repairledger.bundle",
+          "text": "load_bundle(path) -> dict\n\n\nvalidate_structured_repair_bundle(bundle) -> list[str]\n\n\napply_structured_repair_bundle(workspace, bundle, ...) -> dict",
+          "lower": "load_bundle(path) -> dict\n\n\nvalidate_structured_repair_bundle(bundle) -> list[str]\n\n\napply_structured_repair_bundle(workspace, bundle, ...) -> dict"
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/architecture/",
+      "title": "repairledger Architecture",
+      "snippet": "repairledger/\n  __init__.py        Package version\n  constants.py       Shared constants and enums\n  errors.py          Structured error typ …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Package layout",
+          "text": "repairledger/\n  __init__.py        Package version\n  constants.py       Shared constants and enums\n  errors.py          Structured error types\n  models.py          Dataclass models (Workspace, Repair, ComponentSpec)\n  identity.py        ID formatting, ref derivation, selector normalization\n  storage.py         Filesystem operations, CRUD, version snapshots\n  guardrails.py      Validation for observed status\n  render.py          Markdown rendering of repair artifacts\n  report.py          Aggregate report generation\n  bundle.py          Structured JSON bundle create/update\n  cli.py             Typer CLI definition\n  launcher.py        Entry point",
+          "lower": "repairledger/\n  __init__.py        package version\n  constants.py       shared constants and enums\n  errors.py          structured error types\n  models.py          dataclass models (workspace, repair, componentspec)\n  identity.py        id formatting, ref derivation, selector normalization\n  storage.py         filesystem operations, crud, version snapshots\n  guardrails.py      validation for observed status\n  render.py          markdown rendering of repair artifacts\n  report.py          aggregate report generation\n  bundle.py          structured json bundle create/update\n  cli.py             typer cli definition\n  launcher.py        entry point"
+        },
+        {
+          "anchor": "",
+          "heading": "Module dependencies",
+          "text": "launcher → cli → { bundle, render, report, storage }\nstorage → { identity, constants, errors, models, guardrails }\nbundle → { storage, identity, constants, errors }\nrender → { storage, identity, constants }\nreport → { storage, identity, constants }\nidentity → { constants } (via ledgercore refs)",
+          "lower": "launcher → cli → { bundle, render, report, storage }\nstorage → { identity, constants, errors, models, guardrails }\nbundle → { storage, identity, constants, errors }\nrender → { storage, identity, constants }\nreport → { storage, identity, constants }\nidentity → { constants } (via ledgercore refs)"
+        },
+        {
+          "anchor": "",
+          "heading": "Key design decisions",
+          "text": "Flat package layout: No src/ directory. Package is directly under repo root.\n\n\nDynamic versioning: Via setuptools_scm from Git tags.\n\n\nAtomic writes: All file mutations use ledgercore.atomic helpers.\n\n\nVersion snapshots: Complete post-mutation copies under versions/v000X/.\n\n\nDerived refs: Global and file refs are generated at render time, not stored.\n\n\nledgercore integration: Uses ledgercore for atomic I/O, YAML, ref parsing, timestamps, and hashing.",
+          "lower": "flat package layout: no src/ directory. package is directly under repo root.\n\n\ndynamic versioning: via setuptools_scm from git tags.\n\n\natomic writes: all file mutations use ledgercore.atomic helpers.\n\n\nversion snapshots: complete post-mutation copies under versions/v000x/.\n\n\nderived refs: global and file refs are generated at render time, not stored.\n\n\nledgercore integration: uses ledgercore for atomic i/o, yaml, ref parsing, timestamps, and hashing."
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/cli/",
+      "title": "repairledger CLI reference",
+      "snippet": "repairledger [--root PATH] [--cwd PATH] [--json] [--version] COMMAND\nOption\n\nDescription\n\n\n\n\n\n--root PATH\n\nRoot directory for the workspace. …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "CLI reference",
+          "text": "repairledger [--root PATH] [--cwd PATH] [--json] [--version] COMMAND",
+          "lower": "repairledger [--root path] [--cwd path] [--json] [--version] command"
+        },
+        {
+          "anchor": "",
+          "heading": "Global options",
+          "text": "Option\n\nDescription\n\n\n\n\n\n--root PATH\n\nRoot directory for the workspace.\n\n\n\n--cwd PATH\n\nCurrent working directory.\n\n\n\n--json\n\nOutput JSON envelopes.\n\n\n\n--version\n\nShow version and exit.",
+          "lower": "option\n\ndescription\n\n\n\n\n\n--root path\n\nroot directory for the workspace.\n\n\n\n--cwd path\n\ncurrent working directory.\n\n\n\n--json\n\noutput json envelopes.\n\n\n\n--version\n\nshow version and exit."
+        },
+        {
+          "anchor": "",
+          "heading": "Project commands",
+          "text": "Command\n\nDescription\n\n\n\n\n\ninit\n\nInitialize a new workspace.\n\n\n\nstatus\n\nShow workspace status.\n\n\n\ninfo\n\nShow workspace or repair information.\n\n\n\ndoctor\n\nRun workspace diagnostics.\n\n\n\nnext-action [REPAIR_ID]\n\nShow the next recommended action.\n\n\n\nlog\n\nConvenience repair logging command.",
+          "lower": "command\n\ndescription\n\n\n\n\n\ninit\n\ninitialize a new workspace.\n\n\n\nstatus\n\nshow workspace status.\n\n\n\ninfo\n\nshow workspace or repair information.\n\n\n\ndoctor\n\nrun workspace diagnostics.\n\n\n\nnext-action [repair_id]\n\nshow the next recommended action.\n\n\n\nlog\n\nconvenience repair logging command."
+        },
+        {
+          "anchor": "",
+          "heading": "Repair commands",
+          "text": "Command\n\nDescription\n\n\n\n\n\nrepair activate REPAIR_ID\n\nSet a repair as active.\n\n\n\nrepair list\n\nList repairs with optional filters.\n\n\n\nrepair show [REPAIR_ID]\n\nShow a repair observation.\n\n\n\nrepair status [REPAIR_ID] STATUS\n\nChange repair status.\n\n\n\nrepair archive [REPAIR_ID]\n\nArchive a repair.\n\n\n\nrepair build [REPAIR_ID]\n\nBuild rendered artifacts.\n\n\n\nrepair export [REPAIR_ID]\n\nExport repair Markdown.\n\n\n\nrepair validate [REPAIR_ID]\n\nValidate a repair.\n\n\n\nrepair versions [REPAIR_ID]\n\nList versions.\n\n\n\nrepair diff [REPAIR_ID]\n\nDiff two versions.\n\n\n\nrepair apply --file PATH\n\nApply structured JSON bundle.",
+          "lower": "command\n\ndescription\n\n\n\n\n\nrepair activate repair_id\n\nset a repair as active.\n\n\n\nrepair list\n\nlist repairs with optional filters.\n\n\n\nrepair show [repair_id]\n\nshow a repair observation.\n\n\n\nrepair status [repair_id] status\n\nchange repair status.\n\n\n\nrepair archive [repair_id]\n\narchive a repair.\n\n\n\nrepair build [repair_id]\n\nbuild rendered artifacts.\n\n\n\nrepair export [repair_id]\n\nexport repair markdown.\n\n\n\nrepair validate [repair_id]\n\nvalidate a repair.\n\n\n\nrepair versions [repair_id]\n\nlist versions.\n\n\n\nrepair diff [repair_id]\n\ndiff two versions.\n\n\n\nrepair apply --file path\n\napply structured json bundle."
+        },
+        {
+          "anchor": "",
+          "heading": "Component commands",
+          "text": "Command\n\nDescription\n\n\n\n\n\nrepair component list [REPAIR_ID]\n\nList components.\n\n\n\nrepair component show KEY\n\nShow a component.\n\n\n\nrepair component set KEY\n\nSet a component.\n\n\n\nrepair component append KEY\n\nAppend to a component.",
+          "lower": "command\n\ndescription\n\n\n\n\n\nrepair component list [repair_id]\n\nlist components.\n\n\n\nrepair component show key\n\nshow a component.\n\n\n\nrepair component set key\n\nset a component.\n\n\n\nrepair component append key\n\nappend to a component."
+        },
+        {
+          "anchor": "",
+          "heading": "Report commands",
+          "text": "Command\n\nDescription\n\n\n\n\n\nreport build\n\nBuild aggregate report (to storage).\n\n\n\nreport export\n\nExport aggregate report (to workspace root).",
+          "lower": "command\n\ndescription\n\n\n\n\n\nreport build\n\nbuild aggregate report (to storage).\n\n\n\nreport export\n\nexport aggregate report (to workspace root)."
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/components/",
+      "title": "repairledger Components",
+      "snippet": "Each repair stores modular Markdown components.\nKey\n\nFile\n\nTitle\n\nRequired\n\n\n\n\n\nsummary\n\n00-summary.md\n\nSummary\n\nyes\n\n\n\ncontext\n\n10-context. …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Components",
+          "text": "Each repair stores modular Markdown components.",
+          "lower": "each repair stores modular markdown components."
+        },
+        {
+          "anchor": "",
+          "heading": "Component definitions",
+          "text": "Key\n\nFile\n\nTitle\n\nRequired\n\n\n\n\n\nsummary\n\n00-summary.md\n\nSummary\n\nyes\n\n\n\ncontext\n\n10-context.md\n\nContext\n\nyes\n\n\n\ntool_call\n\n20-tool-call.md\n\nTool call or command\n\nyes\n\n\n\nexpected_behavior\n\n30-expected-behavior.md\n\nExpected behavior\n\nyes\n\n\n\nactual_behavior\n\n40-actual-behavior.md\n\nActual behavior\n\nyes\n\n\n\nreproduction\n\n50-reproduction.md\n\nReproduction steps\n\nyes\n\n\n\nimpact\n\n60-impact.md\n\nImpact\n\nyes\n\n\n\nworkaround\n\n70-workaround.md\n\nWorkaround\n\nno\n\n\n\ndiagnosis\n\n80-diagnosis.md\n\nDiagnosis or hypothesis\n\nno\n\n\n\nsuggested_fix\n\n90-suggested-fix.md\n\nSuggested fix\n\nyes\n\n\n\nvalidation\n\n95-validation.md\n\nValidation plan\n\nno\n\n\n\nnotes\n\n99-notes.md\n\nNotes\n\nno",
+          "lower": "key\n\nfile\n\ntitle\n\nrequired\n\n\n\n\n\nsummary\n\n00-summary.md\n\nsummary\n\nyes\n\n\n\ncontext\n\n10-context.md\n\ncontext\n\nyes\n\n\n\ntool_call\n\n20-tool-call.md\n\ntool call or command\n\nyes\n\n\n\nexpected_behavior\n\n30-expected-behavior.md\n\nexpected behavior\n\nyes\n\n\n\nactual_behavior\n\n40-actual-behavior.md\n\nactual behavior\n\nyes\n\n\n\nreproduction\n\n50-reproduction.md\n\nreproduction steps\n\nyes\n\n\n\nimpact\n\n60-impact.md\n\nimpact\n\nyes\n\n\n\nworkaround\n\n70-workaround.md\n\nworkaround\n\nno\n\n\n\ndiagnosis\n\n80-diagnosis.md\n\ndiagnosis or hypothesis\n\nno\n\n\n\nsuggested_fix\n\n90-suggested-fix.md\n\nsuggested fix\n\nyes\n\n\n\nvalidation\n\n95-validation.md\n\nvalidation plan\n\nno\n\n\n\nnotes\n\n99-notes.md\n\nnotes\n\nno"
+        },
+        {
+          "anchor": "",
+          "heading": "Component guidance",
+          "text": "Component\n\nContent\n\n\n\n\n\nsummary\n\nOne-paragraph description of the failure or improvement.\n\n\n\ncontext\n\nWhat the agent was doing, relevant state, versions.\n\n\n\ntool_call\n\nExact command or tool call attempted (redacted). Use not applicable for conceptual improvements.\n\n\n\nexpected_behavior\n\nWhat should have happened.\n\n\n\nactual_behavior\n\nActual error, rejection, or confusing output.\n\n\n\nreproduction\n\nMinimal steps to reproduce.\n\n\n\nimpact\n\nWhy it matters for agent or human workflow.\n\n\n\nworkaround\n\nHow the agent continued or why no workaround exists.\n\n\n\ndiagnosis\n\nRoot-cause hypothesis with uncertainty.\n\n\n\nsuggested_fix\n\nProposed code, docs, test, or prompt improvement.\n\n\n\nvalidation\n\nTests or checks maintainers should run after fixing.\n\n\n\nnotes\n\nAdditional nonessential details.",
+          "lower": "component\n\ncontent\n\n\n\n\n\nsummary\n\none-paragraph description of the failure or improvement.\n\n\n\ncontext\n\nwhat the agent was doing, relevant state, versions.\n\n\n\ntool_call\n\nexact command or tool call attempted (redacted). use not applicable for conceptual improvements.\n\n\n\nexpected_behavior\n\nwhat should have happened.\n\n\n\nactual_behavior\n\nactual error, rejection, or confusing output.\n\n\n\nreproduction\n\nminimal steps to reproduce.\n\n\n\nimpact\n\nwhy it matters for agent or human workflow.\n\n\n\nworkaround\n\nhow the agent continued or why no workaround exists.\n\n\n\ndiagnosis\n\nroot-cause hypothesis with uncertainty.\n\n\n\nsuggested_fix\n\nproposed code, docs, test, or prompt improvement.\n\n\n\nvalidation\n\ntests or checks maintainers should run after fixing.\n\n\n\nnotes\n\nadditional nonessential details."
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/contributing/",
+      "title": "repairledger Contributing",
+      "snippet": "git clone https://github.com/holgern/repairledger.git\ncd repairledger\npip install -e \".[dev]\"\nThis project uses ruff for linting and mypy fo …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Development setup",
+          "text": "git clone https://github.com/holgern/repairledger.git\ncd repairledger\npip install -e \".[dev]\"",
+          "lower": "git clone https://github.com/holgern/repairledger.git\ncd repairledger\npip install -e \".[dev]\""
+        },
+        {
+          "anchor": "",
+          "heading": "Code style",
+          "text": "This project uses ruff for linting and mypy for type checking.\n\npython -m ruff check .\npython -m mypy repairledger",
+          "lower": "this project uses ruff for linting and mypy for type checking.\n\npython -m ruff check .\npython -m mypy repairledger"
+        },
+        {
+          "anchor": "",
+          "heading": "Testing",
+          "text": "python -m pytest -q",
+          "lower": "python -m pytest -q"
+        },
+        {
+          "anchor": "",
+          "heading": "Building",
+          "text": "python -m build --sdist --wheel\npython -m twine check dist/*",
+          "lower": "python -m build --sdist --wheel\npython -m twine check dist/*"
+        },
+        {
+          "anchor": "",
+          "heading": "Releasing",
+          "text": "Update version via Git tag: git tag v0.2.0\n\n\nBuild: python -m build --sdist --wheel\n\n\nUpload: python -m twine upload dist/*",
+          "lower": "update version via git tag: git tag v0.2.0\n\n\nbuild: python -m build --sdist --wheel\n\n\nupload: python -m twine upload dist/*"
+        },
+        {
+          "anchor": "",
+          "heading": "Documentation",
+          "text": "Documentation uses Sphinx with MyST Markdown support.\n\ncd docs\npython -m sphinx -b html . _build/html",
+          "lower": "documentation uses sphinx with myst markdown support.\n\ncd docs\npython -m sphinx -b html . _build/html"
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/",
+      "title": "Repairledger documentation",
+      "snippet": "Contents\n\n\nOverview\nKey concepts\n\n\n\n\nInstallation\nFrom PyPI\n\nFrom source\n\nDevelopment installation\n\nRequirements\n\n\n\n\nCLI reference\nGlobal op …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Repairledger documentation",
+          "text": "Contents\n\n\nOverview\nKey concepts\n\n\n\n\nInstallation\nFrom PyPI\n\nFrom source\n\nDevelopment installation\n\nRequirements\n\n\n\n\nCLI reference\nGlobal options\n\nProject commands\n\nRepair commands\n\nComponent commands\n\nReport commands\n\n\n\n\nStorage\nConfiguration\n\nDirectory layout\n\nVersion snapshots\n\n\n\n\nComponents\nComponent definitions\n\nComponent guidance\n\n\n\n\nRepair lifecycle\nStatuses\n\nTransitions\n\nGuardrails\n\n\n\n\nAgent workflow\nNormal observation logging\n\nConvenience log path\n\n\n\n\nArchitecture\nPackage layout\n\nModule dependencies\n\nKey design decisions\n\n\n\n\nAPI reference\nrepairledger.errors\n\nrepairledger.models\n\nrepairledger.identity\n\nrepairledger.storage\n\nrepairledger.guardrails\n\nrepairledger.render\n\nrepairledger.report\n\nrepairledger.bundle\n\n\n\n\nContributing\nDevelopment setup\n\nCode style\n\nTesting\n\nBuilding\n\nRele…",
+          "lower": "contents\n\n\noverview\nkey concepts\n\n\n\n\ninstallation\nfrom pypi\n\nfrom source\n\ndevelopment installation\n\nrequirements\n\n\n\n\ncli reference\nglobal options\n\nproject commands\n\nrepair commands\n\ncomponent commands\n\nreport commands\n\n\n\n\nstorage\nconfiguration\n\ndirectory layout\n\nversion snapshots\n\n\n\n\ncomponents\ncomponent definitions\n\ncomponent guidance\n\n\n\n\nrepair lifecycle\nstatuses\n\ntransitions\n\nguardrails\n\n\n\n\nagent workflow\nnormal observation logging\n\nconvenience log path\n\n\n\n\narchitecture\npackage layout\n\nmodule dependencies\n\nkey design decisions\n\n\n\n\napi reference\nrepairledger.errors\n\nrepairledger.models\n\nrepairledger.identity\n\nrepairledger.storage\n\nrepairledger.guardrails\n\nrepairledger.render\n\nrepairledger.report\n\nrepairledger.bundle\n\n\n\n\ncontributing\ndevelopment setup\n\ncode style\n\ntesting\n\nbuilding\n\nrele…"
+        },
+        {
+          "anchor": "",
+          "heading": "Indices and tables",
+          "text": "Index\n\n\nModule Index\n\n\nSearch Page",
+          "lower": "index\n\n\nmodule index\n\n\nsearch page"
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/installation/",
+      "title": "repairledger Installation",
+      "snippet": "pip install repairledger\ngit clone https://github.com/holgern/repairledger.git\ncd repairledger\npip install -e .\npip install -e \".[dev]\"\nPyth …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "From PyPI",
+          "text": "pip install repairledger",
+          "lower": "pip install repairledger"
+        },
+        {
+          "anchor": "",
+          "heading": "From source",
+          "text": "git clone https://github.com/holgern/repairledger.git\ncd repairledger\npip install -e .",
+          "lower": "git clone https://github.com/holgern/repairledger.git\ncd repairledger\npip install -e ."
+        },
+        {
+          "anchor": "",
+          "heading": "Development installation",
+          "text": "pip install -e \".[dev]\"",
+          "lower": "pip install -e \".[dev]\""
+        },
+        {
+          "anchor": "",
+          "heading": "Requirements",
+          "text": "Python >= 3.10\n\n\nDependencies: typer, ledgercore, PyYAML, tomli (Python < 3.11)",
+          "lower": "python >= 3.10\n\n\ndependencies: typer, ledgercore, pyyaml, tomli (python < 3.11)"
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/overview/",
+      "title": "repairledger Overview",
+      "snippet": "Repairledger is a Python CLI and agent skill for durable repair observations. A repair observation records an agent-discovered tool failure, …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Overview",
+          "text": "Repairledger is a Python CLI and agent skill for durable repair observations. A repair observation records an agent-discovered tool failure, validation false positive, unclear command contract, missing documentation, skill gap, workflow pain point, or concrete improvement opportunity.\n\nThe primary user is a coding agent working on another task. The agent can log an observation quickly, continue the primary task, then export a maintainer-facing Markdown report from the workspace root.",
+          "lower": "repairledger is a python cli and agent skill for durable repair observations. a repair observation records an agent-discovered tool failure, validation false positive, unclear command contract, missing documentation, skill gap, workflow pain point, or concrete improvement opportunity.\n\nthe primary user is a coding agent working on another task. the agent can log an observation quickly, continue the primary task, then export a maintainer-facing markdown report from the workspace root."
+        },
+        {
+          "anchor": "",
+          "heading": "Key concepts",
+          "text": "Repair observation: A structured record describing a failure, gap, or improvement.\n\n\nComponent: A modular Markdown file within a repair (e.g., summary, reproduction, suggested fix).\n\n\nVersion snapshot: A complete copy of a repair after every mutation.\n\n\nRendered artifact: A standalone Markdown document with YAML front matter.\n\n\nAggregate report: A workspace-root Markdown report covering all active observations.",
+          "lower": "repair observation: a structured record describing a failure, gap, or improvement.\n\n\ncomponent: a modular markdown file within a repair (e.g., summary, reproduction, suggested fix).\n\n\nversion snapshot: a complete copy of a repair after every mutation.\n\n\nrendered artifact: a standalone markdown document with yaml front matter.\n\n\naggregate report: a workspace-root markdown report covering all active observations."
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/repair-lifecycle/",
+      "title": "repairledger Repair lifecycle",
+      "snippet": "Status\n\nMeaning\n\n\n\n\n\nnew\n\nRecord exists, but is not yet complete.\n\n\n\nobserved\n\nRecord has enough detail for a maintainer to act.\n\n\n\ntriaged …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Statuses",
+          "text": "Status\n\nMeaning\n\n\n\n\n\nnew\n\nRecord exists, but is not yet complete.\n\n\n\nobserved\n\nRecord has enough detail for a maintainer to act.\n\n\n\ntriaged\n\nHuman or maintainer reviewed and categorized the observation.\n\n\n\nfixed\n\nTarget tool was improved or the issue was resolved.\n\n\n\nwont_fix\n\nMaintainer decided not to change behavior.\n\n\n\ninvalid\n\nObservation was wrong, duplicate, stale, or not actionable.\n\n\n\narchived\n\nKept for history and excluded from active report defaults.",
+          "lower": "status\n\nmeaning\n\n\n\n\n\nnew\n\nrecord exists, but is not yet complete.\n\n\n\nobserved\n\nrecord has enough detail for a maintainer to act.\n\n\n\ntriaged\n\nhuman or maintainer reviewed and categorized the observation.\n\n\n\nfixed\n\ntarget tool was improved or the issue was resolved.\n\n\n\nwont_fix\n\nmaintainer decided not to change behavior.\n\n\n\ninvalid\n\nobservation was wrong, duplicate, stale, or not actionable.\n\n\n\narchived\n\nkept for history and excluded from active report defaults."
+        },
+        {
+          "anchor": "",
+          "heading": "Transitions",
+          "text": "new → observed, triaged, invalid, archived\nobserved → triaged, fixed, wont_fix, invalid, archived\ntriaged → fixed, wont_fix, invalid, archived, observed\nfixed → triaged, archived\nwont_fix → triaged, archived\ninvalid → triaged, archived\narchived → (immutable)",
+          "lower": "new → observed, triaged, invalid, archived\nobserved → triaged, fixed, wont_fix, invalid, archived\ntriaged → fixed, wont_fix, invalid, archived, observed\nfixed → triaged, archived\nwont_fix → triaged, archived\ninvalid → triaged, archived\narchived → (immutable)"
+        },
+        {
+          "anchor": "",
+          "heading": "Guardrails",
+          "text": "Status observed requires:\n\n\nRequired components are non-empty and not placeholder-only.\n\n\ntarget_tool is non-empty.\n\n\nobservation_kind is a known value.\n\n\nseverity is a known value.\n\n\nsummary is more than a placeholder.\n\n\ntool_call is non-empty or explicitly says not applicable.\n\n\nexpected_behavior and actual_behavior differ.\n\n\nreproduction has numbered steps, bullets, or a code block.\n\n\nimpact explains why this matters.\n\n\nsuggested_fix contains a concrete action.\n\n\nNo unredacted secrets are present.",
+          "lower": "status observed requires:\n\n\nrequired components are non-empty and not placeholder-only.\n\n\ntarget_tool is non-empty.\n\n\nobservation_kind is a known value.\n\n\nseverity is a known value.\n\n\nsummary is more than a placeholder.\n\n\ntool_call is non-empty or explicitly says not applicable.\n\n\nexpected_behavior and actual_behavior differ.\n\n\nreproduction has numbered steps, bullets, or a code block.\n\n\nimpact explains why this matters.\n\n\nsuggested_fix contains a concrete action.\n\n\nno unredacted secrets are present."
+        }
+      ]
+    },
+    {
+      "url": "/tools/repairledger/main/storage/",
+      "title": "repairledger Storage",
+      "snippet": "Repairledger stores data on the local filesystem under a configured storage directory (default: .repairledger).\nThe workspace is identified …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Storage",
+          "text": "Repairledger stores data on the local filesystem under a configured storage directory (default: .repairledger).",
+          "lower": "repairledger stores data on the local filesystem under a configured storage directory (default: .repairledger)."
+        },
+        {
+          "anchor": "",
+          "heading": "Configuration",
+          "text": "The workspace is identified by a repairledger.toml or .repairledger.toml file:\n\n[ledger]\ncode = \"rl\"\nname = \"repairledger\"\n\n[project]\nname = \"my-project\"\n\n[storage]\nrepairledger_dir = \".repairledger\"",
+          "lower": "the workspace is identified by a repairledger.toml or .repairledger.toml file:\n\n[ledger]\ncode = \"rl\"\nname = \"repairledger\"\n\n[project]\nname = \"my-project\"\n\n[storage]\nrepairledger_dir = \".repairledger\""
+        },
+        {
+          "anchor": "",
+          "heading": "Directory layout",
+          "text": "<workspace root>/\n  repairledger.toml\n  .repairledger/\n    storage.yaml\n    repairs/\n      repair-0001/\n        repair.yaml\n        components/\n          00-summary.md\n          10-context.md\n          20-tool-call.md\n          30-expected-behavior.md\n          40-actual-behavior.md\n          50-reproduction.md\n          60-impact.md\n          70-workaround.md\n          80-diagnosis.md\n          90-suggested-fix.md\n          95-validation.md\n          99-notes.md\n        rendered/\n          latest.md\n          repair-0001-v0003.md\n        versions/\n          v0001/\n            repair.yaml\n            components/\n              ...\n          v0002/\n            ...\n    reports/\n      repairledger-report.md",
+          "lower": "<workspace root>/\n  repairledger.toml\n  .repairledger/\n    storage.yaml\n    repairs/\n      repair-0001/\n        repair.yaml\n        components/\n          00-summary.md\n          10-context.md\n          20-tool-call.md\n          30-expected-behavior.md\n          40-actual-behavior.md\n          50-reproduction.md\n          60-impact.md\n          70-workaround.md\n          80-diagnosis.md\n          90-suggested-fix.md\n          95-validation.md\n          99-notes.md\n        rendered/\n          latest.md\n          repair-0001-v0003.md\n        versions/\n          v0001/\n            repair.yaml\n            components/\n              ...\n          v0002/\n            ...\n    reports/\n      repairledger-report.md"
+        },
+        {
+          "anchor": "",
+          "heading": "Version snapshots",
+          "text": "Every mutation increments the repair version and writes a complete post-mutation snapshot under versions/v000X/. Snapshots contain repair.yaml and all component files.",
+          "lower": "every mutation increments the repair version and writes a complete post-mutation snapshot under versions/v000x/. snapshots contain repair.yaml and all component files."
+        }
+      ]
+    }
+  ]
+}

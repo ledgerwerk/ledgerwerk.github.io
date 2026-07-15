@@ -1,0 +1,389 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "ledgercore",
+  "entries": [
+    {
+      "url": "/tools/ledgercore/api/",
+      "title": "ledgercore API reference",
+      "snippet": "Public API grouped by module.\nShared ledger workspace config discovery and namespaced mapping selection.\nThis module does not parse TOML or …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "API reference",
+          "text": "Public API grouped by module.",
+          "lower": "public api grouped by module."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.config",
+          "text": "Shared ledger workspace config discovery and namespaced mapping selection.\nThis module does not parse TOML or define tool-specific schemas.\n\n\nLEDGER_PROJECT_MANIFESTCanonical manifest path segment: \".ledger/ledger.toml\".\n\n\nLEDGER_PROJECT_LOCAL_CONFIGCanonical machine-local override path segment: \".ledger/ledger.local.toml\".\n\n\nLEDGER_LEGACY_SHARED_CONFIGSCompatibility aliases for schema-version-1 shared config discovery.\n\n\nLEDGER_CONFIG_FILENAMESCanonical hidden-first names: (\".ledger.toml\", \"ledger.toml\").\n\n\nledger_config_filenames(*legacy, include_visible=True)Append caller-provided legacy names after canonical names.\n\n\nlocate_ledger_config(start, *, legacy_filenames=(), ...)Locate a canonical config or legacy fallback.\n\n\nLedgerProjectLocatorFrozen dataclass with project_root, config_roo…",
+          "lower": "shared ledger workspace config discovery and namespaced mapping selection.\nthis module does not parse toml or define tool-specific schemas.\n\n\nledger_project_manifestcanonical manifest path segment: \".ledger/ledger.toml\".\n\n\nledger_project_local_configcanonical machine-local override path segment: \".ledger/ledger.local.toml\".\n\n\nledger_legacy_shared_configscompatibility aliases for schema-version-1 shared config discovery.\n\n\nledger_config_filenamescanonical hidden-first names: (\".ledger.toml\", \"ledger.toml\").\n\n\nledger_config_filenames(*legacy, include_visible=true)append caller-provided legacy names after canonical names.\n\n\nlocate_ledger_config(start, *, legacy_filenames=(), ...)locate a canonical config or legacy fallback.\n\n\nledgerprojectlocatorfrozen dataclass with project_root, config_roo…"
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.atomic",
+          "text": "Atomic UTF-8 text writes and race-safe file creation.\n\n\n\nFunction\n\nDescription\n\n\n\n\n\natomic_write_text(path, contents, *, normalize=False, fsync=True, fast_io_env_var=None)\n\nWrite text to a file atomically using a temp file and os.replace.\n\n\n\natomic_create_text(path, contents, *, fsync=True, fast_io_env_var=None)\n\nCreate a new file atomically using exclusive creation flags.",
+          "lower": "atomic utf-8 text writes and race-safe file creation.\n\n\n\nfunction\n\ndescription\n\n\n\n\n\natomic_write_text(path, contents, *, normalize=false, fsync=true, fast_io_env_var=none)\n\nwrite text to a file atomically using a temp file and os.replace.\n\n\n\natomic_create_text(path, contents, *, fsync=true, fast_io_env_var=none)\n\ncreate a new file atomically using exclusive creation flags."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.errors",
+          "text": "Shared exception hierarchy with stable error codes.\n\n\n\nClass\n\nCode\n\nDescription\n\n\n\n\n\nLedgerCoreError\n\nLEDGERCORE_ERROR\n\nBase exception for all ledgercore errors.\n\n\n\nLedgerConfigError\n\nLEDGER_CONFIG_ERROR\n\nRaised for missing or invalid shared config tables.\n\n\n\nLedgerLayoutError\n\nLEDGER_LAYOUT_ERROR\n\nRaised for invalid or unresolvable Ledger-family layouts.\n\n\n\nStorageError\n\nSTORAGE_ERROR\n\nBase exception for storage-related errors.\n\n\n\nAtomicWriteError\n\nATOMIC_WRITE_ERROR\n\nRaised when an atomic write operation fails.\n\n\n\nFrontMatterError\n\nFRONTMATTER_ERROR\n\nRaised when front matter parsing or writing fails.\n\n\n\nJsonStoreError\n\nJSON_STORE_ERROR\n\nRaised when a JSON store operation fails.\n\n\n\nYamlStoreError\n\nYAML_STORE_ERROR\n\nRaised when a YAML store operation fails.\n\n\n\nPathValidationError\n\nPATH_VA…",
+          "lower": "shared exception hierarchy with stable error codes.\n\n\n\nclass\n\ncode\n\ndescription\n\n\n\n\n\nledgercoreerror\n\nledgercore_error\n\nbase exception for all ledgercore errors.\n\n\n\nledgerconfigerror\n\nledger_config_error\n\nraised for missing or invalid shared config tables.\n\n\n\nledgerlayouterror\n\nledger_layout_error\n\nraised for invalid or unresolvable ledger-family layouts.\n\n\n\nstorageerror\n\nstorage_error\n\nbase exception for storage-related errors.\n\n\n\natomicwriteerror\n\natomic_write_error\n\nraised when an atomic write operation fails.\n\n\n\nfrontmattererror\n\nfrontmatter_error\n\nraised when front matter parsing or writing fails.\n\n\n\njsonstoreerror\n\njson_store_error\n\nraised when a json store operation fails.\n\n\n\nyamlstoreerror\n\nyaml_store_error\n\nraised when a yaml store operation fails.\n\n\n\npathvalidationerror\n\npath_va…"
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.frontmatter",
+          "text": "YAML front matter reader/writer and source file iteration.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nMissingFrontMatterMode\n\nLiteral type: \"error\" or \"empty\".\n\n\n\nBodyMode\n\nBody preservation and newline normalization policy.\n\n\n\nScalarStyle\n\nLiteral type: \"pyyaml\" or \"minimal\".\n\n\n\nRemainingKeyOrder\n\nLiteral type: \"input\" or \"sorted\".\n\n\n\nEmptyStringStyle\n\nLiteral type: \"single\" or \"double\".\n\n\n\nTemplatePlaceholderMode\n\nBoolean-compatible placeholder parsing mode.\n\n\n\nFrontMatterRenderOptions\n\nFrozen collection of all front matter rendering options.\n\n\n\nsplit_front_matter_text(text, *, ...)\n\nParse front matter from in-memory text.\n\n\n\nrender_front_matter_text(metadata, body=\"\", *, ...)\n\nRender ordered metadata and body.\n\n\n\nupdate_front_matter_text(text, updates, *, ...)\n\nMerge metadata updates into in-memory t…",
+          "lower": "yaml front matter reader/writer and source file iteration.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\nmissingfrontmattermode\n\nliteral type: \"error\" or \"empty\".\n\n\n\nbodymode\n\nbody preservation and newline normalization policy.\n\n\n\nscalarstyle\n\nliteral type: \"pyyaml\" or \"minimal\".\n\n\n\nremainingkeyorder\n\nliteral type: \"input\" or \"sorted\".\n\n\n\nemptystringstyle\n\nliteral type: \"single\" or \"double\".\n\n\n\ntemplateplaceholdermode\n\nboolean-compatible placeholder parsing mode.\n\n\n\nfrontmatterrenderoptions\n\nfrozen collection of all front matter rendering options.\n\n\n\nsplit_front_matter_text(text, *, ...)\n\nparse front matter from in-memory text.\n\n\n\nrender_front_matter_text(metadata, body=\"\", *, ...)\n\nrender ordered metadata and body.\n\n\n\nupdate_front_matter_text(text, updates, *, ...)\n\nmerge metadata updates into in-memory t…"
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.ids",
+          "text": "Prefixed numeric ID formatting, parsing, next-ID generation, and slug helpers.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nLedgerIdParts\n\nFrozen dataclass: prefix, number, segment.\n\n\n\nLedgerIdFormat(prefix, separator=\"-\", width=4, segment_separator=None, segment_required=False)\n\nConfigurable ID format with optional segment support. Methods: format, parse, parse_parts, next, is_valid, filename.\n\n\n\nNumericIdFormat(prefix, separator=\"-\", width=4)\n\nSimpler ID format for compatibility. Methods: format, parse, next.\n\n\n\nparse_prefixed_number(value, *, prefix, separator=\"-\", width=4)\n\nParse a prefixed numeric ID and return the number.\n\n\n\nnext_prefixed_id(prefix, existing_ids, *, separator=\"-\", width=4)\n\nReturn the next prefixed ID given existing IDs.\n\n\n\nslugify_ref(value, *, empty=\"item\")\n\nLowercase, trim, colla…",
+          "lower": "prefixed numeric id formatting, parsing, next-id generation, and slug helpers.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\nledgeridparts\n\nfrozen dataclass: prefix, number, segment.\n\n\n\nledgeridformat(prefix, separator=\"-\", width=4, segment_separator=none, segment_required=false)\n\nconfigurable id format with optional segment support. methods: format, parse, parse_parts, next, is_valid, filename.\n\n\n\nnumericidformat(prefix, separator=\"-\", width=4)\n\nsimpler id format for compatibility. methods: format, parse, next.\n\n\n\nparse_prefixed_number(value, *, prefix, separator=\"-\", width=4)\n\nparse a prefixed numeric id and return the number.\n\n\n\nnext_prefixed_id(prefix, existing_ids, *, separator=\"-\", width=4)\n\nreturn the next prefixed id given existing ids.\n\n\n\nslugify_ref(value, *, empty=\"item\")\n\nlowercase, trim, colla…"
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.io",
+          "text": "UTF-8 text helpers, newline normalization, content hash, text merging.\n\n\n\nFunction\n\nDescription\n\n\n\n\n\nnormalize_newlines(text)\n\nConvert CRLF and CR to LF.\n\n\n\nensure_dir(path)\n\nCreate parent directories as needed.\n\n\n\nread_text(path, *, normalize=True)\n\nRead UTF-8 text from a file.\n\n\n\nwrite_text(path, text, *, normalize=True)\n\nWrite UTF-8 text to a file, creating parent directories.\n\n\n\ncontent_hash(text)\n\nReturn a stable SHA-256 hex digest of UTF-8 text.\n\n\n\nsummarize_text(text, max_chars=80)\n\nCollapse whitespace and truncate safely.\n\n\n\nmerge_text(current, incoming, *, prepend=False)\n\nCombine text blocks without excessive blank lines.",
+          "lower": "utf-8 text helpers, newline normalization, content hash, text merging.\n\n\n\nfunction\n\ndescription\n\n\n\n\n\nnormalize_newlines(text)\n\nconvert crlf and cr to lf.\n\n\n\nensure_dir(path)\n\ncreate parent directories as needed.\n\n\n\nread_text(path, *, normalize=true)\n\nread utf-8 text from a file.\n\n\n\nwrite_text(path, text, *, normalize=true)\n\nwrite utf-8 text to a file, creating parent directories.\n\n\n\ncontent_hash(text)\n\nreturn a stable sha-256 hex digest of utf-8 text.\n\n\n\nsummarize_text(text, max_chars=80)\n\ncollapse whitespace and truncate safely.\n\n\n\nmerge_text(current, incoming, *, prepend=false)\n\ncombine text blocks without excessive blank lines."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.jsonio",
+          "text": "Validated JSON object/array loading and deterministic JSON writing.\n\n\n\nFunction\n\nDescription\n\n\n\n\n\nload_json_object(path, *, label=\"JSON document\", missing=\"error\", empty=\"empty\")\n\nLoad and validate a JSON object.\n\n\n\nload_json_array(path, *, label=\"JSON document\", missing=\"error\", empty=\"empty\")\n\nLoad and validate a JSON array.\n\n\n\ndumps_json(payload, *, ...)\n\nRender configurable deterministic JSON text.\n\n\n\nwrite_json(path, payload, *, ...)\n\nWrite JSON with configurable indentation and compact mode.\n\n\n\ncanonical_json(payload)\n\nRender compact sorted-key JSON for hashing.",
+          "lower": "validated json object/array loading and deterministic json writing.\n\n\n\nfunction\n\ndescription\n\n\n\n\n\nload_json_object(path, *, label=\"json document\", missing=\"error\", empty=\"empty\")\n\nload and validate a json object.\n\n\n\nload_json_array(path, *, label=\"json document\", missing=\"error\", empty=\"empty\")\n\nload and validate a json array.\n\n\n\ndumps_json(payload, *, ...)\n\nrender configurable deterministic json text.\n\n\n\nwrite_json(path, payload, *, ...)\n\nwrite json with configurable indentation and compact mode.\n\n\n\ncanonical_json(payload)\n\nrender compact sorted-key json for hashing."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.jsonl",
+          "text": "Recoverable JSON Lines object loading and deterministic writing.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nJsonlLoadIssue\n\nFrozen line issue: line, code, and message.\n\n\n\nJsonlLoadResult\n\nValid rows plus recoverable issues.\n\n\n\nJsonlObjectRow\n\nValid object plus its source line number.\n\n\n\nJsonlLoadRowsResult\n\nLine-aware valid rows plus recoverable issues.\n\n\n\nJsonlObjectMapLoadResult\n\nObject rows keyed by a selected string field plus issues.\n\n\n\nDuplicateKeyPolicy\n\nLiteral type: \"last\", \"first\", or \"error\".\n\n\n\nload_jsonl_object_rows(path, *, ...)\n\nLoad object rows while preserving source line numbers.\n\n\n\nload_jsonl_object_map(path, *, key, ...)\n\nLoad object rows into a keyed map with recoverable issues.\n\n\n\nload_jsonl_objects(path, *, ...)\n\nLoad object rows while reporting malformed lines.\n\n\n\nwrite_jsonl_obj…",
+          "lower": "recoverable json lines object loading and deterministic writing.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\njsonlloadissue\n\nfrozen line issue: line, code, and message.\n\n\n\njsonlloadresult\n\nvalid rows plus recoverable issues.\n\n\n\njsonlobjectrow\n\nvalid object plus its source line number.\n\n\n\njsonlloadrowsresult\n\nline-aware valid rows plus recoverable issues.\n\n\n\njsonlobjectmaploadresult\n\nobject rows keyed by a selected string field plus issues.\n\n\n\nduplicatekeypolicy\n\nliteral type: \"last\", \"first\", or \"error\".\n\n\n\nload_jsonl_object_rows(path, *, ...)\n\nload object rows while preserving source line numbers.\n\n\n\nload_jsonl_object_map(path, *, key, ...)\n\nload object rows into a keyed map with recoverable issues.\n\n\n\nload_jsonl_objects(path, *, ...)\n\nload object rows while reporting malformed lines.\n\n\n\nwrite_jsonl_obj…"
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.paths",
+          "text": "Safe relative POSIX path validation, config discovery, config-relative resolution.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nis_relative_to(path, parent)\n\nCheck whether path is relative to parent.\n\n\n\nvalidate_relative_posix_path(value, *, field_name=\"path\", allow_trailing_slash=False)\n\nValidate that a path is a safe relative POSIX path.\n\n\n\nresolve_relative_child(base_dir, relative_path, *, field_name=\"path\")\n\nValidate and resolve a relative path under a base directory.\n\n\n\nensure_inside_base(base_dir, path, *, field_name=\"path\")\n\nResolve a path and reject paths outside the base.\n\n\n\nrelative_to_base(base_dir, path, *, field_name=\"path\")\n\nReturn a safe POSIX base-relative path string.\n\n\n\nresolve_under_base(base_dir, relative_path, *, ...)\n\nResolve a safe relative path with optional existence checking.…",
+          "lower": "safe relative posix path validation, config discovery, config-relative resolution.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\nis_relative_to(path, parent)\n\ncheck whether path is relative to parent.\n\n\n\nvalidate_relative_posix_path(value, *, field_name=\"path\", allow_trailing_slash=false)\n\nvalidate that a path is a safe relative posix path.\n\n\n\nresolve_relative_child(base_dir, relative_path, *, field_name=\"path\")\n\nvalidate and resolve a relative path under a base directory.\n\n\n\nensure_inside_base(base_dir, path, *, field_name=\"path\")\n\nresolve a path and reject paths outside the base.\n\n\n\nrelative_to_base(base_dir, path, *, field_name=\"path\")\n\nreturn a safe posix base-relative path string.\n\n\n\nresolve_under_base(base_dir, relative_path, *, ...)\n\nresolve a safe relative path with optional existence checking.…"
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.layout",
+          "text": "TK:\nPM:Typed Ledger-family project layout parsing and resolution. The public parser\nWB:APIs accept mappings rather than TOML file paths.\nJR:\nPackage-root facade. The following layout symbols are re-exported from the\ntop-level ledgercore package for convenience and form the supported public\nlayout facade. Detailed layout dataclasses are intentionally kept under\nledgercore.layout and must not be imported from the package root.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nLedgerProjectLocator\n\nFrozen dataclass with project_root, config_root, manifest_path, local_config_path, and source.\n\n\n\nResolvedLedgerLayout\n\nFrozen dataclass with resolved project, config, optional tool config, checkout ID, and named mounts.\n\n\n\nlocate_ledger_project(start, ...)\n\nLocate a canonical .ledger/ledger.toml project manifest or a…",
+          "lower": "tk:\npm:typed ledger-family project layout parsing and resolution. the public parser\nwb:apis accept mappings rather than toml file paths.\njr:\npackage-root facade. the following layout symbols are re-exported from the\ntop-level ledgercore package for convenience and form the supported public\nlayout facade. detailed layout dataclasses are intentionally kept under\nledgercore.layout and must not be imported from the package root.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\nledgerprojectlocator\n\nfrozen dataclass with project_root, config_root, manifest_path, local_config_path, and source.\n\n\n\nresolvedledgerlayout\n\nfrozen dataclass with resolved project, config, optional tool config, checkout id, and named mounts.\n\n\n\nlocate_ledger_project(start, ...)\n\nlocate a canonical .ledger/ledger.toml project manifest or a…"
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.path_text",
+          "text": "Human-authored path matching helpers. These functions do not authorize\nfilesystem access.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nPunctuationProfile\n\nLiteral type: \"basic\", \"wide\", or \"none\".\n\n\n\ndecode_unicode_escape_literals(value)\n\nDecode literal \\uXXXX and \\UXXXXXXXX sequences only.\n\n\n\nnormalize_path_text(value, *, ...)\n\nNormalize Unicode, punctuation, slashes, whitespace, and case.",
+          "lower": "human-authored path matching helpers. these functions do not authorize\nfilesystem access.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\npunctuationprofile\n\nliteral type: \"basic\", \"wide\", or \"none\".\n\n\n\ndecode_unicode_escape_literals(value)\n\ndecode literal \\uxxxx and \\uxxxxxxxx sequences only.\n\n\n\nnormalize_path_text(value, *, ...)\n\nnormalize unicode, punctuation, slashes, whitespace, and case."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.hashing",
+          "text": "Symbol\n\nDescription\n\n\n\n\n\nTextFingerprint\n\nFull, body, and canonical metadata SHA-256 values.\n\n\n\nsha256_text(text)\n\nHash UTF-8 text.\n\n\n\nsha256_bytes(data)\n\nHash bytes directly.\n\n\n\nfront_matter_fingerprint(text, *, ...)\n\nFingerprint components with front matter parser options.",
+          "lower": "symbol\n\ndescription\n\n\n\n\n\ntextfingerprint\n\nfull, body, and canonical metadata sha-256 values.\n\n\n\nsha256_text(text)\n\nhash utf-8 text.\n\n\n\nsha256_bytes(data)\n\nhash bytes directly.\n\n\n\nfront_matter_fingerprint(text, *, ...)\n\nfingerprint components with front matter parser options."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.refs",
+          "text": "Canonical cross-ledger resource references.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nRefStyle\n\nLiteral type: \"canonical\", \"file\", \"local\".\n\n\n\nLedgerResourceRef\n\nFrozen dataclass with properties: local_id, is_global, global_ref, file_ref. Methods: format, with_ledger.\n\n\n\nparse_resource_ref(value, *, ...)\n\nParse a canonical, file-safe, legacy, or local resource reference.\n\n\n\nparse_global_ref(value, **kwargs)\n\nParse and require a ledger namespace.\n\n\n\nparse_local_ref(value, *, width=4)\n\nParse a local kind-number ID without assigning a ledger.\n\n\n\nis_resource_ref(value, **kwargs)\n\nReturn True if value is a valid resource ref.\n\n\n\nnormalize_ref_token(value, *, label)\n\nLowercase and validate a short token.\n\n\n\nnormalize_kind(value)\n\nLowercase, replace underscores with hyphens, and validate a resource kind.",
+          "lower": "canonical cross-ledger resource references.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\nrefstyle\n\nliteral type: \"canonical\", \"file\", \"local\".\n\n\n\nledgerresourceref\n\nfrozen dataclass with properties: local_id, is_global, global_ref, file_ref. methods: format, with_ledger.\n\n\n\nparse_resource_ref(value, *, ...)\n\nparse a canonical, file-safe, legacy, or local resource reference.\n\n\n\nparse_global_ref(value, **kwargs)\n\nparse and require a ledger namespace.\n\n\n\nparse_local_ref(value, *, width=4)\n\nparse a local kind-number id without assigning a ledger.\n\n\n\nis_resource_ref(value, **kwargs)\n\nreturn true if value is a valid resource ref.\n\n\n\nnormalize_ref_token(value, *, label)\n\nlowercase and validate a short token.\n\n\n\nnormalize_kind(value)\n\nlowercase, replace underscores with hyphens, and validate a resource kind."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.time",
+          "text": "UTC timestamp generation with configurable precision and suffix style.\n\n\n\nSymbol\n\nDescription\n\n\n\n\n\nTimespec\n\nSupported datetime.isoformat() precision values.\n\n\n\nTimezoneStyle\n\nLiteral type: \"z\" or \"offset\".\n\n\n\nutc_now_iso()\n\nNormalize an aware datetime to UTC and render ISO-8601 text.",
+          "lower": "utc timestamp generation with configurable precision and suffix style.\n\n\n\nsymbol\n\ndescription\n\n\n\n\n\ntimespec\n\nsupported datetime.isoformat() precision values.\n\n\n\ntimezonestyle\n\nliteral type: \"z\" or \"offset\".\n\n\n\nutc_now_iso()\n\nnormalize an aware datetime to utc and render iso-8601 text."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore.yamlio",
+          "text": "Validated YAML mapping loading and deterministic YAML writing.\n\n\n\nFunction\n\nDescription\n\n\n\n\n\nload_yaml_object(path, *, label=\"YAML document\", missing=\"error\", empty=\"empty\")\n\nLoad and validate a YAML mapping.\n\n\n\nwrite_yaml(path, payload, *, atomic=True, sort_keys=False)\n\nWrite a YAML mapping with block style and a final newline.",
+          "lower": "validated yaml mapping loading and deterministic yaml writing.\n\n\n\nfunction\n\ndescription\n\n\n\n\n\nload_yaml_object(path, *, label=\"yaml document\", missing=\"error\", empty=\"empty\")\n\nload and validate a yaml mapping.\n\n\n\nwrite_yaml(path, payload, *, atomic=true, sort_keys=false)\n\nwrite a yaml mapping with block style and a final newline."
+        }
+      ]
+    },
+    {
+      "url": "/tools/ledgercore/",
+      "title": "ledgercore documentation",
+      "snippet": "Welcome to the ledgercore documentation.\n\nledgercore is a small, typed Python library for projects that store structured\nrecords as files. I …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "ledgercore documentation",
+          "text": "Welcome to the ledgercore documentation.\n\nledgercore is a small, typed Python library for projects that store structured\nrecords as files. It provides reusable primitives for atomic writes, YAML front\nmatter, deterministic JSON/YAML storage, safe relative paths, config discovery,\nnumeric IDs, and cross-ledger references.",
+          "lower": "welcome to the ledgercore documentation.\n\nledgercore is a small, typed python library for projects that store structured\nrecords as files. it provides reusable primitives for atomic writes, yaml front\nmatter, deterministic json/yaml storage, safe relative paths, config discovery,\nnumeric ids, and cross-ledger references."
+        },
+        {
+          "anchor": "",
+          "heading": "Installation",
+          "text": "pip install ledgercore\n\n\n\n\nRequirements: Python 3.10+, PyYAML.",
+          "lower": "pip install ledgercore\n\n\n\n\nrequirements: python 3.10+, pyyaml."
+        },
+        {
+          "anchor": "",
+          "heading": "Quick start",
+          "text": "See the project README for a\nhands-on introduction.",
+          "lower": "see the project readme for a\nhands-on introduction."
+        },
+        {
+          "anchor": "",
+          "heading": "Documentation index",
+          "text": "Contents\n\n\nAPI reference\nledgercore.config\n\nledgercore.atomic\n\nledgercore.errors\n\nledgercore.frontmatter\n\nledgercore.ids\n\nledgercore.io\n\nledgercore.jsonio\n\nledgercore.jsonl\n\nledgercore.paths\n\nledgercore.layout\n\nledgercore.path_text\n\nledgercore.hashing\n\nledgercore.refs\n\nledgercore.time\n\nledgercore.yamlio\n\n\n\n\nCross-ledger references\nLocal IDs\n\nGlobal refs\n\nFile-safe refs\n\nLegacy underscore alias\n\nParsing\n\nAllowed ledgers and kinds\n\nCross-ledger link example\n\nFormatting\n\nChecking validity\n\n\n\n\nStorage helpers\nAtomic writes\n\nFront matter documents\n\nJSON store\n\nJSONL store\n\nYAML store\n\nPath safety\n\n\n\n\nRelease process\nPrerequisites\n\nPre-release checklist\n\nBuilding\n\nValidating the distribution\n\nSmoke testing (required release gate)\n\nArtifact content verification\n\nPublishing\n\nVersion policy",
+          "lower": "contents\n\n\napi reference\nledgercore.config\n\nledgercore.atomic\n\nledgercore.errors\n\nledgercore.frontmatter\n\nledgercore.ids\n\nledgercore.io\n\nledgercore.jsonio\n\nledgercore.jsonl\n\nledgercore.paths\n\nledgercore.layout\n\nledgercore.path_text\n\nledgercore.hashing\n\nledgercore.refs\n\nledgercore.time\n\nledgercore.yamlio\n\n\n\n\ncross-ledger references\nlocal ids\n\nglobal refs\n\nfile-safe refs\n\nlegacy underscore alias\n\nparsing\n\nallowed ledgers and kinds\n\ncross-ledger link example\n\nformatting\n\nchecking validity\n\n\n\n\nstorage helpers\natomic writes\n\nfront matter documents\n\njson store\n\njsonl store\n\nyaml store\n\npath safety\n\n\n\n\nrelease process\nprerequisites\n\npre-release checklist\n\nbuilding\n\nvalidating the distribution\n\nsmoke testing (required release gate)\n\nartifact content verification\n\npublishing\n\nversion policy"
+        }
+      ]
+    },
+    {
+      "url": "/tools/ledgercore/references/",
+      "title": "ledgercore Cross-ledger references",
+      "snippet": "ledgercore.refs provides a canonical scheme for referencing records across\nindependent ledgers.\nInside a single ledger, records use local ID …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Cross-ledger references",
+          "text": "ledgercore.refs provides a canonical scheme for referencing records across\nindependent ledgers.",
+          "lower": "ledgercore.refs provides a canonical scheme for referencing records across\nindependent ledgers."
+        },
+        {
+          "anchor": "",
+          "heading": "Local IDs",
+          "text": "Inside a single ledger, records use local IDs:\n\ntask-0001\nadr-0002\nspec-0003\n\n\n\n\nA local ID has the form <kind>-<number>, where kind is a lowercase alphanumeric\ntoken and number is a zero-padded positive integer.",
+          "lower": "inside a single ledger, records use local ids:\n\ntask-0001\nadr-0002\nspec-0003\n\n\n\n\na local id has the form <kind>-<number>, where kind is a lowercase alphanumeric\ntoken and number is a zero-padded positive integer."
+        },
+        {
+          "anchor": "",
+          "heading": "Global refs",
+          "text": "When linking records across ledgers, use canonical global refs:\n\n<ledger>:<kind>-<number>\n\n\n\n\nExamples:\n\ntl:task-0001\nal:adr-0002\nsw:spec-0003\n\n\n\n\nThe ledger code is a short lowercase token that identifies the originating\nledger. It is not a URL or a path; downstream packages choose their own codes.",
+          "lower": "when linking records across ledgers, use canonical global refs:\n\n<ledger>:<kind>-<number>\n\n\n\n\nexamples:\n\ntl:task-0001\nal:adr-0002\nsw:spec-0003\n\n\n\n\nthe ledger code is a short lowercase token that identifies the originating\nledger. it is not a url or a path; downstream packages choose their own codes."
+        },
+        {
+          "anchor": "",
+          "heading": "File-safe refs",
+          "text": "For filenames or systems that cannot use :, replace the colon with a hyphen:\n\ntl-task-0001\nal-adr-0002",
+          "lower": "for filenames or systems that cannot use :, replace the colon with a hyphen:\n\ntl-task-0001\nal-adr-0002"
+        },
+        {
+          "anchor": "",
+          "heading": "Legacy underscore alias",
+          "text": "The parser also accepts underscore-based aliases:\n\ntl_task_0001\nal_adr_0002\n\n\n\n\nThese exist for backward compatibility. New code should use canonical or\nfile-safe forms.",
+          "lower": "the parser also accepts underscore-based aliases:\n\ntl_task_0001\nal_adr_0002\n\n\n\n\nthese exist for backward compatibility. new code should use canonical or\nfile-safe forms."
+        },
+        {
+          "anchor": "",
+          "heading": "Parsing",
+          "text": "from ledgercore.refs import parse_resource_ref\n\nref = parse_resource_ref(\"tl:task-0001\")\n\nassert ref.ledger == \"tl\"\nassert ref.kind == \"task\"\nassert ref.number == 1\nassert ref.local_id == \"task-0001\"\nassert ref.global_ref == \"tl:task-0001\"\nassert ref.file_ref == \"tl-task-0001\"\n\n\n\n\nparse_resource_ref accepts canonical, file-safe, legacy, and local forms.\nWhen parsing a local ref, set default_ledger to attach a namespace:\n\nref = parse_resource_ref(\"task-0001\", default_ledger=\"tl\")\nassert ref.global_ref == \"tl:task-0001\"",
+          "lower": "from ledgercore.refs import parse_resource_ref\n\nref = parse_resource_ref(\"tl:task-0001\")\n\nassert ref.ledger == \"tl\"\nassert ref.kind == \"task\"\nassert ref.number == 1\nassert ref.local_id == \"task-0001\"\nassert ref.global_ref == \"tl:task-0001\"\nassert ref.file_ref == \"tl-task-0001\"\n\n\n\n\nparse_resource_ref accepts canonical, file-safe, legacy, and local forms.\nwhen parsing a local ref, set default_ledger to attach a namespace:\n\nref = parse_resource_ref(\"task-0001\", default_ledger=\"tl\")\nassert ref.global_ref == \"tl:task-0001\""
+        },
+        {
+          "anchor": "",
+          "heading": "Allowed ledgers and kinds",
+          "text": "Restrict parsing to known values:\n\nfrom ledgercore.refs import parse_resource_ref\n\nref = parse_resource_ref(\n    \"tl:task-0001\",\n    allowed_ledgers={\"tl\", \"al\"},\n    allowed_kinds={\"task\", \"adr\"},\n)",
+          "lower": "restrict parsing to known values:\n\nfrom ledgercore.refs import parse_resource_ref\n\nref = parse_resource_ref(\n    \"tl:task-0001\",\n    allowed_ledgers={\"tl\", \"al\"},\n    allowed_kinds={\"task\", \"adr\"},\n)"
+        },
+        {
+          "anchor": "",
+          "heading": "Cross-ledger link example",
+          "text": "source: tl:task-0001\ntarget: al:adr-0002\nrelation: implements\n\n\n\n\nBoth endpoints are unambiguous because each carries its ledger namespace.",
+          "lower": "source: tl:task-0001\ntarget: al:adr-0002\nrelation: implements\n\n\n\n\nboth endpoints are unambiguous because each carries its ledger namespace."
+        },
+        {
+          "anchor": "",
+          "heading": "Formatting",
+          "text": "from ledgercore.refs import LedgerResourceRef\n\nref = LedgerResourceRef(ledger=\"tl\", kind=\"task\", number=1)\n\nref.format(\"canonical\")  # \"tl:task-0001\"\nref.format(\"file\")       # \"tl-task-0001\"\nref.format(\"local\")      # \"task-0001\"",
+          "lower": "from ledgercore.refs import ledgerresourceref\n\nref = ledgerresourceref(ledger=\"tl\", kind=\"task\", number=1)\n\nref.format(\"canonical\")  # \"tl:task-0001\"\nref.format(\"file\")       # \"tl-task-0001\"\nref.format(\"local\")      # \"task-0001\""
+        },
+        {
+          "anchor": "",
+          "heading": "Checking validity",
+          "text": "from ledgercore.refs import is_resource_ref\n\nassert is_resource_ref(\"tl:task-0001\")\nassert not is_resource_ref(\"not-a-ref\")",
+          "lower": "from ledgercore.refs import is_resource_ref\n\nassert is_resource_ref(\"tl:task-0001\")\nassert not is_resource_ref(\"not-a-ref\")"
+        }
+      ]
+    },
+    {
+      "url": "/tools/ledgercore/release/",
+      "title": "ledgercore Release process",
+      "snippet": "This document describes how to build, validate, and publish a ledgercore\nrelease. The release gate is the clean-wheel smoke test in\nscripts/ …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Release process",
+          "text": "This document describes how to build, validate, and publish a ledgercore\nrelease. The release gate is the clean-wheel smoke test in\nscripts/smoke_wheel.py executed against a\nwheel installed in a fresh virtualenv.",
+          "lower": "this document describes how to build, validate, and publish a ledgercore\nrelease. the release gate is the clean-wheel smoke test in\nscripts/smoke_wheel.py executed against a\nwheel installed in a fresh virtualenv."
+        },
+        {
+          "anchor": "",
+          "heading": "Prerequisites",
+          "text": "Install build and validation tools:\n\npython -m pip install -e \".[dev,docs,release]\"\n# or, equivalently:\npython -m pip install -e \".[dev]\" && python -m pip install build twine\n\n\n\n\nledgercore uses hatch-vcs for versioning. Installing or building the\nproject generates a gitignored ledgercore/_version.py that exposes\nledgercore.__version__; do not commit that file. Direct source-tree imports\nfall back to 0.0.0+unknown when that generated module is absent, and a\nmatching ledgercore/_version.pyi ships with the package so strict mypy\npasses in a pristine source tree.",
+          "lower": "install build and validation tools:\n\npython -m pip install -e \".[dev,docs,release]\"\n# or, equivalently:\npython -m pip install -e \".[dev]\" && python -m pip install build twine\n\n\n\n\nledgercore uses hatch-vcs for versioning. installing or building the\nproject generates a gitignored ledgercore/_version.py that exposes\nledgercore.__version__; do not commit that file. direct source-tree imports\nfall back to 0.0.0+unknown when that generated module is absent, and a\nmatching ledgercore/_version.pyi ships with the package so strict mypy\npasses in a pristine source tree."
+        },
+        {
+          "anchor": "",
+          "heading": "Pre-release checklist",
+          "text": "Ensure all tests pass:\n\npython -m pytest -q\n\n\n\n\n\n\nEnsure lint is clean:\n\npython -m ruff check .\n\n\n\n\n\n\nEnsure type checking passes in a pristine source tree. The generated\n_version.py is removed first so the documented source-tree fallback is\nactually exercised:\n\nrm -f ledgercore/_version.py\npython -m mypy ledgercore\n\n\n\n\n\n\nEnsure formatting and documentation are clean. The Sphinx build no longer\nrequires network access; sphinx.ext.intersphinx is disabled because no\ncross-project Python references are used yet.\n\npython -m ruff format --check .\npython -m sphinx -W -b html docs docs/_build/html\n\n\n\n\n\n\nEnsure the three example scripts run from the source tree:\n\nPYTHONPATH=. python examples/frontmatter.py\nPYTHONPATH=. python examples/refs.py\nPYTHONPATH=. python examples/storage.py",
+          "lower": "ensure all tests pass:\n\npython -m pytest -q\n\n\n\n\n\n\nensure lint is clean:\n\npython -m ruff check .\n\n\n\n\n\n\nensure type checking passes in a pristine source tree. the generated\n_version.py is removed first so the documented source-tree fallback is\nactually exercised:\n\nrm -f ledgercore/_version.py\npython -m mypy ledgercore\n\n\n\n\n\n\nensure formatting and documentation are clean. the sphinx build no longer\nrequires network access; sphinx.ext.intersphinx is disabled because no\ncross-project python references are used yet.\n\npython -m ruff format --check .\npython -m sphinx -w -b html docs docs/_build/html\n\n\n\n\n\n\nensure the three example scripts run from the source tree:\n\npythonpath=. python examples/frontmatter.py\npythonpath=. python examples/refs.py\npythonpath=. python examples/storage.py"
+        },
+        {
+          "anchor": "",
+          "heading": "Building",
+          "text": "python -m build\n\n\n\n\nBuilds from a non-git source archive are supported when the intended version\nis provided explicitly. Use a placeholder for repeatable local runs:\n\nSETUPTOOLS_SCM_PRETEND_VERSION=X.Y.Z python -m build\n\n\n\n\nFor an actual 0.4.0 release build, use 0.4.0:\n\nSETUPTOOLS_SCM_PRETEND_VERSION=0.4.0 python -m build\n\n\n\n\nThis produces dist/ledgercore-<version>.tar.gz and\ndist/ledgercore-<version>-py3-none-any.whl.",
+          "lower": "python -m build\n\n\n\n\nbuilds from a non-git source archive are supported when the intended version\nis provided explicitly. use a placeholder for repeatable local runs:\n\nsetuptools_scm_pretend_version=x.y.z python -m build\n\n\n\n\nfor an actual 0.4.0 release build, use 0.4.0:\n\nsetuptools_scm_pretend_version=0.4.0 python -m build\n\n\n\n\nthis produces dist/ledgercore-<version>.tar.gz and\ndist/ledgercore-<version>-py3-none-any.whl."
+        },
+        {
+          "anchor": "",
+          "heading": "Validating the distribution",
+          "text": "python -m twine check dist/*",
+          "lower": "python -m twine check dist/*"
+        },
+        {
+          "anchor": "",
+          "heading": "Smoke testing (required release gate)",
+          "text": "Install the built wheel into a clean virtualenv and run the release smoke\nscript. The script exercises a representative slice of the public API so that\npackaging regressions (missing modules, lost data files, broken imports)\nsurface before publishing. Use a writable location for the venv; on some\nplatforms /tmp is not writable. Run the script from a working directory\nthat does not shadow the installed package:\n\nsmoke_dir=\"$(pwd)/.smoke\"\nrm -rf \"$smoke_dir\"\npython -m venv \"$smoke_dir\"\n\"$smoke_dir/bin/python\" -m pip install \"$(echo dist/*.whl)\"\n\"$smoke_dir/bin/python\" scripts/smoke_wheel.py\n\n\n\n\nThe script must print ledgercore 0.4.0 smoke test passed and exit 0. The\nsource-tree smoke test (tests/test_smoke_wheel_source.py) covers the same\nmain() function and must also pass in CI.",
+          "lower": "install the built wheel into a clean virtualenv and run the release smoke\nscript. the script exercises a representative slice of the public api so that\npackaging regressions (missing modules, lost data files, broken imports)\nsurface before publishing. use a writable location for the venv; on some\nplatforms /tmp is not writable. run the script from a working directory\nthat does not shadow the installed package:\n\nsmoke_dir=\"$(pwd)/.smoke\"\nrm -rf \"$smoke_dir\"\npython -m venv \"$smoke_dir\"\n\"$smoke_dir/bin/python\" -m pip install \"$(echo dist/*.whl)\"\n\"$smoke_dir/bin/python\" scripts/smoke_wheel.py\n\n\n\n\nthe script must print ledgercore 0.4.0 smoke test passed and exit 0. the\nsource-tree smoke test (tests/test_smoke_wheel_source.py) covers the same\nmain() function and must also pass in ci."
+        },
+        {
+          "anchor": "",
+          "heading": "Artifact content verification",
+          "text": "Verify the wheel and sdist ship the LICENSE file, the py.typed marker,\nand the generated ledgercore/_version.py:\n\npython - <<'PY'\nimport glob, tarfile, zipfile\n\nwheel = glob.glob(\"dist/*.whl\")[0]\nsdist = glob.glob(\"dist/*.tar.gz\")[0]\n\nwith zipfile.ZipFile(wheel) as archive:\n    names = archive.namelist()\n    assert any(name.endswith(\"LICENSE\") for name in names)\n    assert \"ledgercore/_version.py\" in names\n    assert \"ledgercore/py.typed\" in names\n\nwith tarfile.open(sdist) as archive:\n    names = archive.getnames()\n    assert any(name.endswith(\"/LICENSE\") for name in names)\n    assert any(name.endswith(\"/ledgercore/_version.py\") for name in names)\n    assert any(name.endswith(\"/ledgercore/py.typed\") for name in names)\n\nprint(\"artifact check passed\")\nPY",
+          "lower": "verify the wheel and sdist ship the license file, the py.typed marker,\nand the generated ledgercore/_version.py:\n\npython - <<'py'\nimport glob, tarfile, zipfile\n\nwheel = glob.glob(\"dist/*.whl\")[0]\nsdist = glob.glob(\"dist/*.tar.gz\")[0]\n\nwith zipfile.zipfile(wheel) as archive:\n    names = archive.namelist()\n    assert any(name.endswith(\"license\") for name in names)\n    assert \"ledgercore/_version.py\" in names\n    assert \"ledgercore/py.typed\" in names\n\nwith tarfile.open(sdist) as archive:\n    names = archive.getnames()\n    assert any(name.endswith(\"/license\") for name in names)\n    assert any(name.endswith(\"/ledgercore/_version.py\") for name in names)\n    assert any(name.endswith(\"/ledgercore/py.typed\") for name in names)\n\nprint(\"artifact check passed\")\npy"
+        },
+        {
+          "anchor": "",
+          "heading": "Publishing",
+          "text": "python -m twine upload dist/*",
+          "lower": "python -m twine upload dist/*"
+        },
+        {
+          "anchor": "",
+          "heading": "Version policy",
+          "text": "ledgercore is pre-1.0. Patch releases preserve the current minor API where\npractical. Minor releases may intentionally evolve public APIs before 1.0,\nwith changelog and migration guidance. The 0.4.0 release adds the fixed\nsibling-ledger workspace convention while preserving namespaced root overrides.",
+          "lower": "ledgercore is pre-1.0. patch releases preserve the current minor api where\npractical. minor releases may intentionally evolve public apis before 1.0,\nwith changelog and migration guidance. the 0.4.0 release adds the fixed\nsibling-ledger workspace convention while preserving namespaced root overrides."
+        }
+      ]
+    },
+    {
+      "url": "/tools/ledgercore/storage/",
+      "title": "ledgercore Storage helpers",
+      "snippet": "ledgercore provides several storage primitives for safely reading and writing\nstructured files.\nUse atomic_write_text when replacing a file …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Storage helpers",
+          "text": "ledgercore provides several storage primitives for safely reading and writing\nstructured files.",
+          "lower": "ledgercore provides several storage primitives for safely reading and writing\nstructured files."
+        },
+        {
+          "anchor": "",
+          "heading": "Atomic writes",
+          "text": "Use atomic_write_text when replacing a file is expected:\n\nfrom pathlib import Path\nfrom ledgercore.atomic import atomic_write_text\n\natomic_write_text(Path(\"index.json\"), \"{}\\n\")\n\n\n\n\nThe write goes to a temporary file first, then os.replace atomically moves it\nto the target. Parent directories are created automatically. Replacing an\nexisting file preserves its permission bits; a newly created file keeps the\nprivate 0600 mode created by mkstemp.\n\nUse atomic_create_text when an existing file must not be overwritten:\n\nfrom pathlib import Path\nfrom ledgercore.atomic import atomic_create_text\n\natomic_create_text(Path(\"records/task-0001.md\"), \"---\\nid: task-0001\\n---\\n\")\n\n\n\n\nThis uses O_CREAT|O_EXCL and raises AtomicWriteError if the target already\nexists.\n\nBoth functions support an optional fas…",
+          "lower": "use atomic_write_text when replacing a file is expected:\n\nfrom pathlib import path\nfrom ledgercore.atomic import atomic_write_text\n\natomic_write_text(path(\"index.json\"), \"{}\\n\")\n\n\n\n\nthe write goes to a temporary file first, then os.replace atomically moves it\nto the target. parent directories are created automatically. replacing an\nexisting file preserves its permission bits; a newly created file keeps the\nprivate 0600 mode created by mkstemp.\n\nuse atomic_create_text when an existing file must not be overwritten:\n\nfrom pathlib import path\nfrom ledgercore.atomic import atomic_create_text\n\natomic_create_text(path(\"records/task-0001.md\"), \"---\\nid: task-0001\\n---\\n\")\n\n\n\n\nthis uses o_creat|o_excl and raises atomicwriteerror if the target already\nexists.\n\nboth functions support an optional fas…"
+        },
+        {
+          "anchor": "",
+          "heading": "Front matter documents",
+          "text": "Front matter documents are Markdown files with a YAML header:\n\n---\nid: task-0001\nstatus: open\n---\n# Task body here",
+          "lower": "front matter documents are markdown files with a yaml header:\n\n---\nid: task-0001\nstatus: open\n---\n# task body here"
+        },
+        {
+          "anchor": "",
+          "heading": "Reading",
+          "text": "from pathlib import Path\nfrom ledgercore.frontmatter import read_front_matter_document\n\nmetadata, body = read_front_matter_document(Path(\"records/task-0001.md\"))\n\n\n\n\nThe YAML block must be a mapping. metadata is always a dict. body\nincludes everything after the closing --- delimiter.\n\nFor content already held in memory:\n\nfrom ledgercore.frontmatter import (\n    render_front_matter_text,\n    split_front_matter_text,\n    update_front_matter_text,\n)\n\nmetadata, body = split_front_matter_text(text, missing=\"empty\")\ntext = update_front_matter_text(text, {\"status\": \"ready\"})\ntext = render_front_matter_text(metadata, body, key_order=(\"id\", \"status\"))\n\n\n\n\nParsing can preserve YAML timestamps as strings and quote template\nplaceholders. Rendering supports caller-defined key order and body modes.\nMin…",
+          "lower": "from pathlib import path\nfrom ledgercore.frontmatter import read_front_matter_document\n\nmetadata, body = read_front_matter_document(path(\"records/task-0001.md\"))\n\n\n\n\nthe yaml block must be a mapping. metadata is always a dict. body\nincludes everything after the closing --- delimiter.\n\nfor content already held in memory:\n\nfrom ledgercore.frontmatter import (\n    render_front_matter_text,\n    split_front_matter_text,\n    update_front_matter_text,\n)\n\nmetadata, body = split_front_matter_text(text, missing=\"empty\")\ntext = update_front_matter_text(text, {\"status\": \"ready\"})\ntext = render_front_matter_text(metadata, body, key_order=(\"id\", \"status\"))\n\n\n\n\nparsing can preserve yaml timestamps as strings and quote template\nplaceholders. rendering supports caller-defined key order and body modes.\nmin…"
+        },
+        {
+          "anchor": "",
+          "heading": "Writing",
+          "text": "from pathlib import Path\nfrom ledgercore.frontmatter import write_front_matter_document\n\nwrite_front_matter_document(\n    Path(\"records/task-0001.md\"),\n    {\"id\": \"task-0001\", \"status\": \"open\"},\n    \"# Implement parser\\n\",\n    body_mode=\"ensure-single-final-newline\",\n)\n\n\n\n\nbody_mode=\"ensure-single-final-newline\" normalizes trailing whitespace in the\nbody. The default \"preserve\" writes the body as-is.",
+          "lower": "from pathlib import path\nfrom ledgercore.frontmatter import write_front_matter_document\n\nwrite_front_matter_document(\n    path(\"records/task-0001.md\"),\n    {\"id\": \"task-0001\", \"status\": \"open\"},\n    \"# implement parser\\n\",\n    body_mode=\"ensure-single-final-newline\",\n)\n\n\n\n\nbody_mode=\"ensure-single-final-newline\" normalizes trailing whitespace in the\nbody. the default \"preserve\" writes the body as-is."
+        },
+        {
+          "anchor": "",
+          "heading": "Iterating files",
+          "text": "from pathlib import Path\nfrom ledgercore.frontmatter import iter_markdown_files, iter_source_files\n\nmd_files = iter_markdown_files(Path(\"records/\"))\nall_files = iter_source_files(Path(\"records/\"), (\".md\", \".yaml\"))\n\n\n\n\nBoth return sorted list[Path].",
+          "lower": "from pathlib import path\nfrom ledgercore.frontmatter import iter_markdown_files, iter_source_files\n\nmd_files = iter_markdown_files(path(\"records/\"))\nall_files = iter_source_files(path(\"records/\"), (\".md\", \".yaml\"))\n\n\n\n\nboth return sorted list[path]."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON store",
+          "text": "from pathlib import Path\nfrom ledgercore.jsonio import dumps_json, load_json_object, write_json\n\npath = Path(\"state.json\")\nwrite_json(path, {\"next\": 4})\nstate = load_json_object(path, missing=\"empty\")\ncompact = dumps_json(state, compact=True)\n\n\n\n\n\nload_json_object validates that the root is a JSON object.\n\n\nload_json_array validates that the root is a JSON array.\n\n\nwrite_json produces deterministic output: indent 2, sorted keys, final newline.\n\n\ndumps_json and write_json can change indentation, key sorting, ASCII\nescaping, compact separators, and final-newline behavior.\n\n\nAll operations raise JsonStoreError on failure.\n\n\n\nBoth loaders accept missing=\"empty\" to return an empty container only when the\nfile does not exist; an unreadable path that does exist (for example a directory,\nor a per…",
+          "lower": "from pathlib import path\nfrom ledgercore.jsonio import dumps_json, load_json_object, write_json\n\npath = path(\"state.json\")\nwrite_json(path, {\"next\": 4})\nstate = load_json_object(path, missing=\"empty\")\ncompact = dumps_json(state, compact=true)\n\n\n\n\n\nload_json_object validates that the root is a json object.\n\n\nload_json_array validates that the root is a json array.\n\n\nwrite_json produces deterministic output: indent 2, sorted keys, final newline.\n\n\ndumps_json and write_json can change indentation, key sorting, ascii\nescaping, compact separators, and final-newline behavior.\n\n\nall operations raise jsonstoreerror on failure.\n\n\n\nboth loaders accept missing=\"empty\" to return an empty container only when the\nfile does not exist; an unreadable path that does exist (for example a directory,\nor a per…"
+        },
+        {
+          "anchor": "",
+          "heading": "JSONL store",
+          "text": "from pathlib import Path\nfrom ledgercore.jsonl import load_jsonl_object_map, write_jsonl_objects\n\npath = Path(\"records.jsonl\")\nwrite_jsonl_objects(path, [{\"id\": 1}, {\"id\": 2}])\nresult = load_jsonl_object_map(path, key=\"id\", missing=\"empty\")\n\n\n\n\nload_jsonl_object_rows retains each valid object’s source line.\nload_jsonl_object_map indexes rows by a selected field and reports missing,\ninvalid, and duplicate keys in issues. Duplicate policy can be \"last\",\n\"first\", or \"error\". Writes remain compact and deterministic.",
+          "lower": "from pathlib import path\nfrom ledgercore.jsonl import load_jsonl_object_map, write_jsonl_objects\n\npath = path(\"records.jsonl\")\nwrite_jsonl_objects(path, [{\"id\": 1}, {\"id\": 2}])\nresult = load_jsonl_object_map(path, key=\"id\", missing=\"empty\")\n\n\n\n\nload_jsonl_object_rows retains each valid object’s source line.\nload_jsonl_object_map indexes rows by a selected field and reports missing,\ninvalid, and duplicate keys in issues. duplicate policy can be \"last\",\n\"first\", or \"error\". writes remain compact and deterministic."
+        },
+        {
+          "anchor": "",
+          "heading": "YAML store",
+          "text": "from pathlib import Path\nfrom ledgercore.yamlio import load_yaml_object, write_yaml\n\npath = Path(\"config.yaml\")\nwrite_yaml(path, {\"records_dir\": \"records\"}, sort_keys=True)\nconfig = load_yaml_object(path, missing=\"empty\")\n\n\n\n\n\nload_yaml_object validates that the root is a YAML mapping.\n\n\nwrite_yaml produces block-style output with a final newline. Keys can be\nsorted on request.\n\n\nAll operations raise YamlStoreError on failure.",
+          "lower": "from pathlib import path\nfrom ledgercore.yamlio import load_yaml_object, write_yaml\n\npath = path(\"config.yaml\")\nwrite_yaml(path, {\"records_dir\": \"records\"}, sort_keys=true)\nconfig = load_yaml_object(path, missing=\"empty\")\n\n\n\n\n\nload_yaml_object validates that the root is a yaml mapping.\n\n\nwrite_yaml produces block-style output with a final newline. keys can be\nsorted on request.\n\n\nall operations raise yamlstoreerror on failure."
+        },
+        {
+          "anchor": "",
+          "heading": "Path safety",
+          "text": "Path helpers enforce strict rules to prevent directory traversal:\n\nfrom ledgercore.paths import validate_relative_posix_path\n\nvalidate_relative_posix_path(\"records/task-0001.md\")  # ok\nvalidate_relative_posix_path(\"../etc/passwd\")          # raises PathValidationError\nvalidate_relative_posix_path(\"/etc/passwd\")            # raises PathValidationError\n\n\n\n\nRejected inputs include:\n\n\nAbsolute paths (starting with /).\n\n\nPaths containing .. or . segments.\n\n\nPaths containing backslashes.\n\n\nPaths that resolve outside the base directory.",
+          "lower": "path helpers enforce strict rules to prevent directory traversal:\n\nfrom ledgercore.paths import validate_relative_posix_path\n\nvalidate_relative_posix_path(\"records/task-0001.md\")  # ok\nvalidate_relative_posix_path(\"../etc/passwd\")          # raises pathvalidationerror\nvalidate_relative_posix_path(\"/etc/passwd\")            # raises pathvalidationerror\n\n\n\n\nrejected inputs include:\n\n\nabsolute paths (starting with /).\n\n\npaths containing .. or . segments.\n\n\npaths containing backslashes.\n\n\npaths that resolve outside the base directory."
+        },
+        {
+          "anchor": "",
+          "heading": "Config discovery",
+          "text": "from pathlib import Path\nfrom ledgercore.config import locate_ledger_config\nfrom ledgercore.paths import resolve_config_relative_path\n\nlocator = locate_ledger_config(Path.cwd())\nif locator is not None:\n    records_dir = resolve_config_relative_path(\n        locator.config_path,\n        \"records\",\n        field_name=\"records_dir\",\n    )\n\n\n\n\nlocate_ledger_config walks upward from the starting directory, preferring\n.ledger.toml over ledger.toml. It returns a ConfigLocator with\nworkspace_root, config_path, and source fields.\n\nFor canonical phase-2 project layout discovery, use locate_ledger_project\ninstead. It looks for .ledger/ledger.toml first, preserves legacy discovery\nsignals for migration-oriented callers, and returns a LedgerProjectLocator\nwith project_root, config_root, manifest_path,…",
+          "lower": "from pathlib import path\nfrom ledgercore.config import locate_ledger_config\nfrom ledgercore.paths import resolve_config_relative_path\n\nlocator = locate_ledger_config(path.cwd())\nif locator is not none:\n    records_dir = resolve_config_relative_path(\n        locator.config_path,\n        \"records\",\n        field_name=\"records_dir\",\n    )\n\n\n\n\nlocate_ledger_config walks upward from the starting directory, preferring\n.ledger.toml over ledger.toml. it returns a configlocator with\nworkspace_root, config_path, and source fields.\n\nfor canonical phase-2 project layout discovery, use locate_ledger_project\ninstead. it looks for .ledger/ledger.toml first, preserves legacy discovery\nsignals for migration-oriented callers, and returns a ledgerprojectlocator\nwith project_root, config_root, manifest_path,…"
+        },
+        {
+          "anchor": "",
+          "heading": "Shared ledger config convention",
+          "text": "Ledgercore-based tools should place shared project metadata under [project]\nand tool-specific settings under [tools.<tool-name>] in .ledger.toml when\nthey still use the schema-version-1 shared config compatibility convention.\nLedgercore provides discovery and generic mapping selectors, but deliberately\ndoes not parse TOML or define tool schemas.\n\nDownstream applications may pass legacy filenames to\nlocate_ledger_config. Canonical names are searched first, so a\n.ledger.toml in the workspace wins over a legacy tool config. Applications\nshould parse only the selected file rather than merging canonical and legacy\nconfigs implicitly.\n\nresolve_config_relative_path resolves a path relative to the config file’s\nparent directory, applying the same safety checks.",
+          "lower": "ledgercore-based tools should place shared project metadata under [project]\nand tool-specific settings under [tools.<tool-name>] in .ledger.toml when\nthey still use the schema-version-1 shared config compatibility convention.\nledgercore provides discovery and generic mapping selectors, but deliberately\ndoes not parse toml or define tool schemas.\n\ndownstream applications may pass legacy filenames to\nlocate_ledger_config. canonical names are searched first, so a\n.ledger.toml in the workspace wins over a legacy tool config. applications\nshould parse only the selected file rather than merging canonical and legacy\nconfigs implicitly.\n\nresolve_config_relative_path resolves a path relative to the config file’s\nparent directory, applying the same safety checks."
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical project layout resolution",
+          "text": "ledgercore 0.4.0 resolves a common .ledger/ledger.toml topology through\nledgercore.layout. The layout is described by a schema-version-2 project\nmanifest, an optional machine-local override mapping, and an explicit checkout ID.\nTool configuration remains project-local (config.location == \"project\"). The\nresolver evaluates only the workspace and cache families used by the selected\nregistration, so repository-only ledgers do not require external storage config.\n\nfrom pathlib import Path\n\nfrom ledgercore import (\n    locate_ledger_project,\n    parse_ledger_project_manifest,\n    resolve_ledger_layout,\n)\nfrom ledgercore.layout import PlatformRoots\n\nlocator = locate_ledger_project(Path.cwd())\nif locator is not None and not locator.is_legacy:\n    manifest = parse_ledger_project_manifest(…",
+          "lower": "ledgercore 0.4.0 resolves a common .ledger/ledger.toml topology through\nledgercore.layout. the layout is described by a schema-version-2 project\nmanifest, an optional machine-local override mapping, and an explicit checkout id.\ntool configuration remains project-local (config.location == \"project\"). the\nresolver evaluates only the workspace and cache families used by the selected\nregistration, so repository-only ledgers do not require external storage config.\n\nfrom pathlib import path\n\nfrom ledgercore import (\n    locate_ledger_project,\n    parse_ledger_project_manifest,\n    resolve_ledger_layout,\n)\nfrom ledgercore.layout import platformroots\n\nlocator = locate_ledger_project(path.cwd())\nif locator is not none and not locator.is_legacy:\n    manifest = parse_ledger_project_manifest(…"
+        },
+        {
+          "anchor": "",
+          "heading": "Repository-only example",
+          "text": "A repository-only ledger keeps every artifact inside the source checkout.\nIt needs no external storage config and is unaffected by workspace_root or\ncache_root in .ledger/ledger.local.toml.\n\nfrom pathlib import Path\n\nfrom ledgercore import (\n    locate_ledger_project,\n    parse_ledger_project_manifest,\n    resolve_ledger_layout,\n)\n\nlocator = locate_ledger_project(Path.cwd())\nmanifest = parse_ledger_project_manifest(\n    {\n        \"schema_version\": 2,\n        \"project\": {\"uuid\": \"565c0312-b531-4d07-aa1f-32c796f58dae\"},\n        \"ledgers\": {\n            \"archledger\": {\n                \"mounts\": {\n                    \"records\": {\"storage\": \"repository\", \"path\": \"arch/records\"},\n                    \"published\": {\"storage\": \"repository\", \"path\": \"arch/published\"},\n                }…",
+          "lower": "a repository-only ledger keeps every artifact inside the source checkout.\nit needs no external storage config and is unaffected by workspace_root or\ncache_root in .ledger/ledger.local.toml.\n\nfrom pathlib import path\n\nfrom ledgercore import (\n    locate_ledger_project,\n    parse_ledger_project_manifest,\n    resolve_ledger_layout,\n)\n\nlocator = locate_ledger_project(path.cwd())\nmanifest = parse_ledger_project_manifest(\n    {\n        \"schema_version\": 2,\n        \"project\": {\"uuid\": \"565c0312-b531-4d07-aa1f-32c796f58dae\"},\n        \"ledgers\": {\n            \"archledger\": {\n                \"mounts\": {\n                    \"records\": {\"storage\": \"repository\", \"path\": \"arch/records\"},\n                    \"published\": {\"storage\": \"repository\", \"path\": \"arch/published\"},\n                }…"
+        },
+        {
+          "anchor": "",
+          "heading": "Mixed-mount example",
+          "text": "A mixed-mount ledger combines repository storage (durable, in-tree) with\nworkspace storage (external, user-data) and cache storage (rebuildable).\nplatform_roots is required for workspace and cache mounts; omit it only when\nall mounts are repository mounts.\n\nfrom pathlib import Path\n\nfrom ledgercore import (\n    locate_ledger_project,\n    parse_ledger_project_manifest,\n    resolve_ledger_layout,\n)\nfrom ledgercore.layout import PlatformRoots\n\nlocator = locate_ledger_project(Path.cwd())\nmanifest = parse_ledger_project_manifest(\n    {\n        \"schema_version\": 2,\n        \"project\": {\"uuid\": \"565c0312-b531-4d07-aa1f-32c796f58dae\"},\n        \"ledgers\": {\n            \"taskledger\": {\n                \"config\": {\"location\": \"project\", \"path\": \"task/config.toml\"},\n                \"mounts\": {…",
+          "lower": "a mixed-mount ledger combines repository storage (durable, in-tree) with\nworkspace storage (external, user-data) and cache storage (rebuildable).\nplatform_roots is required for workspace and cache mounts; omit it only when\nall mounts are repository mounts.\n\nfrom pathlib import path\n\nfrom ledgercore import (\n    locate_ledger_project,\n    parse_ledger_project_manifest,\n    resolve_ledger_layout,\n)\nfrom ledgercore.layout import platformroots\n\nlocator = locate_ledger_project(path.cwd())\nmanifest = parse_ledger_project_manifest(\n    {\n        \"schema_version\": 2,\n        \"project\": {\"uuid\": \"565c0312-b531-4d07-aa1f-32c796f58dae\"},\n        \"ledgers\": {\n            \"taskledger\": {\n                \"config\": {\"location\": \"project\", \"path\": \"task/config.toml\"},\n                \"mounts\": {…"
+        },
+        {
+          "anchor": "",
+          "heading": "Built-in sibling-ledger provider",
+          "text": "The machine-local selection below opts into the one fixed direct workspace backend:\n\n# .ledger/ledger.local.toml\nschema_version = 1\n\n[storage.workspace]\nprovider = \"sibling-ledger\"\n\n\n\n\nFor a project root /work/ledgercore, the provider root is fixed at\n/work/ledger. It requires an existing directory and a regular\n/work/ledger/.ledger-store marker. Resolution never creates either path, invokes\nGit, or falls back to the platform data root. Missing or invalid selected storage\nis a fatal error with remediation in the exception text.\n\nA project-scoped workspace mount resolves directly below the provider root:\n\n<project-root>/../ledger/task/taskledger\n\n\n\n\nRoot overrides retain the existing namespaced behavior instead:\n\nroot = \"../ledger\"\n../ledger/projects/<project-uuid>/project/task/taskledger…",
+          "lower": "the machine-local selection below opts into the one fixed direct workspace backend:\n\n# .ledger/ledger.local.toml\nschema_version = 1\n\n[storage.workspace]\nprovider = \"sibling-ledger\"\n\n\n\n\nfor a project root /work/ledgercore, the provider root is fixed at\n/work/ledger. it requires an existing directory and a regular\n/work/ledger/.ledger-store marker. resolution never creates either path, invokes\ngit, or falls back to the platform data root. missing or invalid selected storage\nis a fatal error with remediation in the exception text.\n\na project-scoped workspace mount resolves directly below the provider root:\n\n<project-root>/../ledger/task/taskledger\n\n\n\n\nroot overrides retain the existing namespaced behavior instead:\n\nroot = \"../ledger\"\n../ledger/projects/<project-uuid>/project/task/taskledger…"
+        },
+        {
+          "anchor": "",
+          "heading": "Named mounts and lifecycle rules",
+          "text": "A mount is identified by name within one ledger registration. Two ledgers\nin the same project may reuse the same mount name; they do not share\nstorage.\n\n\nRepository mounts resolve beneath .ledger/ and cannot be redirected.\nThey live with the source tree and are intended for durable, in-tree\nrecords.\n\n\nWorkspace mounts normally resolve under projects/<project-uuid>/... outside\nthe source checkout. The selected sibling-ledger provider is the fixed\nexception and resolves direct project-scoped mounts below <project-root>/../ledger.\n\n\nCache mounts resolve under the same projects/<project-uuid>/... roots but are\nexplicitly rebuildable. Deleting a cache mount is safe.\n\n\nThe config block (when present) must point to a project-local file beneath\n.ledger/. Workspace-stored tool config is unsupporte…",
+          "lower": "a mount is identified by name within one ledger registration. two ledgers\nin the same project may reuse the same mount name; they do not share\nstorage.\n\n\nrepository mounts resolve beneath .ledger/ and cannot be redirected.\nthey live with the source tree and are intended for durable, in-tree\nrecords.\n\n\nworkspace mounts normally resolve under projects/<project-uuid>/... outside\nthe source checkout. the selected sibling-ledger provider is the fixed\nexception and resolves direct project-scoped mounts below <project-root>/../ledger.\n\n\ncache mounts resolve under the same projects/<project-uuid>/... roots but are\nexplicitly rebuildable. deleting a cache mount is safe.\n\n\nthe config block (when present) must point to a project-local file beneath\n.ledger/. workspace-stored tool config is unsupporte…"
+        },
+        {
+          "anchor": "",
+          "heading": "Local roots vs provider selections",
+          "text": "ledgercore distinguishes two local override fields:\n\n\nworkspace_root / cache_root are explicit local filesystem roots. They redirect\nthe matching family root while retaining namespaced project and checkout paths.\n\n\nworkspace_provider selects the fixed built-in sibling-ledger convention. It is\nvalid only for workspace/project mounts and has no fallback.\n\n\ncache_provider selections are rejected. Root and provider cannot be combined.\n\n\n\nparse_ledger_project_manifest and parse_ledger_local_config accept mappings,\nnot TOML file paths. Repository mounts stay beneath .ledger; root overrides for\nworkspace and cache mounts retain the fixed projects/<uuid>/project or\nprojects/<uuid>/checkouts/<checkout-id> structural roots.",
+          "lower": "ledgercore distinguishes two local override fields:\n\n\nworkspace_root / cache_root are explicit local filesystem roots. they redirect\nthe matching family root while retaining namespaced project and checkout paths.\n\n\nworkspace_provider selects the fixed built-in sibling-ledger convention. it is\nvalid only for workspace/project mounts and has no fallback.\n\n\ncache_provider selections are rejected. root and provider cannot be combined.\n\n\n\nparse_ledger_project_manifest and parse_ledger_local_config accept mappings,\nnot toml file paths. repository mounts stay beneath .ledger; root overrides for\nworkspace and cache mounts retain the fixed projects/<uuid>/project or\nprojects/<uuid>/checkouts/<checkout-id> structural roots."
+        },
+        {
+          "anchor": "",
+          "heading": "External store bootstrap and downstream IDs",
+          "text": "On a second computer, clone or provision the external store as the sibling ../ledger\nbefore resolving the project. Create or verify the regular ../ledger/.ledger-store\nmarker, select provider = \"sibling-ledger\" in the machine-local config, and let the\ndownstream tool initialize its project-binding marker. Ledgercore only validates these\nprerequisites. It does not clone, commit, push, or otherwise invoke Git.\n\nTaskledger owns the binding file and authoritative record policy. It must derive the\nnext ID as the maximum validated allocated task number plus one across active records,\narchives, and tombstones. Gaps are not reused, and the stable project config does not\nstore a next-task counter. Exclusive creation with bounded retry handles local races.\nDisconnected computers can still allocate…",
+          "lower": "on a second computer, clone or provision the external store as the sibling ../ledger\nbefore resolving the project. create or verify the regular ../ledger/.ledger-store\nmarker, select provider = \"sibling-ledger\" in the machine-local config, and let the\ndownstream tool initialize its project-binding marker. ledgercore only validates these\nprerequisites. it does not clone, commit, push, or otherwise invoke git.\n\ntaskledger owns the binding file and authoritative record policy. it must derive the\nnext id as the maximum validated allocated task number plus one across active records,\narchives, and tombstones. gaps are not reused, and the stable project config does not\nstore a next-task counter. exclusive creation with bounded retry handles local races.\ndisconnected computers can still allocate…"
+        }
+      ]
+    }
+  ]
+}

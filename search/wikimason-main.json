@@ -1,0 +1,556 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "wikimason-main",
+  "entries": [
+    {
+      "url": "/tools/wikimason/main/agent-workflow/",
+      "title": "wikimason Agent Workflow",
+      "snippet": "This landing page mirrors the generated Markdown reference in\ndocs/agent-workflow.md.\n\nUse the canonical top-level WikiMason commands for wi …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Agent Workflow",
+          "text": "This landing page mirrors the generated Markdown reference in\ndocs/agent-workflow.md.\n\nUse the canonical top-level WikiMason commands for wiki workflows. The\nproduct is filesystem-backed and does not expose a runtime bridge or a\nwikimason obsidian command namespace.",
+          "lower": "this landing page mirrors the generated markdown reference in\ndocs/agent-workflow.md.\n\nuse the canonical top-level wikimason commands for wiki workflows. the\nproduct is filesystem-backed and does not expose a runtime bridge or a\nwikimason obsidian command namespace."
+        },
+        {
+          "anchor": "",
+          "heading": "First-run workflow",
+          "text": "wikimason doctor --format json\n\n\nwikimason source scan --update --format json\n\n\nwikimason source delta --format json\n\n\nwikimason ingest status --format json\n\n\nwikimason ingest plan --format json\n\n\nDraft semantic note bodies only after wikimason note new ...\n\n\nwikimason links check --format json\n\n\nwikimason ingest finish --accept-covered --format json",
+          "lower": "wikimason doctor --format json\n\n\nwikimason source scan --update --format json\n\n\nwikimason source delta --format json\n\n\nwikimason ingest status --format json\n\n\nwikimason ingest plan --format json\n\n\ndraft semantic note bodies only after wikimason note new ...\n\n\nwikimason links check --format json\n\n\nwikimason ingest finish --accept-covered --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Hard rules",
+          "text": "Do not run upstream obsidian or obsidian-cli.\n\n\nUse only the WikiMason CLI commands listed in this reference; do not run upstream starter scripts such as scripts/wiki_tool.py.\n\n\nDo not hand-edit generated catalog, index, or source-manifest files.",
+          "lower": "do not run upstream obsidian or obsidian-cli.\n\n\nuse only the wikimason cli commands listed in this reference; do not run upstream starter scripts such as scripts/wiki_tool.py.\n\n\ndo not hand-edit generated catalog, index, or source-manifest files."
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/architecture/",
+      "title": "wikimason Architecture",
+      "snippet": "WikiMason keeps deterministic wiki logic in Python and exposes a\nfilesystem-backed CLI with configurable tool profiles. Runtime bridge\ncomma …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Architecture",
+          "text": "WikiMason keeps deterministic wiki logic in Python and exposes a\nfilesystem-backed CLI with configurable tool profiles. Runtime bridge\ncommands are not part of the product surface.",
+          "lower": "wikimason keeps deterministic wiki logic in python and exposes a\nfilesystem-backed cli with configurable tool profiles. runtime bridge\ncommands are not part of the product surface."
+        },
+        {
+          "anchor": "",
+          "heading": "Purpose and constraints",
+          "text": "Single package at repository root: wikimason/.\n\n\nPython 3.10+.\n\n\nMinimal runtime dependencies: Typer, Click, PyYAML, RapidFuzz,\nfuzzysearch, and tomli for Python < 3.11.\n\n\nDeterministic local filesystem operations.\n\n\nNo upstream Obsidian CLI dependency.",
+          "lower": "single package at repository root: wikimason/.\n\n\npython 3.10+.\n\n\nminimal runtime dependencies: typer, click, pyyaml, rapidfuzz,\nfuzzysearch, and tomli for python < 3.11.\n\n\ndeterministic local filesystem operations.\n\n\nno upstream obsidian cli dependency."
+        },
+        {
+          "anchor": "",
+          "heading": "Main layers",
+          "text": "CLITyper-based command surface with consistent --format text|json output\nand structured exit codes.\n\n\nOperational logWiki/log.md is an append-only operational timeline with typed events,\nautomatic command logging for important change/audit commands, log tail,\nand log check validation.\n\n\nConfig and profileTOML configuration resolved from explicit --config, local\nwikimason.toml, --env profiles, and built-in defaults. The active\nprofile (Markdown, Obsidian, or Logseq) controls on-disk page layout,\nfrontmatter format, and link rendering.\n\n\nFilesystemProfile-aware page path resolution, safe vault-relative file operations,\nand structured directory layout with Raw/, Wiki/, Schema/,\nand _templates/.\n\n\nSource lifecycleImport raw sources with content hashing and stable source_id\nassignment. Manifes…",
+          "lower": "clityper-based command surface with consistent --format text|json output\nand structured exit codes.\n\n\noperational logwiki/log.md is an append-only operational timeline with typed events,\nautomatic command logging for important change/audit commands, log tail,\nand log check validation.\n\n\nconfig and profiletoml configuration resolved from explicit --config, local\nwikimason.toml, --env profiles, and built-in defaults. the active\nprofile (markdown, obsidian, or logseq) controls on-disk page layout,\nfrontmatter format, and link rendering.\n\n\nfilesystemprofile-aware page path resolution, safe vault-relative file operations,\nand structured directory layout with raw/, wiki/, schema/,\nand _templates/.\n\n\nsource lifecycleimport raw sources with content hashing and stable source_id\nassignment. manifes…"
+        },
+        {
+          "anchor": "",
+          "heading": "Runtime workflows",
+          "text": "Initwikimason init <profile> <path> scaffolds a complete vault with\ndirectories, templates, schema files, git hooks, and AGENTS.md.\n\n\nSource ingestwikimason source add → source scan → source delta →\ningest status → ingest plan → note new →\ningest finish.\n\n\nVault maintenancewikimason vault maintain verifies, rebuilds, scans, lints, and\naudits all tracked state in one pass, then validates the operational log.",
+          "lower": "initwikimason init <profile> <path> scaffolds a complete vault with\ndirectories, templates, schema files, git hooks, and agents.md.\n\n\nsource ingestwikimason source add → source scan → source delta →\ningest status → ingest plan → note new →\ningest finish.\n\n\nvault maintenancewikimason vault maintain verifies, rebuilds, scans, lints, and\naudits all tracked state in one pass, then validates the operational log."
+        },
+        {
+          "anchor": "",
+          "heading": "Generated artifacts and ownership",
+          "text": "These files are generated by WikiMason and should not be hand-edited:\n\n\nSchema/source-manifest.jsonl\n\n\nSchema/command-reference.md\n\n\nSchema/frontmatter-schema.md\n\n\nSchema/agent-workflow.md\n\n\nWiki/catalog.jsonl\n\n\nWiki/index.md\n\n\nWiki/log.md\n\n\nAGENTS.md",
+          "lower": "these files are generated by wikimason and should not be hand-edited:\n\n\nschema/source-manifest.jsonl\n\n\nschema/command-reference.md\n\n\nschema/frontmatter-schema.md\n\n\nschema/agent-workflow.md\n\n\nwiki/catalog.jsonl\n\n\nwiki/index.md\n\n\nwiki/log.md\n\n\nagents.md"
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/command-reference/",
+      "title": "wikimason Command Reference",
+      "snippet": "Public top-level commands for the neutral WikiMason CLI surface.\n\nGlobal context options: --config PATH, --env NAME, --vault PATH.\nUsage: wi …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Command Reference",
+          "text": "Public top-level commands for the neutral WikiMason CLI surface.\n\nGlobal context options: --config PATH, --env NAME, --vault PATH.",
+          "lower": "public top-level commands for the neutral wikimason cli surface.\n\nglobal context options: --config path, --env name, --vault path."
+        },
+        {
+          "anchor": "",
+          "heading": "init",
+          "text": "Usage: wikimason init [markdown|obsidian|logseq] [PATH] [--profile PROFILE] [--demo] [--env NAME] [--format text|json]\n\n\nSummary: Initialize a new wiki vault.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason init [markdown|obsidian|logseq] [path] [--profile profile] [--demo] [--env name] [--format text|json]\n\n\nsummary: initialize a new wiki vault.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "config show",
+          "text": "Usage: wikimason config show [--format text|json]\n\n\nSummary: Show the active config.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason config show [--format text|json]\n\n\nsummary: show the active config.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "config edit",
+          "text": "Usage: wikimason config edit\n\n\nSummary: Open the active WikiMason config file in $EDITOR.\n\n\nJSON output: no",
+          "lower": "usage: wikimason config edit\n\n\nsummary: open the active wikimason config file in $editor.\n\n\njson output: no"
+        },
+        {
+          "anchor": "",
+          "heading": "config validate",
+          "text": "Usage: wikimason config validate [--format text|json]\n\n\nSummary: Validate the active config.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason config validate [--format text|json]\n\n\nsummary: validate the active config.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "doctor",
+          "text": "Usage: wikimason doctor [--format text|json]\n\n\nSummary: Run vault doctor checks.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason doctor [--format text|json]\n\n\nsummary: run vault doctor checks.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "status",
+          "text": "Usage: wikimason status [--format text|json]\n\n\nSummary: Summarize vault readiness.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason status [--format text|json]\n\n\nsummary: summarize vault readiness.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "lint",
+          "text": "Usage: wikimason lint [--strict] [--format text|json]\n\n\nSummary: Lint compiled pages.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason lint [--strict] [--format text|json]\n\n\nsummary: lint compiled pages.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source add",
+          "text": "Usage: wikimason source add PATH [--move] [--format text|json]\n\n\nSummary: Add a raw source file.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source add path [--move] [--format text|json]\n\n\nsummary: add a raw source file.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source list",
+          "text": "Usage: wikimason source list [--format text|json]\n\n\nSummary: List raw source files.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source list [--format text|json]\n\n\nsummary: list raw source files.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source resolve",
+          "text": "Usage: wikimason source resolve QUERY [--format text|json]\n\n\nSummary: Resolve a source path by fuzzy query.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source resolve query [--format text|json]\n\n\nsummary: resolve a source path by fuzzy query.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source read",
+          "text": "Usage: wikimason source read QUERY [--lines N] [--first] [--format text|json]\n\n\nSummary: Read a source file by path or fuzzy query.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source read query [--lines n] [--first] [--format text|json]\n\n\nsummary: read a source file by path or fuzzy query.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source show",
+          "text": "Usage: wikimason source show PATH [--vault PATH] [--format text|json]\n\n\nSummary: Show one raw source plus its current manifest record.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source show path [--vault path] [--format text|json]\n\n\nsummary: show one raw source plus its current manifest record.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source scan",
+          "text": "Usage: wikimason source scan [--update] [--accept-covered] [--details] [--format text|json]\n\n\nSummary: Scan raw sources and update manifest.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source scan [--update] [--accept-covered] [--details] [--format text|json]\n\n\nsummary: scan raw sources and update manifest.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source delta",
+          "text": "Usage: wikimason source delta [--check] [--details] [--format text|json]\n\n\nSummary: Show delta between manifest and files.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source delta [--check] [--details] [--format text|json]\n\n\nsummary: show delta between manifest and files.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source coverage",
+          "text": "Usage: wikimason source coverage [PATH] [--details] [--format text|json]\n\n\nSummary: Show source coverage report.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source coverage [path] [--details] [--format text|json]\n\n\nsummary: show source coverage report.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source lint",
+          "text": "Usage: wikimason source lint [--format text|json]\n\n\nSummary: Lint source manifest.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source lint [--format text|json]\n\n\nsummary: lint source manifest.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source verify",
+          "text": "Usage: wikimason source verify [--strict] [--vault PATH] [--format text|json]\n\n\nSummary: Verify raw-source state against the current manifest and coverage delta.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source verify [--strict] [--vault path] [--format text|json]\n\n\nsummary: verify raw-source state against the current manifest and coverage delta.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "source rehash",
+          "text": "Usage: wikimason source rehash [--vault PATH] [--accept-covered] [--format text|json]\n\n\nSummary: Rewrite manifest hashes from the current raw-source files.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason source rehash [--vault path] [--accept-covered] [--format text|json]\n\n\nsummary: rewrite manifest hashes from the current raw-source files.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "ingest",
+          "text": "Usage: wikimason ingest [--format text|json]\n\n\nSummary: Summarize ingest readiness and the next required wiki action.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason ingest [--format text|json]\n\n\nsummary: summarize ingest readiness and the next required wiki action.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "ingest status",
+          "text": "Usage: wikimason ingest status [--format text|json]\n\n\nSummary: Show ingest status.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason ingest status [--format text|json]\n\n\nsummary: show ingest status.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "ingest plan",
+          "text": "Usage: wikimason ingest plan [SOURCE ...] [--format text|json]\n\n\nSummary: Plan ingest.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason ingest plan [source ...] [--format text|json]\n\n\nsummary: plan ingest.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "ingest finish",
+          "text": "Usage: wikimason ingest finish [--accept-covered] [--scope changed|all] [--source PATH] [--format text|json]\n\n\nSummary: Finish ingest.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason ingest finish [--accept-covered] [--scope changed|all] [--source path] [--format text|json]\n\n\nsummary: finish ingest.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "note new",
+          "text": "Usage: wikimason note new --kind KIND --title TITLE [--source PATH ...] [--related PATH ...] [--status STATUS] [--summary TEXT] [--body TEXT] [--body-file PATH] [--path PATH] [--dry-run] [--print] [--allow-incomplete] [--format text|json]\n\n\nSummary: Create a new note.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason note new --kind kind --title title [--source path ...] [--related path ...] [--status status] [--summary text] [--body text] [--body-file path] [--path path] [--dry-run] [--print] [--allow-incomplete] [--format text|json]\n\n\nsummary: create a new note.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "note validate",
+          "text": "Usage: wikimason note validate PATH [--strict] [--format text|json]\n\n\nSummary: Validate a note.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason note validate path [--strict] [--format text|json]\n\n\nsummary: validate a note.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "note normalize",
+          "text": "Usage: wikimason note normalize PATH [--fix] [--format text|json]\n\n\nSummary: Normalize a note.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason note normalize path [--fix] [--format text|json]\n\n\nsummary: normalize a note.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "page create",
+          "text": "Usage: wikimason page create --kind KIND --title TITLE [--source PATH ...] [--related PATH ...] [--status STATUS] [--summary TEXT] [--body TEXT] [--body-file PATH] [--path PATH] [--dry-run] [--print] [--allow-incomplete] [--vault PATH] [--format text|json]\n\n\nSummary: Create a compiled wiki page using the neutral page command surface.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason page create --kind kind --title title [--source path ...] [--related path ...] [--status status] [--summary text] [--body text] [--body-file path] [--path path] [--dry-run] [--print] [--allow-incomplete] [--vault path] [--format text|json]\n\n\nsummary: create a compiled wiki page using the neutral page command surface.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "page show",
+          "text": "Usage: wikimason page show PATH [--format text|json]\n\n\nSummary: Read a compiled wiki page from the current root.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason page show path [--format text|json]\n\n\nsummary: read a compiled wiki page from the current root.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "page update",
+          "text": "Usage: wikimason page update PATH [--content TEXT|--body TEXT|--body-file PATH] [--format text|json]\n\n\nSummary: Overwrite a compiled wiki page body or full content deterministically.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason page update path [--content text|--body text|--body-file path] [--format text|json]\n\n\nsummary: overwrite a compiled wiki page body or full content deterministically.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "page move",
+          "text": "Usage: wikimason page move OLD NEW [--format text|json]\n\n\nSummary: Move a compiled wiki page within the active root.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason page move old new [--format text|json]\n\n\nsummary: move a compiled wiki page within the active root.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "page delete",
+          "text": "Usage: wikimason page delete PATH [--permanent] [--format text|json]\n\n\nSummary: Delete a compiled wiki page permanently or via .trash.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason page delete path [--permanent] [--format text|json]\n\n\nsummary: delete a compiled wiki page permanently or via .trash.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "links resolve",
+          "text": "Usage: wikimason links resolve QUERY [--format text|json]\n\n\nSummary: Resolve link matches.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason links resolve query [--format text|json]\n\n\nsummary: resolve link matches.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "links check",
+          "text": "Usage: wikimason links check [--format text|json]\n\n\nSummary: Check for broken links.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason links check [--format text|json]\n\n\nsummary: check for broken links.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "links normalize",
+          "text": "Usage: wikimason links normalize PATH [--fix] [--format text|json]\n\n\nSummary: Normalize links.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason links normalize path [--fix] [--format text|json]\n\n\nsummary: normalize links.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "file list",
+          "text": "Usage: wikimason file list [PATH] [--total] [--format text|json]\n\n\nSummary: List files in the vault.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason file list [path] [--total] [--format text|json]\n\n\nsummary: list files in the vault.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "file read",
+          "text": "Usage: wikimason file read PATH [--format text|json]\n\n\nSummary: Read a file.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason file read path [--format text|json]\n\n\nsummary: read a file.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "file search",
+          "text": "Usage: wikimason file search --query QUERY [--path PATH] [--limit N] [--context] [--case] [--fuzzy] [--total] [--format text|json]\n\n\nSummary: Search files for text.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason file search --query query [--path path] [--limit n] [--context] [--case] [--fuzzy] [--total] [--format text|json]\n\n\nsummary: search files for text.\n\n\njson output: yes"
+        },
+        {
+          "anchor": "",
+          "heading": "review list",
+          "text": "Usage: wikimason review list [--format text|json]\n\n\nSummary: List review queue items.\n\n\nJSON output: yes",
+          "lower": "usage: wikimason review list [--format text|json]\n\n\nsummary: list review queue items.\n\n\njson output: yes"
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/commands/",
+      "title": "wikimason Commands",
+      "snippet": "WikiMason uses a neutral command vocabulary across all profiles. There\nis no profile-specific command set.\nGroup\n\nPurpose\n\n\n\n\n\ninit\n\nInitial …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Commands",
+          "text": "WikiMason uses a neutral command vocabulary across all profiles. There\nis no profile-specific command set.",
+          "lower": "wikimason uses a neutral command vocabulary across all profiles. there\nis no profile-specific command set."
+        },
+        {
+          "anchor": "",
+          "heading": "Command families",
+          "text": "Group\n\nPurpose\n\n\n\n\n\ninit\n\nInitialize a new wiki vault.\n\n\n\nconfig\n\nShow, edit, and validate TOML configuration.\n\n\n\nlog\n\nAppend, inspect, and validate the operational timeline in Wiki/log.md.\n\n\n\nsource\n\nImport, scan, verify, resolve, read, rehash, and lint raw sources.\n\n\n\ningest\n\nPlan and finish raw-source-to-note workflows.\n\n\n\nnote\n\nCreate, validate, and normalize semantic notes.\n\n\n\npage\n\nCreate, show, update, move, and delete profile-neutral pages.\n\n\n\nlinks\n\nResolve, check, normalize, and inventory internal links.\n\n\n\nfile\n\nSafe vault-relative file and folder operations.\n\n\n\ndaily\n\nDaily notes and Markdown metadata utilities.\n\n\n\ncatalog\n\nBuild generated catalog, index pages, and AGENTS.md.\n\n\n\ndoctor\n\nHealth, validation, and audit commands.\n\n\n\ncontext\n\nSelect, plan, and export wiki context f…",
+          "lower": "group\n\npurpose\n\n\n\n\n\ninit\n\ninitialize a new wiki vault.\n\n\n\nconfig\n\nshow, edit, and validate toml configuration.\n\n\n\nlog\n\nappend, inspect, and validate the operational timeline in wiki/log.md.\n\n\n\nsource\n\nimport, scan, verify, resolve, read, rehash, and lint raw sources.\n\n\n\ningest\n\nplan and finish raw-source-to-note workflows.\n\n\n\nnote\n\ncreate, validate, and normalize semantic notes.\n\n\n\npage\n\ncreate, show, update, move, and delete profile-neutral pages.\n\n\n\nlinks\n\nresolve, check, normalize, and inventory internal links.\n\n\n\nfile\n\nsafe vault-relative file and folder operations.\n\n\n\ndaily\n\ndaily notes and markdown metadata utilities.\n\n\n\ncatalog\n\nbuild generated catalog, index pages, and agents.md.\n\n\n\ndoctor\n\nhealth, validation, and audit commands.\n\n\n\ncontext\n\nselect, plan, and export wiki context f…"
+        },
+        {
+          "anchor": "",
+          "heading": "Example workflows",
+          "text": "Initialize a vault:\n\nwikimason init markdown .\nwikimason init obsidian ~/Documents/MyVault\nwikimason init logseq ~/Documents/Logseq/MyGraph\n\n\n\n\nSource lifecycle:\n\nwikimason source scan --update --format json\nwikimason source delta --format json\n\n\n\n\nCreate compiled pages:\n\nwikimason note new --kind topic --title \"Compiled Knowledge\" \\\n  --source \"Raw/Sources/report.md\" --allow-incomplete --format json\nwikimason page update Wiki/Concepts/retrieval-pipeline.md --body-file /tmp/body.md --format json\n\n\n\n\nValidate and finish:\n\nwikimason links check --format json\nwikimason ingest finish --accept-covered --format json\n\n\n\n\nMaintain:\n\nwikimason vault maintain --format json\nwikimason log tail -n 5 --format json\nwikimason log check --format json\n\n\n\n\nContext export for LLM chat:\n\nwikimason context pla…",
+          "lower": "initialize a vault:\n\nwikimason init markdown .\nwikimason init obsidian ~/documents/myvault\nwikimason init logseq ~/documents/logseq/mygraph\n\n\n\n\nsource lifecycle:\n\nwikimason source scan --update --format json\nwikimason source delta --format json\n\n\n\n\ncreate compiled pages:\n\nwikimason note new --kind topic --title \"compiled knowledge\" \\\n  --source \"raw/sources/report.md\" --allow-incomplete --format json\nwikimason page update wiki/concepts/retrieval-pipeline.md --body-file /tmp/body.md --format json\n\n\n\n\nvalidate and finish:\n\nwikimason links check --format json\nwikimason ingest finish --accept-covered --format json\n\n\n\n\nmaintain:\n\nwikimason vault maintain --format json\nwikimason log tail -n 5 --format json\nwikimason log check --format json\n\n\n\n\ncontext export for llm chat:\n\nwikimason context pla…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/config/",
+      "title": "wikimason Configuration",
+      "snippet": "WikiMason configuration uses TOML files. Configuration is resolved in this\nprecedence order:\n\n\nExplicit --config /path/to/file.toml\n\n\nLocal …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Configuration",
+          "text": "WikiMason configuration uses TOML files. Configuration is resolved in this\nprecedence order:\n\n\nExplicit --config /path/to/file.toml\n\n\nLocal wikimason.toml (walked upwards from cwd)\n\n\n--env NAME → ~/.config/wikimason/NAME.toml\n\n\nDefault env ~/.config/wikimason/default.toml\n\n\nBuilt-in defaults\n\n\n\nIf both a local config and --env are present, the local config wins (it is\nmore specific to the project). A diagnostic is emitted when a local config\ncauses --env to be ignored.",
+          "lower": "wikimason configuration uses toml files. configuration is resolved in this\nprecedence order:\n\n\nexplicit --config /path/to/file.toml\n\n\nlocal wikimason.toml (walked upwards from cwd)\n\n\n--env name → ~/.config/wikimason/name.toml\n\n\ndefault env ~/.config/wikimason/default.toml\n\n\nbuilt-in defaults\n\n\n\nif both a local config and --env are present, the local config wins (it is\nmore specific to the project). a diagnostic is emitted when a local config\ncauses --env to be ignored."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "config_version = 1\n\n[wiki]\nname = \"my_wiki\"\nprofile = \"logseq\"\nroot = \"~/Documents/Logseq/MyGraph\"\n\n[paths]\nraw = \"Raw\"\nsources = \"Raw/Sources\"\nfiles = \"Raw/Files\"\nwiki = \"Wiki\"\nschema = \"Schema\"\ntemplates = \"_templates\"\nagents = \"AGENTS.md\"\n\n[links]\nstyle = \"wikilink\"\n\n[profile.logseq]\nflat_pages = true\nnamespace_separator = \"___\"\nproperty_style = \"logseq\"\npages_dir = \"pages\"\n\n[profile.obsidian]\nhub_filename = \"_index.md\"\nnested_dirs = true\nexclude = [\".obsidian/workspace.json\"]\n\n[profile.markdown]\nhub_filename = \"index.md\"\nnested_dirs = true",
+          "lower": "config_version = 1\n\n[wiki]\nname = \"my_wiki\"\nprofile = \"logseq\"\nroot = \"~/documents/logseq/mygraph\"\n\n[paths]\nraw = \"raw\"\nsources = \"raw/sources\"\nfiles = \"raw/files\"\nwiki = \"wiki\"\nschema = \"schema\"\ntemplates = \"_templates\"\nagents = \"agents.md\"\n\n[links]\nstyle = \"wikilink\"\n\n[profile.logseq]\nflat_pages = true\nnamespace_separator = \"___\"\nproperty_style = \"logseq\"\npages_dir = \"pages\"\n\n[profile.obsidian]\nhub_filename = \"_index.md\"\nnested_dirs = true\nexclude = [\".obsidian/workspace.json\"]\n\n[profile.markdown]\nhub_filename = \"index.md\"\nnested_dirs = true"
+        },
+        {
+          "anchor": "",
+          "heading": "Show the active config",
+          "text": "wikimason config show --format json",
+          "lower": "wikimason config show --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Open config in $EDITOR",
+          "text": "wikimason config edit",
+          "lower": "wikimason config edit"
+        },
+        {
+          "anchor": "",
+          "heading": "Validate config",
+          "text": "wikimason config validate --format json",
+          "lower": "wikimason config validate --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Logging",
+          "text": "WikiMason supports configurable operational logging and rotation.\n\n[logging]\nenabled = true\npath = \"Wiki/log.md\"\nmode = \"normal\"              # quiet | normal | diagnostic\nmin_level = \"info\"           # info | warning | error\ninclude_audit_success = false\ninclude_metadata = false\ninclude_counts = \"non_clean\" # never | non_clean | always\nmax_summary_chars = 160\ninclude_commands = []\nexclude_commands = [\n  \"doctor\",\n  \"vault.doctor\",\n  \"links.check\",\n  \"source.coverage\",\n  \"ingest.plan\",\n]\n\n[logging.rotation]\nenabled = true\nstrategy = \"size\"            # none | size\nmax_bytes = 1048576\nmax_files = 5\narchive_dir = \"Wiki/logs\"\n\n\n\n\nBehavior:\n\n\nmode = \"normal\" logs changes and actionable/problem states with compact entries.\n\n\nmode = \"diagnostic\" logs full verbose audit/change entries (legacy sh…",
+          "lower": "wikimason supports configurable operational logging and rotation.\n\n[logging]\nenabled = true\npath = \"wiki/log.md\"\nmode = \"normal\"              # quiet | normal | diagnostic\nmin_level = \"info\"           # info | warning | error\ninclude_audit_success = false\ninclude_metadata = false\ninclude_counts = \"non_clean\" # never | non_clean | always\nmax_summary_chars = 160\ninclude_commands = []\nexclude_commands = [\n  \"doctor\",\n  \"vault.doctor\",\n  \"links.check\",\n  \"source.coverage\",\n  \"ingest.plan\",\n]\n\n[logging.rotation]\nenabled = true\nstrategy = \"size\"            # none | size\nmax_bytes = 1048576\nmax_files = 5\narchive_dir = \"wiki/logs\"\n\n\n\n\nbehavior:\n\n\nmode = \"normal\" logs changes and actionable/problem states with compact entries.\n\n\nmode = \"diagnostic\" logs full verbose audit/change entries (legacy sh…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/",
+      "title": "WikiMason Documentation",
+      "snippet": "Contents\n\n\nArchitecture\nPurpose and constraints\n\nMain layers\n\nRuntime workflows\n\nGenerated artifacts and ownership\n\n\n\n\nWiki Profiles\nSelecti …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "WikiMason Documentation",
+          "text": "Contents\n\n\nArchitecture\nPurpose and constraints\n\nMain layers\n\nRuntime workflows\n\nGenerated artifacts and ownership\n\n\n\n\nWiki Profiles\nSelecting a profile\n\nProfile configuration\n\n\n\n\nConfiguration\nExample\n\nCommands\n\nLogging\n\n\n\n\nRaw Sources\nSource identity\n\nMetadata storage\n\nContent hashing\n\nManifest\n\nCommands\n\nRename detection\n\n\n\n\nAgent Workflow\nFirst-run workflow\n\nHard rules\n\n\n\n\nCommands\nCommand families\n\nExample workflows\n\n\n\n\nCommand Reference\nInit\n\nConfig\n\nDoctor\n\nStatus\n\nLint\n\nSource\n\nIngest\n\nNote\n\nPage\n\nLinks\n\nFile\n\nReview\n\nVault\n\nLog\n\nQuery\n\nIndex\n\nCatalog\n\nAgents\n\nSkill\n\n\n\n\nLogseq Profile\nPath mapping\n\nMetadata format\n\nBody rendering\n\nInit layout\n\nProfile changes\n\n\n\n\nMigration",
+          "lower": "contents\n\n\narchitecture\npurpose and constraints\n\nmain layers\n\nruntime workflows\n\ngenerated artifacts and ownership\n\n\n\n\nwiki profiles\nselecting a profile\n\nprofile configuration\n\n\n\n\nconfiguration\nexample\n\ncommands\n\nlogging\n\n\n\n\nraw sources\nsource identity\n\nmetadata storage\n\ncontent hashing\n\nmanifest\n\ncommands\n\nrename detection\n\n\n\n\nagent workflow\nfirst-run workflow\n\nhard rules\n\n\n\n\ncommands\ncommand families\n\nexample workflows\n\n\n\n\ncommand reference\ninit\n\nconfig\n\ndoctor\n\nstatus\n\nlint\n\nsource\n\ningest\n\nnote\n\npage\n\nlinks\n\nfile\n\nreview\n\nvault\n\nlog\n\nquery\n\nindex\n\ncatalog\n\nagents\n\nskill\n\n\n\n\nlogseq profile\npath mapping\n\nmetadata format\n\nbody rendering\n\ninit layout\n\nprofile changes\n\n\n\n\nmigration"
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/logseq/",
+      "title": "wikimason Logseq Profile",
+      "snippet": "The Logseq profile makes WikiMason work with Logseq graph directories.\nLogseq stores pages flat in pages/. Namespaces are encoded into filen …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Logseq Profile",
+          "text": "The Logseq profile makes WikiMason work with Logseq graph directories.",
+          "lower": "the logseq profile makes wikimason work with logseq graph directories."
+        },
+        {
+          "anchor": "",
+          "heading": "Path mapping",
+          "text": "Logseq stores pages flat in pages/. Namespaces are encoded into filenames:\n\nPageRef(\"Wiki/Tech/Strapi\")  ->  pages/Wiki___Tech___Strapi.md\npages/Wiki___Tech___Strapi.md  ->  PageRef(\"Wiki/Tech/Strapi\")\n\n\n\n\nThe namespace separator defaults to ___ (triple underscore) and can be\nconfigured in [profile.logseq].",
+          "lower": "logseq stores pages flat in pages/. namespaces are encoded into filenames:\n\npageref(\"wiki/tech/strapi\")  ->  pages/wiki___tech___strapi.md\npages/wiki___tech___strapi.md  ->  pageref(\"wiki/tech/strapi\")\n\n\n\n\nthe namespace separator defaults to ___ (triple underscore) and can be\nconfigured in [profile.logseq]."
+        },
+        {
+          "anchor": "",
+          "heading": "Metadata format",
+          "text": "Logseq uses property:: value lines at the top of each page:\n\ntype:: knowledge\ndomain:: tech\nconfidence:: high\ncreated:: 2026-05-29\nupdated:: 2026-05-29\n\n- ## Deployment Pipeline\n  - CI/CD workflow for production.\n\n\n\n\nProperties are parsed from the top of the file until a non-property block is\nencountered. Lists (tags, sources, topics, aliases) use\ncomma-separated values.",
+          "lower": "logseq uses property:: value lines at the top of each page:\n\ntype:: knowledge\ndomain:: tech\nconfidence:: high\ncreated:: 2026-05-29\nupdated:: 2026-05-29\n\n- ## deployment pipeline\n  - ci/cd workflow for production.\n\n\n\n\nproperties are parsed from the top of the file until a non-property block is\nencountered. lists (tags, sources, topics, aliases) use\ncomma-separated values."
+        },
+        {
+          "anchor": "",
+          "heading": "Body rendering",
+          "text": "The Logseq profile converts internal standard Markdown to outliner blocks:\n\n\nHeadings: - ## Heading (nested)\n\n\nLists: nested with block depth\n\n\nCode fences: preserved as child blocks\n\n\nTables: nested under a parent block\n\n\n\n\nNote\n\nWikiMason preserves Markdown-like structure internally, but Logseq’s\nvisual editor may render nested tables and fenced code blocks\ndifferently. Prefer small, simple blocks in Logseq-authored pages.",
+          "lower": "the logseq profile converts internal standard markdown to outliner blocks:\n\n\nheadings: - ## heading (nested)\n\n\nlists: nested with block depth\n\n\ncode fences: preserved as child blocks\n\n\ntables: nested under a parent block\n\n\n\n\nnote\n\nwikimason preserves markdown-like structure internally, but logseq’s\nvisual editor may render nested tables and fenced code blocks\ndifferently. prefer small, simple blocks in logseq-authored pages."
+        },
+        {
+          "anchor": "",
+          "heading": "Init layout",
+          "text": "wikimason init logseq creates:\n\npages/\n  Wiki___index.md\n  Wiki___Dashboard.md\n  Wiki___Tech.md\n  Wiki___Projects.md\n  Wiki___Schema.md\njournals/             (optional)\nRaw/Sources/\nSchema/\n_templates/\nAGENTS.md\nwikimason.toml",
+          "lower": "wikimason init logseq creates:\n\npages/\n  wiki___index.md\n  wiki___dashboard.md\n  wiki___tech.md\n  wiki___projects.md\n  wiki___schema.md\njournals/             (optional)\nraw/sources/\nschema/\n_templates/\nagents.md\nwikimason.toml"
+        },
+        {
+          "anchor": "",
+          "heading": "Profile changes",
+          "text": "WikiMason does not expose profile migration commands in the current\npre-release surface. To move between profiles, create a fresh target\nvault and then use canonical verification/build commands after copying\ncontent:\n\nwikimason source verify\nwikimason index build\nwikimason lint",
+          "lower": "wikimason does not expose profile migration commands in the current\npre-release surface. to move between profiles, create a fresh target\nvault and then use canonical verification/build commands after copying\ncontent:\n\nwikimason source verify\nwikimason index build\nwikimason lint"
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/migration/",
+      "title": "wikimason Migration",
+      "snippet": "WikiMason is currently a pre-release fresh-start CLI. Cross-profile migration\ncommands are intentionally not part of the public command surf …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Migration",
+          "text": "WikiMason is currently a pre-release fresh-start CLI. Cross-profile migration\ncommands are intentionally not part of the public command surface yet.\n\nIf you need to move content between vault profiles, use explicit file-system\ncopy or conversion scripts in your own workflow, then run canonical verification\ncommands in the target vault:\n\nwikimason source verify\nwikimason index build\nwikimason lint",
+          "lower": "wikimason is currently a pre-release fresh-start cli. cross-profile migration\ncommands are intentionally not part of the public command surface yet.\n\nif you need to move content between vault profiles, use explicit file-system\ncopy or conversion scripts in your own workflow, then run canonical verification\ncommands in the target vault:\n\nwikimason source verify\nwikimason index build\nwikimason lint"
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/profiles/",
+      "title": "wikimason Wiki Profiles",
+      "snippet": "WikiMason supports three peer wiki profiles. The profile determines how pages\nare stored on disk, how metadata is formatted, and how links a …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Wiki Profiles",
+          "text": "WikiMason supports three peer wiki profiles. The profile determines how pages\nare stored on disk, how metadata is formatted, and how links are rendered.\n\n\n\nProfile\n\nMetadata\n\nBody format\n\nPage layout\n\n\n\n\n\nmarkdown\n\nYAML frontmatter\n\nStandard Markdown\n\nNested directories\n\n\n\nobsidian\n\nYAML frontmatter\n\nStandard Markdown\n\nNested directories\n\n\n\nlogseq\n\nproperty:: lines\n\nOutliner blocks\n\nFlat pages/ directory\n\n\n\n\n\nAll profiles share the same logical page model, command vocabulary, and source\ntracking. Switching profiles changes the on-disk layout without changing the\nlogical content.",
+          "lower": "wikimason supports three peer wiki profiles. the profile determines how pages\nare stored on disk, how metadata is formatted, and how links are rendered.\n\n\n\nprofile\n\nmetadata\n\nbody format\n\npage layout\n\n\n\n\n\nmarkdown\n\nyaml frontmatter\n\nstandard markdown\n\nnested directories\n\n\n\nobsidian\n\nyaml frontmatter\n\nstandard markdown\n\nnested directories\n\n\n\nlogseq\n\nproperty:: lines\n\noutliner blocks\n\nflat pages/ directory\n\n\n\n\n\nall profiles share the same logical page model, command vocabulary, and source\ntracking. switching profiles changes the on-disk layout without changing the\nlogical content."
+        },
+        {
+          "anchor": "",
+          "heading": "Initialise a new vault with a specific profile",
+          "text": "wikimason init markdown [PATH]\nwikimason init obsidian [PATH]\nwikimason init logseq [PATH]",
+          "lower": "wikimason init markdown [path]\nwikimason init obsidian [path]\nwikimason init logseq [path]"
+        },
+        {
+          "anchor": "",
+          "heading": "Check the active profile",
+          "text": "wikimason config show --format json",
+          "lower": "wikimason config show --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Profile configuration",
+          "text": "Profiles can be overridden in wikimason.toml:\n\n[wiki]\nprofile = \"logseq\"\n\n[profile.logseq]\nflat_pages = true\nproperty_style = \"logseq\"\noutliner_prefix = \"- \"\npages_dir = \"pages\"\n\n[profile.obsidian]\nhub_filename = \"_index.md\"\nexclude = [\".obsidian/workspace.json\"]\n\n[profile.markdown]\nhub_filename = \"index.md\"\npages_dir = \"Wiki\"",
+          "lower": "profiles can be overridden in wikimason.toml:\n\n[wiki]\nprofile = \"logseq\"\n\n[profile.logseq]\nflat_pages = true\nproperty_style = \"logseq\"\noutliner_prefix = \"- \"\npages_dir = \"pages\"\n\n[profile.obsidian]\nhub_filename = \"_index.md\"\nexclude = [\".obsidian/workspace.json\"]\n\n[profile.markdown]\nhub_filename = \"index.md\"\npages_dir = \"wiki\""
+        }
+      ]
+    },
+    {
+      "url": "/tools/wikimason/main/raw-sources/",
+      "title": "wikimason Raw Sources",
+      "snippet": "Raw sources are the original input files stored under Raw/Sources/. Every\nsource tracked by WikiMason carries metadata for identity, content …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Raw Sources",
+          "text": "Raw sources are the original input files stored under Raw/Sources/. Every\nsource tracked by WikiMason carries metadata for identity, content integrity,\nand provenance.",
+          "lower": "raw sources are the original input files stored under raw/sources/. every\nsource tracked by wikimason carries metadata for identity, content integrity,\nand provenance."
+        },
+        {
+          "anchor": "",
+          "heading": "Source identity",
+          "text": "Each source gets a stable source ID on first import:\n\nsrc_<YYYYMMDD>_<sha256-prefix-12>\n\n\n\n\nExample: src_20260529_7a91f04c2bb1\n\nThe source ID never changes, even if the file is renamed or its content is\nupdated. It is the primary key in the manifest and the stable reference used\nin wiki page citations.",
+          "lower": "each source gets a stable source id on first import:\n\nsrc_<yyyymmdd>_<sha256-prefix-12>\n\n\n\n\nexample: src_20260529_7a91f04c2bb1\n\nthe source id never changes, even if the file is renamed or its content is\nupdated. it is the primary key in the manifest and the stable reference used\nin wiki page citations."
+        },
+        {
+          "anchor": "",
+          "heading": "Text sources (.md)",
+          "text": "Text sources embed wikimason metadata as wm_-prefixed keys in the YAML\nfrontmatter:\n\n---\nwm_source_id: src_20260529_8f3a1f1b\nwm_original_filename: \"meeting-notes.md\"\nwm_current_filename: \"meeting-notes.md\"\nwm_source_kind: text\nwm_content_sha256: \"...\"\ntitle: \"My Source\"\n---\n\n\n\n\nThe wm_ prefix namespace avoids collision with user metadata. These fields\nare managed by WikiMason and should not be edited manually.",
+          "lower": "text sources embed wikimason metadata as wm_-prefixed keys in the yaml\nfrontmatter:\n\n---\nwm_source_id: src_20260529_8f3a1f1b\nwm_original_filename: \"meeting-notes.md\"\nwm_current_filename: \"meeting-notes.md\"\nwm_source_kind: text\nwm_content_sha256: \"...\"\ntitle: \"my source\"\n---\n\n\n\n\nthe wm_ prefix namespace avoids collision with user metadata. these fields\nare managed by wikimason and should not be edited manually."
+        },
+        {
+          "anchor": "",
+          "heading": "Binary sources (PDF, images, etc.)",
+          "text": "Binary sources get a sidecar file:\n\nRaw/Sources/report.pdf\nRaw/Sources/report.pdf.wikimason.json\n\n\n\n\nThe sidecar is a JSON file containing the same wm_ fields as text sources.\nFor binary files, hash_scope is full_file_bytes.",
+          "lower": "binary sources get a sidecar file:\n\nraw/sources/report.pdf\nraw/sources/report.pdf.wikimason.json\n\n\n\n\nthe sidecar is a json file containing the same wm_ fields as text sources.\nfor binary files, hash_scope is full_file_bytes."
+        },
+        {
+          "anchor": "",
+          "heading": "Content hashing",
+          "text": "For text sources, the content hash is computed from the body only (after\nremoving the YAML frontmatter), normalized to LF line endings. This allows\nmetadata-only edits to not trigger content-change detection.",
+          "lower": "for text sources, the content hash is computed from the body only (after\nremoving the yaml frontmatter), normalized to lf line endings. this allows\nmetadata-only edits to not trigger content-change detection."
+        },
+        {
+          "anchor": "",
+          "heading": "Manifest",
+          "text": "The source manifest is stored at Schema/source-manifest.jsonl. It is keyed\nby source_id (not path). One JSON line per source:\n\n{ \"source_id\": \"src_20260529_8f3a1f1b\", \"path\": \"Raw/Sources/meeting-notes.md\" }",
+          "lower": "the source manifest is stored at schema/source-manifest.jsonl. it is keyed\nby source_id (not path). one json line per source:\n\n{ \"source_id\": \"src_20260529_8f3a1f1b\", \"path\": \"raw/sources/meeting-notes.md\" }"
+        },
+        {
+          "anchor": "",
+          "heading": "Add a source file",
+          "text": "wikimason source add <path> --format json",
+          "lower": "wikimason source add <path> --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "List sources",
+          "text": "wikimason source list --format json",
+          "lower": "wikimason source list --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Show source details",
+          "text": "wikimason source show <source-id-or-path> --format json",
+          "lower": "wikimason source show <source-id-or-path> --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Verify source integrity",
+          "text": "wikimason source verify --format json",
+          "lower": "wikimason source verify --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Recompute hashes from current file state",
+          "text": "wikimason source rehash --format json",
+          "lower": "wikimason source rehash --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Check source manifest integrity",
+          "text": "wikimason source lint --format json",
+          "lower": "wikimason source lint --format json"
+        },
+        {
+          "anchor": "",
+          "heading": "Rename detection",
+          "text": "wikimason source verify detects renames by comparing source_id and\ncontent hash. If a file moves to a new path but keeps the same source ID and\nhash, it is reported as a rename rather than a new source.",
+          "lower": "wikimason source verify detects renames by comparing source_id and\ncontent hash. if a file moves to a new path but keeps the same source id and\nhash, it is reported as a rename rather than a new source."
+        }
+      ]
+    }
+  ]
+}

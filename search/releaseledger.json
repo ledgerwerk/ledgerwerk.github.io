@@ -1,0 +1,404 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "releaseledger",
+  "entries": [
+    {
+      "url": "/tools/releaseledger/api/",
+      "title": "releaseledger Python API",
+      "snippet": "Releaseledger exposes a narrow public API through releaseledger.api modules.\nIntegrations should prefer these modules over internal service …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Python API",
+          "text": "Releaseledger exposes a narrow public API through releaseledger.api modules.\nIntegrations should prefer these modules over internal service paths.",
+          "lower": "releaseledger exposes a narrow public api through releaseledger.api modules.\nintegrations should prefer these modules over internal service paths."
+        },
+        {
+          "anchor": "",
+          "heading": "Release API",
+          "text": "Public release API re-exports.\n\n\n\nreleaseledger.api.releases.cancel_release(workspace_root: Path, *, version: str, reason: str | None = None, superseded_by: str | None = None, force_released_unshipped: bool = False, target_file: Path | None = None, remove_changelog_section: bool = False, ignore_missing_section: bool = False) → dict[str, object][source]\nMark a release as canceled (never shipped).\n\nRefuses to cancel a released record unless force_released_unshipped\nis set, because released implies the release shipped. Canceled releases\nare excluded from previous-version inference and from default changelog\nbuilds, but remain visible in release list as an audit tombstone.\n\n\n\n\n\nreleaseledger.api.releases.check_release_chain(workspace_root: Path, *, allow_canceled_predecessors: bool = False)…",
+          "lower": "public release api re-exports.\n\n\n\nreleaseledger.api.releases.cancel_release(workspace_root: path, *, version: str, reason: str | none = none, superseded_by: str | none = none, force_released_unshipped: bool = false, target_file: path | none = none, remove_changelog_section: bool = false, ignore_missing_section: bool = false) → dict[str, object][source]\nmark a release as canceled (never shipped).\n\nrefuses to cancel a released record unless force_released_unshipped\nis set, because released implies the release shipped. canceled releases\nare excluded from previous-version inference and from default changelog\nbuilds, but remain visible in release list as an audit tombstone.\n\n\n\n\n\nreleaseledger.api.releases.check_release_chain(workspace_root: path, *, allow_canceled_predecessors: bool = false)…"
+        },
+        {
+          "anchor": "",
+          "heading": "Entry API",
+          "text": "Public entry API re-exports.\n\n\n\nreleaseledger.api.entries.add_many_release_entries(workspace_root: Path, *, release_version: str, entries: list[dict[str, object]], dry_run: bool = False, fail_on_warning: bool = False, sync_audit: bool = False) → dict[str, object][source]\n\n\n\n\nreleaseledger.api.entries.add_release_entry(workspace_root: Path, *, release_version: str, kind: str, summary: str, body: str | None = None, status: str = 'accepted', audience: str | None = None, scopes: tuple[str, ...] = (), source_refs: tuple[str, ...] = (), paths: tuple[str, ...] = (), issues: tuple[str, ...] = (), prs: tuple[str, ...] = (), sources: tuple[str, ...] = (), breaking: bool = False, internal: bool = False, dry_run: bool = False) → dict[str, object][source]\n\n\n\n\nreleaseledger.api.entries.build_entry_pr…",
+          "lower": "public entry api re-exports.\n\n\n\nreleaseledger.api.entries.add_many_release_entries(workspace_root: path, *, release_version: str, entries: list[dict[str, object]], dry_run: bool = false, fail_on_warning: bool = false, sync_audit: bool = false) → dict[str, object][source]\n\n\n\n\nreleaseledger.api.entries.add_release_entry(workspace_root: path, *, release_version: str, kind: str, summary: str, body: str | none = none, status: str = 'accepted', audience: str | none = none, scopes: tuple[str, ...] = (), source_refs: tuple[str, ...] = (), paths: tuple[str, ...] = (), issues: tuple[str, ...] = (), prs: tuple[str, ...] = (), sources: tuple[str, ...] = (), breaking: bool = false, internal: bool = false, dry_run: bool = false) → dict[str, object][source]\n\n\n\n\nreleaseledger.api.entries.build_entry_pr…"
+        },
+        {
+          "anchor": "",
+          "heading": "Changelog API",
+          "text": "Public changelog API re-exports.\n\nExposes both the source/context builder (build_changelog_context()) and\nthe final CHANGELOG.md build helpers (build_changelog_file(),\nbuild_full_changelog_file(), render_changelog_section(),\nrender_full_changelog_document()). Internal template helpers are\nintentionally not exported.\n\n\n\nreleaseledger.api.changelog.build_changelog_context(workspace_root: Path, *, version: str, format_name: str = 'markdown', include_internal: bool = False, include_sources: bool = False, target_changelog: str | None = None, release_date: str | None = None, include_statuses: tuple[str, ...] = ('accepted',), lint: bool = False) → str | dict[str, object][source]\nRender the changelog context for version as Markdown (str) or JSON (dict).\n\n\n\n\n\nreleaseledger.api.changelog.build_cha…",
+          "lower": "public changelog api re-exports.\n\nexposes both the source/context builder (build_changelog_context()) and\nthe final changelog.md build helpers (build_changelog_file(),\nbuild_full_changelog_file(), render_changelog_section(),\nrender_full_changelog_document()). internal template helpers are\nintentionally not exported.\n\n\n\nreleaseledger.api.changelog.build_changelog_context(workspace_root: path, *, version: str, format_name: str = 'markdown', include_internal: bool = false, include_sources: bool = false, target_changelog: str | none = none, release_date: str | none = none, include_statuses: tuple[str, ...] = ('accepted',), lint: bool = false) → str | dict[str, object][source]\nrender the changelog context for version as markdown (str) or json (dict).\n\n\n\n\n\nreleaseledger.api.changelog.build_cha…"
+        },
+        {
+          "anchor": "",
+          "heading": "Config API",
+          "text": "Public config/layout API re-exports.\n\n\n\nclass releaseledger.api.config.ProjectConfig(config_version: int = 1, releaseledger_dir: str = '.releaseledger', ledger_ref: str = 'main', ledger_parent_ref: str = '', ledger_next_entry_number: int = 1, ledger_branch_guard: str = 'off', ledger_code: str = 'rl', ledger_name: str = 'releaseledger', default_changelog: str = 'CHANGELOG.md', default_status: str = 'planned', allow_dirty_worktree: bool = True, changelog_output: str = 'CHANGELOG.md', changelog_header: str = '', changelog_body: str = '## {% if release.date %}[{{ release.version }}] - {{ release.date }}{% else %}[{{ release.version }}] - Unreleased{% endif %}\\n\\n{% for group in groups %}\\n### {{ group.title }}\\n{% for entry in group.entries %}\\n- {% if entry.breaking %}**BREAKING:** {% endif…",
+          "lower": "public config/layout api re-exports.\n\n\n\nclass releaseledger.api.config.projectconfig(config_version: int = 1, releaseledger_dir: str = '.releaseledger', ledger_ref: str = 'main', ledger_parent_ref: str = '', ledger_next_entry_number: int = 1, ledger_branch_guard: str = 'off', ledger_code: str = 'rl', ledger_name: str = 'releaseledger', default_changelog: str = 'changelog.md', default_status: str = 'planned', allow_dirty_worktree: bool = true, changelog_output: str = 'changelog.md', changelog_header: str = '', changelog_body: str = '## {% if release.date %}[{{ release.version }}] - {{ release.date }}{% else %}[{{ release.version }}] - unreleased{% endif %}\\n\\n{% for group in groups %}\\n### {{ group.title }}\\n{% for entry in group.entries %}\\n- {% if entry.breaking %}**breaking:** {% endif…"
+        },
+        {
+          "anchor": "",
+          "heading": "Errors",
+          "text": "Typed exceptions and JSON error envelopes for releaseledger.\n\nAll releaseledger errors flow through ReleaseledgerError (and the\nLaunchError subclass that services raise). The CLI catches these at the\ncommand boundary and turns them into the deterministic JSON error envelope.\n\n\n\nexception releaseledger.errors.LaunchError(message: str, *, code: str = 'RELEASELEDGER_ERROR', exit_code: int = 1, data: dict[str, object] | None = None, remediation: list[str] | None = None)[source]\nRaised by services/cli helpers for actionable, user-facing failures.\n\nServices raise LaunchError (never typer.Exit and never print) so the\nCLI boundary can render either a human line or a JSON envelope.\n\n\n\n\n\nexception releaseledger.errors.ReleaseledgerError(message: str, *, code: str = 'RELEASELEDGER_ERROR', exit_code…",
+          "lower": "typed exceptions and json error envelopes for releaseledger.\n\nall releaseledger errors flow through releaseledgererror (and the\nlauncherror subclass that services raise). the cli catches these at the\ncommand boundary and turns them into the deterministic json error envelope.\n\n\n\nexception releaseledger.errors.launcherror(message: str, *, code: str = 'releaseledger_error', exit_code: int = 1, data: dict[str, object] | none = none, remediation: list[str] | none = none)[source]\nraised by services/cli helpers for actionable, user-facing failures.\n\nservices raise launcherror (never typer.exit and never print) so the\ncli boundary can render either a human line or a json envelope.\n\n\n\n\n\nexception releaseledger.errors.releaseledgererror(message: str, *, code: str = 'releaseledger_error', exit_code…"
+        },
+        {
+          "anchor": "",
+          "heading": "Domain models",
+          "text": "Release record domain model.\n\nA ReleaseRecord is persisted as release.md with YAML front matter\n(schema/version/status metadata) and an optional Markdown body holding the\nrelease note. The note field is the body and is therefore excluded from the\nfront-matter representation.\n\n\n\nclass releaseledger.domain.release.ReleaseRecord(version: str, status: str = 'planned', title: str | None = None, versioning: RecordVersioning = <factory>, released_at: str | None = None, previous_version: str | None = None, cancel_reason: str | None = None, superseded_by: str | None = None, note: str | None = None, changelog_file: str | None = None, boundary_ref: str | None = None, source_refs: tuple[str, ...]=(), source_count: int | None = None, entry_count: int = 0, artifact_count: int = 0, git_base_ref: str | N…",
+          "lower": "release record domain model.\n\na releaserecord is persisted as release.md with yaml front matter\n(schema/version/status metadata) and an optional markdown body holding the\nrelease note. the note field is the body and is therefore excluded from the\nfront-matter representation.\n\n\n\nclass releaseledger.domain.release.releaserecord(version: str, status: str = 'planned', title: str | none = none, versioning: recordversioning = <factory>, released_at: str | none = none, previous_version: str | none = none, cancel_reason: str | none = none, superseded_by: str | none = none, note: str | none = none, changelog_file: str | none = none, boundary_ref: str | none = none, source_refs: tuple[str, ...]=(), source_count: int | none = none, entry_count: int = 0, artifact_count: int = 0, git_base_ref: str | n…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/releaseledger/changelog/",
+      "title": "releaseledger Changelog rendering",
+      "snippet": "releaseledger changelog renders review context. Use it when a human or\ncoding agent needs release metadata, entries, target-file guidance, a …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Two-step model",
+          "text": "releaseledger changelog renders review context. Use it when a human or\ncoding agent needs release metadata, entries, target-file guidance, and optional\nlint findings. Pass --include-sources to include provenance refs in Markdown\noutput.\n\nreleaseledger build renders the final changelog section and inserts it into\nthe target file. Use --dry-run before writing and --replace-existing when\nre-rendering an existing release section. Pass --template NAME to select a\nnamed changelog template profile.\n\nbuild never invents entries from git commits. Git commit ranges require\ngit scaffold / audit / entry curation before a strict build can pass.",
+          "lower": "releaseledger changelog renders review context. use it when a human or\ncoding agent needs release metadata, entries, target-file guidance, and optional\nlint findings. pass --include-sources to include provenance refs in markdown\noutput.\n\nreleaseledger build renders the final changelog section and inserts it into\nthe target file. use --dry-run before writing and --replace-existing when\nre-rendering an existing release section. pass --template name to select a\nnamed changelog template profile.\n\nbuild never invents entries from git commits. git commit ranges require\ngit scaffold / audit / entry curation before a strict build can pass."
+        },
+        {
+          "anchor": "",
+          "heading": "Full changelog rebuild",
+          "text": "releaseledger build with no VERSION (or releaseledger build --all)\nrebuilds the complete target file from ledger state:\n\n\nreleaseledger build VERSION updates one release section.\n\n\nreleaseledger build or releaseledger build --all rebuilds the whole\ntarget file from ledger state.\n\n\nFull rebuild excludes internal entries and non-released releases by default.\n\n\nUse --include-internal only for internal release notes.\n\n\nUse --include-release-status to include candidate/planned sections\nexplicitly.\n\n\nFull rebuild preserves the ## [Unreleased] body by default\n(--no-preserve-unreleased clears it) and is a whole-file rewrite (no\n--replace-existing).\n\n\nAn empty ## [Unreleased] section is omitted: the heading (and its\nlink reference) is rendered only when an unreleased body exists.\n\n\n--unreleased-ve…",
+          "lower": "releaseledger build with no version (or releaseledger build --all)\nrebuilds the complete target file from ledger state:\n\n\nreleaseledger build version updates one release section.\n\n\nreleaseledger build or releaseledger build --all rebuilds the whole\ntarget file from ledger state.\n\n\nfull rebuild excludes internal entries and non-released releases by default.\n\n\nuse --include-internal only for internal release notes.\n\n\nuse --include-release-status to include candidate/planned sections\nexplicitly.\n\n\nfull rebuild preserves the ## [unreleased] body by default\n(--no-preserve-unreleased clears it) and is a whole-file rewrite (no\n--replace-existing).\n\n\nan empty ## [unreleased] section is omitted: the heading (and its\nlink reference) is rendered only when an unreleased body exists.\n\n\n--unreleased-ve…"
+        },
+        {
+          "anchor": "",
+          "heading": "Group modes",
+          "text": "Entry kinds are grouped for rendering. The mode is set by\nchangelog_group_mode in [changelog].\n\n\nkeepachangelog (Keep a Changelog 1.1.0) renders exactly six groups in\norder: Added, Changed, Deprecated, Removed, Fixed,\nSecurity. Extended kinds map onto these groups:\n\n\ndocs -> changed\n\n\nquality -> changed\n\n\ninternal -> changed (hidden unless --include-internal)\n\n\n\n\n\nextended (the default) renders Documentation, Quality, and\nInternal as their own groups alongside the Keep a Changelog groups.",
+          "lower": "entry kinds are grouped for rendering. the mode is set by\nchangelog_group_mode in [changelog].\n\n\nkeepachangelog (keep a changelog 1.1.0) renders exactly six groups in\norder: added, changed, deprecated, removed, fixed,\nsecurity. extended kinds map onto these groups:\n\n\ndocs -> changed\n\n\nquality -> changed\n\n\ninternal -> changed (hidden unless --include-internal)\n\n\n\n\n\nextended (the default) renders documentation, quality, and\ninternal as their own groups alongside the keep a changelog groups."
+        },
+        {
+          "anchor": "",
+          "heading": "Default template",
+          "text": "The default .releaseledger.toml contains:\n\n[changelog]\noutput = \"CHANGELOG.md\"\ntrim = true\nrender_always = false\nheader = \"\"\nbody = \"\"\"\n## {% if release.date %}[{{ release.version }}] - {{ release.date }}{% else %}[{{ release.version }}] - Unreleased{% endif %}\n\n{% for group in groups %}\n### {{ group.title }}\n{% for entry in group.entries %}\n- {% if entry.breaking %}**BREAKING:** {% endif %}{{ entry.summary }}\n{% endfor %}\n\n{% endfor %}\n\"\"\"\nfooter = \"<!-- generated by releaseledger -->\"\npostprocessors = []",
+          "lower": "the default .releaseledger.toml contains:\n\n[changelog]\noutput = \"changelog.md\"\ntrim = true\nrender_always = false\nheader = \"\"\nbody = \"\"\"\n## {% if release.date %}[{{ release.version }}] - {{ release.date }}{% else %}[{{ release.version }}] - unreleased{% endif %}\n\n{% for group in groups %}\n### {{ group.title }}\n{% for entry in group.entries %}\n- {% if entry.breaking %}**breaking:** {% endif %}{{ entry.summary }}\n{% endfor %}\n\n{% endfor %}\n\"\"\"\nfooter = \"<!-- generated by releaseledger -->\"\npostprocessors = []"
+        },
+        {
+          "anchor": "",
+          "heading": "Template context",
+          "text": "Templates run in a sandboxed Jinja2 environment and may access:\n\n\nprojectProject or ledger name.\n\n\nreleaseThe target release payload, including version and effective date.\n\n\nentriesIncluded entry payloads.\n\n\ngroupsEntries grouped by changelog title.\n\n\nreleasesKnown release payloads.",
+          "lower": "templates run in a sandboxed jinja2 environment and may access:\n\n\nprojectproject or ledger name.\n\n\nreleasethe target release payload, including version and effective date.\n\n\nentriesincluded entry payloads.\n\n\ngroupsentries grouped by changelog title.\n\n\nreleasesknown release payloads."
+        },
+        {
+          "anchor": "",
+          "heading": "Postprocessors",
+          "text": "Postprocessors apply literal string replacements after template rendering:\n\npostprocessors = [\n  { pattern = \"releaseledger\", replace = \"Releaseledger\" },\n]",
+          "lower": "postprocessors apply literal string replacements after template rendering:\n\npostprocessors = [\n  { pattern = \"releaseledger\", replace = \"releaseledger\" },\n]"
+        },
+        {
+          "anchor": "",
+          "heading": "Strict builds",
+          "text": "Run releaseledger release check VERSION --strict --target-file CHANGELOG.md\nbefore a final public build.\n\nreleaseledger build --strict blocks on entry lint errors, empty included\nentries unless --allow-empty is supplied, release source refs that are\nnot covered by included entries, and (for releases with stored git range\nmetadata) git commits that have no accepted entry coverage. Internal-only\nentries satisfy audit coverage but are reported as excluded from the\npublic changelog. A dated planned release is also a strict-state failure for\nthe final public workflow.",
+          "lower": "run releaseledger release check version --strict --target-file changelog.md\nbefore a final public build.\n\nreleaseledger build --strict blocks on entry lint errors, empty included\nentries unless --allow-empty is supplied, release source refs that are\nnot covered by included entries, and (for releases with stored git range\nmetadata) git commits that have no accepted entry coverage. internal-only\nentries satisfy audit coverage but are reported as excluded from the\npublic changelog. a dated planned release is also a strict-state failure for\nthe final public workflow."
+        },
+        {
+          "anchor": "",
+          "heading": "Release review",
+          "text": "releaseledger review VERSION is a read-only coverage report. It combines\nrelease state, entry coverage, orphan detection, entry lint, and a strict\nchangelog dry-run into one deterministic report so agents and humans do not\nneed to run release show, entry list, entry lint, changelog,\nand build --dry-run separately.\n\nEach expected source ref (release.source_refs plus boundary_ref) is\nclassified as covered, draft_only, rejected_only,\ninternal_only, or missing. Accepted entries with no provenance\n(empty source_refs, issues, prs, and sources) are reported as\norphans. --strict exits non-zero when the release is not OK.\n\nUse releaseledger release check VERSION --strict --target-file CHANGELOG.md\nas the final consolidated gate immediately before writing CHANGELOG.md.\n\nRun review before adding a n…",
+          "lower": "releaseledger review version is a read-only coverage report. it combines\nrelease state, entry coverage, orphan detection, entry lint, and a strict\nchangelog dry-run into one deterministic report so agents and humans do not\nneed to run release show, entry list, entry lint, changelog,\nand build --dry-run separately.\n\neach expected source ref (release.source_refs plus boundary_ref) is\nclassified as covered, draft_only, rejected_only,\ninternal_only, or missing. accepted entries with no provenance\n(empty source_refs, issues, prs, and sources) are reported as\norphans. --strict exits non-zero when the release is not ok.\n\nuse releaseledger release check version --strict --target-file changelog.md\nas the final consolidated gate immediately before writing changelog.md.\n\nrun review before adding a n…"
+        },
+        {
+          "anchor": "",
+          "heading": "Section correction",
+          "text": "When a release section in the target changelog is stale (wrong version number\nor a canceled release), correct it with the section helpers rather than editing\nthe file by hand:\n\nreleaseledger changelog-section rename-section OLD NEW --target-file CHANGELOG.md\nreleaseledger changelog-section remove-section VERSION --target-file CHANGELOG.md\n\n\n\n\nrelease rename --rename-changelog-section and\nrelease cancel --remove-changelog-section apply the same corrections as part\nof a release correction. Both fail when the source section is missing unless\n--ignore-missing is passed, and rename-section fails when the\ndestination section already exists unless --replace-existing is passed.",
+          "lower": "when a release section in the target changelog is stale (wrong version number\nor a canceled release), correct it with the section helpers rather than editing\nthe file by hand:\n\nreleaseledger changelog-section rename-section old new --target-file changelog.md\nreleaseledger changelog-section remove-section version --target-file changelog.md\n\n\n\n\nrelease rename --rename-changelog-section and\nrelease cancel --remove-changelog-section apply the same corrections as part\nof a release correction. both fail when the source section is missing unless\n--ignore-missing is passed, and rename-section fails when the\ndestination section already exists unless --replace-existing is passed."
+        }
+      ]
+    },
+    {
+      "url": "/tools/releaseledger/commands/",
+      "title": "releaseledger Commands",
+      "snippet": "releaseledger --cwd PATH ...\nreleaseledger --json ...\nreleaseledger --version\n\n\n\n\n--cwd runs as if started from another directory. --json em …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Root options",
+          "text": "releaseledger --cwd PATH ...\nreleaseledger --json ...\nreleaseledger --version\n\n\n\n\n--cwd runs as if started from another directory. --json emits\ndeterministic JSON envelopes.",
+          "lower": "releaseledger --cwd path ...\nreleaseledger --json ...\nreleaseledger --version\n\n\n\n\n--cwd runs as if started from another directory. --json emits\ndeterministic json envelopes."
+        },
+        {
+          "anchor": "",
+          "heading": "Project commands",
+          "text": "releaseledger init [--releaseledger-dir PATH] [--project-name NAME]\n                  [--external-dir] [--force]\nreleaseledger storage where\nreleaseledger config show\nreleaseledger config set releaseledger_dir PATH [--external-dir]",
+          "lower": "releaseledger init [--releaseledger-dir path] [--project-name name]\n                  [--external-dir] [--force]\nreleaseledger storage where\nreleaseledger config show\nreleaseledger config set releaseledger_dir path [--external-dir]"
+        },
+        {
+          "anchor": "",
+          "heading": "Release commands",
+          "text": "releaseledger release create VERSION [--title TEXT] [--status STATUS]\n                                     [--previous VERSION] [--note TEXT]\n                                     [--changelog-file PATH]\n                                     [--released-at YYYY-MM-DD]\n                                     [--boundary-ref REF]\n                                     [--source-ref REF]...\n                                     [--source-count N]\nreleaseledger release update VERSION [release metadata options]\n                                    [--clear-previous]\n                                    [--clear-changelog-file]\n                                    [--clear-boundary-ref]\n                                    [--clear-source-refs]\n                                    [--clear-source-count]…",
+          "lower": "releaseledger release create version [--title text] [--status status]\n                                     [--previous version] [--note text]\n                                     [--changelog-file path]\n                                     [--released-at yyyy-mm-dd]\n                                     [--boundary-ref ref]\n                                     [--source-ref ref]...\n                                     [--source-count n]\nreleaseledger release update version [release metadata options]\n                                    [--clear-previous]\n                                    [--clear-changelog-file]\n                                    [--clear-boundary-ref]\n                                    [--clear-source-refs]\n                                    [--clear-source-count]…"
+        },
+        {
+          "anchor": "",
+          "heading": "Entry commands",
+          "text": "releaseledger entry add VERSION --kind KIND --summary TEXT [--body TEXT]\n                               [--status STATUS] [--audience TEXT]\n                               [--scope SCOPE]... [--source-ref REF]...\n                               [--path PATH]... [--issue REF]... [--pr REF]...\n                               [--breaking] [--internal] [--dry-run]\nreleaseledger entry add-many VERSION --file FILE [--dry-run] [--strict]\n                                    [--guard-commit-subjects]\n                                    [--sync-audit]\nreleaseledger entry update VERSION ENTRY_ID [entry metadata options]\nreleaseledger entry show VERSION ENTRY_ID\nreleaseledger entry import VERSION --file FILE [--replace]\n                                   [--source-ledger LEDGER]\nreleaseledger entry list…",
+          "lower": "releaseledger entry add version --kind kind --summary text [--body text]\n                               [--status status] [--audience text]\n                               [--scope scope]... [--source-ref ref]...\n                               [--path path]... [--issue ref]... [--pr ref]...\n                               [--breaking] [--internal] [--dry-run]\nreleaseledger entry add-many version --file file [--dry-run] [--strict]\n                                    [--guard-commit-subjects]\n                                    [--sync-audit]\nreleaseledger entry update version entry_id [entry metadata options]\nreleaseledger entry show version entry_id\nreleaseledger entry import version --file file [--replace]\n                                   [--source-ledger ledger]\nreleaseledger entry list…"
+        },
+        {
+          "anchor": "",
+          "heading": "Batch file format",
+          "text": "entry add-many expects YAML with a top-level entries list:\n\nentries:\n  - kind: added\n    summary: Added release bundle storage\n    body: >-\n      The storage layer now writes release records, entries, events, and indexes.\n    status: accepted\n    audience: developer\n    scopes: [storage]\n    source_refs: [tl:task-0103]\n    paths:\n      - releaseledger/storage/store.py\n    issues: []\n    prs: []\n    breaking: false\n    internal: false",
+          "lower": "entry add-many expects yaml with a top-level entries list:\n\nentries:\n  - kind: added\n    summary: added release bundle storage\n    body: >-\n      the storage layer now writes release records, entries, events, and indexes.\n    status: accepted\n    audience: developer\n    scopes: [storage]\n    source_refs: [tl:task-0103]\n    paths:\n      - releaseledger/storage/store.py\n    issues: []\n    prs: []\n    breaking: false\n    internal: false"
+        },
+        {
+          "anchor": "",
+          "heading": "Changelog commands",
+          "text": "releaseledger changelog VERSION [--format markdown|json] [--output PATH]\n                                [--include-internal]\n                                [--target-changelog PATH]\n                                [--release-date YYYY-MM-DD]\n                                [--include-sources]\n                                [--include-status STATUS]... [--lint]\n\nreleaseledger build VERSION [--target-file PATH]\n                            [--release-date YYYY-MM-DD]\n                            [--unreleased]\n                            [--include-internal]\n                            [--template NAME]\n                            [--dry-run]\n                            [--replace-existing]\n                            [--format markdown|json]\n                            [--include-status S…",
+          "lower": "releaseledger changelog version [--format markdown|json] [--output path]\n                                [--include-internal]\n                                [--target-changelog path]\n                                [--release-date yyyy-mm-dd]\n                                [--include-sources]\n                                [--include-status status]... [--lint]\n\nreleaseledger build version [--target-file path]\n                            [--release-date yyyy-mm-dd]\n                            [--unreleased]\n                            [--include-internal]\n                            [--template name]\n                            [--dry-run]\n                            [--replace-existing]\n                            [--format markdown|json]\n                            [--include-status s…"
+        },
+        {
+          "anchor": "",
+          "heading": "Review commands",
+          "text": "releaseledger review VERSION [--include-internal]\n                        [--include-status STATUS]...\n                        [--target-file PATH] [--strict]\n                        [--git] [--git-base REF] [--git-head REF]\n                        [--require-audit-sheet]\nreleaseledger release check VERSION [--target-file PATH] [--strict]\n                               [--include-internal]\n\n\n\n\nRead-only coverage report. It combines release state, entry coverage, orphan\ndetection, entry lint, and a strict changelog dry-run into one deterministic\nreport so agents and humans do not need to run release show,\nentry list, entry lint, changelog, and build --dry-run\nseparately. --strict exits non-zero when the release is not OK (uncovered\nsource refs, lint errors, a dated planned release, or a ch…",
+          "lower": "releaseledger review version [--include-internal]\n                        [--include-status status]...\n                        [--target-file path] [--strict]\n                        [--git] [--git-base ref] [--git-head ref]\n                        [--require-audit-sheet]\nreleaseledger release check version [--target-file path] [--strict]\n                               [--include-internal]\n\n\n\n\nread-only coverage report. it combines release state, entry coverage, orphan\ndetection, entry lint, and a strict changelog dry-run into one deterministic\nreport so agents and humans do not need to run release show,\nentry list, entry lint, changelog, and build --dry-run\nseparately. --strict exits non-zero when the release is not ok (uncovered\nsource refs, lint errors, a dated planned release, or a ch…"
+        },
+        {
+          "anchor": "",
+          "heading": "Git-first commands",
+          "text": "Releaseledger is git-first: git commit ranges are the canonical evidence of\nshipped changes.\n\nreleaseledger git range VERSION [--base REF] [--head REF]\n                       [--include-merges never|always|nontrivial]\nreleaseledger git range next --base REF [--head REF]\nreleaseledger git scaffold VERSION [--base REF] [--head REF]\n                         [--status draft] --output PATH\nreleaseledger git import VERSION [--base REF] [--head REF]\n                       [--status draft] --output PATH\nreleaseledger git import next --base REF [--head REF] --output PATH\nreleaseledger git evidence VERSION [--base REF] [--head REF]\n                         [--output-dir PATH]\n\n\n\n\ngit range inspects the commit range and prints candidate entries.\ngit scaffold generates a metadata-rich entry add-many…",
+          "lower": "releaseledger is git-first: git commit ranges are the canonical evidence of\nshipped changes.\n\nreleaseledger git range version [--base ref] [--head ref]\n                       [--include-merges never|always|nontrivial]\nreleaseledger git range next --base ref [--head ref]\nreleaseledger git scaffold version [--base ref] [--head ref]\n                         [--status draft] --output path\nreleaseledger git import version [--base ref] [--head ref]\n                       [--status draft] --output path\nreleaseledger git import next --base ref [--head ref] --output path\nreleaseledger git evidence version [--base ref] [--head ref]\n                         [--output-dir path]\n\n\n\n\ngit range inspects the commit range and prints candidate entries.\ngit scaffold generates a metadata-rich entry add-many…"
+        },
+        {
+          "anchor": "",
+          "heading": "Commit audit sheet commands",
+          "text": "releaseledger audit init VERSION [--base REF] [--head REF] [--overwrite]\nreleaseledger audit show VERSION [--format markdown|json|yaml] [--output PATH]\nreleaseledger audit apply VERSION --file PATH [--dry-run]\nreleaseledger audit refresh VERSION [--base REF] [--head REF] [--allow-remove]\nreleaseledger audit update VERSION --file PATH\nreleaseledger audit validate VERSION [--phase evidence|complete]\n                                  [--strict] [--include-internal]\n                                  [--record-event]\nreleaseledger audit sync VERSION\n\n\n\n\nThe commit audit sheet is a per-release review artifact that maps every commit\nin the git range to a reviewer decision (needs_review, accepted,\ngrouped, internal, rejected) and to a release entry. Commit\nsubjects are evidence-only and must neve…",
+          "lower": "releaseledger audit init version [--base ref] [--head ref] [--overwrite]\nreleaseledger audit show version [--format markdown|json|yaml] [--output path]\nreleaseledger audit apply version --file path [--dry-run]\nreleaseledger audit refresh version [--base ref] [--head ref] [--allow-remove]\nreleaseledger audit update version --file path\nreleaseledger audit validate version [--phase evidence|complete]\n                                  [--strict] [--include-internal]\n                                  [--record-event]\nreleaseledger audit sync version\n\n\n\n\nthe commit audit sheet is a per-release review artifact that maps every commit\nin the git range to a reviewer decision (needs_review, accepted,\ngrouped, internal, rejected) and to a release entry. commit\nsubjects are evidence-only and must neve…"
+        },
+        {
+          "anchor": "",
+          "heading": "Branch commands",
+          "text": "releaseledger branch status\nreleaseledger branch start BRANCH --parent PARENT\nreleaseledger branch merge BRANCH --into TARGET --release VERSION\n\n\n\n\nOptional branch-scoped ledgers. branch status compares the current git\nbranch to ledger_ref. branch start forks a new ledger. branch merge merges entries by source_refs (git:<sha> dedup).",
+          "lower": "releaseledger branch status\nreleaseledger branch start branch --parent parent\nreleaseledger branch merge branch --into target --release version\n\n\n\n\noptional branch-scoped ledgers. branch status compares the current git\nbranch to ledger_ref. branch start forks a new ledger. branch merge merges entries by source_refs (git:<sha> dedup)."
+        },
+        {
+          "anchor": "",
+          "heading": "Changelog section correction commands",
+          "text": "releaseledger changelog-section remove-section VERSION --target-file PATH\n                                                  [--ignore-missing] [--dry-run]\nreleaseledger changelog-section rename-section OLD_VERSION NEW_VERSION\n                                                  --target-file PATH\n                                                  [--ignore-missing]\n                                                  [--replace-existing] [--dry-run]\n\n\n\n\nThese rewrite release section headings in an existing changelog file without\ntouching release records. release rename --rename-changelog-section and\nrelease cancel --remove-changelog-section apply the same corrections inline.",
+          "lower": "releaseledger changelog-section remove-section version --target-file path\n                                                  [--ignore-missing] [--dry-run]\nreleaseledger changelog-section rename-section old_version new_version\n                                                  --target-file path\n                                                  [--ignore-missing]\n                                                  [--replace-existing] [--dry-run]\n\n\n\n\nthese rewrite release section headings in an existing changelog file without\ntouching release records. release rename --rename-changelog-section and\nrelease cancel --remove-changelog-section apply the same corrections inline."
+        }
+      ]
+    },
+    {
+      "url": "/tools/releaseledger/concepts/",
+      "title": "releaseledger Concepts",
+      "snippet": "Releaseledger is git-first. Git tags and commit ranges define the shipped change\nset. The canonical evidence of what shipped is git rev-list …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Git-first",
+          "text": "Releaseledger is git-first. Git tags and commit ranges define the shipped change\nset. The canonical evidence of what shipped is git rev-list --reverse --topo-order <base>..<head>\n— every commit reachable from the release target and absent from the previous release.\n\nTaskledger, issue trackers, and PR descriptions are optional provenance that enrich\ncurated entries, but releaseledger works correctly with only git.",
+          "lower": "releaseledger is git-first. git tags and commit ranges define the shipped change\nset. the canonical evidence of what shipped is git rev-list --reverse --topo-order <base>..<head>\n— every commit reachable from the release target and absent from the previous release.\n\ntaskledger, issue trackers, and pr descriptions are optional provenance that enrich\ncurated entries, but releaseledger works correctly with only git."
+        },
+        {
+          "anchor": "",
+          "heading": "Source refs",
+          "text": "A source ref is a coverage identity. Two kinds are accepted:\n\n\nGlobal refs (taskledger, GitHub, etc.): tl:task-0006, github:pr-42.\nCanonicalized by ledgercore.\n\n\nGit commit refs: git:<7-to-40 hex sha>. The primary evidence type for\ngit-first workflows.\n\n\n\nA git-range:*, git-tag:*, or git-branch:* ref is a non-coverable\nrange marker — useful as release metadata but never creating a missing-coverage row.",
+          "lower": "a source ref is a coverage identity. two kinds are accepted:\n\n\nglobal refs (taskledger, github, etc.): tl:task-0006, github:pr-42.\ncanonicalized by ledgercore.\n\n\ngit commit refs: git:<7-to-40 hex sha>. the primary evidence type for\ngit-first workflows.\n\n\n\na git-range:*, git-tag:*, or git-branch:* ref is a non-coverable\nrange marker — useful as release metadata but never creating a missing-coverage row."
+        },
+        {
+          "anchor": "",
+          "heading": "Pinned release snapshot",
+          "text": "Git-backed releases store both symbolic refs and the resolved commit SHAs. The\nresolved SHAs are the immutable snapshot used by default for later git-backed\ncommands (git range, git scaffold, audit init, review, release check,\nstrict build coverage). This prevents a moving branch head from silently adding\nnew commits to an in-progress release.\n\nResolve HEAD once when attaching the range. A new commit belongs to the\nrelease only after an explicit refresh.",
+          "lower": "git-backed releases store both symbolic refs and the resolved commit shas. the\nresolved shas are the immutable snapshot used by default for later git-backed\ncommands (git range, git scaffold, audit init, review, release check,\nstrict build coverage). this prevents a moving branch head from silently adding\nnew commits to an in-progress release.\n\nresolve head once when attaching the range. a new commit belongs to the\nrelease only after an explicit refresh."
+        },
+        {
+          "anchor": "",
+          "heading": "Release",
+          "text": "A release is a versioned record stored as release.md with YAML front matter\nand an optional Markdown body. It tracks status, previous version, release date,\nsource boundary, source refs, and changelog file metadata.\n\nRelease statuses are:\n\n\nplanned\n\n\ndraft\n\n\ncandidate\n\n\nreleased\n\n\nyanked\n\n\ncanceled\n\n\n\ncanceled means the release was never shipped: it is excluded from\nprevious-version inference and not built into public changelogs by default.\nCanceled releases may carry cancel_reason and superseded_by metadata\nand remain visible in release list as an audit tombstone.",
+          "lower": "a release is a versioned record stored as release.md with yaml front matter\nand an optional markdown body. it tracks status, previous version, release date,\nsource boundary, source refs, and changelog file metadata.\n\nrelease statuses are:\n\n\nplanned\n\n\ndraft\n\n\ncandidate\n\n\nreleased\n\n\nyanked\n\n\ncanceled\n\n\n\ncanceled means the release was never shipped: it is excluded from\nprevious-version inference and not built into public changelogs by default.\ncanceled releases may carry cancel_reason and superseded_by metadata\nand remain visible in release list as an audit tombstone."
+        },
+        {
+          "anchor": "",
+          "heading": "Entry",
+          "text": "An entry is one release-note item stored under\nreleases/<version>/entries/entry-NNNN.md. Entries are grouped by kind for\nchangelog rendering.\n\nEntry kinds are:\n\n\nadded\n\n\nchanged\n\n\nfixed\n\n\nremoved\n\n\ndeprecated\n\n\nsecurity\n\n\ndocs\n\n\nquality\n\n\ninternal\n\n\n\ndocumentation and doc are accepted aliases for docs.\n\nEntry statuses are draft, accepted, and rejected. Changelog builds\ninclude accepted entries by default.",
+          "lower": "an entry is one release-note item stored under\nreleases/<version>/entries/entry-nnnn.md. entries are grouped by kind for\nchangelog rendering.\n\nentry kinds are:\n\n\nadded\n\n\nchanged\n\n\nfixed\n\n\nremoved\n\n\ndeprecated\n\n\nsecurity\n\n\ndocs\n\n\nquality\n\n\ninternal\n\n\n\ndocumentation and doc are accepted aliases for docs.\n\nentry statuses are draft, accepted, and rejected. changelog builds\ninclude accepted entries by default."
+        },
+        {
+          "anchor": "",
+          "heading": "Event",
+          "text": "Events are append-only operation rows. They do not store wall-clock timestamps\nor before/after deltas. Releaseledger relies on git history for chronological\nreview and on per-record revisions for validation.",
+          "lower": "events are append-only operation rows. they do not store wall-clock timestamps\nor before/after deltas. releaseledger relies on git history for chronological\nreview and on per-record revisions for validation."
+        },
+        {
+          "anchor": "",
+          "heading": "Commit audit sheet",
+          "text": "A commit audit sheet is a per-release review artifact that maps every commit\nin the selected git range to a reviewer decision and, when applicable, to a\nrelease entry. It is evidence state, not changelog prose.\n\nThe sheet exists to prevent release notes from being generated from commit\nsubjects. Each row records the commit SHA, inspected paths,\nreviewer-observed behavior, public/internal impact, decision, and target\nrelease entry. Public changelog entries are written from reviewed behavior,\nAPI/docs impact, changed paths, tests, and diff evidence. Commit subjects are\nevidence-only and must not be copied or mechanically transformed into\nrelease summaries.\n\nDecisions are needs_review, accepted, grouped, internal, and\nrejected. public_impact values are public, docs, internal, none,\nand unkno…",
+          "lower": "a commit audit sheet is a per-release review artifact that maps every commit\nin the selected git range to a reviewer decision and, when applicable, to a\nrelease entry. it is evidence state, not changelog prose.\n\nthe sheet exists to prevent release notes from being generated from commit\nsubjects. each row records the commit sha, inspected paths,\nreviewer-observed behavior, public/internal impact, decision, and target\nrelease entry. public changelog entries are written from reviewed behavior,\napi/docs impact, changed paths, tests, and diff evidence. commit subjects are\nevidence-only and must not be copied or mechanically transformed into\nrelease summaries.\n\ndecisions are needs_review, accepted, grouped, internal, and\nrejected. public_impact values are public, docs, internal, none,\nand unkno…"
+        },
+        {
+          "anchor": "",
+          "heading": "Versioning",
+          "text": "Release and entry files contain versioning.schema_version and a positive\nversioning.revision. New records start at revision 1, and the revision\nincreases by exactly one whenever that record file meaningfully changes.",
+          "lower": "release and entry files contain versioning.schema_version and a positive\nversioning.revision. new records start at revision 1, and the revision\nincreases by exactly one whenever that record file meaningfully changes."
+        },
+        {
+          "anchor": "",
+          "heading": "Planned versus released",
+          "text": "A dated planned / draft / candidate release is intentionally treated as a\nconsistency warning or strict failure in review/check flows, because default\npublic full builds include only released releases. Finalize a shipped release\nexplicitly before the final public build.",
+          "lower": "a dated planned / draft / candidate release is intentionally treated as a\nconsistency warning or strict failure in review/check flows, because default\npublic full builds include only released releases. finalize a shipped release\nexplicitly before the final public build."
+        },
+        {
+          "anchor": "",
+          "heading": "Index",
+          "text": "Releaseledger rebuilds indexes/releases.json and indexes/entries.json\nafter mutations. Indexes are derived state and should remain deterministic.",
+          "lower": "releaseledger rebuilds indexes/releases.json and indexes/entries.json\nafter mutations. indexes are derived state and should remain deterministic."
+        },
+        {
+          "anchor": "",
+          "heading": "Global refs",
+          "text": "External provenance is recorded as caller-supplied global refs, for example\ntl:task-0103. Releaseledger stores these refs but does not resolve or\nvalidate external ledger state.",
+          "lower": "external provenance is recorded as caller-supplied global refs, for example\ntl:task-0103. releaseledger stores these refs but does not resolve or\nvalidate external ledger state."
+        }
+      ]
+    },
+    {
+      "url": "/tools/releaseledger/development/",
+      "title": "releaseledger Development",
+      "snippet": "python -m pip install -e \".[dev]\"\npytest -q\nruff check .\nmypy releaseledger\npython -m build\npython -m pip install -e \".[docs]\"\nsphinx-build …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Setup",
+          "text": "python -m pip install -e \".[dev]\"",
+          "lower": "python -m pip install -e \".[dev]\""
+        },
+        {
+          "anchor": "",
+          "heading": "Validation",
+          "text": "pytest -q\nruff check .\nmypy releaseledger\npython -m build",
+          "lower": "pytest -q\nruff check .\nmypy releaseledger\npython -m build"
+        },
+        {
+          "anchor": "",
+          "heading": "Documentation",
+          "text": "python -m pip install -e \".[docs]\"\nsphinx-build -b html docs docs/_build/html",
+          "lower": "python -m pip install -e \".[docs]\"\nsphinx-build -b html docs docs/_build/html"
+        },
+        {
+          "anchor": "",
+          "heading": "Packaging",
+          "text": "The package uses setuptools and setuptools-scm. releaseledger/_version.py is\ngenerated version metadata and is included in the context pack for inspection.",
+          "lower": "the package uses setuptools and setuptools-scm. releaseledger/_version.py is\ngenerated version metadata and is included in the context pack for inspection."
+        },
+        {
+          "anchor": "",
+          "heading": "Typing",
+          "text": "The project ships py.typed and targets Python 3.10 or newer.",
+          "lower": "the project ships py.typed and targets python 3.10 or newer."
+        }
+      ]
+    },
+    {
+      "url": "/tools/releaseledger/",
+      "title": "releaseledger",
+      "snippet": "Project-local release management for coding workflows.\n\nreleaseledger stores release records, release-note entries, append-only\nevents, and …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "releaseledger",
+          "text": "Project-local release management for coding workflows.\n\nreleaseledger stores release records, release-note entries, append-only\nevents, and deterministic JSON indexes in a project-local or explicitly external\nstate directory. It also renders reviewable changelog context and final\nCHANGELOG.md sections.\n\n\nUser guide\n\n\nQuickstart\nInstall\n\nInitialize a project\n\nCreate a release and pin the git snapshot\n\nCreate audit evidence and scaffold entries\n\nRun the final gate and build the changelog\n\nOptional: taskledger provenance\n\nCreate a release\n\nAdd entries\n\nRender changelog output\n\n\n\n\nConcepts\nGit-first\n\nSource refs\n\nPinned release snapshot\n\nRelease\n\nEntry\n\nEvent\n\nCommit audit sheet\n\nVersioning\n\nPlanned versus released\n\nIndex\n\nGlobal refs\n\n\n\n\nCommands\nRoot options\n\nProject commands\n\nRelease comma…",
+          "lower": "project-local release management for coding workflows.\n\nreleaseledger stores release records, release-note entries, append-only\nevents, and deterministic json indexes in a project-local or explicitly external\nstate directory. it also renders reviewable changelog context and final\nchangelog.md sections.\n\n\nuser guide\n\n\nquickstart\ninstall\n\ninitialize a project\n\ncreate a release and pin the git snapshot\n\ncreate audit evidence and scaffold entries\n\nrun the final gate and build the changelog\n\noptional: taskledger provenance\n\ncreate a release\n\nadd entries\n\nrender changelog output\n\n\n\n\nconcepts\ngit-first\n\nsource refs\n\npinned release snapshot\n\nrelease\n\nentry\n\nevent\n\ncommit audit sheet\n\nversioning\n\nplanned versus released\n\nindex\n\nglobal refs\n\n\n\n\ncommands\nroot options\n\nproject commands\n\nrelease comma…"
+        },
+        {
+          "anchor": "",
+          "heading": "Design constraints",
+          "text": "Releaseledger is standalone. It depends on ledgercore for storage and\nreference primitives, but it does not import taskledger or inspect taskledger\nstate. External provenance is represented by explicit global refs such as\ntl:task-0103.",
+          "lower": "releaseledger is standalone. it depends on ledgercore for storage and\nreference primitives, but it does not import taskledger or inspect taskledger\nstate. external provenance is represented by explicit global refs such as\ntl:task-0103."
+        }
+      ]
+    },
+    {
+      "url": "/tools/releaseledger/quickstart/",
+      "title": "releaseledger Quickstart",
+      "snippet": "python -m pip install releaseledger\n\n\n\n\nFor development:\n\npython -m pip install -e \".[dev]\"\nreleaseledger init\n\n\n\n\nThis creates .releaseledg …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Install",
+          "text": "python -m pip install releaseledger\n\n\n\n\nFor development:\n\npython -m pip install -e \".[dev]\"",
+          "lower": "python -m pip install releaseledger\n\n\n\n\nfor development:\n\npython -m pip install -e \".[dev]\""
+        },
+        {
+          "anchor": "",
+          "heading": "Initialize a project",
+          "text": "releaseledger init\n\n\n\n\nThis creates .releaseledger.toml and the default state layout:\n\n.releaseledger/\n  ledgers/\n    main/\n      releases/\n      events/\n      indexes/\n\n\n\n\nReleaseledger is git-first. The recommended workflow uses git commit ranges\nas the canonical evidence of shipped changes.",
+          "lower": "releaseledger init\n\n\n\n\nthis creates .releaseledger.toml and the default state layout:\n\n.releaseledger/\n  ledgers/\n    main/\n      releases/\n      events/\n      indexes/\n\n\n\n\nreleaseledger is git-first. the recommended workflow uses git commit ranges\nas the canonical evidence of shipped changes."
+        },
+        {
+          "anchor": "",
+          "heading": "Create a release and pin the git snapshot",
+          "text": "releaseledger release create 1.2.0 \\\n  --previous 1.1.0 \\\n  --released-at 2026-06-14\n\nreleaseledger release update 1.2.0 \\\n  --git-base v1.1.0 \\\n  --git-head HEAD\n\n\n\n\nAfter the snapshot is attached, omit --head unless you intentionally want to\nrefresh the stored snapshot to a newer commit.",
+          "lower": "releaseledger release create 1.2.0 \\\n  --previous 1.1.0 \\\n  --released-at 2026-06-14\n\nreleaseledger release update 1.2.0 \\\n  --git-base v1.1.0 \\\n  --git-head head\n\n\n\n\nafter the snapshot is attached, omit --head unless you intentionally want to\nrefresh the stored snapshot to a newer commit."
+        },
+        {
+          "anchor": "",
+          "heading": "Create audit evidence and scaffold entries",
+          "text": "releaseledger git evidence 1.2.0 --output-dir /tmp/1.2.0-evidence\nreleaseledger audit init 1.2.0\nreleaseledger audit show 1.2.0 --format yaml --output /tmp/1.2.0-audit.yaml\nreleaseledger git scaffold 1.2.0 \\\n  --output /tmp/1.2.0-entries.yaml\n\n\n\n\nCurate the audit annotations, then validate the evidence phase:\n\nreleaseledger audit apply 1.2.0 \\\n  --file /tmp/1.2.0-audit-decisions.yaml \\\n  --dry-run\nreleaseledger audit apply 1.2.0 \\\n  --file /tmp/1.2.0-audit-decisions.yaml\nreleaseledger audit validate 1.2.0 --phase evidence --strict\n\n\n\n\nEdit the entry scaffold to write user-facing summaries from reviewed behavior,\nthen validate and write entries atomically:\n\nreleaseledger entry add-many 1.2.0 \\\n  --file /tmp/1.2.0-entries.yaml \\\n  --dry-run \\\n  --strict \\\n  --guard-commit-subjects\nreleasele…",
+          "lower": "releaseledger git evidence 1.2.0 --output-dir /tmp/1.2.0-evidence\nreleaseledger audit init 1.2.0\nreleaseledger audit show 1.2.0 --format yaml --output /tmp/1.2.0-audit.yaml\nreleaseledger git scaffold 1.2.0 \\\n  --output /tmp/1.2.0-entries.yaml\n\n\n\n\ncurate the audit annotations, then validate the evidence phase:\n\nreleaseledger audit apply 1.2.0 \\\n  --file /tmp/1.2.0-audit-decisions.yaml \\\n  --dry-run\nreleaseledger audit apply 1.2.0 \\\n  --file /tmp/1.2.0-audit-decisions.yaml\nreleaseledger audit validate 1.2.0 --phase evidence --strict\n\n\n\n\nedit the entry scaffold to write user-facing summaries from reviewed behavior,\nthen validate and write entries atomically:\n\nreleaseledger entry add-many 1.2.0 \\\n  --file /tmp/1.2.0-entries.yaml \\\n  --dry-run \\\n  --strict \\\n  --guard-commit-subjects\nreleasele…"
+        },
+        {
+          "anchor": "",
+          "heading": "Run the final gate and build the changelog",
+          "text": "releaseledger release check 1.2.0 --strict --target-file CHANGELOG.md\nreleaseledger release finalize 1.2.0 --released-at 2026-06-14\nreleaseledger build 1.2.0 --strict --target-file CHANGELOG.md\n\n\n\n\nFor a single release section update only, build VERSION is the default and\nexplicit version intent. Rebuild the whole file only when you really mean all\nhistory:\n\nreleaseledger build --strict --target-file CHANGELOG.md",
+          "lower": "releaseledger release check 1.2.0 --strict --target-file changelog.md\nreleaseledger release finalize 1.2.0 --released-at 2026-06-14\nreleaseledger build 1.2.0 --strict --target-file changelog.md\n\n\n\n\nfor a single release section update only, build version is the default and\nexplicit version intent. rebuild the whole file only when you really mean all\nhistory:\n\nreleaseledger build --strict --target-file changelog.md"
+        },
+        {
+          "anchor": "",
+          "heading": "Optional: taskledger provenance",
+          "text": "Taskledger refs (tl:task-0103) and PR refs (github:pr-42) are optional\nprovenance. Add them to entries to enrich coverage, but git commits are the\nprimary source of truth:\n\nreleaseledger entry add 1.2.0 \\\n  --kind added \\\n  --summary \"Added release bundle storage\" \\\n  --status accepted \\\n  --source-ref git:abcdef0123456789abcdef0123456789abcdef01 \\\n  --source-ref tl:task-0103",
+          "lower": "taskledger refs (tl:task-0103) and pr refs (github:pr-42) are optional\nprovenance. add them to entries to enrich coverage, but git commits are the\nprimary source of truth:\n\nreleaseledger entry add 1.2.0 \\\n  --kind added \\\n  --summary \"added release bundle storage\" \\\n  --status accepted \\\n  --source-ref git:abcdef0123456789abcdef0123456789abcdef01 \\\n  --source-ref tl:task-0103"
+        },
+        {
+          "anchor": "",
+          "heading": "Create a release",
+          "text": "releaseledger release create 1.2.0 \\\n  --title \"Release 1.2.0\" \\\n  --boundary-ref tl:task-0105 \\\n  --source-ref tl:task-0103",
+          "lower": "releaseledger release create 1.2.0 \\\n  --title \"release 1.2.0\" \\\n  --boundary-ref tl:task-0105 \\\n  --source-ref tl:task-0103"
+        },
+        {
+          "anchor": "",
+          "heading": "Add entries",
+          "text": "releaseledger entry add 1.2.0 \\\n  --kind added \\\n  --summary \"Added release bundle storage\" \\\n  --status accepted \\\n  --source-ref tl:task-0103\n\n\n\n\nValidate entries:\n\nreleaseledger entry lint 1.2.0 --strict",
+          "lower": "releaseledger entry add 1.2.0 \\\n  --kind added \\\n  --summary \"added release bundle storage\" \\\n  --status accepted \\\n  --source-ref tl:task-0103\n\n\n\n\nvalidate entries:\n\nreleaseledger entry lint 1.2.0 --strict"
+        },
+        {
+          "anchor": "",
+          "heading": "Render changelog output",
+          "text": "Use changelog to produce review context:\n\nreleaseledger changelog 1.2.0 \\\n  --target-changelog CHANGELOG.md \\\n  --release-date 2026-06-13\n\n\n\n\nUse build VERSION to render and insert a final section:\n\nreleaseledger build 1.2.0 \\\n  --dry-run \\\n  --strict \\\n  --target-file CHANGELOG.md\n\nreleaseledger build 1.2.0 \\\n  --release-date 2026-06-13 \\\n  --strict \\\n  --target-file CHANGELOG.md",
+          "lower": "use changelog to produce review context:\n\nreleaseledger changelog 1.2.0 \\\n  --target-changelog changelog.md \\\n  --release-date 2026-06-13\n\n\n\n\nuse build version to render and insert a final section:\n\nreleaseledger build 1.2.0 \\\n  --dry-run \\\n  --strict \\\n  --target-file changelog.md\n\nreleaseledger build 1.2.0 \\\n  --release-date 2026-06-13 \\\n  --strict \\\n  --target-file changelog.md"
+        }
+      ]
+    },
+    {
+      "url": "/tools/releaseledger/storage/",
+      "title": "releaseledger Storage and configuration",
+      "snippet": "A normal project stores release state inside the workspace:\n\nconfig_version = 1\nreleaseledger_dir = \".releaseledger\"\n\nledger_ref = \"main\"\nle …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Default layout",
+          "text": "A normal project stores release state inside the workspace:\n\nconfig_version = 1\nreleaseledger_dir = \".releaseledger\"\n\nledger_ref = \"main\"\nledger_parent_ref = \"\"\nledger_next_entry_number = 1\nledger_branch_guard = \"off\"\n\n[ledger]\ncode = \"rl\"\nname = \"releaseledger\"\n\n[release]\ndefault_changelog = \"CHANGELOG.md\"\ndefault_status = \"planned\"\nallow_dirty_worktree = true\n\n\n\n\nStorage tree:\n\n.releaseledger/\n  ledgers/\n    main/\n      releases/\n        <version>/\n          release.md\n          entries/\n            entry-0001.md\n      events/\n        events.jsonl\n      indexes/\n        releases.json\n        entries.json\n\n\n\n\nRelease and entry Markdown records use schema version 2 and include validated\nrecord metadata:\n\nschema_version: 2\nobject_type: release\nversioning:\n  schema_version: 1\n  revision: 1…",
+          "lower": "a normal project stores release state inside the workspace:\n\nconfig_version = 1\nreleaseledger_dir = \".releaseledger\"\n\nledger_ref = \"main\"\nledger_parent_ref = \"\"\nledger_next_entry_number = 1\nledger_branch_guard = \"off\"\n\n[ledger]\ncode = \"rl\"\nname = \"releaseledger\"\n\n[release]\ndefault_changelog = \"changelog.md\"\ndefault_status = \"planned\"\nallow_dirty_worktree = true\n\n\n\n\nstorage tree:\n\n.releaseledger/\n  ledgers/\n    main/\n      releases/\n        <version>/\n          release.md\n          entries/\n            entry-0001.md\n      events/\n        events.jsonl\n      indexes/\n        releases.json\n        entries.json\n\n\n\n\nrelease and entry markdown records use schema version 2 and include validated\nrecord metadata:\n\nschema_version: 2\nobject_type: release\nversioning:\n  schema_version: 1\n  revision: 1…"
+        },
+        {
+          "anchor": "",
+          "heading": "External state directories",
+          "text": "Projects that keep generated state in a sibling repository can opt in to an\nexternal path:\n\nreleaseledger_dir = \"../ledger/release/releaseledger\"\nreleaseledger_dir_policy = \"external\"\n\n\n\n\nThe CLI form is:\n\nreleaseledger init \\\n  --releaseledger-dir ../ledger/release/releaseledger \\\n  --external-dir\n\nreleaseledger config set releaseledger_dir \\\n  ../ledger/release/releaseledger \\\n  --external-dir\n\n\n\n\nRelative paths that escape the workspace are rejected unless the external\npolicy is explicit.",
+          "lower": "projects that keep generated state in a sibling repository can opt in to an\nexternal path:\n\nreleaseledger_dir = \"../ledger/release/releaseledger\"\nreleaseledger_dir_policy = \"external\"\n\n\n\n\nthe cli form is:\n\nreleaseledger init \\\n  --releaseledger-dir ../ledger/release/releaseledger \\\n  --external-dir\n\nreleaseledger config set releaseledger_dir \\\n  ../ledger/release/releaseledger \\\n  --external-dir\n\n\n\n\nrelative paths that escape the workspace are rejected unless the external\npolicy is explicit."
+        },
+        {
+          "anchor": "",
+          "heading": "Diagnostics",
+          "text": "Inspect effective paths and layout health without mutating state:\n\nreleaseledger storage where\nreleaseledger --json storage where\nreleaseledger config show\nreleaseledger --json config show",
+          "lower": "inspect effective paths and layout health without mutating state:\n\nreleaseledger storage where\nreleaseledger --json storage where\nreleaseledger config show\nreleaseledger --json config show"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "documentledger",
+  "entries": [
+    {
+      "url": "/tools/documentledger/api/",
+      "title": "documentledger API reference",
+      "snippet": "This reference is generated from the public Documentledger modules, including the CLI, storage and scan layers, section/source indexing, imp …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "API reference",
+          "text": "This reference is generated from the public Documentledger modules, including the CLI, storage and scan layers, section/source indexing, impact resolution, context rendering, and link management.\n\n\n\n\ndocumentledger.cli.envelope(command: str, result: Any = None, events: list[Any] | None = None) → dict[str, Any][source]\n\n\n\n\ndocumentledger.cli.error_envelope(command: str, error: DocumentledgerError) → dict[str, Any][source]\n\n\n\n\ndocumentledger.cli.emit(ctx: Context, command: str, result: Any, human: str, events: list[Any] | None = None) → None[source]\n\n\n\n\ndocumentledger.cli.render_error(ctx: Context, command: str, exc: DocumentledgerError) → None[source]\n\n\n\n\ndocumentledger.cli.handle_errors(command: str) → Callable[[Callable[[...], Any]], Callable[[...], Any]][source]\n\n\n\n\ndocumentledger.…",
+          "lower": "this reference is generated from the public documentledger modules, including the cli, storage and scan layers, section/source indexing, impact resolution, context rendering, and link management.\n\n\n\n\ndocumentledger.cli.envelope(command: str, result: any = none, events: list[any] | none = none) → dict[str, any][source]\n\n\n\n\ndocumentledger.cli.error_envelope(command: str, error: documentledgererror) → dict[str, any][source]\n\n\n\n\ndocumentledger.cli.emit(ctx: context, command: str, result: any, human: str, events: list[any] | none = none) → none[source]\n\n\n\n\ndocumentledger.cli.render_error(ctx: context, command: str, exc: documentledgererror) → none[source]\n\n\n\n\ndocumentledger.cli.handle_errors(command: str) → callable[[callable[[...], any]], callable[[...], any]][source]\n\n\n\n\ndocumentledger.…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/architecture/",
+      "title": "documentledger Architecture",
+      "snippet": "Documentledger discovers documentledger.toml or .documentledger.toml by walking upward from the current directory. The loaded configuration …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Configuration and workspace loading",
+          "text": "Documentledger discovers documentledger.toml or .documentledger.toml by walking upward from the current directory. The loaded configuration defines the project metadata, storage directory, scan roots, allowed file extensions, validation commands, and policy flags.\n\nA workspace combines the loaded configuration with storage metadata from .documentledger/storage.yaml. Commands that require an initialized workspace fail with a structured workspace_not_found error when no config is found, or a storage_missing error when the config exists but storage metadata is absent. status classifies the workspace operationally (uninitialized, bootstrap_required, incremental_clean, incremental_affected, or mapping_incomplete) and reports a recommended next command.\n\nWorkspace loading is read-only. It valid…",
+          "lower": "documentledger discovers documentledger.toml or .documentledger.toml by walking upward from the current directory. the loaded configuration defines the project metadata, storage directory, scan roots, allowed file extensions, validation commands, and policy flags.\n\na workspace combines the loaded configuration with storage metadata from .documentledger/storage.yaml. commands that require an initialized workspace fail with a structured workspace_not_found error when no config is found, or a storage_missing error when the config exists but storage metadata is absent. status classifies the workspace operationally (uninitialized, bootstrap_required, incremental_clean, incremental_affected, or mapping_incomplete) and reports a recommended next command.\n\nworkspace loading is read-only. it valid…"
+        },
+        {
+          "anchor": "",
+          "heading": "Storage model",
+          "text": "The storage layer writes YAML files only through the Documentledger APIs:\n\n\n.documentledger/storage.yaml stores schema metadata, project UUID, the current state_version, and compact latest-scan counts used by status.\n\n\n.documentledger/scan.yaml stores the current source hashes, document hashes, source-index metadata, unit deltas, affected-section snapshots, stale-doc projections, unlinked changed sources, unmapped changed units, and the monotonic current scan version.\n\n\n.documentledger/source-index.json stores the current source-unit inventory as deterministic compact JSON.\n\n\n.documentledger/docs/*.yaml stores document records with sections[].links[], derived linked_sources, section hashes, tracked source-unit hashes, freshness metadata including last_fresh_scan_version, notes, and a doc-…",
+          "lower": "the storage layer writes yaml files only through the documentledger apis:\n\n\n.documentledger/storage.yaml stores schema metadata, project uuid, the current state_version, and compact latest-scan counts used by status.\n\n\n.documentledger/scan.yaml stores the current source hashes, document hashes, source-index metadata, unit deltas, affected-section snapshots, stale-doc projections, unlinked changed sources, unmapped changed units, and the monotonic current scan version.\n\n\n.documentledger/source-index.json stores the current source-unit inventory as deterministic compact json.\n\n\n.documentledger/docs/*.yaml stores document records with sections[].links[], derived linked_sources, section hashes, tracked source-unit hashes, freshness metadata including last_fresh_scan_version, notes, and a doc-…"
+        },
+        {
+          "anchor": "",
+          "heading": "Path identity",
+          "text": "All user supplied doc and source paths are normalized as repository-relative POSIX paths. Absolute paths, backslash paths, empty paths, . paths, and paths containing .. are rejected. Document record filenames are derived from the documentation path slug plus a short SHA-256 digest, so records remain filesystem-safe while preserving unique document identities.\n\nSource units and doc sections use stable semantic ids rather than line-number identities. For Python, ids look like py:function:documentledger/cli.py::doctor. For Markdown, ids look like md:section:docs/usage.md::usage-validate-ledger-state.",
+          "lower": "all user supplied doc and source paths are normalized as repository-relative posix paths. absolute paths, backslash paths, empty paths, . paths, and paths containing .. are rejected. document record filenames are derived from the documentation path slug plus a short sha-256 digest, so records remain filesystem-safe while preserving unique document identities.\n\nsource units and doc sections use stable semantic ids rather than line-number identities. for python, ids look like py:function:documentledger/cli.py::doctor. for markdown, ids look like md:section:docs/usage.md::usage-validate-ledger-state."
+        },
+        {
+          "anchor": "",
+          "heading": "Scanning algorithm",
+          "text": "The scanner collects files under the configured source roots and documentation roots. It skips storage files, excluded directories such as .git, __pycache__, build, dist, virtual environments, and files whose extensions are not configured. Documentation files are parsed into stable sections from Markdown headings and optional docledger-section markers; files without headings still receive a whole-document section id.\n\nEach collected file is hashed with SHA-256. Python source files are also parsed into source units: a file fallback unit, a module unit, and any top-level functions, classes, and methods. Each source unit carries separate hashes for signatures, decorators, bodies, docstrings, public contract, and exact content. Public contract hashes include semantic details such as exported…",
+          "lower": "the scanner collects files under the configured source roots and documentation roots. it skips storage files, excluded directories such as .git, __pycache__, build, dist, virtual environments, and files whose extensions are not configured. documentation files are parsed into stable sections from markdown headings and optional docledger-section markers; files without headings still receive a whole-document section id.\n\neach collected file is hashed with sha-256. python source files are also parsed into source units: a file fallback unit, a module unit, and any top-level functions, classes, and methods. each source unit carries separate hashes for signatures, decorators, bodies, docstrings, public contract, and exact content. public contract hashes include semantic details such as exported…"
+        },
+        {
+          "anchor": "",
+          "heading": "Link management",
+          "text": "A document link is usually a section edge: one documentation section linked to one source unit plus a coverage type, impact type, reason, and tracked hash set. links add-section validates the doc, section, and source unit, then records tracked hashes based on the coverage defaults. links import-map validates full multi-file batches before writing and applies them as one logical operation so section replacement and versioning stay coherent.\n\nlinks audit checks stored section links for missing sections, missing source units, and duplicate edges. links add and links remove remain as broad-file fallback commands. They store whole-doc fallback links that track the file fallback unit, which is still useful for unparseable sources or intentionally coarse docs.",
+          "lower": "a document link is usually a section edge: one documentation section linked to one source unit plus a coverage type, impact type, reason, and tracked hash set. links add-section validates the doc, section, and source unit, then records tracked hashes based on the coverage defaults. links import-map validates full multi-file batches before writing and applies them as one logical operation so section replacement and versioning stay coherent.\n\nlinks audit checks stored section links for missing sections, missing source units, and duplicate edges. links add and links remove remain as broad-file fallback commands. they store whole-doc fallback links that track the file fallback unit, which is still useful for unparseable sources or intentionally coarse docs."
+        },
+        {
+          "anchor": "",
+          "heading": "Context rendering",
+          "text": "docs affected computes a live affected-section projection from the latest scan and the current doc records. This means section-level mark-fresh can clear affectedness without requiring a follow-up scan.\n\ndocs build-context renders a Markdown context document for distinct selector modes: --affected, --all, --doc DOC [--section SECTION], or --bootstrap. The context is always written to a file; printing is explicit. Bounded output options limit source lines, section lines, and total bytes while surfacing a truncation manifest instead of silently dropping content.\n\nThe --include-unlinked flag adds the full unlinked source inventory to non-bootstrap context modes. The bootstrap mode is intended for first-time documentation passes in repositories that do not yet have a link graph.",
+          "lower": "docs affected computes a live affected-section projection from the latest scan and the current doc records. this means section-level mark-fresh can clear affectedness without requiring a follow-up scan.\n\ndocs build-context renders a markdown context document for distinct selector modes: --affected, --all, --doc doc [--section section], or --bootstrap. the context is always written to a file; printing is explicit. bounded output options limit source lines, section lines, and total bytes while surfacing a truncation manifest instead of silently dropping content.\n\nthe --include-unlinked flag adds the full unlinked source inventory to non-bootstrap context modes. the bootstrap mode is intended for first-time documentation passes in repositories that do not yet have a link graph."
+        },
+        {
+          "anchor": "",
+          "heading": "Freshness marking",
+          "text": "mark-fresh requires a latest scan and a non-empty reason. It can update one selected section, one selected doc, or all currently affected docs. For each selected section it stores the current section hash, refreshes the tracked source-unit hashes for that section’s links, updates the latest scan version and document hash, and records the reason in the document record.\n\nBy default mark-fresh rejects documents that have no linked sources with an unlinked_doc error. This prevents tracking a document that can never become stale from source changes. The --allow-unlinked option overrides the check for intentionally unlinked documents and records the reason with an (intentionally unlinked) marker.",
+          "lower": "mark-fresh requires a latest scan and a non-empty reason. it can update one selected section, one selected doc, or all currently affected docs. for each selected section it stores the current section hash, refreshes the tracked source-unit hashes for that section’s links, updates the latest scan version and document hash, and records the reason in the document record.\n\nby default mark-fresh rejects documents that have no linked sources with an unlinked_doc error. this prevents tracking a document that can never become stale from source changes. the --allow-unlinked option overrides the check for intentionally unlinked documents and records the reason with an (intentionally unlinked) marker."
+        },
+        {
+          "anchor": "",
+          "heading": "CLI structure and errors",
+          "text": "The Typer CLI exposes top-level commands for initialization, status, doctor checks, scans, and freshness marking. Nested command groups handle links, docs, and source-unit inspection.\n\nError handling is centralized through a per-command error decorator. Each command callback is wrapped so that a DocumentledgerError is rendered with the real command name. With --json, the CLI emits a stable envelope with ok, command, error (code, message, remediation), and events. Without --json, it prints a concise human-readable Error: message and remediation hints. DocumentledgerError is a plain exception rather than a Click exception, which keeps command names accurate and lets the CLI choose the output format.",
+          "lower": "the typer cli exposes top-level commands for initialization, status, doctor checks, scans, and freshness marking. nested command groups handle links, docs, and source-unit inspection.\n\nerror handling is centralized through a per-command error decorator. each command callback is wrapped so that a documentledgererror is rendered with the real command name. with --json, the cli emits a stable envelope with ok, command, error (code, message, remediation), and events. without --json, it prints a concise human-readable error: message and remediation hints. documentledgererror is a plain exception rather than a click exception, which keeps command names accurate and lets the cli choose the output format."
+        },
+        {
+          "anchor": "",
+          "heading": "ledgercore integration",
+          "text": "ledgercore>=0.2 is an active dependency. Documentledger uses ledgercore for YAML storage, atomic writes, config discovery, path validation, doc-record identity helpers, and SHA-256 hashing.",
+          "lower": "ledgercore>=0.2 is an active dependency. documentledger uses ledgercore for yaml storage, atomic writes, config discovery, path validation, doc-record identity helpers, and sha-256 hashing."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/bootstrap/",
+      "title": "documentledger Bootstrapping a new repository",
+      "snippet": "Documentledger computes staleness from explicit doc-to-source links. A freshly initialized repository has no links yet, so the first scan re …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Bootstrapping a new repository",
+          "text": "Documentledger computes staleness from explicit doc-to-source links. A freshly initialized repository has no links yet, so the first scan reports no stale docs even though no documentation exists. This page describes the recommended setup sequence for first-time documentation work.",
+          "lower": "documentledger computes staleness from explicit doc-to-source links. a freshly initialized repository has no links yet, so the first scan reports no stale docs even though no documentation exists. this page describes the recommended setup sequence for first-time documentation work."
+        },
+        {
+          "anchor": "",
+          "heading": "Why the first scan is a baseline",
+          "text": "The first docledger scan hashes every configured source and documentation file and stores them as the baseline. Because there is no previous scan to compare against, it reports no changed, deleted, stale, or unlinked sources. Staleness and unlinked-source reporting only begin from the second scan onward.",
+          "lower": "the first docledger scan hashes every configured source and documentation file and stores them as the baseline. because there is no previous scan to compare against, it reports no changed, deleted, stale, or unlinked sources. staleness and unlinked-source reporting only begin from the second scan onward."
+        },
+        {
+          "anchor": "",
+          "heading": "Setup sequence",
+          "text": "Initialize the workspace and record a baseline scan:\n\ndocledger init\ndocledger --json scan\n\n\n\n\n\n\nRender a bootstrap context that includes the unlinked source inventory and current doc inventory:\n\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md\n\n\n\n\nThe bootstrap context file lists every source file that has no doc record link. These are the sources that need documentation or explicit omission.\n\n\n\nCreate documentation files for those sources under a configured documentation root (for example docs/).\n\n\nGenerate deterministic proposal files and review them before applying:\n\ndocledger links propose --all-docs --out-dir /tmp/docledger-maps\ndocledger --json links import-map --directory /tmp/docledger-maps --check-and-apply\n\n\n\n\n\n\nRun a link audit and coverage review:\n\nd…",
+          "lower": "initialize the workspace and record a baseline scan:\n\ndocledger init\ndocledger --json scan\n\n\n\n\n\n\nrender a bootstrap context that includes the unlinked source inventory and current doc inventory:\n\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md\n\n\n\n\nthe bootstrap context file lists every source file that has no doc record link. these are the sources that need documentation or explicit omission.\n\n\n\ncreate documentation files for those sources under a configured documentation root (for example docs/).\n\n\ngenerate deterministic proposal files and review them before applying:\n\ndocledger links propose --all-docs --out-dir /tmp/docledger-maps\ndocledger --json links import-map --directory /tmp/docledger-maps --check-and-apply\n\n\n\n\n\n\nrun a link audit and coverage review:\n\nd…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/",
+      "title": "Documentledger",
+      "snippet": "Documentledger is a documentation freshness ledger for coding-agent workflows. It records repository scans, maps documentation files to sour …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Documentledger",
+          "text": "Documentledger is a documentation freshness ledger for coding-agent workflows. It records repository scans, maps documentation files to source files, reports stale documentation when linked source files change or disappear, and renders update context for agents.\n\n\n\nUsage\nInitialize a workspace\n\nCheck workspace status\n\nScan source and documentation files\n\nLink documentation to sources\n\nFind and update stale documentation\n\nBootstrapping a new repository\n\nMark documentation fresh\n\nValidate ledger state\n\nJSON and human output\n\nLedger state and commit policy\n\n\n\n\nArchitecture\nConfiguration and workspace loading\n\nStorage model\n\nPath identity\n\nScanning algorithm\n\nLink management\n\nContext rendering\n\nFreshness marking\n\nCLI structure and errors\n\nledgercore integration\n\n\n\n\nAPI reference\nenvelope()\n\ne…",
+          "lower": "documentledger is a documentation freshness ledger for coding-agent workflows. it records repository scans, maps documentation files to source files, reports stale documentation when linked source files change or disappear, and renders update context for agents.\n\n\n\nusage\ninitialize a workspace\n\ncheck workspace status\n\nscan source and documentation files\n\nlink documentation to sources\n\nfind and update stale documentation\n\nbootstrapping a new repository\n\nmark documentation fresh\n\nvalidate ledger state\n\njson and human output\n\nledger state and commit policy\n\n\n\n\narchitecture\nconfiguration and workspace loading\n\nstorage model\n\npath identity\n\nscanning algorithm\n\nlink management\n\ncontext rendering\n\nfreshness marking\n\ncli structure and errors\n\nledgercore integration\n\n\n\n\napi reference\nenvelope()\n\ne…"
+        },
+        {
+          "anchor": "",
+          "heading": "Documentation freshness workflow",
+          "text": "The supported workflow is:\n\n\nRun docledger --json status to confirm that the workspace is initialized.\n\n\nRun docledger --json scan to rewrite .documentledger/scan.yaml when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.\n\n\nRun docledger --json docs affected to find the documentation sections whose linked source units changed.\n\n\nRun docledger docs build-context --affected --print to render update context for affected sections and unlinked changed sources.\n\n\nInspect the affected sections and linked changed source units before editing documentation.\n\n\nUpdate only the affected sections by default, run configured validation commands, then mark the updated section or doc fresh with docledger mark-fresh --doc DOC --sect…",
+          "lower": "the supported workflow is:\n\n\nrun docledger --json status to confirm that the workspace is initialized.\n\n\nrun docledger --json scan to rewrite .documentledger/scan.yaml when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.\n\n\nrun docledger --json docs affected to find the documentation sections whose linked source units changed.\n\n\nrun docledger docs build-context --affected --print to render update context for affected sections and unlinked changed sources.\n\n\ninspect the affected sections and linked changed source units before editing documentation.\n\n\nupdate only the affected sections by default, run configured validation commands, then mark the updated section or doc fresh with docledger mark-fresh --doc doc --sect…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/troubleshooting/",
+      "title": "documentledger Troubleshooting",
+      "snippet": "An uninitialized result can mean there is no config yet, or that documentledger.toml exists but .documentledger/storage.yaml is missing. Thi …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "status reports uninitialized",
+          "text": "An uninitialized result can mean there is no config yet, or that documentledger.toml exists but .documentledger/storage.yaml is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:\n\ndocledger init\n\n\n\n\ninit refuses to run when a config already exists; remove the stale config first only if you intend to start over.",
+          "lower": "an uninitialized result can mean there is no config yet, or that documentledger.toml exists but .documentledger/storage.yaml is missing. this happens when the storage directory was removed or never created. re-run initialization from the project root:\n\ndocledger init\n\n\n\n\ninit refuses to run when a config already exists; remove the stale config first only if you intend to start over."
+        },
+        {
+          "anchor": "",
+          "heading": "scan fails with storage_missing",
+          "text": "A command that requires an initialized workspace raises storage_missing when the config exists but storage metadata is absent. Resolve it the same way as the missing-storage uninitialized case: run docledger init.",
+          "lower": "a command that requires an initialized workspace raises storage_missing when the config exists but storage metadata is absent. resolve it the same way as the missing-storage uninitialized case: run docledger init."
+        },
+        {
+          "anchor": "",
+          "heading": "mark-fresh fails with unlinked_doc",
+          "text": "mark-fresh rejects documents that have no linked sources by default, because an unlinked document can never become stale from source changes and would silently drift. Either add links first:\n\ndocledger links add --doc docs/index.md --source documentledger/cli.py --reason \"Navigation page maps to the CLI.\"\n\n\n\n\nor explicitly record the document as intentionally unlinked:\n\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"Navigation page; intentionally unlinked.\"",
+          "lower": "mark-fresh rejects documents that have no linked sources by default, because an unlinked document can never become stale from source changes and would silently drift. either add links first:\n\ndocledger links add --doc docs/index.md --source documentledger/cli.py --reason \"navigation page maps to the cli.\"\n\n\n\n\nor explicitly record the document as intentionally unlinked:\n\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"navigation page; intentionally unlinked.\""
+        },
+        {
+          "anchor": "",
+          "heading": "Every change makes too many docs stale",
+          "text": "If a small source change marks many docs stale, the link graph is too broad. Each document should be linked only to the source files it actually describes. Narrow the links:\n\ndocledger links remove --doc docs/usage.md --source documentledger/models.py\n\n\n\n\nBroad links (for example linking every doc to every module) defeat the selective-update model. Keep links precise.",
+          "lower": "if a small source change marks many docs stale, the link graph is too broad. each document should be linked only to the source files it actually describes. narrow the links:\n\ndocledger links remove --doc docs/usage.md --source documentledger/models.py\n\n\n\n\nbroad links (for example linking every doc to every module) defeat the selective-update model. keep links precise."
+        },
+        {
+          "anchor": "",
+          "heading": "A changed source is reported as unlinked",
+          "text": "unlinked_changed_sources lists source files that changed since the last scan but have no doc record link. Decide for each one whether it needs documentation, then either add a link or leave it untracked. Use the bootstrap flag to surface all unlinked sources, not just changed ones:\n\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md",
+          "lower": "unlinked_changed_sources lists source files that changed since the last scan but have no doc record link. decide for each one whether it needs documentation, then either add a link or leave it untracked. use the bootstrap flag to surface all unlinked sources, not just changed ones:\n\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md"
+        },
+        {
+          "anchor": "",
+          "heading": "The Sphinx build warns about files inside the virtual environment",
+          "text": "The documentation build creates a virtual environment under docs/venv/. docs/conf.py excludes _build, venv, and .documentledger from the Sphinx source scan. If you still see warnings from virtual-environment files, confirm exclude_patterns in docs/conf.py includes venv and venv/**, and remove any stale docs/venv/ before rebuilding:\n\nrm -rf docs/venv docs/_build\nbash docs/build.sh",
+          "lower": "the documentation build creates a virtual environment under docs/venv/. docs/conf.py excludes _build, venv, and .documentledger from the sphinx source scan. if you still see warnings from virtual-environment files, confirm exclude_patterns in docs/conf.py includes venv and venv/**, and remove any stale docs/venv/ before rebuilding:\n\nrm -rf docs/venv docs/_build\nbash docs/build.sh"
+        },
+        {
+          "anchor": "",
+          "heading": "sphinx-build is not found",
+          "text": "docs/build.sh creates and activates docs/venv/ and installs docs/requirements.txt, which provides sphinx-build. If the build cannot find sphinx-build, ensure the script reaches the source \"$VENV_DIR/bin/activate\" step and that docs/requirements.txt installs successfully (it requires network access on first run).",
+          "lower": "docs/build.sh creates and activates docs/venv/ and installs docs/requirements.txt, which provides sphinx-build. if the build cannot find sphinx-build, ensure the script reaches the source \"$venv_dir/bin/activate\" step and that docs/requirements.txt installs successfully (it requires network access on first run)."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/usage/",
+      "title": "documentledger Usage",
+      "snippet": "Run initialization from the repository root:\n\ndocledger init\n\n\n\n\nBy default this creates documentledger.toml and a .documentledger/ storage …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Initialize a workspace",
+          "text": "Run initialization from the repository root:\n\ndocledger init\n\n\n\n\nBy default this creates documentledger.toml and a .documentledger/ storage directory. Use --project-name to set the project name, --documentledger-dir to choose another storage path, or --hidden-config to create .documentledger.toml instead.",
+          "lower": "run initialization from the repository root:\n\ndocledger init\n\n\n\n\nby default this creates documentledger.toml and a .documentledger/ storage directory. use --project-name to set the project name, --documentledger-dir to choose another storage path, or --hidden-config to create .documentledger.toml instead."
+        },
+        {
+          "anchor": "",
+          "heading": "Check workspace status",
+          "text": "docledger --json status\n\n\n\n\nStatus reports the workspace state:\n\n\nuninitialized: no documentledger.toml was found.\n\n\nbootstrap_required: there is no baseline scan yet, or there is a baseline but no usable doc links.\n\n\nincremental_clean: the latest scan has no affected linked sections.\n\n\nincremental_affected: the latest scan has affected linked sections that should be reviewed.\n\n\nmapping_incomplete: changed source files are not yet fully linked to documentation.\n\n\n\nThe result also reports recommended_command, recommended_reason, compact latest-scan counts, and any root-layout diagnostics that should be fixed before trusting a baseline.",
+          "lower": "docledger --json status\n\n\n\n\nstatus reports the workspace state:\n\n\nuninitialized: no documentledger.toml was found.\n\n\nbootstrap_required: there is no baseline scan yet, or there is a baseline but no usable doc links.\n\n\nincremental_clean: the latest scan has no affected linked sections.\n\n\nincremental_affected: the latest scan has affected linked sections that should be reviewed.\n\n\nmapping_incomplete: changed source files are not yet fully linked to documentation.\n\n\n\nthe result also reports recommended_command, recommended_reason, compact latest-scan counts, and any root-layout diagnostics that should be fixed before trusting a baseline."
+        },
+        {
+          "anchor": "",
+          "heading": "Scan source and documentation files",
+          "text": "docledger --json scan\n\n\n\n\nA scan collects files from the configured source and documentation roots, hashes them, indexes Python source units, and compares the current state to the previous scan. The first scan establishes a baseline and does not report changed, deleted, stale, or unlinked sources.\n\nLater scans report:\n\n\nunchanged, true when the source and documentation hashes match the previous scan exactly. No scan state is rewritten, no source files are re-indexed, and the previous scan version is reused; the human output prints No tracked file changes since scan version <version> instead of Recorded scan version <version>.\n\n\nchanged_sources, source files whose hash changed or that are new since the previous scan.\n\n\nchanged_units, source units whose tracked semantic hashes changed. For…",
+          "lower": "docledger --json scan\n\n\n\n\na scan collects files from the configured source and documentation roots, hashes them, indexes python source units, and compares the current state to the previous scan. the first scan establishes a baseline and does not report changed, deleted, stale, or unlinked sources.\n\nlater scans report:\n\n\nunchanged, true when the source and documentation hashes match the previous scan exactly. no scan state is rewritten, no source files are re-indexed, and the previous scan version is reused; the human output prints no tracked file changes since scan version <version> instead of recorded scan version <version>.\n\n\nchanged_sources, source files whose hash changed or that are new since the previous scan.\n\n\nchanged_units, source units whose tracked semantic hashes changed. for…"
+        },
+        {
+          "anchor": "",
+          "heading": "Link documentation to sources",
+          "text": "docledger links add --doc docs/usage.md --source documentledger/cli.py --reason \"Documents CLI workflow.\"\n\n\n\n\nWhole-file links remain available as a broad fallback, but precise section links are the default:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section usage-validate-ledger-state \\\n  --source-unit py:function:documentledger/cli.py::doctor \\\n  --coverage cli-command \\\n  --impact behavior \\\n  --reason \"Documents the doctor command.\"\n\n\n\n\nLinks use repository-relative POSIX paths. Document paths must have configured documentation extensions, source paths and source units must exist, and coverage and impact values are validated. Keep links precise: section-level links let small command changes affect only the doc sections that actually describe them.\n\nList and remove link…",
+          "lower": "docledger links add --doc docs/usage.md --source documentledger/cli.py --reason \"documents cli workflow.\"\n\n\n\n\nwhole-file links remain available as a broad fallback, but precise section links are the default:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section usage-validate-ledger-state \\\n  --source-unit py:function:documentledger/cli.py::doctor \\\n  --coverage cli-command \\\n  --impact behavior \\\n  --reason \"documents the doctor command.\"\n\n\n\n\nlinks use repository-relative posix paths. document paths must have configured documentation extensions, source paths and source units must exist, and coverage and impact values are validated. keep links precise: section-level links let small command changes affect only the doc sections that actually describe them.\n\nlist and remove link…"
+        },
+        {
+          "anchor": "",
+          "heading": "Find and update stale documentation",
+          "text": "docledger --json docs affected\ndocledger docs build-context --affected --out /tmp/docledger-context.md\n\n\n\n\ndocs affected reports the live affected sections for the latest scan. After a section is updated and marked fresh, it disappears from docs affected immediately; a follow-up scan is optional confirmation, not the only way to clear affectedness.\n\nThe rendered context contains only the affected doc sections, their linked changed source units, the current relevant source snippets, unlinked changed sources, and configured validation commands. Inspect the affected sections and linked changed source units first. Expand to whole files only when the changed unit cannot be understood in isolation.",
+          "lower": "docledger --json docs affected\ndocledger docs build-context --affected --out /tmp/docledger-context.md\n\n\n\n\ndocs affected reports the live affected sections for the latest scan. after a section is updated and marked fresh, it disappears from docs affected immediately; a follow-up scan is optional confirmation, not the only way to clear affectedness.\n\nthe rendered context contains only the affected doc sections, their linked changed source units, the current relevant source snippets, unlinked changed sources, and configured validation commands. inspect the affected sections and linked changed source units first. expand to whole files only when the changed unit cannot be understood in isolation."
+        },
+        {
+          "anchor": "",
+          "heading": "Bootstrapping a new repository",
+          "text": "A fresh repository has no links yet, so the first scan reports no stale docs. To drive an initial documentation pass, use the explicit bootstrap flow:\n\ndocledger init\ndocledger scan\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md\ndocledger links propose --all-docs --out-dir /tmp/docledger-maps\ndocledger --json links import-map --directory /tmp/docledger-maps --check-and-apply\n\n\n\n\nThe bootstrap context and proposal flow give agents a deterministic first-pass link graph without applying anything until the full batch validates. See Bootstrap for the full setup sequence.",
+          "lower": "a fresh repository has no links yet, so the first scan reports no stale docs. to drive an initial documentation pass, use the explicit bootstrap flow:\n\ndocledger init\ndocledger scan\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md\ndocledger links propose --all-docs --out-dir /tmp/docledger-maps\ndocledger --json links import-map --directory /tmp/docledger-maps --check-and-apply\n\n\n\n\nthe bootstrap context and proposal flow give agents a deterministic first-pass link graph without applying anything until the full batch validates. see bootstrap for the full setup sequence."
+        },
+        {
+          "anchor": "",
+          "heading": "Mark documentation fresh",
+          "text": "After updating and validating an affected section, mark it fresh:\n\ndocledger mark-fresh --doc docs/usage.md --section usage-validate-ledger-state --reason \"Docs updated after scan version 2.\"\n\n\n\n\nmark-fresh records the latest scan version, the current document hash, the current section hash, and the tracked source-unit hashes for the selected links. It requires a non-empty reason. Use --all to mark every currently affected section from the latest scan, or --doc without --section to update all affected sections in one doc explicitly.\n\nUnlinked docs are rejected by default:\n\ndocledger mark-fresh --doc docs/index.md --reason \"Navigation page.\"        # rejected: unlinked_doc\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"Navigation page.\"\n\n\n\n\nThis prevents silently track…",
+          "lower": "after updating and validating an affected section, mark it fresh:\n\ndocledger mark-fresh --doc docs/usage.md --section usage-validate-ledger-state --reason \"docs updated after scan version 2.\"\n\n\n\n\nmark-fresh records the latest scan version, the current document hash, the current section hash, and the tracked source-unit hashes for the selected links. it requires a non-empty reason. use --all to mark every currently affected section from the latest scan, or --doc without --section to update all affected sections in one doc explicitly.\n\nunlinked docs are rejected by default:\n\ndocledger mark-fresh --doc docs/index.md --reason \"navigation page.\"        # rejected: unlinked_doc\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"navigation page.\"\n\n\n\n\nthis prevents silently track…"
+        },
+        {
+          "anchor": "",
+          "heading": "Validate ledger state",
+          "text": "docledger doctor\n\n\n\n\nDoctor checks storage schema metadata, document record paths, suspicious root configuration, missing documentation files, missing source files, duplicate edges, missing source-unit ids, and missing section ids.",
+          "lower": "docledger doctor\n\n\n\n\ndoctor checks storage schema metadata, document record paths, suspicious root configuration, missing documentation files, missing source files, duplicate edges, missing source-unit ids, and missing section ids."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON and human output",
+          "text": "Pass --json before the command to emit a stable JSON envelope:\n\n{ \"ok\": true, \"command\": \"status\", \"result\": {}, \"events\": [] }\n\n\n\n\nErrors also use a JSON envelope when --json is set, and the envelope preserves the real command name:\n\n{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace_not_found\",\n    \"message\": \"...\",\n    \"remediation\": []\n  },\n  \"events\": []\n}\n\n\n\n\nWithout --json, commands print human-readable output and errors print concise Error: messages with remediation hints.",
+          "lower": "pass --json before the command to emit a stable json envelope:\n\n{ \"ok\": true, \"command\": \"status\", \"result\": {}, \"events\": [] }\n\n\n\n\nerrors also use a json envelope when --json is set, and the envelope preserves the real command name:\n\n{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace_not_found\",\n    \"message\": \"...\",\n    \"remediation\": []\n  },\n  \"events\": []\n}\n\n\n\n\nwithout --json, commands print human-readable output and errors print concise error: messages with remediation hints."
+        },
+        {
+          "anchor": "",
+          "heading": "Ledger state and commit policy",
+          "text": "Documentledger stores its own state under the configured .documentledger/ directory. The recommended commit policy for a documentation freshness ledger is:\n\n\nCommit .documentledger/storage.yaml, .documentledger/scan.yaml, and .documentledger/docs/*.yaml. These are the source of truth for project identity, the current scan baseline, section-level links, tracked hash state, and freshness markers.\n\n\nIgnore .documentledger/rendered/. Rendered context is regenerated on demand by docs build-context.\n\n\n\nDo not edit .documentledger/ files directly; use the docledger commands so the records stay consistent.",
+          "lower": "documentledger stores its own state under the configured .documentledger/ directory. the recommended commit policy for a documentation freshness ledger is:\n\n\ncommit .documentledger/storage.yaml, .documentledger/scan.yaml, and .documentledger/docs/*.yaml. these are the source of truth for project identity, the current scan baseline, section-level links, tracked hash state, and freshness markers.\n\n\nignore .documentledger/rendered/. rendered context is regenerated on demand by docs build-context.\n\n\n\ndo not edit .documentledger/ files directly; use the docledger commands so the records stay consistent."
+        }
+      ]
+    }
+  ]
+}
