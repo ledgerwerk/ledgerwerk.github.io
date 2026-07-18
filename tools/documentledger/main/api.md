@@ -171,6 +171,234 @@ search_enabled: true
   }
 }
 </style>
+<style data-sphinxpress-style="highlight">
+/* Pygments / Rouge syntax highlighting for sphinxpress-generated pages.
+ * Scoped to .sphinxpress-doc; honors data-theme="dark" and prefers-color-scheme.
+ * Colors live as CSS custom properties so dark mode is a one-block override. */
+.sphinxpress-doc {
+  --sp-hl-surface: #ffffff;
+  --sp-hl-border: #e3e7ef;
+  --sp-hl-text: #172033;
+  --sp-hl-muted: #4b5563;
+  --sp-hl-comment: #6b7280;
+  --sp-hl-keyword: #c026d3;
+  --sp-hl-string: #12823b;
+  --sp-hl-number: #1d4ed8;
+  --sp-hl-name: #6f42c1;
+  --sp-hl-builtin: #1d4ed8;
+  --sp-hl-error: #b31d28;
+  --sp-hl-error-bg: #fff1f2;
+  --sp-hl-hll: #fff3a3;
+}
+
+html[data-theme="dark"] .sphinxpress-doc {
+  --sp-hl-surface: #131a2c;
+  --sp-hl-border: #2a3550;
+  --sp-hl-text: #e6ebf5;
+  --sp-hl-muted: #8b94ad;
+  --sp-hl-comment: #8b94ad;
+  --sp-hl-keyword: #ff7b72;
+  --sp-hl-string: #a5d6a3;
+  --sp-hl-number: #79b8ff;
+  --sp-hl-name: #d2a8ff;
+  --sp-hl-builtin: #79b8ff;
+  --sp-hl-error: #ff9a9a;
+  --sp-hl-error-bg: #2a1820;
+  --sp-hl-hll: #3a4666;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .sphinxpress-doc {
+    --sp-hl-surface: #131a2c;
+    --sp-hl-border: #2a3550;
+    --sp-hl-text: #e6ebf5;
+    --sp-hl-muted: #8b94ad;
+    --sp-hl-comment: #8b94ad;
+    --sp-hl-keyword: #ff7b72;
+    --sp-hl-string: #a5d6a3;
+    --sp-hl-number: #79b8ff;
+    --sp-hl-name: #d2a8ff;
+    --sp-hl-builtin: #79b8ff;
+    --sp-hl-error: #ff9a9a;
+    --sp-hl-error-bg: #2a1820;
+    --sp-hl-hll: #3a4666;
+  }
+}
+
+.sphinxpress-doc div[class^="highlight-"],
+.sphinxpress-doc div[class*=" highlight-"] {
+  margin: 1.25rem 0;
+  border: 1px solid var(--sp-hl-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--sp-hl-surface);
+}
+
+.sphinxpress-doc div[class^="highlight-"] > div.highlight,
+.sphinxpress-doc div[class*=" highlight-"] > div.highlight {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.sphinxpress-doc div[class^="highlight-"] pre,
+.sphinxpress-doc div[class*=" highlight-"] pre {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background: transparent;
+  color: var(--sp-hl-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.sphinxpress-doc .hll {
+  background-color: var(--sp-hl-hll);
+}
+
+/* Comments */
+.sphinxpress-doc .c,
+.sphinxpress-doc .ch,
+.sphinxpress-doc .cm,
+.sphinxpress-doc .cp,
+.sphinxpress-doc .cpf,
+.sphinxpress-doc .c1,
+.sphinxpress-doc .cs {
+  color: var(--sp-hl-comment);
+  font-style: italic;
+}
+
+/* Keywords */
+.sphinxpress-doc .k,
+.sphinxpress-doc .kc,
+.sphinxpress-doc .kd,
+.sphinxpress-doc .kn,
+.sphinxpress-doc .kp,
+.sphinxpress-doc .kr,
+.sphinxpress-doc .kt {
+  color: var(--sp-hl-keyword);
+  font-weight: 600;
+}
+
+/* Strings */
+.sphinxpress-doc .s,
+.sphinxpress-doc .s1,
+.sphinxpress-doc .s2,
+.sphinxpress-doc .sb,
+.sphinxpress-doc .sc,
+.sphinxpress-doc .sd,
+.sphinxpress-doc .se,
+.sphinxpress-doc .sh,
+.sphinxpress-doc .si,
+.sphinxpress-doc .sx,
+.sphinxpress-doc .sr,
+.sphinxpress-doc .ss,
+.sphinxpress-doc .sa {
+  color: var(--sp-hl-string);
+}
+
+/* Numbers */
+.sphinxpress-doc .m,
+.sphinxpress-doc .mb,
+.sphinxpress-doc .mf,
+.sphinxpress-doc .mh,
+.sphinxpress-doc .mi,
+.sphinxpress-doc .mo {
+  color: var(--sp-hl-number);
+}
+
+/* Operators */
+.sphinxpress-doc .o,
+.sphinxpress-doc .ow {
+  color: var(--sp-hl-keyword);
+}
+
+/* Names: identifiers, namespaces, attributes, punctuation, default text */
+.sphinxpress-doc .n,
+.sphinxpress-doc .nn,
+.sphinxpress-doc .nx,
+.sphinxpress-doc .py,
+.sphinxpress-doc .nv,
+.sphinxpress-doc .vc,
+.sphinxpress-doc .vg,
+.sphinxpress-doc .vi,
+.sphinxpress-doc .p {
+  color: var(--sp-hl-text);
+}
+
+/* Functions, classes, namespaces (declaration) */
+.sphinxpress-doc .na,
+.sphinxpress-doc .nc,
+.sphinxpress-doc .nd,
+.sphinxpress-doc .nf {
+  color: var(--sp-hl-name);
+  font-weight: 600;
+}
+
+/* Builtins */
+.sphinxpress-doc .nb,
+.sphinxpress-doc .bp {
+  color: var(--sp-hl-builtin);
+}
+
+/* Exceptions, tag names, errors, diff */
+.sphinxpress-doc .ne {
+  color: var(--sp-hl-error);
+  font-weight: 600;
+}
+.sphinxpress-doc .nt {
+  color: var(--sp-hl-keyword);
+  font-weight: 600;
+}
+.sphinxpress-doc .err {
+  color: var(--sp-hl-error);
+  background: var(--sp-hl-error-bg);
+}
+.sphinxpress-doc .gd {
+  color: var(--sp-hl-error);
+}
+.sphinxpress-doc .gi {
+  color: var(--sp-hl-string);
+}
+.sphinxpress-doc .gh {
+  color: var(--sp-hl-text);
+  font-weight: 600;
+}
+.sphinxpress-doc .go,
+.sphinxpress-doc .gp {
+  color: var(--sp-hl-muted);
+}
+.sphinxpress-doc .gs {
+  font-weight: 600;
+}
+.sphinxpress-doc .gu {
+  color: var(--sp-hl-name);
+  font-weight: 600;
+}
+.sphinxpress-doc .gt {
+  color: var(--sp-hl-error);
+}
+.sphinxpress-doc .w {
+  color: transparent;
+}
+
+@media print {
+  .sphinxpress-doc div[class^="highlight-"],
+  .sphinxpress-doc div[class*=" highlight-"] {
+    border-color: #d1d5db;
+    background: #fff;
+  }
+
+  .sphinxpress-doc div[class^="highlight-"] pre,
+  .sphinxpress-doc div[class*=" highlight-"] pre {
+    color: #172033;
+    overflow-x: visible;
+    white-space: pre-wrap;
+  }
+}
+</style>
 <style data-sphinxpress-style="search">
 .sphinxpress-doc {
   --sp-search-border: #d1d5db;
@@ -725,7 +953,7 @@ search_enabled: true
 
 <dl class="py class">
 <dt class="sig sig-object py" id="documentledger.storage.CommandState">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">documentledger.storage.</span></span><span class="sig-name descname"><span class="pre">CommandState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Workspace'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_summary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">|</span> <span class="pre">object'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x71abf89ba080&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]</span> <span class="pre">|</span> <span class="pre">object'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x71abf89ba080&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_records</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_sections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]]'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_doc_records_loaded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'bool'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documentledger/storage/#CommandState"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">documentledger.storage.</span></span><span class="sig-name descname"><span class="pre">CommandState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Workspace'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_summary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">|</span> <span class="pre">object'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x70a1dcfb2080&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]</span> <span class="pre">|</span> <span class="pre">object'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x70a1dcfb2080&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_records</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_sections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">'dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]]'</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_doc_records_loaded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'bool'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documentledger/storage/#CommandState"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="documentledger.storage.CommandState.workspace">
 <span class="sig-name descname"><span class="pre">workspace</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#documentledger.models.Workspace" title="documentledger.models.Workspace"><span class="pre">Workspace</span></a></span></dt>
