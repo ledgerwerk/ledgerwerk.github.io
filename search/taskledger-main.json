@@ -648,8 +648,8 @@
         {
           "anchor": "",
           "heading": "Catch-all exception whitelist (except Exception)",
-          "text": "Current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under EXCEPT_EXCEPTION_WHITELIST.\n\nPolicy intent:\n\n\nAllow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nBlock new catch-all sites unless explicitly reviewed and justified.\n\n\nRequire whitelist edits to be intentional and reasoned.",
-          "lower": "current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under except_exception_whitelist.\n\npolicy intent:\n\n\nallow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nblock new catch-all sites unless explicitly reviewed and justified.\n\n\nrequire whitelist edits to be intentional and reasoned."
+          "text": "Current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under EXCEPT_EXCEPTION_WHITELIST.\n\nThe reviewed resilience sites include storage validation, migration command\nand hook handling, and project-config parsing boundaries listed in the test\nconstants.\n\nPolicy intent:\n\n\nAllow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nBlock new catch-all sites unless explicitly reviewed and justified.\n\n\nRequire whitelist edits to be intentional and reasoned.",
+          "lower": "current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under except_exception_whitelist.\n\nthe reviewed resilience sites include storage validation, migration command\nand hook handling, and project-config parsing boundaries listed in the test\nconstants.\n\npolicy intent:\n\n\nallow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nblock new catch-all sites unless explicitly reviewed and justified.\n\n\nrequire whitelist edits to be intentional and reasoned."
         }
       ]
     },

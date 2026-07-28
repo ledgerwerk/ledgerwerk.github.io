@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/references/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.0"
-docs_commit: "5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79"
+docs_ref: "v0.6.1"
+docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
 search_enabled: true
 ---
 

@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/storage/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.3.4"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_ref: "v0.4.0"
+docs_commit: "867b6053dfb2aaaee32d8041f0118db40b8d496c"
 search_enabled: true
 ---
 
@@ -542,6 +542,42 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="storage-and-configuration">
 <h1>Storage and configuration</h1>
+<p>Releaseledger storage topology is owned by the canonical Ledgercore project
+manifest. New projects use schema 3 and keep Releaseledger configuration at
+<code class="docutils literal notranslate"><span class="pre">.ledger/releaseledger/config.toml</span></code>; authoritative data is a <code class="docutils literal notranslate"><span class="pre">data</span></code> mount and
+derived indexes are a <code class="docutils literal notranslate"><span class="pre">cache</span></code> mount. Inspect the resolved topology with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>--root<span class="w"> </span>PATH<span class="w"> </span>storage<span class="w"> </span>where
+releaseledger<span class="w"> </span>--root<span class="w"> </span>PATH<span class="w"> </span>storage<span class="w"> </span>validate<span class="w"> </span>--strict
+</pre></div>
+</div>
+<p>Change topology through the command boundary, with a real dry-run before a
+write:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>--storage<span class="w"> </span>external<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-root<span class="w"> </span>../ledger<span class="w"> </span>--scope<span class="w"> </span>project<span class="w"> </span>--dry-run
+releaseledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>--storage<span class="w"> </span>external<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-root<span class="w"> </span>../ledger<span class="w"> </span>--scope<span class="w"> </span>project
+</pre></div>
+</div>
+<p>Authoritative data must not use cache storage. Local overrides can be removed
+with <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">clear-override</span> <span class="pre">data</span></code>; its result reports the effective location.</p>
+<p>Legacy projects are migrated through the named lifecycle:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>migrate<span class="w"> </span>status
+releaseledger<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>storage-layout<span class="w"> </span>--output<span class="w"> </span>migration-plan.json
+releaseledger<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>storage-layout<span class="w"> </span>--plan-file<span class="w"> </span>migration-plan.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Adopt the canonical Ledgercore storage layout&quot;</span>
+releaseledger<span class="w"> </span>migrate<span class="w"> </span>recover<span class="w"> </span>--journal<span class="w"> </span>PATH<span class="w"> </span>--policy<span class="w"> </span>auto<span class="w"> </span>--dry-run
+releaseledger<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--dry-run
+releaseledger<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--yes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Remove verified legacy artifacts&quot;</span>
+</pre></div>
+</div>
+<p>Plans are deterministic and hash-protected. The v2 plan carries one shared
+migration ID, exact source/before/target fingerprints, and the rendered config
+target. Apply is copy-only; physical activation and recovery belong to the
+Ledgercore schema-3 journal. Cleanup never happens implicitly as part of
+apply and requires a committed journal plus Releaseledger receipt.</p>
+<p>The examples below document the pre-migration layout retained for discovery;
+they are not the canonical configuration format.</p>
 <section id="default-layout">
 <h2>Default layout</h2>
 <p>A normal project stores release state inside the workspace:</p>

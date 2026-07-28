@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.0"
-docs_commit: "5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79"
+docs_ref: "v0.6.1"
+docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
 search_enabled: true
 ---
 
@@ -619,12 +619,13 @@ hands-on introduction.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id1">[0.6.0] - 2026-07-27</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id2">[0.5.0] - 2026-07-17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id5">[0.5.1] - 2026-07-27</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id8">[0.2.1] - 2026-06-17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id11">[0.2.0] - 2026-06-13</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id15">[0.1.0] - 2026-06-12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id1">[0.6.1] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id2">[0.6.0] - 2026-07-27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id6">[0.5.0] - 2026-07-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id9">[0.5.1] - 2026-07-27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id12">[0.2.1] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id15">[0.2.0] - 2026-06-13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id19">[0.1.0] - 2026-06-12</a></li>
 </ul>
 </li>
 </ul>

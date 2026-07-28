@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/api/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.0"
-docs_commit: "5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79"
+docs_ref: "v0.6.1"
+docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
 search_enabled: true
 ---
 
@@ -932,7 +932,20 @@ This module does not parse TOML or define tool-specific schemas.</p>
 </section>
 <section id="ledgercore-migration">
 <h2><code class="docutils literal notranslate"><span class="pre">ledgercore.migration</span></code></h2>
-<p><code class="docutils literal notranslate"><span class="pre">plan_storage_migration</span></code> resolves source and target layouts without writes. <code class="docutils literal notranslate"><span class="pre">execute_storage_migration</span></code> performs verified copy-only activation with temporary destinations, a downstream quiescence callback, atomic configuration switching, and a schema-2 journal. Destructive <code class="docutils literal notranslate"><span class="pre">mode=&quot;move&quot;</span></code> is disabled in 0.5.1. <code class="docutils literal notranslate"><span class="pre">inspect_storage_migration</span></code> reads schema-1 and schema-2 journals; schema-1 journals have bindings, mode, verification, project root, and cleanup outcome set to <code class="docutils literal notranslate"><span class="pre">None</span></code>. <code class="docutils literal notranslate"><span class="pre">recover_storage_migration</span></code> is read-only and returns completed journal results only (<code class="docutils literal notranslate"><span class="pre">source_removed=False</span></code> for schema-2 copy, <code class="docutils literal notranslate"><span class="pre">source_removed=None</span></code> for schema-1); incomplete journals require manual intervention and raise <code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_MANUAL_INTERVENTION_REQUIRED</span></code>. Invalid journals raise <code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_JOURNAL_INVALID</span></code>. <code class="docutils literal notranslate"><span class="pre">plan_schema_v2_to_v3</span></code> provides conservative schema conversion.</p>
+<p><code class="docutils literal notranslate"><span class="pre">plan_storage_migration</span></code> resolves source and target layouts without writes.
+<code class="docutils literal notranslate"><span class="pre">execute_storage_migration</span></code> performs a copy-only, fingerprint-verified atomic
+activation transaction with <code class="docutils literal notranslate"><span class="pre">StorageMigrationHooks</span></code> and a durable schema-3
+journal. <code class="docutils literal notranslate"><span class="pre">mode=&quot;move&quot;</span></code> is rejected before mutation with a stable unsupported
+strategy error. <code class="docutils literal notranslate"><span class="pre">inspect_storage_migration</span></code> strictly parses schema 3 and also
+reads legacy schema-1/schema-2 journals. <code class="docutils literal notranslate"><span class="pre">recover_storage_migration</span></code> supports
+<code class="docutils literal notranslate"><span class="pre">auto</span></code>, <code class="docutils literal notranslate"><span class="pre">resume</span></code>, <code class="docutils literal notranslate"><span class="pre">rollback</span></code>, and non-mutating <code class="docutils literal notranslate"><span class="pre">dry_run</span></code>; it proves ownership
+before resuming, restoring, or cleaning paths and preserves source storage.
+<code class="docutils literal notranslate"><span class="pre">RecoveryAssessment</span></code> reports phase, item states, owned paths, blockers, and the
+recommended policy. Invalid or ambiguous journals raise
+<code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_JOURNAL_INVALID</span></code> or
+<code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_MANUAL_INTERVENTION_REQUIRED</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">ledgercore.cli.migrate</span></code> adapter exposes framework-neutral inspect/recover
+responses using the <code class="docutils literal notranslate"><span class="pre">ledgerwerk.cli.v1</span></code> JSON envelope.</p>
 </section>
 <section id="ledgercore-layout-compatibility-facade">
 <h2><code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code> compatibility facade</h2>

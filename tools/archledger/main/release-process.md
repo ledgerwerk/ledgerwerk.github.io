@@ -6,7 +6,7 @@ nav_tool: archledger-main
 docs_project: "archledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "86a798bba520a788344889d25539b2b4cbd0dc11"
+docs_commit: "759603f9ae21bd9e3c47ef0675ffa0c7d30f14fe"
 search_enabled: true
 ---
 

@@ -4,17 +4,17 @@ nav_key: releaseledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.3.4
-source_commit: f079f5e181b7d2f6f7aac29c2a3a519990c78ecd
-source_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.3.4
+source_ref: v0.4.0
+source_commit: 867b6053dfb2aaaee32d8041f0118db40b8d496c
+source_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.0
 is_default: true
 repo_url: https://github.com/ledgerwerk/releaseledger
-release_tag: v0.3.4
-release_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.3.4
+release_tag: v0.4.0
+release_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.3.4
+  ref: v0.4.0
   url: /tools/releaseledger/
   current: true
 - name: main
@@ -36,7 +36,7 @@ entries:
   title: releaseledger Commands
   url: /tools/releaseledger/commands/
 - slug: changelog
-  title: releaseledger Changelog rendering
+  title: releaseledger Changelog
   url: /tools/releaseledger/changelog/
 - slug: storage
   title: releaseledger Storage and configuration

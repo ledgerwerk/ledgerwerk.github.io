@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "05026ba436edbc5fc4fa36bc1a35796eb90b9013"
+docs_commit: "867b6053dfb2aaaee32d8041f0118db40b8d496c"
 search_enabled: true
 ---
 
@@ -565,14 +565,17 @@ with <code class="docutils literal notranslate"><span class="pre">storage</span>
 releaseledger<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>storage-layout<span class="w"> </span>--output<span class="w"> </span>migration-plan.json
 releaseledger<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>storage-layout<span class="w"> </span>--plan-file<span class="w"> </span>migration-plan.json<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Adopt the canonical Ledgercore storage layout&quot;</span>
+releaseledger<span class="w"> </span>migrate<span class="w"> </span>recover<span class="w"> </span>--journal<span class="w"> </span>PATH<span class="w"> </span>--policy<span class="w"> </span>auto<span class="w"> </span>--dry-run
 releaseledger<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--dry-run
 releaseledger<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--yes<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Remove verified legacy artifacts&quot;</span>
 </pre></div>
 </div>
-<p>Plans are deterministic and hash-protected. Apply rechecks the source
-fingerprint; a changed source is a conflict and must be replanned. Cleanup
-never happens implicitly as part of apply.</p>
+<p>Plans are deterministic and hash-protected. The v2 plan carries one shared
+migration ID, exact source/before/target fingerprints, and the rendered config
+target. Apply is copy-only; physical activation and recovery belong to the
+Ledgercore schema-3 journal. Cleanup never happens implicitly as part of
+apply and requires a committed journal plus Releaseledger receipt.</p>
 <p>The examples below document the pre-migration layout retained for discovery;
 they are not the canonical configuration format.</p>
 <section id="default-layout">

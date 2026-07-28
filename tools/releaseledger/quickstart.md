@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/quickstart/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.3.4"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_ref: "v0.4.0"
+docs_commit: "867b6053dfb2aaaee32d8041f0118db40b8d496c"
 search_enabled: true
 ---
 
@@ -555,9 +555,28 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="initialize-a-project">
 <h2>Initialize a project</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>init
+releaseledger<span class="w"> </span>status
+releaseledger<span class="w"> </span>doctor
 </pre></div>
 </div>
-<p>This creates <code class="docutils literal notranslate"><span class="pre">.releaseledger.toml</span></code> and the default state layout:</p>
+<p>This creates a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, the Releaseledger tool config,
+and the default state layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.ledger/
+  ledger.toml
+  releaseledger/
+    config.toml
+    data/
+    indexes/
+</pre></div>
+</div>
+<p>Inspect paths and validate the bindings before mutating state:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>storage<span class="w"> </span>where
+releaseledger<span class="w"> </span>storage<span class="w"> </span>validate<span class="w"> </span>--strict
+releaseledger<span class="w"> </span>config<span class="w"> </span>validate
+</pre></div>
+</div>
+<p>The legacy layout may still be discovered and migrated; it is not the format
+created by new projects:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.releaseledger/
   ledgers/
     main/
@@ -671,7 +690,7 @@ primary source of truth:</p>
 <section id="render-changelog-output">
 <h2>Render changelog output</h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">changelog</span></code> to produce review context:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span>preview<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target-changelog<span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--release-date<span class="w"> </span><span class="m">2026</span>-06-13
 </pre></div>

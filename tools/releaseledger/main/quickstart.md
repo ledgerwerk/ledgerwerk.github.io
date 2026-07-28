@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "05026ba436edbc5fc4fa36bc1a35796eb90b9013"
+docs_commit: "867b6053dfb2aaaee32d8041f0118db40b8d496c"
 search_enabled: true
 ---
 
@@ -690,7 +690,7 @@ primary source of truth:</p>
 <section id="render-changelog-output">
 <h2>Render changelog output</h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">changelog</span></code> to produce review context:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span>preview<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target-changelog<span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--release-date<span class="w"> </span><span class="m">2026</span>-06-13
 </pre></div>

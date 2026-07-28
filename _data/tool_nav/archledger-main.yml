@@ -5,7 +5,7 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 86a798bba520a788344889d25539b2b4cbd0dc11
+source_commit: 759603f9ae21bd9e3c47ef0675ffa0c7d30f14fe
 source_url: https://github.com/ledgerwerk/archledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/archledger

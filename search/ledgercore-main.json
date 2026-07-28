@@ -143,8 +143,26 @@
         {
           "anchor": "",
           "heading": "Added",
-          "text": "Completed copy-only schema-3 migration execution, lifecycle hooks, transactional\nconfiguration switching, typed inspection, policy-driven recovery/rollback,\nand framework-neutral inspect/recover CLI contracts for Releaseledger.\n\n\nAdded DestinationPrecondition dataclass for typed before-state fingerprints\n\n\nAdded MigrationPhase and MigrationItemState enums for schema-3 state machine\n\n\nAdded Schema3MigrationJournal, Schema3ItemJournalState, Schema3ConfigSwitchState dataclasses\n\n\nAdded write_schema3_journal and _parse_schema3_journal for schema-3 TOML persistence\n\n\nAdded StorageMigrationHooks for lifecycle callbacks (quiescence, staged/activated validation, finalize)\n\n\nAdded MigrationLock for advisory project migration locking\n\n\nAdded _check_same_filesystem and _validate_same_filesystem for…",
-          "lower": "completed copy-only schema-3 migration execution, lifecycle hooks, transactional\nconfiguration switching, typed inspection, policy-driven recovery/rollback,\nand framework-neutral inspect/recover cli contracts for releaseledger.\n\n\nadded destinationprecondition dataclass for typed before-state fingerprints\n\n\nadded migrationphase and migrationitemstate enums for schema-3 state machine\n\n\nadded schema3migrationjournal, schema3itemjournalstate, schema3configswitchstate dataclasses\n\n\nadded write_schema3_journal and _parse_schema3_journal for schema-3 toml persistence\n\n\nadded storagemigrationhooks for lifecycle callbacks (quiescence, staged/activated validation, finalize)\n\n\nadded migrationlock for advisory project migration locking\n\n\nadded _check_same_filesystem and _validate_same_filesystem for…"
+          "text": "Added recovery assessment and migration inspection CLI commands\n\n\nAdded MigrationCommandResponse dataclass for framework-neutral CLI output\n\n\nAdded StorageFingerprint serialization methods (to_mapping, from_mapping)\n\n\nAdded CLI error types for migration operations\n\n\nAdded test suite for migration recovery scenarios",
+          "lower": "added recovery assessment and migration inspection cli commands\n\n\nadded migrationcommandresponse dataclass for framework-neutral cli output\n\n\nadded storagefingerprint serialization methods (to_mapping, from_mapping)\n\n\nadded cli error types for migration operations\n\n\nadded test suite for migration recovery scenarios"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Improved migration phase transitions to allow recovery from failed state\n\n\nImproved item state transitions for direct pending-to-complete and stage-verified-to-activation paths\n\n\nChanged CLI migrate module to add recovery assessment and inspection commands",
+          "lower": "improved migration phase transitions to allow recovery from failed state\n\n\nimproved item state transitions for direct pending-to-complete and stage-verified-to-activation paths\n\n\nchanged cli migrate module to add recovery assessment and inspection commands"
+        },
+        {
+          "anchor": "",
+          "heading": "Fixed",
+          "text": "Fixed pytest failures in migration module\n\n\nFixed Windows test failures in migration CLI tests",
+          "lower": "fixed pytest failures in migration module\n\n\nfixed windows test failures in migration cli tests"
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Added DestinationPrecondition dataclass for typed before-state fingerprints\n\n\nAdded MigrationPhase and MigrationItemState enums for schema-3 state machine\n\n\nAdded Schema3MigrationJournal, Schema3ItemJournalState, Schema3ConfigSwitchState dataclasses\n\n\nAdded write_schema3_journal and _parse_schema3_journal for schema-3 TOML persistence\n\n\nAdded StorageMigrationHooks for lifecycle callbacks (quiescence, staged/activated validation, finalize)\n\n\nAdded MigrationLock for advisory project migration locking\n\n\nAdded _check_same_filesystem and _validate_same_filesystem for cross-filesystem detection\n\n\nAdded _durable_rename for fsync-backed atomic renames\n\n\nAdded render_ledger_manifest and render_ledger_local_config for pure TOML rendering\n\n\nAdded strict plan-structure validation (_validate_plan_stru…",
+          "lower": "added destinationprecondition dataclass for typed before-state fingerprints\n\n\nadded migrationphase and migrationitemstate enums for schema-3 state machine\n\n\nadded schema3migrationjournal, schema3itemjournalstate, schema3configswitchstate dataclasses\n\n\nadded write_schema3_journal and _parse_schema3_journal for schema-3 toml persistence\n\n\nadded storagemigrationhooks for lifecycle callbacks (quiescence, staged/activated validation, finalize)\n\n\nadded migrationlock for advisory project migration locking\n\n\nadded _check_same_filesystem and _validate_same_filesystem for cross-filesystem detection\n\n\nadded _durable_rename for fsync-backed atomic renames\n\n\nadded render_ledger_manifest and render_ledger_local_config for pure toml rendering\n\n\nadded strict plan-structure validation (_validate_plan_stru…"
         },
         {
           "anchor": "",
@@ -350,8 +368,8 @@
         {
           "anchor": "",
           "heading": "Building",
-          "text": "python -m build\n\n\n\n\nBuilds from a non-git source archive are supported when the intended version\nis provided explicitly. Use a placeholder for repeatable local runs:\n\nSETUPTOOLS_SCM_PRETEND_VERSION=X.Y.Z python -m build\n\n\n\n\nFor an actual 0.4.0 release build, use 0.4.0:\n\nSETUPTOOLS_SCM_PRETEND_VERSION=0.4.0 python -m build\n\n\n\n\nThis produces dist/ledgercore-<version>.tar.gz and\ndist/ledgercore-<version>-py3-none-any.whl.",
-          "lower": "python -m build\n\n\n\n\nbuilds from a non-git source archive are supported when the intended version\nis provided explicitly. use a placeholder for repeatable local runs:\n\nsetuptools_scm_pretend_version=x.y.z python -m build\n\n\n\n\nfor an actual 0.4.0 release build, use 0.4.0:\n\nsetuptools_scm_pretend_version=0.4.0 python -m build\n\n\n\n\nthis produces dist/ledgercore-<version>.tar.gz and\ndist/ledgercore-<version>-py3-none-any.whl."
+          "text": "python -m build\n\n\n\n\nBuilds from a non-git source archive are supported when the intended version\nis provided explicitly. Use a placeholder for repeatable local runs:\n\nSETUPTOOLS_SCM_PRETEND_VERSION=X.Y.Z python -m build\n\n\n\n\nFor the 0.6.0 release build, use 0.6.0:\n\nSETUPTOOLS_SCM_PRETEND_VERSION=0.6.0 python -m build\n\n\n\n\nThis produces dist/ledgercore-<version>.tar.gz and\ndist/ledgercore-<version>-py3-none-any.whl.",
+          "lower": "python -m build\n\n\n\n\nbuilds from a non-git source archive are supported when the intended version\nis provided explicitly. use a placeholder for repeatable local runs:\n\nsetuptools_scm_pretend_version=x.y.z python -m build\n\n\n\n\nfor the 0.6.0 release build, use 0.6.0:\n\nsetuptools_scm_pretend_version=0.6.0 python -m build\n\n\n\n\nthis produces dist/ledgercore-<version>.tar.gz and\ndist/ledgercore-<version>-py3-none-any.whl."
         },
         {
           "anchor": "",
@@ -362,8 +380,8 @@
         {
           "anchor": "",
           "heading": "Smoke testing (required release gate)",
-          "text": "Install the built wheel into a clean virtualenv and run the release smoke\nscript. The script exercises a representative slice of the public API so that\npackaging regressions (missing modules, lost data files, broken imports)\nsurface before publishing. Use a writable location for the venv; on some\nplatforms /tmp is not writable. Run the script from a working directory\nthat does not shadow the installed package:\n\nsmoke_dir=\"$(pwd)/.smoke\"\nrm -rf \"$smoke_dir\"\npython -m venv \"$smoke_dir\"\n\"$smoke_dir/bin/python\" -m pip install \"$(echo dist/*.whl)\"\n\"$smoke_dir/bin/python\" scripts/smoke_wheel.py\n\n\n\n\nThe script must print ledgercore 0.4.0 smoke test passed and exit 0. The\nsource-tree smoke test (tests/test_smoke_wheel_source.py) covers the same\nmain() function and must also pass in CI.",
-          "lower": "install the built wheel into a clean virtualenv and run the release smoke\nscript. the script exercises a representative slice of the public api so that\npackaging regressions (missing modules, lost data files, broken imports)\nsurface before publishing. use a writable location for the venv; on some\nplatforms /tmp is not writable. run the script from a working directory\nthat does not shadow the installed package:\n\nsmoke_dir=\"$(pwd)/.smoke\"\nrm -rf \"$smoke_dir\"\npython -m venv \"$smoke_dir\"\n\"$smoke_dir/bin/python\" -m pip install \"$(echo dist/*.whl)\"\n\"$smoke_dir/bin/python\" scripts/smoke_wheel.py\n\n\n\n\nthe script must print ledgercore 0.4.0 smoke test passed and exit 0. the\nsource-tree smoke test (tests/test_smoke_wheel_source.py) covers the same\nmain() function and must also pass in ci."
+          "text": "Install the built wheel into a clean virtualenv and run the release smoke\nscript. The script exercises a representative slice of the public API so that\npackaging regressions (missing modules, lost data files, broken imports)\nsurface before publishing. Use a writable location for the venv; on some\nplatforms /tmp is not writable. Run the script from a working directory\nthat does not shadow the installed package:\n\nsmoke_dir=\"$(pwd)/.smoke\"\nrm -rf \"$smoke_dir\"\npython -m venv \"$smoke_dir\"\n\"$smoke_dir/bin/python\" -m pip install \"$(echo dist/*.whl)\"\n\"$smoke_dir/bin/python\" scripts/smoke_wheel.py\n\n\n\n\nThe script must print ledgercore 0.6.0 smoke test passed and exit 0. The\nsource-tree smoke test (tests/test_smoke_wheel_source.py) covers the same\nmain() function and must also pass in CI.",
+          "lower": "install the built wheel into a clean virtualenv and run the release smoke\nscript. the script exercises a representative slice of the public api so that\npackaging regressions (missing modules, lost data files, broken imports)\nsurface before publishing. use a writable location for the venv; on some\nplatforms /tmp is not writable. run the script from a working directory\nthat does not shadow the installed package:\n\nsmoke_dir=\"$(pwd)/.smoke\"\nrm -rf \"$smoke_dir\"\npython -m venv \"$smoke_dir\"\n\"$smoke_dir/bin/python\" -m pip install \"$(echo dist/*.whl)\"\n\"$smoke_dir/bin/python\" scripts/smoke_wheel.py\n\n\n\n\nthe script must print ledgercore 0.6.0 smoke test passed and exit 0. the\nsource-tree smoke test (tests/test_smoke_wheel_source.py) covers the same\nmain() function and must also pass in ci."
         },
         {
           "anchor": "",
@@ -380,8 +398,8 @@
         {
           "anchor": "",
           "heading": "Version policy",
-          "text": "ledgercore is pre-1.0. Patch releases preserve the current minor API where\npractical. Minor releases may intentionally evolve public APIs before 1.0,\nwith changelog and migration guidance. The 0.4.0 release adds the fixed\nsibling-ledger workspace convention while preserving namespaced root overrides.",
-          "lower": "ledgercore is pre-1.0. patch releases preserve the current minor api where\npractical. minor releases may intentionally evolve public apis before 1.0,\nwith changelog and migration guidance. the 0.4.0 release adds the fixed\nsibling-ledger workspace convention while preserving namespaced root overrides."
+          "text": "ledgercore is pre-1.0. Patch releases preserve the current minor API where\npractical. Minor releases may intentionally evolve public APIs before 1.0,\nwith changelog and migration guidance. The 0.6.0 release adds the schema-3\nstorage migration safeguards and validation improvements documented in the\nchangelog.",
+          "lower": "ledgercore is pre-1.0. patch releases preserve the current minor api where\npractical. minor releases may intentionally evolve public apis before 1.0,\nwith changelog and migration guidance. the 0.6.0 release adds the schema-3\nstorage migration safeguards and validation improvements documented in the\nchangelog."
         }
       ]
     },

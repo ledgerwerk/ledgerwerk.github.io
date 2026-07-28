@@ -4,17 +4,17 @@ nav_key: ledgercore
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.6.0
-source_commit: 5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79
-source_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.0
+source_ref: v0.6.1
+source_commit: 16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9
+source_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.1
 is_default: true
 repo_url: https://github.com/ledgerwerk/ledgercore
-release_tag: v0.6.0
-release_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.0
+release_tag: v0.6.1
+release_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.1
 versions:
 - name: release
   label: Latest release
-  ref: v0.6.0
+  ref: v0.6.1
   url: /tools/ledgercore/
   current: true
 - name: main

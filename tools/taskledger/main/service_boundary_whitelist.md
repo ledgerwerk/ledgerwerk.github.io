@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
+docs_commit: "a8dce9cf436c16e939ee979c50e068a6496175ca"
 search_enabled: true
 ---
 
@@ -658,12 +658,16 @@ model and lifecycle mutations.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_trace.py:taskledger.services.trace</span></code> — Trace CLI delegates
 to the trace service.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_migrate.py:taskledger.services.storage_migration</span></code> — Migration CLI delegates to the storage migration service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_runtime.py:taskledger.services.runtime_info</span></code> — Runtime CLI delegates provenance collection to the runtime service.</p></li>
 </ul>
 </section>
 <section id="catch-all-exception-whitelist-except-exception">
 <h2>Catch-all exception whitelist (<code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">Exception</span></code>)</h2>
 <p>Current allowed sites are listed with reasons in
 <code class="docutils literal notranslate"><span class="pre">tests/test_service_boundaries.py</span></code> under <code class="docutils literal notranslate"><span class="pre">EXCEPT_EXCEPTION_WHITELIST</span></code>.</p>
+<p>The reviewed resilience sites include storage validation, migration command
+and hook handling, and project-config parsing boundaries listed in the test
+constants.</p>
 <p>Policy intent:</p>
 <ul class="simple">
 <li><p>Allow catch-all handling only in doctor/repair and resilience wrappers.</p></li>

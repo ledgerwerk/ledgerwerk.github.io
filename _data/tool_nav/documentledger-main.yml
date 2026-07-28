@@ -5,7 +5,7 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 17a3c69ad1394ee99c66706c33d9351748b42f57
+source_commit: 8520090bbcb78c6cab98cee8f3c6ea28bfc0c3f0
 source_url: https://github.com/ledgerwerk/documentledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/documentledger

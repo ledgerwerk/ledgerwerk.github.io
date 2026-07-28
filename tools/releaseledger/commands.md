@@ -1,12 +1,12 @@
 ---
 layout: tool-doc
-title: "releaseledger Commands"
-permalink: /tools/releaseledger/commands/
+title: "releaseledger Generated CLI Reference"
+permalink: /tools/releaseledger/commands.generated/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.3.4"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_ref: "v0.4.0"
+docs_commit: "867b6053dfb2aaaee32d8041f0118db40b8d496c"
 search_enabled: true
 ---
 
@@ -540,266 +540,340 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="commands">
-<h1>Commands</h1>
-<section id="root-options">
-<h2>Root options</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger --cwd PATH ...
-releaseledger --json ...
-releaseledger --version
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">--cwd</span></code> runs as if started from another directory. <code class="docutils literal notranslate"><span class="pre">--json</span></code> emits
-deterministic JSON envelopes.</p>
-</section>
-<section id="project-commands">
-<h2>Project commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger init [--releaseledger-dir PATH] [--project-name NAME]
-                  [--external-dir] [--force]
-releaseledger storage where
-releaseledger config show
-releaseledger config set releaseledger_dir PATH [--external-dir]
-</pre></div>
-</div>
-</section>
-<section id="release-commands">
-<h2>Release commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger release create VERSION [--title TEXT] [--status STATUS]
-                                     [--previous VERSION] [--note TEXT]
-                                     [--changelog-file PATH]
-                                     [--released-at YYYY-MM-DD]
-                                     [--boundary-ref REF]
-                                     [--source-ref REF]...
-                                     [--source-count N]
-releaseledger release update VERSION [release metadata options]
-                                    [--clear-previous]
-                                    [--clear-changelog-file]
-                                    [--clear-boundary-ref]
-                                    [--clear-source-refs]
-                                    [--clear-source-count]
-                                    [--clear-released-at] [--force]
-releaseledger release tag VERSION [release metadata options]
-releaseledger release finalize VERSION [--released-at YYYY-MM-DD]
-                                       [--changelog-file PATH]
-releaseledger release prepare VERSION [--previous VERSION]
-                                      [--released-at YYYY-MM-DD]
-                                      [--git-base REF] [--git-head REF]
-                                      [--output-dir PATH]
-releaseledger release check VERSION [--target-file PATH] [--strict]
-                                    [--include-internal]
-releaseledger release cancel VERSION [--reason TEXT]
-                                    [--superseded-by VERSION]
-                                    [--force-released-unshipped]
-                                    [--target-file PATH]
-                                    [--remove-changelog-section]
-                                    [--ignore-missing]
-releaseledger release rename OLD_VERSION NEW_VERSION [--previous VERSION]
-                                                      [--title TEXT]
-                                                      [--released-at YYYY-MM-DD]
-                                                      [--force-released-unshipped]
-                                                      [--rewrite-successors]
-                                                      [--target-file PATH]
-                                                      [--rename-changelog-section]
-                                                      [--replace-existing-section]
-releaseledger release chain check
-releaseledger release chain repair [--dry-run] [--apply]
-releaseledger release list
-releaseledger release show VERSION
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">tag</span></code> creates a release with status <code class="docutils literal notranslate"><span class="pre">released</span></code>. <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">finalize</span></code>
-transitions an existing release to <code class="docutils literal notranslate"><span class="pre">released</span></code>. <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">cancel</span></code> marks a
-release as <code class="docutils literal notranslate"><span class="pre">canceled</span></code> (never shipped; excluded from previous-version
-inference). <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span></code> moves a release bundle to a new version and
-rewrites its front matter, entries, and optionally its changelog section.
-<code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">chain</span> <span class="pre">check</span></code>/<code class="docutils literal notranslate"><span class="pre">repair</span></code> validate and rebuild predecessor links.</p>
-</section>
-<section id="entry-commands">
-<h2>Entry commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger entry add VERSION --kind KIND --summary TEXT [--body TEXT]
-                               [--status STATUS] [--audience TEXT]
-                               [--scope SCOPE]... [--source-ref REF]...
-                               [--path PATH]... [--issue REF]... [--pr REF]...
-                               [--breaking] [--internal] [--dry-run]
-releaseledger entry add-many VERSION --file FILE [--dry-run] [--strict]
-                                    [--guard-commit-subjects]
-                                    [--sync-audit]
-releaseledger entry update VERSION ENTRY_ID [entry metadata options]
-releaseledger entry show VERSION ENTRY_ID
-releaseledger entry import VERSION --file FILE [--replace]
-                                   [--source-ledger LEDGER]
-releaseledger entry list VERSION
-releaseledger entry lint VERSION [--strict] [--include-status STATUS]...
-releaseledger entry prompt VERSION [--source-ref REF]...
-                                   [--context-file FILE]
-                                   [--format markdown|json]
-                                   [--output PATH]
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">lint</span></code> checks summary style and record validity. With <code class="docutils literal notranslate"><span class="pre">--json</span></code> it
-returns the full per-entry <code class="docutils literal notranslate"><span class="pre">issues</span></code> and <code class="docutils literal notranslate"><span class="pre">entries</span></code> payload, <strong>including on
-failure</strong>; the command still exits non-zero. <code class="docutils literal notranslate"><span class="pre">--strict</span></code> fails on warnings.
-<code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span> <span class="pre">--dry-run</span></code> and <code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span></code> now share the same pre-write
-validation path, so strict dry-run results match write-mode gating.</p>
-</section>
-<section id="batch-file-format">
-<h2>Batch file format</h2>
-<p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span></code> expects YAML with a top-level <code class="docutils literal notranslate"><span class="pre">entries</span></code> list:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">entries</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">added</span>
-<span class="w">    </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Added release bundle storage</span>
-<span class="w">    </span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
-<span class="w">      </span><span class="no">The storage layer now writes release records, entries, events, and indexes.</span>
-<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accepted</span>
-<span class="w">    </span><span class="nt">audience</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developer</span>
-<span class="w">    </span><span class="nt">scopes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">storage</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">source_refs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">tl</span><span class="p p-Indicator">:</span><span class="nv">task-0103</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">releaseledger/storage/store.py</span>
-<span class="w">    </span><span class="nt">issues</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
-<span class="w">    </span><span class="nt">prs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
-<span class="w">    </span><span class="nt">breaking</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">    </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-</pre></div>
-</div>
-</section>
-<section id="changelog-commands">
-<h2>Changelog commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger changelog VERSION [--format markdown|json] [--output PATH]
-                                [--include-internal]
-                                [--target-changelog PATH]
-                                [--release-date YYYY-MM-DD]
-                                [--include-sources]
-                                [--include-status STATUS]... [--lint]
-
-releaseledger build VERSION [--target-file PATH]
-                            [--release-date YYYY-MM-DD]
-                            [--unreleased]
-                            [--include-internal]
-                            [--template NAME]
-                            [--dry-run]
-                            [--replace-existing]
-                            [--format markdown|json]
-                            [--include-status STATUS]...
-                            [--strict]
-                            [--allow-empty]
-releaseledger build [VERSION] [--all] [--target-file PATH]
-                            [--include-release-status STATUS]...
-                            [--preserve-unreleased|--no-preserve-unreleased]
-                            [--unreleased-version VERSION]
-                            [--include-internal]
-                            [--include-status STATUS]... [--strict]
-                            [--dry-run] [--allow-empty]
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">build</span></code> with no <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> (or <code class="docutils literal notranslate"><span class="pre">--all</span></code>) is a full rebuild. <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">VERSION</span></code>
-updates one section. Full build omits an empty <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">[Unreleased]</span></code> section: the
-heading and its link reference are rendered only when an unreleased body exists.
-<code class="docutils literal notranslate"><span class="pre">--unreleased-version</span> <span class="pre">VERSION</span></code> folds a <code class="docutils literal notranslate"><span class="pre">planned</span></code>/<code class="docutils literal notranslate"><span class="pre">draft</span></code>/<code class="docutils literal notranslate"><span class="pre">candidate</span></code> release
-into the canonical <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">[Unreleased]</span></code> section without a version heading, and
-excludes that release from the normal release sections.</p>
-<p><code class="docutils literal notranslate"><span class="pre">build</span></code> never invents entries from git commits; entries must be created first
-(via <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">scaffold</span></code>/<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">import</span></code>, audit, and <code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span></code>). Run
-<code class="docutils literal notranslate"><span class="pre">releaseledger</span> <span class="pre">release</span> <span class="pre">check</span> <span class="pre">VERSION</span> <span class="pre">--strict</span> <span class="pre">--target-file</span> <span class="pre">CHANGELOG.md</span></code>
-before the final build. Manual Unreleased content is preserved by default;
-generated folded Unreleased content is automatically removed once the folded
-release is finalized.</p>
-</section>
-<section id="review-commands">
-<h2>Review commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger review VERSION [--include-internal]
-                        [--include-status STATUS]...
-                        [--target-file PATH] [--strict]
-                        [--git] [--git-base REF] [--git-head REF]
-                        [--require-audit-sheet]
-releaseledger release check VERSION [--target-file PATH] [--strict]
-                               [--include-internal]
-</pre></div>
-</div>
-<p>Read-only coverage report. It combines release state, entry coverage, orphan
-detection, entry lint, and a strict changelog dry-run into one deterministic
-report so agents and humans do not need to run <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">show</span></code>,
-<code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">lint</span></code>, <code class="docutils literal notranslate"><span class="pre">changelog</span></code>, and <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">--dry-run</span></code>
-separately. <code class="docutils literal notranslate"><span class="pre">--strict</span></code> exits non-zero when the release is not OK (uncovered
-source refs, lint errors, a dated <code class="docutils literal notranslate"><span class="pre">planned</span></code> release, or a changelog build that
-would fail). <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">check</span></code> is the consolidated final gate built on the same
-review machinery.</p>
-<p>With <code class="docutils literal notranslate"><span class="pre">--git</span></code>, review also computes coverage from the git commit range
-(<code class="docutils literal notranslate"><span class="pre">--git-base</span></code>/<code class="docutils literal notranslate"><span class="pre">--git-head</span></code> or the release’s stored git metadata). Strict
-mode fails when any include_by_default git commit has no accepted entry
-coverage.</p>
-</section>
-<section id="git-first-commands">
-<h2>Git-first commands</h2>
-<p>Releaseledger is git-first: git commit ranges are the canonical evidence of
-shipped changes.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger git range VERSION [--base REF] [--head REF]
-                       [--include-merges never|always|nontrivial]
-releaseledger git range next --base REF [--head REF]
-releaseledger git scaffold VERSION [--base REF] [--head REF]
-                         [--status draft] --output PATH
-releaseledger git import VERSION [--base REF] [--head REF]
-                       [--status draft] --output PATH
-releaseledger git import next --base REF [--head REF] --output PATH
-releaseledger git evidence VERSION [--base REF] [--head REF]
-                         [--output-dir PATH]
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">range</span></code> inspects the commit range and prints candidate entries.
-<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">scaffold</span></code> generates a metadata-rich <code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span></code> YAML batch from the
-range for review and curation; <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">import</span></code> remains a compatibility alias.
-<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">evidence</span></code> exports deterministic per-commit patches plus a manifest. The
-<code class="docutils literal notranslate"><span class="pre">next</span></code> forms are non-persisting previews that do not require a release record.</p>
-<p>For a real version, git-backed commands use the release’s stored <strong>pinned
-snapshot SHAs</strong> unless <code class="docutils literal notranslate"><span class="pre">--base</span></code> or <code class="docutils literal notranslate"><span class="pre">--head</span></code> is supplied explicitly. Resolve
-<code class="docutils literal notranslate"><span class="pre">HEAD</span></code> once when attaching the range, then omit <code class="docutils literal notranslate"><span class="pre">--head</span></code> until an intentional
-refresh.</p>
-</section>
-<section id="commit-audit-sheet-commands">
-<h2>Commit audit sheet commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger audit init VERSION [--base REF] [--head REF] [--overwrite]
-releaseledger audit show VERSION [--format markdown|json|yaml] [--output PATH]
-releaseledger audit apply VERSION --file PATH [--dry-run]
-releaseledger audit refresh VERSION [--base REF] [--head REF] [--allow-remove]
-releaseledger audit update VERSION --file PATH
-releaseledger audit validate VERSION [--phase evidence|complete]
-                                  [--strict] [--include-internal]
-                                  [--record-event]
-releaseledger audit sync VERSION
-</pre></div>
-</div>
-<p>The commit audit sheet is a per-release review artifact that maps every commit
-in the git range to a reviewer decision (<code class="docutils literal notranslate"><span class="pre">needs_review</span></code>, <code class="docutils literal notranslate"><span class="pre">accepted</span></code>,
-<code class="docutils literal notranslate"><span class="pre">grouped</span></code>, <code class="docutils literal notranslate"><span class="pre">internal</span></code>, <code class="docutils literal notranslate"><span class="pre">rejected</span></code>) and to a release entry. Commit
-subjects are evidence-only and must never become changelog prose. Use the
-<code class="docutils literal notranslate"><span class="pre">evidence</span></code> phase before entries exist and the <code class="docutils literal notranslate"><span class="pre">complete</span></code> phase after entries
-exist. When a sheet exists, <code class="docutils literal notranslate"><span class="pre">review</span></code> emits an <code class="docutils literal notranslate"><span class="pre">audit</span></code> block; pass
-<code class="docutils literal notranslate"><span class="pre">--require-audit-sheet</span></code> to gate on a complete sheet.</p>
-</section>
-<section id="branch-commands">
-<h2>Branch commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger branch status
-releaseledger branch start BRANCH --parent PARENT
-releaseledger branch merge BRANCH --into TARGET --release VERSION
-</pre></div>
-</div>
-<p>Optional branch-scoped ledgers. <code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">status</span></code> compares the current git
-branch to <code class="docutils literal notranslate"><span class="pre">ledger_ref</span></code>. <code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">start</span></code> forks a new ledger. <code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">merge</span></code> merges entries by <code class="docutils literal notranslate"><span class="pre">source_refs</span></code> (<code class="docutils literal notranslate"><span class="pre">git:&lt;sha&gt;</span></code> dedup).</p>
-</section>
-<section id="changelog-section-correction-commands">
-<h2>Changelog section correction commands</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger changelog-section remove-section VERSION --target-file PATH
-                                                  [--ignore-missing] [--dry-run]
-releaseledger changelog-section rename-section OLD_VERSION NEW_VERSION
-                                                  --target-file PATH
-                                                  [--ignore-missing]
-                                                  [--replace-existing] [--dry-run]
-</pre></div>
-</div>
-<p>These rewrite release section headings in an existing changelog file without
-touching release records. <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span> <span class="pre">--rename-changelog-section</span></code> and
-<code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">cancel</span> <span class="pre">--remove-changelog-section</span></code> apply the same corrections inline.</p>
-</section>
+<section id="generated-cli-reference">
+<h1>Generated CLI Reference</h1>
+<!-- Generated by scripts/generate_cli_reference.py; do not edit. -->
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Effect</p></th>
+<th class="head"><p>Stability</p></th>
+<th class="head"><p>Aliases</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">apply</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">init</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">record-validation</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">refresh</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">show</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">sync</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">update</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">validate</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">merge</span></code></p></td>
+<td><p>external-process</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">start</span></code></p></td>
+<td><p>external-process</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">status</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">build</span></code></p></td>
+<td><p>external-write</p></td>
+<td><p>stable</p></td>
+<td><p>build</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">preview</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>changelog</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">section</span> <span class="pre">remove</span></code></p></td>
+<td><p>external-write</p></td>
+<td><p>stable</p></td>
+<td><p>changelog-section remove-section</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">section</span> <span class="pre">rename</span></code></p></td>
+<td><p>external-write</p></td>
+<td><p>stable</p></td>
+<td><p>changelog-section rename-section</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">commands</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">set</span></code></p></td>
+<td><p>read</p></td>
+<td><p>deprecated</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">show</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">validate</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">apply</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>entry add-many</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">delete</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">import</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">lint</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">list</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">prompt</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">set-status</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">show</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">update</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">evidence</span></code></p></td>
+<td><p>external-process</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">import</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">range</span></code></p></td>
+<td><p>external-process</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">scaffold</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">help</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>stable</p></td>
+<td><p>storage migrate apply</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">cleanup</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>storage migrate plan</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">recover</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>stable</p></td>
+<td><p>storage migrate recover</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>storage migrate, storage migrate status</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">cancel</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">chain</span> <span class="pre">check</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">chain</span> <span class="pre">repair</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">check</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">create</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">finalize</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">import-tags</span></code></p></td>
+<td><p>external-process</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">list</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">prepare</span></code></p></td>
+<td><p>external-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">reconcile</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">review</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>review</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">set-status</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">show</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">tag</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">update</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">clear-override</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">validate</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">where</span></code></p></td>
+<td><p>read</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </div>
 <script data-sphinxpress-script="search" defer>

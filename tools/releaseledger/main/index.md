@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "05026ba436edbc5fc4fa36bc1a35796eb90b9013"
+docs_commit: "867b6053dfb2aaaee32d8041f0118db40b8d496c"
 search_enabled: true
 ---
 
@@ -591,18 +591,15 @@ state directory. It also renders reviewable changelog context and final
 <li class="toctree-l2"><a class="reference internal" href="commands/#changelog-section-correction-commands">Changelog section correction commands</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog rendering</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#cli-migration-notes">CLI migration notes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#two-step-model">Two-step model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#full-changelog-rebuild">Full changelog rebuild</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#provenance-and-canceled-releases">Provenance and canceled releases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#group-modes">Group modes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#default-template">Default template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#template-context">Template context</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#postprocessors">Postprocessors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#strict-builds">Strict builds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#release-review">Release review</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#section-correction">Section correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id1">[0.4.0] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id2">[0.3.4] - 2026-07-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id3">[0.3.3] - 2026-06-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id5">[0.3.2] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id8">[0.3.1] - 2026-06-16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id11">[0.3.0] - 2026-06-15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id14">[0.2.0] - 2026-06-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id18">[0.1.0] - 2026-06-14</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="storage/">Storage and configuration</a><ul>

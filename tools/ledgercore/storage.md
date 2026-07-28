@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/storage/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.0"
-docs_commit: "5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79"
+docs_ref: "v0.6.1"
+docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
 search_enabled: true
 ---
 
@@ -686,11 +686,34 @@ bindings, refuses conflicting destinations, and selects cache rebuild by default
 Execution defaults to copy-only mode. Destructive <code class="docutils literal notranslate"><span class="pre">mode=&quot;move&quot;</span></code> is disabled in
 0.5.1 because source cleanup is not safely recoverable. Durable mounts require
 the downstream quiescence callback.</p>
-<p>Execution uses a temporary sibling directory, refuses unexpected symlinks,
-writes the destination binding, verifies regular files, switches configuration
-atomically, and retains the source after successful activation. A schema-2
-journal is stored under <code class="docutils literal notranslate"><span class="pre">.ledger/migrations/&lt;migration-id&gt;.toml</span></code> with phases
-<code class="docutils literal notranslate"><span class="pre">planned</span></code>, <code class="docutils literal notranslate"><span class="pre">copying</span></code>, <code class="docutils literal notranslate"><span class="pre">verified</span></code>, <code class="docutils literal notranslate"><span class="pre">config-switched</span></code>, <code class="docutils literal notranslate"><span class="pre">complete</span></code>, or <code class="docutils literal notranslate"><span class="pre">failed</span></code>.</p>
+<p>Execution is a copy-only transaction. It refuses unexpected symlinks, source or
+destination aliasing, foreign ownership, path collisions, and cross-filesystem
+activation. It stages beside the activation target, writes destination bindings,
+verifies deterministic fingerprints, creates an owned backup before replacing an
+owned destination, and activates with durable atomic renames. Sources are never
+removed or modified.</p>
+<p>New executions write a schema-3 journal under
+<code class="docutils literal notranslate"><span class="pre">.ledger/migrations/&lt;migration-id&gt;.toml</span></code>. The journal is the recovery source of
+truth and records the canonical plan digest, normalized paths, binding identity,
+lock owner, hook requirements/completions, config-switch intent/application/
+verification, bounded errors, and every phase/item transition:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>planned → staging → staged → activating → items-activated →
+config-switching → config-switched → post-verifying → committed →
+cleaning-up → complete
+</pre></div>
+</div>
+<p>Item intent is persisted before each physical operation. A completion state is
+written only after the operation and its fingerprint/binding verification pass.
+Schema-3 journals are written atomically with file and directory fsync where the
+platform supports it. Schema-1 and schema-2 journals remain readable for
+compatibility but are never silently upgraded or treated as schema 3.</p>
+<p>Directory fingerprints use <code class="docutils literal notranslate"><span class="pre">sha256-tree-v1</span></code>: children are traversed recursively
+in case-sensitive POSIX-relative lexical order; directory entries encode their
+relative path, regular files encode relative path, byte length, and content
+SHA-256; UTF-8 path encoding is used; symlinks and special files are rejected;
+the root <code class="docutils literal notranslate"><span class="pre">.ledger-project.toml</span></code> marker is excluded. File fingerprints use
+<code class="docutils literal notranslate"><span class="pre">sha256-file-v1</span></code> and encode byte length plus content SHA-256, independent of the
+file name. The result also records file count and total bytes.</p>
 <p>Journal schema 2 persists exact source and destination binding identity,
 execution mode, verification mode, project root, items completed, and source
 removal outcome. Schema-1 journals from earlier versions remain inspectable
@@ -708,6 +731,41 @@ rejected with <code class="docutils literal notranslate"><span class="pre">STORA
 conversion for simple layouts. Schema-2 provider, namespace, custom path, and
 scope combinations that cannot be mapped safely require an operator decision.
 Writers emit schema 3 only. Schema 2 is deprecated outside explicit migration.</p>
+<section id="recovery-procedure">
+<h3>Recovery procedure</h3>
+<p>Inspect before choosing a policy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore</span><span class="w"> </span><span class="kn">import</span> <span class="n">inspect_storage_migration</span><span class="p">,</span> <span class="n">recover_storage_migration</span>
+
+<span class="n">assessment</span> <span class="o">=</span> <span class="n">recover_storage_migration</span><span class="p">(</span><span class="n">journal_path</span><span class="p">,</span> <span class="n">dry_run</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">assessment</span><span class="o">.</span><span class="n">recommendation</span><span class="p">,</span> <span class="n">assessment</span><span class="o">.</span><span class="n">blockers</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">auto</span></code> resumes only when every unresolved operation and owned path is provable;
+otherwise it requests manual intervention without mutation. <code class="docutils literal notranslate"><span class="pre">resume</span></code> is
+idempotent and reruns required idempotent hooks. <code class="docutils literal notranslate"><span class="pre">rollback</span></code> restores only owned
+backups/configuration whose current fingerprints still match, removes only
+journal-owned temporary paths, and preserves sources. A foreign change produces
+<code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_ROLLBACK_CONFLICT</span></code>. <code class="docutils literal notranslate"><span class="pre">dry_run=True</span></code> performs assessment and
+precondition checks only: it does not acquire a mutating lock, write a journal,
+switch configuration, or change storage.</p>
+<p>The framework-neutral CLI adapter exposes the same operation:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ledgercore migrate inspect --journal PATH
+ledgercore migrate recover --journal PATH --policy auto|resume|rollback [--dry-run]
+</pre></div>
+</div>
+<p>Downstream CLI applications register these handlers with their own parser and
+terminal framework. JSON responses use <code class="docutils literal notranslate"><span class="pre">ledgerwerk.cli.v1</span></code> and include phase,
+recommended action, blockers, journal path, stable error code, and exit category.</p>
+</section>
+<section id="releaseledger-handoff">
+<h3>Releaseledger handoff</h3>
+<p>Releaseledger should construct <code class="docutils literal notranslate"><span class="pre">StorageMigrationPlan</span></code> and
+<code class="docutils literal notranslate"><span class="pre">StorageMigrationHooks</span></code>, call <code class="docutils literal notranslate"><span class="pre">execute_storage_migration(...,</span> <span class="pre">hooks=hooks)</span></code>, and
+delegate <code class="docutils literal notranslate"><span class="pre">inspect_storage_migration</span></code>/<code class="docutils literal notranslate"><span class="pre">recover_storage_migration</span></code> to Ledgercore.
+It may retain project-specific planning, policy, receipt presentation, and CLI
+orchestration, but must not inspect stage/backup internals or duplicate copying,
+activation, rollback, configuration switching, or journal logic.</p>
+</section>
 </section>
 <section id="compatibility">
 <h2>Compatibility</h2>

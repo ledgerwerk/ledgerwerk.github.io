@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/api/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.3.4"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_ref: "v0.4.0"
+docs_commit: "867b6053dfb2aaaee32d8041f0118db40b8d496c"
 search_enabled: true
 ---
 
