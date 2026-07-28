@@ -6,7 +6,7 @@ nav_tool: repairledger-main
 docs_project: "repairledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "35958b739a2a910a389542c4a0012a3ade5dd688"
+docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
 search_enabled: true
 ---
 
@@ -556,6 +556,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="workspace">
 <h3><code class="docutils literal notranslate"><span class="pre">Workspace</span></code></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">root</span></code>: invocation root, never used for storage or default output</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_path</span></code>: absolute path to the user-global config file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repairledger_dir</span></code>: absolute path to the user-global data directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_path</span></code>: absolute path to <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config</span></code>: parsed config dict</p></li>
+</ul>
 </section>
 <section id="componentspec">
 <h3><code class="docutils literal notranslate"><span class="pre">ComponentSpec</span></code></h3>
@@ -574,9 +581,44 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">normalize_repair_selector(value,</span> <span class="pre">ledger_code)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code></p></li>
 </ul>
 </section>
+<section id="repairledger-constants">
+<h2>repairledger.constants</h2>
+<p>Global path constants and XDG/environment contract:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GLOBAL_CONFIG_ENV</span> <span class="pre">=</span> <span class="pre">&quot;REPAIRLEDGER_CONFIG&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_GLOBAL_CONFIG_FILENAME</span> <span class="pre">=</span> <span class="pre">&quot;repairledger.toml&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_DATA_SUBDIR</span> <span class="pre">=</span> <span class="pre">&quot;ledger/repairledger&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_EXPORTS_DIRNAME</span> <span class="pre">=</span> <span class="pre">&quot;exports&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_REPORTS_DIRNAME</span> <span class="pre">=</span> <span class="pre">&quot;reports&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_REPAIRS_DIRNAME</span> <span class="pre">=</span> <span class="pre">&quot;repairs&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DATA_LOCK_FILENAME</span> <span class="pre">=</span> <span class="pre">&quot;.repairledger.lock&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INIT_LOCK_SUFFIX</span> <span class="pre">=</span> <span class="pre">&quot;.lock&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOCK_TIMEOUT_SECONDS</span> <span class="pre">=</span> <span class="pre">10.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_VERSION</span> <span class="pre">=</span> <span class="pre">1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SUPPORTED_CONFIG_VERSIONS</span> <span class="pre">=</span> <span class="pre">(1,)</span></code></p></li>
+</ul>
+</section>
 <section id="repairledger-storage">
 <h2>repairledger.storage</h2>
-<p>Full CRUD operations, workspace discovery, version snapshots, component operations, status transitions, doctor, next-action.</p>
+<p>Full CRUD operations, global discovery, version snapshots, component
+operations, status transitions, doctor, next-action, inter-process locking.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">default_global_config_path()</span> <span class="pre">-&gt;</span> <span class="pre">Path</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default_global_data_path()</span> <span class="pre">-&gt;</span> <span class="pre">Path</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolve_config_path_value(config_path,</span> <span class="pre">raw)</span> <span class="pre">-&gt;</span> <span class="pre">Path</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initialize_project(data_path=None,</span> <span class="pre">config_path=None,</span> <span class="pre">...)</span> <span class="pre">-&gt;</span> <span class="pre">Workspace</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">discover_workspace(app_ctx)</span> <span class="pre">-&gt;</span> <span class="pre">Workspace</span> <span class="pre">|</span> <span class="pre">None</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load_workspace(app_ctx)</span> <span class="pre">-&gt;</span> <span class="pre">Workspace</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load_storage_data(workspace)</span> <span class="pre">-&gt;</span> <span class="pre">dict</span></code> (raises <code class="docutils literal notranslate"><span class="pre">missing_storage</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_storage_data(workspace,</span> <span class="pre">data)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></code> (under data lock)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allocate_repair_id(workspace)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> (under data lock)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_active_repair_id(workspace,</span> <span class="pre">repair_id)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></code> (under data lock)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">require_explicit_repair(workspace,</span> <span class="pre">repair_id,</span> <span class="pre">command)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> (rejects
+ambiguous mutations with <code class="docutils literal notranslate"><span class="pre">ambiguous_repair</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validate_config_version(config,</span> <span class="pre">config_path=None)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exports_dir(workspace)</span> <span class="pre">-&gt;</span> <span class="pre">Path</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_lock(workspace)</span></code> / <code class="docutils literal notranslate"><span class="pre">init_lock(config_path)</span></code> context managers</p></li>
+</ul>
 </section>
 <section id="repairledger-guardrails">
 <h2>repairledger.guardrails</h2>
@@ -593,6 +635,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">build_repair(workspace,</span> <span class="pre">repair_id,</span> <span class="pre">...)</span> <span class="pre">-&gt;</span> <span class="pre">dict</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">export_repair(workspace,</span> <span class="pre">repair_id,</span> <span class="pre">...)</span> <span class="pre">-&gt;</span> <span class="pre">dict</span></code></p></li>
 </ul>
+<p><code class="docutils literal notranslate"><span class="pre">export_repair</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">&lt;data</span> <span class="pre">path&gt;/exports/&lt;repair_id&gt;.md</span></code>.</p>
 </section>
 <section id="repairledger-report">
 <h2>repairledger.report</h2>
@@ -602,6 +645,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">build_report(workspace,</span> <span class="pre">...)</span> <span class="pre">-&gt;</span> <span class="pre">dict</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">export_report(workspace,</span> <span class="pre">...)</span> <span class="pre">-&gt;</span> <span class="pre">dict</span></code></p></li>
 </ul>
+<p><code class="docutils literal notranslate"><span class="pre">build_report</span></code> writes to <code class="docutils literal notranslate"><span class="pre">&lt;data</span> <span class="pre">path&gt;/reports/repairledger-report.md</span></code>.
+<code class="docutils literal notranslate"><span class="pre">export_report</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">&lt;data</span> <span class="pre">path&gt;/exports/repairledger-report.md</span></code>.</p>
 </section>
 <section id="repairledger-bundle">
 <h2>repairledger.bundle</h2>

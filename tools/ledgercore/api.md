@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/api/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.4.0"
-docs_commit: "5739bea2ee3b1719a6666ec7166921ca3c2c2738"
+docs_ref: "v0.6.0"
+docs_commit: "5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79"
 search_enabled: true
 ---
 
@@ -884,18 +884,10 @@ This module does not parse TOML or define tool-specific schemas.</p>
 </tr>
 </tbody>
 </table>
-<p id="ledgercorelayout">TK:</p>
 </section>
-<section id="ledgercore-layout">
-<h2><code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code></h2>
-<p>TK:
-PM:Typed Ledger-family project layout parsing and resolution. The public parser
-WB:APIs accept mappings rather than TOML file paths.
-JR:
-<strong>Package-root facade.</strong> The following layout symbols are re-exported from the
-top-level <code class="docutils literal notranslate"><span class="pre">ledgercore</span></code> package for convenience and form the supported public
-layout facade. Detailed layout dataclasses are intentionally kept under
-<code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code> and must not be imported from the package root.</p>
+<section id="ledgercore-manifest-ledgercore-overrides-and-ledgercore-tomlio">
+<span id="ledgercoremanifest"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.manifest</span></code>, <code class="docutils literal notranslate"><span class="pre">ledgercore.overrides</span></code>, and <code class="docutils literal notranslate"><span class="pre">ledgercore.tomlio</span></code></h2>
+<p>Schema 3 is the normal project layout. <code class="docutils literal notranslate"><span class="pre">StorageKind</span></code> is one of <code class="docutils literal notranslate"><span class="pre">project</span></code>, <code class="docutils literal notranslate"><span class="pre">external</span></code>, <code class="docutils literal notranslate"><span class="pre">user-data</span></code>, or <code class="docutils literal notranslate"><span class="pre">cache</span></code>. <code class="docutils literal notranslate"><span class="pre">LedgerProjectManifest</span></code>, <code class="docutils literal notranslate"><span class="pre">LedgerRegistration</span></code>, and <code class="docutils literal notranslate"><span class="pre">MountDefinition</span></code> are frozen values. <code class="docutils literal notranslate"><span class="pre">LedgerLocalOverrides</span></code> contains only overrides for existing tools and mounts.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Symbol</p></th>
@@ -903,86 +895,48 @@ layout facade. Detailed layout dataclasses are intentionally kept under
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerProjectLocator</span></code></p></td>
-<td><p>Frozen dataclass with <code class="docutils literal notranslate"><span class="pre">project_root</span></code>, <code class="docutils literal notranslate"><span class="pre">config_root</span></code>, <code class="docutils literal notranslate"><span class="pre">manifest_path</span></code>, <code class="docutils literal notranslate"><span class="pre">local_config_path</span></code>, and <code class="docutils literal notranslate"><span class="pre">source</span></code>.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_ledger_manifest_v3(document)</span></code></p></td>
+<td><p>Strict schema-3 mapping parser.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ResolvedLedgerLayout</span></code></p></td>
-<td><p>Frozen dataclass with resolved project, config, optional tool config, checkout ID, and named mounts.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_ledger_local_overrides_v3(document,</span> <span class="pre">base=...)</span></code></p></td>
+<td><p>Strict schema-aware local overlay parser.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">locate_ledger_project(start,</span> <span class="pre">...)</span></code></p></td>
-<td><p>Locate a canonical <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> project manifest or a legacy fallback.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load_ledger_project(start,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Locate, read, overlay, and return a loaded project.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_ledger_project_manifest(...)</span></code></p></td>
-<td><p>Strictly parse a schema-version-2 project manifest mapping.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">read_ledger_manifest(path)</span></code></p></td>
+<td><p>Read schema 2 or schema 3 TOML.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_ledger_local_config(...)</span></code></p></td>
-<td><p>Parse the optional schema-version-1 local override mapping.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">write_ledger_manifest(path,</span> <span class="pre">manifest,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Atomically write schema 3 TOML.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resolve_ledger_layout(...)</span></code></p></td>
-<td><p>Resolve repository, workspace, cache, and tool-config paths for one registered ledger.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">read_ledger_local_config(path,</span> <span class="pre">base=...)</span></code></p></td>
+<td><p>Read a schema-3 local overlay.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">derive_checkout_id(project_root)</span></code></p></td>
-<td><p>Derive a deterministic checkout ID from the normalized project path. Retained at the root for 0.2.x callers.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">write_ledger_local_config(path,</span> <span class="pre">overrides,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Atomically write or delete an empty overlay.</p></td>
 </tr>
-</tbody>
-</table>
-<p><strong>Detailed layout surface.</strong> The symbols below are public from <code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code>
-but are intentionally NOT re-exported from the package root. Use the explicit
-module import to keep the curated facade small.</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Symbol</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StorageClass</span></code></p></td>
-<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;repository&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;workspace&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;cache&quot;</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">StorageScope</span></code></p></td>
-<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;project&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;checkout&quot;</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ConfigLocation</span></code></p></td>
-<td><p>Literal type: <code class="docutils literal notranslate"><span class="pre">&quot;project&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;workspace&quot;</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PlatformRoots</span></code></p></td>
-<td><p>Frozen dataclass with <code class="docutils literal notranslate"><span class="pre">user_data</span></code> and <code class="docutils literal notranslate"><span class="pre">user_cache</span></code> family-root paths.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerMount</span></code></p></td>
-<td><p>Frozen dataclass describing one named mount.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ToolConfigDefinition</span></code></p></td>
-<td><p>Frozen dataclass describing one ledger config location.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerRegistration</span></code></p></td>
-<td><p>Frozen dataclass with one ledger name, config definition, and named mounts.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerProjectManifest</span></code></p></td>
-<td><p>Frozen dataclass describing the parsed schema-version-2 project manifest.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerLocalConfig</span></code></p></td>
-<td><p>Frozen dataclass for optional machine-local overrides.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ResolvedMount</span></code></p></td>
-<td><p>Frozen dataclass with resolved mount path, scoped root, and source.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">set_local_mount_override(...)</span></code> / <code class="docutils literal notranslate"><span class="pre">clear_local_mount_override(...)</span></code></p></td>
+<td><p>Return immutable local values without writing.</p></td>
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal notranslate"><span class="pre">StorageResolutionSource</span></code> includes <code class="docutils literal notranslate"><span class="pre">&quot;local-provider&quot;</span></code> for the selected built-in
-<code class="docutils literal notranslate"><span class="pre">sibling-ledger</span></code> workspace backend. This is an internal resolution detail; there is
-no public provider declaration or topology type. The accepted machine-local provider
-value is <code class="docutils literal notranslate"><span class="pre">sibling-ledger</span></code>. It resolves a direct project-scoped workspace mount below
-<code class="docutils literal notranslate"><span class="pre">&lt;project-root&gt;/../ledger</span></code> and requires a regular <code class="docutils literal notranslate"><span class="pre">.ledger-store</span></code> marker there.</p>
-<p>Root overrides remain namespaced and preserve the existing precedence order. The
-direct provider rejects cache selection, checkout-scoped workspace mounts, unknown
-provider names, workspace-located tool configuration, and missing or invalid sibling
-storage without fallback. Resolution is read-only. Downstream tools own marker
-initialization, project binding, migration, ID allocation, and Git behavior.</p>
-<p><code class="docutils literal notranslate"><span class="pre">parse_ledger_project_manifest</span></code> and <code class="docutils literal notranslate"><span class="pre">parse_ledger_local_config</span></code> accept mappings,
-not TOML file paths. Manually built manifests that bypass parser validation remain
-unsupported inputs when they request workspace tool configuration; the resolver rejects
-that configuration explicitly.
-SM:</p>
+</section>
+<section id="ledgercore-storage-paths">
+<h2><code class="docutils literal notranslate"><span class="pre">ledgercore.storage_paths</span></code></h2>
+<p>Pure path helpers derive <code class="docutils literal notranslate"><span class="pre">.ledger/&lt;tool&gt;/config.toml</span></code>, project mounts, external mounts below <code class="docutils literal notranslate"><span class="pre">&lt;root&gt;/&lt;tool&gt;/&lt;uuid&gt;/&lt;mount&gt;</span></code>, user-data mounts, and checkout cache mounts below <code class="docutils literal notranslate"><span class="pre">&lt;cache&gt;/&lt;tool&gt;/&lt;uuid&gt;/&lt;checkout&gt;/&lt;mount&gt;</span></code>.</p>
+</section>
+<section id="ledgercore-storage-binding">
+<h2><code class="docutils literal notranslate"><span class="pre">ledgercore.storage_binding</span></code></h2>
+<p><code class="docutils literal notranslate"><span class="pre">StorageBinding</span></code> describes a <code class="docutils literal notranslate"><span class="pre">.ledger-project.toml</span></code> marker. <code class="docutils literal notranslate"><span class="pre">initialize_storage_binding</span></code>, <code class="docutils literal notranslate"><span class="pre">initialize_config_binding</span></code>, <code class="docutils literal notranslate"><span class="pre">read_storage_binding</span></code>, <code class="docutils literal notranslate"><span class="pre">write_storage_binding</span></code>, <code class="docutils literal notranslate"><span class="pre">validate_storage_binding</span></code>, and <code class="docutils literal notranslate"><span class="pre">validate_ledger_layout_storage</span></code> provide explicit marker lifecycle and read-only validation. <code class="docutils literal notranslate"><span class="pre">storage_binding_to_mapping</span></code> and <code class="docutils literal notranslate"><span class="pre">storage_binding_from_mapping</span></code> convert bindings to and from plain mappings for serialization in journals. <code class="docutils literal notranslate"><span class="pre">initialize_external_store</span></code> and <code class="docutils literal notranslate"><span class="pre">validate_external_store</span></code> manage <code class="docutils literal notranslate"><span class="pre">.ledger-store.toml</span></code>.</p>
+</section>
+<section id="ledgercore-migration">
+<h2><code class="docutils literal notranslate"><span class="pre">ledgercore.migration</span></code></h2>
+<p><code class="docutils literal notranslate"><span class="pre">plan_storage_migration</span></code> resolves source and target layouts without writes. <code class="docutils literal notranslate"><span class="pre">execute_storage_migration</span></code> performs verified copy-only activation with temporary destinations, a downstream quiescence callback, atomic configuration switching, and a schema-2 journal. Destructive <code class="docutils literal notranslate"><span class="pre">mode=&quot;move&quot;</span></code> is disabled in 0.5.1. <code class="docutils literal notranslate"><span class="pre">inspect_storage_migration</span></code> reads schema-1 and schema-2 journals; schema-1 journals have bindings, mode, verification, project root, and cleanup outcome set to <code class="docutils literal notranslate"><span class="pre">None</span></code>. <code class="docutils literal notranslate"><span class="pre">recover_storage_migration</span></code> is read-only and returns completed journal results only (<code class="docutils literal notranslate"><span class="pre">source_removed=False</span></code> for schema-2 copy, <code class="docutils literal notranslate"><span class="pre">source_removed=None</span></code> for schema-1); incomplete journals require manual intervention and raise <code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_MANUAL_INTERVENTION_REQUIRED</span></code>. Invalid journals raise <code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_JOURNAL_INVALID</span></code>. <code class="docutils literal notranslate"><span class="pre">plan_schema_v2_to_v3</span></code> provides conservative schema conversion.</p>
+</section>
+<section id="ledgercore-layout-compatibility-facade">
+<h2><code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code> compatibility facade</h2>
+<p><code class="docutils literal notranslate"><span class="pre">parse_ledger_project_manifest</span></code> dispatches schema 2 and schema 3 mappings. The schema-2 layout dataclasses and provider vocabulary remain compatibility inputs and emit deprecation warnings. Schema-3 resolution is side-effect free and returns deterministic config and mount paths.</p>
 </section>
 <section id="ledgercore-path-text">
 <h2><code class="docutils literal notranslate"><span class="pre">ledgercore.path_text</span></code></h2>

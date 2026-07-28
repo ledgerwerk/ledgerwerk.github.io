@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -586,15 +586,15 @@ taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w
 </div>
 <p>Rules:</p>
 <ul class="simple">
-<li><p>Keep <code class="docutils literal notranslate"><span class="pre">project_uuid</span></code> committed in <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> (or legacy <code class="docutils literal notranslate"><span class="pre">.taskledger.toml</span></code> if the project still uses it).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code> is local operational state and can be absent on another PC.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> after cloning to create local state.</p></li>
+<li><p>Keep the project UUID in the schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> manifest.</p></li>
+<li><p>Inspect resolved data and index mounts with <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> after cloning when the configured mounts are absent.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">export</span> <span class="pre">--task</span> <span class="pre">TASK_REF</span></code> and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">export</span> <span class="pre">TASK_REF</span></code> export task-scoped archives.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">sync</span> <span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">sync</span> <span class="pre">import</span></code> are aliases for the same archive transfer primitives.</p></li>
 <li><p>Task-scoped import is additive by default; if the task id already exists locally, import renumbers and reports an id map.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--replace</span></code> is for full-state replacement, not the normal single-task workflow.</p></li>
-<li><p>Import repairs <code class="docutils literal notranslate"><span class="pre">ledger_next_task_number</span></code> so future <code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">create</span></code> ids remain unique.</p></li>
-<li><p>Use <a class="reference internal" href="../sync/"><span class="doc">Sync taskledger state across PCs</span></a> when you want to keep an external <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code> in a private Git repository and sync full project state between PCs.</p></li>
+<li><p>Task IDs are allocated from the active ledger’s task and tombstone inventory; imports do not restore a persisted counter.</p></li>
+<li><p>Use the explicit Taskledger Git sync commands when you want to synchronize the UUID-scoped sibling data directory between PCs.</p></li>
 </ul>
 </section>
 <section id="dry-run-import">

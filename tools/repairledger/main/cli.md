@@ -6,7 +6,7 @@ nav_tool: repairledger-main
 docs_project: "repairledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "35958b739a2a910a389542c4a0012a3ade5dd688"
+docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
 search_enabled: true
 ---
 
@@ -542,7 +542,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="cli-reference">
 <h1>CLI reference</h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">repairledger</span> <span class="p">[</span><span class="o">--</span><span class="n">root</span> <span class="n">PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">cwd</span> <span class="n">PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">json</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">version</span><span class="p">]</span> <span class="n">COMMAND</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">repairledger</span> <span class="p">[</span><span class="o">--</span><span class="n">cwd</span> <span class="n">PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">json</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">version</span><span class="p">]</span> <span class="n">COMMAND</span>
 </pre></div>
 </div>
 <section id="global-options">
@@ -554,17 +554,49 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--root</span> <span class="pre">PATH</span></code></p></td>
-<td><p>Root directory for the workspace.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--cwd</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Current working directory (invocation context only).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--cwd</span> <span class="pre">PATH</span></code></p></td>
-<td><p>Current working directory.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--json</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--json</span></code></p></td>
 <td><p>Output JSON envelopes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--version</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--version</span></code></p></td>
 <td><p>Show version and exit.</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">--root</span> <span class="pre">PATH</span></code> is accepted for backward compatibility but is <strong>deprecated</strong>:
+Repairledger has no workspace root. The value only affects the
+<code class="docutils literal notranslate"><span class="pre">Workspace.root</span></code> field of internal data classes.</p>
+</section>
+<section id="initialization">
+<h2>Initialization</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repairledger<span class="w"> </span>init
+repairledger<span class="w"> </span>init<span class="w"> </span>--data-path<span class="w"> </span>/custom/path
+repairledger<span class="w"> </span>init<span class="w"> </span>--config-path<span class="w"> </span>/custom/path/rl.toml
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--data-path</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Absolute or <code class="docutils literal notranslate"><span class="pre">~</span></code>-expanded data path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--config-path</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Absolute custom global config file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--repairledger-dir</span></code></p></td>
+<td><p>Deprecated alias for <code class="docutils literal notranslate"><span class="pre">--data-path</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--project-name</span></code></p></td>
+<td><p>Deprecated; ignored (no project section).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--hidden-config</span></code></p></td>
+<td><p>Rejected (<code class="docutils literal notranslate"><span class="pre">unsupported_local_config</span></code>).</p></td>
 </tr>
 </tbody>
 </table>
@@ -579,16 +611,16 @@ html[data-theme="dark"] .sphinxpress-doc {
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></td>
-<td><p>Initialize a new workspace.</p></td>
+<td><p>Initialize the user-global config and data path.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
-<td><p>Show workspace status.</p></td>
+<td><p>Show Repairledger status. Read-only.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
-<td><p>Show workspace or repair information.</p></td>
+<td><p>Show Repairledger config or repair info.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code></p></td>
-<td><p>Run workspace diagnostics.</p></td>
+<td><p>Run Repairledger diagnostics. Read-only.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">next-action</span> <span class="pre">[REPAIR_ID]</span></code></p></td>
 <td><p>Show the next recommended action.</p></td>
@@ -618,16 +650,16 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p>Show a repair observation.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">status</span> <span class="pre">[REPAIR_ID]</span> <span class="pre">STATUS</span></code></p></td>
-<td><p>Change repair status.</p></td>
+<td><p>Change repair status. Requires <code class="docutils literal notranslate"><span class="pre">--repair</span></code> when &gt;1 repairs exist.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">archive</span> <span class="pre">[REPAIR_ID]</span></code></p></td>
-<td><p>Archive a repair.</p></td>
+<td><p>Archive a repair. Requires <code class="docutils literal notranslate"><span class="pre">--repair</span></code> when &gt;1 repairs exist.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">build</span> <span class="pre">[REPAIR_ID]</span></code></p></td>
-<td><p>Build rendered artifacts.</p></td>
+<td><p>Build rendered artifacts. Requires <code class="docutils literal notranslate"><span class="pre">--repair</span></code> when &gt;1 repairs exist.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">export</span> <span class="pre">[REPAIR_ID]</span></code></p></td>
-<td><p>Export repair Markdown.</p></td>
+<td><p>Export repair Markdown to global <code class="docutils literal notranslate"><span class="pre">exports/</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">validate</span> <span class="pre">[REPAIR_ID]</span></code></p></td>
 <td><p>Validate a repair.</p></td>
@@ -660,10 +692,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p>Show a component.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">component</span> <span class="pre">set</span> <span class="pre">KEY</span></code></p></td>
-<td><p>Set a component.</p></td>
+<td><p>Set a component. Requires <code class="docutils literal notranslate"><span class="pre">--repair</span></code> when &gt;1 repairs exist.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">component</span> <span class="pre">append</span> <span class="pre">KEY</span></code></p></td>
-<td><p>Append to a component.</p></td>
+<td><p>Append to a component. Requires <code class="docutils literal notranslate"><span class="pre">--repair</span></code> when &gt;1 repairs exist.</p></td>
 </tr>
 </tbody>
 </table>
@@ -678,10 +710,34 @@ html[data-theme="dark"] .sphinxpress-doc {
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">report</span> <span class="pre">build</span></code></p></td>
-<td><p>Build aggregate report (to storage).</p></td>
+<td><p>Build aggregate report to global <code class="docutils literal notranslate"><span class="pre">reports/</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">report</span> <span class="pre">export</span></code></p></td>
-<td><p>Export aggregate report (to workspace root).</p></td>
+<td><p>Export aggregate report to global <code class="docutils literal notranslate"><span class="pre">exports/</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="environment-variables">
+<h2>Environment variables</h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">REPAIRLEDGER_CONFIG</span></code></p></td>
+<td><p>Absolute path to a custom config file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_HOME</span></code></p></td>
+<td><p>Overrides the base directory for the config file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">XDG_DATA_HOME</span></code></p></td>
+<td><p>Overrides the base directory for the data path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HOME</span></code></p></td>
+<td><p>Used as the fallback for <code class="docutils literal notranslate"><span class="pre">~</span></code> expansion.</p></td>
 </tr>
 </tbody>
 </table>

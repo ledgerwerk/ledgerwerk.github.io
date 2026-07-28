@@ -4,17 +4,17 @@ nav_key: ledgercore
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.4.0
-source_commit: 5739bea2ee3b1719a6666ec7166921ca3c2c2738
-source_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.4.0
+source_ref: v0.6.0
+source_commit: 5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79
+source_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.0
 is_default: true
 repo_url: https://github.com/ledgerwerk/ledgercore
-release_tag: v0.4.0
-release_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.4.0
+release_tag: v0.6.0
+release_url: https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.4.0
+  ref: v0.6.0
   url: /tools/ledgercore/
   current: true
 - name: main
@@ -33,8 +33,11 @@ entries:
   title: ledgercore Cross-ledger references
   url: /tools/ledgercore/references/
 - slug: storage
-  title: ledgercore Storage helpers
+  title: Ledgercore storage
   url: /tools/ledgercore/storage/
 - slug: release
   title: ledgercore Release process
   url: /tools/ledgercore/release/
+- slug: changelog
+  title: ledgercore Changelog
+  url: /tools/ledgercore/changelog/

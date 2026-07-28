@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -568,14 +568,38 @@ skill, an agent may not know the intended command sequence or gate semantics.</p
 <section id="initialize-state">
 <h2>Initialize state</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>init
-taskledger<span class="w"> </span>init<span class="w"> </span>--taskledger-dir<span class="w"> </span>/mnt/cloud/taskledger/project-a
+taskledger<span class="w"> </span>storage<span class="w"> </span>where
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> writes <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> in the workspace root. The
-config defaults to <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span> <span class="pre">=</span> <span class="pre">&quot;.taskledger&quot;</span></code> and stores only safe
-branch-scoped ledger state such as <code class="docutils literal notranslate"><span class="pre">ledger_ref</span></code> and
-<code class="docutils literal notranslate"><span class="pre">ledger_next_task_number</span></code>. <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code> remains ignored and stores
-operational task state under <code class="docutils literal notranslate"><span class="pre">.taskledger/ledgers/&lt;ledger_ref&gt;/</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> writes a schema-3 Ledger manifest at <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> and
+Taskledger configuration at <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>. Default data is
+external at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; indexes are cache storage. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>
+and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">set</span></code> for storage selection. Branch state remains in
+the resolved data mount’s <code class="docutils literal notranslate"><span class="pre">state.toml</span></code>.</p>
+<p>The manifest registration is authoritative. A <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/</span></code> directory
+or <code class="docutils literal notranslate"><span class="pre">config.toml</span></code> does not register Taskledger until <code class="docutils literal notranslate"><span class="pre">[ledgers.taskledger]</span></code> is
+present in <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>. Once a canonical manifest is found, discovery
+never falls back to <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">.taskledger.toml</span></code>, or <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code>.
+Reads are side-effect free, and canonical-unregistered mutations fail before
+writing; use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> to add the registration. Doctor reports orphan
+configs, legacy shadows, and split-brain histories. Back up and recover those
+histories explicitly—Taskledger does not merge or delete them automatically.</p>
+</section>
+<section id="storage-migration-recovery">
+<h2>Storage migration recovery</h2>
+<p>Legacy Taskledger data is discovered independently from the canonical Ledger manifest.
+The canonical manifest UUID is authoritative when it differs from the legacy Taskledger
+UUID. Inspect and apply with the same destination and source options:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>--sibling-ledger-root<span class="w"> </span>../ledger
+taskledger<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>--sibling-ledger-root<span class="w"> </span>../ledger<span class="w"> </span>--source-data-root<span class="w"> </span>../ledger/taskledger/LEGACY_UUID/data
+taskledger<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>--sibling-ledger-root<span class="w"> </span>../ledger
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--source-data-root</span></code> selects a data root. <code class="docutils literal notranslate"><span class="pre">--source-checkout-id</span></code> selects a checkout
+identifier and is not a filesystem path. Backups are automatic. Existing ledger
+registrations and the legacy source remain in place by default. Metadata-only targets
+are backed up and replaced atomically; authoritative split-brain targets are blocked.
+Do not create bindings or copy task directories manually.</p>
 </section>
 <section id="branch-local-task-work">
 <h2>Branch-local task work</h2>
@@ -1119,15 +1143,17 @@ taskledger<span class="w"> </span>--json<span class="w"> </span>review<span clas
 </pre></div>
 </div>
 </section>
-<section id="cloud-backed-storage">
-<h2>Cloud-backed storage</h2>
-<p>Use one storage root per source project:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>init<span class="w"> </span>--taskledger-dir<span class="w"> </span>/mnt/cloud/taskledger/project-a
+<section id="resolved-storage">
+<h2>Resolved storage</h2>
+<p>Use the schema-3 Ledgercore mounts:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>init
+taskledger<span class="w"> </span>storage<span class="w"> </span>where
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>data
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>indexes
+taskledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>user-data<span class="w"> </span>--local<span class="w"> </span>--move
 </pre></div>
 </div>
-<p>Do not point two unrelated repositories at the same <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code>.
-See <a class="reference internal" href="../sync/"><span class="doc">Sync taskledger state across PCs</span></a> for the recommended private-Git workflow when you want to use
-the same Taskledger state across multiple PCs without committing <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code>.</p>
+<p>Default data is external at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; indexes are checkout-specific cache data.</p>
 </section>
 <section id="integrity-and-recovery">
 <h2>Integrity and recovery</h2>
@@ -1216,7 +1242,7 @@ opaque link refs, source refs, evidence refs, changes, reviews, and handoffs.</p
 </section>
 <section id="canonical-project-layout">
 <h2>Canonical project layout</h2>
-<p>Taskledger uses <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">.ledger/task/config.toml</span></code>. Plain init resolves authoritative data under <code class="docutils literal notranslate"><span class="pre">.ledger</span></code>; explicit sibling storage uses <code class="docutils literal notranslate"><span class="pre">--sibling-ledger-root</span> <span class="pre">PATH</span></code> and isolates data under <code class="docutils literal notranslate"><span class="pre">PATH/taskledger/&lt;project-uuid&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code> reports the resolved <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">indexes</span></code> mounts. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|indexes</span></code> for one mount without initializing lazy mounts.</p>
+<p>Taskledger uses a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> manifest and <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>. The default persistent <code class="docutils literal notranslate"><span class="pre">data</span></code> mount is external storage rooted at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; <code class="docutils literal notranslate"><span class="pre">indexes</span></code> is cache storage. A machine-local <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code> may select <code class="docutils literal notranslate"><span class="pre">user-data</span></code> for <code class="docutils literal notranslate"><span class="pre">data</span></code>. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|indexes</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">set</span></code>, and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">clear-override</span></code> to inspect or change mounts.</p>
 </section>
 </section>
 </div>

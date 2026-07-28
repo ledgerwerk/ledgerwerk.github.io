@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -567,9 +567,10 @@ I/O, front matter parsing, and cross-ledger ref parsing are delegated to
 <section id="storage-model">
 <h2>Storage model</h2>
 <p>Markdown records are canonical. Task, plan, and run reads come from those
-records directly. The <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index under
-<code class="docutils literal notranslate"><span class="pre">.taskledger/ledgers/&lt;ledger_ref&gt;/</span></code> is a derived cache that per-task sidecar
-writes update in place. Action and event logging is enabled by default and
+records directly. The authoritative Taskledger data mount is
+<code class="docutils literal notranslate"><span class="pre">../ledger/taskledger/&lt;project-uuid&gt;</span></code> under the shared sibling base. The
+<code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index and other rebuildable indexes are
+checkout-scoped cache data. Action and event logging is enabled by default and
 appends immutable <code class="docutils literal notranslate"><span class="pre">TaskEvent</span></code> records to the ledger-level <code class="docutils literal notranslate"><span class="pre">events/</span></code>
 directory. Active stages require visible lock files, and stale locks are
 reported instead of being cleared silently.</p>
@@ -602,8 +603,9 @@ is <code class="docutils literal notranslate"><span class="pre">taskledger/comma
 </section>
 <section id="architecture-records">
 <h2>Architecture records</h2>
-<p>Arc42 architecture records live under <code class="docutils literal notranslate"><span class="pre">.archledger/</span></code> and are the source of
-truth for <code class="docutils literal notranslate"><span class="pre">ARCHITECTURE.md</span></code>. Skills (<code class="docutils literal notranslate"><span class="pre">skills/taskledger/SKILL.md</span></code>) and
+<p>Arc42 architecture records live under the Archledger direct sibling mount
+<code class="docutils literal notranslate"><span class="pre">../ledger/archledger/&lt;project-uuid&gt;/</span></code> and are the source of
+<code class="docutils literal notranslate"><span class="pre">ARCHITECTURE.md</span></code>. Skills (<code class="docutils literal notranslate"><span class="pre">skills/taskledger/SKILL.md</span></code>) and
 <code class="docutils literal notranslate"><span class="pre">docs/architecture_taskledger_split.md</span></code> live outside the Python package and
 outside the archledger build output.</p>
 </section>

@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -752,6 +752,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">storage_where</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">storage_path</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">storage_move</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_validate</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_set</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_clear_override</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_inspect</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_apply</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_status</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_recover</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync_preflight</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync_status</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync_commit</span></code></p></li>

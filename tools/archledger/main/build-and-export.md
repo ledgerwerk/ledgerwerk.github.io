@@ -6,7 +6,7 @@ nav_tool: archledger-main
 docs_project: "archledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_commit: "86a798bba520a788344889d25539b2b4cbd0dc11"
 search_enabled: true
 ---
 
@@ -548,9 +548,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>asciidoc
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">[build].default_output_dir</span></code> is relative to the directory containing
-<code class="docutils literal notranslate"><span class="pre">archledger.toml</span></code> or <code class="docutils literal notranslate"><span class="pre">.archledger.toml</span></code>. New projects default to <code class="docutils literal notranslate"><span class="pre">build/</span></code>
-under the workspace root, and projects may override this path.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[build].default_output_dir</span></code> is relative to the project root. Stable settings are stored in <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code>, while profile sections and state are relative to <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code>.</p>
 </section>
 <section id="converter-backed-exports">
 <h2>Converter-backed exports</h2>

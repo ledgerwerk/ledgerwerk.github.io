@@ -6,7 +6,7 @@ nav_tool: archledger-main
 docs_project: "archledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_commit: "86a798bba520a788344889d25539b2b4cbd0dc11"
 search_enabled: true
 ---
 
@@ -589,7 +589,7 @@ archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span cla
 <section id="mutation-rules">
 <h2>Mutation rules</h2>
 <ul class="simple">
-<li><p>Edit only source fragments under <code class="docutils literal notranslate"><span class="pre">archledger_dir/sections</span></code> and <code class="docutils literal notranslate"><span class="pre">archledger_dir/records</span></code>.</p></li>
+<li><p>Edit only source fragments under <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/profiles/arc42/sections</span></code> and <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/records</span></code>.</p></li>
 <li><p>Prefer Archledger mutation commands so record versions stay consistent.</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">record</span> <span class="pre">body</span> <span class="pre">set</span> <span class="pre">RECORD_ID</span> <span class="pre">--from-file</span> <span class="pre">/tmp/body.md</span></code> for substantial body updates.</p></li>
 <li><p>For list or object metadata, use <code class="docutils literal notranslate"><span class="pre">--json-value</span></code>.</p></li>

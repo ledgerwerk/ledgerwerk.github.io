@@ -1,12 +1,12 @@
 ---
 layout: tool-doc
-title: "repairledger Installation"
-permalink: /tools/repairledger/main/installation/
-nav_tool: repairledger-main
-docs_project: "repairledger"
+title: "archledger Storage and migration"
+permalink: /tools/archledger/main/storage/
+nav_tool: archledger-main
+docs_project: "archledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
+docs_commit: "86a798bba520a788344889d25539b2b4cbd0dc11"
 search_enabled: true
 ---
 
@@ -540,35 +540,36 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="installation">
-<h1>Installation</h1>
-<section id="from-pypi">
-<h2>From PyPI</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>repairledger
+<section id="storage-and-migration">
+<h1>Storage and migration</h1>
+<p>Archledger derives its storage topology from Ledgercore. The shared project
+manifest is <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>; the Archledger tool configuration is
+<code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code>; and authoritative source data is under
+<code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code>. Do not infer paths from old <code class="docutils literal notranslate"><span class="pre">archledger_dir</span></code> values.</p>
+<p>Inspect the effective topology without writes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>storage<span class="w"> </span>where
+archledger<span class="w"> </span>--json<span class="w"> </span>storage<span class="w"> </span>validate
 </pre></div>
 </div>
-</section>
-<section id="from-source">
-<h2>From source</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/holgern/repairledger.git
-<span class="nb">cd</span><span class="w"> </span>repairledger
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code> changes the manifest or local override only. It does not move
+authoritative data. A topology change that needs data movement must be planned
+and applied through the canonical migration handler:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>--storage<span class="w"> </span>external<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-root<span class="w"> </span>../archledger-data<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;use shared data volume&quot;</span>
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>storage-layout<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage<span class="w"> </span>external<span class="w"> </span>--external-root<span class="w"> </span>../archledger-data
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>storage-layout<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;activate reviewed storage plan&quot;</span>
 </pre></div>
 </div>
-</section>
-<section id="development-installation">
-<h2>Development installation</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
-</pre></div>
-</div>
-</section>
-<section id="requirements">
-<h2>Requirements</h2>
-<ul class="simple">
-<li><p>Python &gt;= 3.10</p></li>
-<li><p>Dependencies: typer, ledgercore, PyYAML, tomli (Python &lt; 3.11)</p></li>
-</ul>
-</section>
+<p>Plans are strict, hashed, tied to the project root and source fingerprint, and
+must be recreated after topology or data changes. The source remains preserved
+until a successful activation receipt exists. Never copy or move the data
+directory manually.</p>
+<p>The installed Ledgercore release reports its migration capabilities in plan,
+status, and apply results. When schema-3 execution hooks or resume/rollback
+recovery are unavailable, Archledger reports <code class="docutils literal notranslate"><span class="pre">manual-intervention</span></code> and does
+not attempt an unsafe move.</p>
 </section>
 </div>
 <script data-sphinxpress-script="search" defer>

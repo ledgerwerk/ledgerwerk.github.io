@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a6396d20598efec7b0464ac52fb2d52a62872027"
+docs_commit: "17a3c69ad1394ee99c66706c33d9351748b42f57"
 search_enabled: true
 ---
 
@@ -688,6 +688,17 @@ docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span cl
 <li><p>Ignore <code class="docutils literal notranslate"><span class="pre">.documentledger/rendered/</span></code>. Rendered context is regenerated on demand by <code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">build-context</span></code>.</p></li>
 </ul>
 <p>Do not edit <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> files directly; use the <code class="docutils literal notranslate"><span class="pre">docledger</span></code> commands so the records stay consistent.</p>
+</section>
+<section id="storage-commands">
+<h2>Storage commands</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">storage</span> <span class="pre">where</span></code> to inspect the active layout. Migrate a legacy workspace with a reviewed dry-run plan, then verify before any cleanup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>storage<span class="w"> </span>migrate<span class="w"> </span>--dry-run<span class="w"> </span>--plan-file<span class="w"> </span>migration.json
+docledger<span class="w"> </span>storage<span class="w"> </span>migrate<span class="w"> </span>--plan-file<span class="w"> </span>migration.json<span class="w"> </span>--adopt-project-uuid
+docledger<span class="w"> </span>storage<span class="w"> </span>verify<span class="w"> </span>--strict
+docledger<span class="w"> </span>storage<span class="w"> </span>cleanup-legacy<span class="w"> </span>--dry-run
+</pre></div>
+</div>
+<p>Routine commands never migrate automatically and read-only commands do not initialize cache directories or repair bindings.</p>
 </section>
 </section>
 </div>

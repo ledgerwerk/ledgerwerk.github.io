@@ -6,7 +6,7 @@ nav_tool: ledgercore-main
 docs_project: "ledgercore"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "5739bea2ee3b1719a6666ec7166921ca3c2c2738"
+docs_commit: "887438146ee163ee7a38e790c74ee2b43603b986"
 search_enabled: true
 ---
 
@@ -574,7 +574,11 @@ hands-on introduction.</p>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-jsonio"><code class="docutils literal notranslate"><span class="pre">ledgercore.jsonio</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-jsonl"><code class="docutils literal notranslate"><span class="pre">ledgercore.jsonl</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-paths"><code class="docutils literal notranslate"><span class="pre">ledgercore.paths</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-layout"><code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-manifest-ledgercore-overrides-and-ledgercore-tomlio"><code class="docutils literal notranslate"><span class="pre">ledgercore.manifest</span></code>, <code class="docutils literal notranslate"><span class="pre">ledgercore.overrides</span></code>, and <code class="docutils literal notranslate"><span class="pre">ledgercore.tomlio</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-storage-paths"><code class="docutils literal notranslate"><span class="pre">ledgercore.storage_paths</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-storage-binding"><code class="docutils literal notranslate"><span class="pre">ledgercore.storage_binding</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-migration"><code class="docutils literal notranslate"><span class="pre">ledgercore.migration</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-layout-compatibility-facade"><code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code> compatibility facade</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-path-text"><code class="docutils literal notranslate"><span class="pre">ledgercore.path_text</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-hashing"><code class="docutils literal notranslate"><span class="pre">ledgercore.hashing</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-refs"><code class="docutils literal notranslate"><span class="pre">ledgercore.refs</span></code></a></li>
@@ -594,13 +598,13 @@ hands-on introduction.</p>
 <li class="toctree-l2"><a class="reference internal" href="references/#checking-validity">Checking validity</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="storage/">Storage helpers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="storage/#atomic-writes">Atomic writes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="storage/#front-matter-documents">Front matter documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="storage/#json-store">JSON store</a></li>
-<li class="toctree-l2"><a class="reference internal" href="storage/#jsonl-store">JSONL store</a></li>
-<li class="toctree-l2"><a class="reference internal" href="storage/#yaml-store">YAML store</a></li>
-<li class="toctree-l2"><a class="reference internal" href="storage/#path-safety">Path safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage/">Ledgercore storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storage/#storage-kinds">Storage kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#loading-and-resolving">Loading and resolving</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#local-overlays">Local overlays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#binding-markers">Binding markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#migration">Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#compatibility">Compatibility</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release/">Release process</a><ul>
@@ -612,6 +616,15 @@ hands-on introduction.</p>
 <li class="toctree-l2"><a class="reference internal" href="release/#artifact-content-verification">Artifact content verification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/#publishing">Publishing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/#version-policy">Version policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id1">[0.6.0] - 2026-07-27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id2">[0.5.0] - 2026-07-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id5">[0.5.1] - 2026-07-27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id8">[0.2.1] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id11">[0.2.0] - 2026-06-13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id15">[0.1.0] - 2026-06-12</a></li>
 </ul>
 </li>
 </ul>

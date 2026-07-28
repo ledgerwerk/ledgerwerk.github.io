@@ -6,7 +6,7 @@ nav_tool: archledger-main
 docs_project: "archledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_commit: "86a798bba520a788344889d25539b2b4cbd0dc11"
 search_enabled: true
 ---
 
@@ -550,8 +550,14 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="cli/#ledger-boundary">Ledger boundary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#init-initialize-a-workspace"><code class="docutils literal notranslate"><span class="pre">init</span></code> — Initialize a workspace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#other-commands">Other commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#project-storage-migration">Project storage migration</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cli-reference/">CLI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli-reference/#canonical-syntax-and-compatibility-aliases">Canonical syntax and compatibility aliases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage/">Storage and migration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration/">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="configuration/#important-sections">Important sections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/#example">Example</a></li>

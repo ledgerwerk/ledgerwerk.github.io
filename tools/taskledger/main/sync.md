@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -542,41 +542,38 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="sync-taskledger-state-across-pcs">
 <h1>Sync taskledger state across PCs</h1>
-<p>Taskledger already supports keeping durable task state outside the source
-repository. The recommended workflow is to commit only <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> in
-the source repo, point <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code> at an external sibling directory, and
-sync that external directory with a private Git repository.</p>
-<section id="external-state-directory">
-<h2>External state directory</h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span> <span class="pre">--taskledger-dir</span></code> or edit <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> so the
-workspace keeps only config while the durable state lives elsewhere:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">config_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
-<span class="n">taskledger_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;../taskledger-state/project-a&quot;</span>
-<span class="n">project_uuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;keep-existing-uuid&quot;</span>
-<span class="n">project_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;project-a&quot;</span>
-<span class="n">ledger_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;main&quot;</span>
+<p>Taskledger stores durable state below the Ledgercore-resolved <code class="docutils literal notranslate"><span class="pre">data</span></code> mount. The
+default mount is external storage at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; local overrides may select
+<code class="docutils literal notranslate"><span class="pre">user-data</span></code>. Rebuildable indexes are always resolved as cache storage.</p>
+<section id="schema-3-project-state">
+<h2>Schema-3 project state</h2>
+<p>The canonical layout is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/me/src/project-a/.ledger/ledger.toml
+/home/me/src/project-a/.ledger/taskledger/config.toml
+/home/me/src/ledger/taskledger/&lt;project-uuid&gt;/data
+&lt;user-cache&gt;/taskledger/&lt;project-uuid&gt;/&lt;checkout&gt;/indexes
 </pre></div>
 </div>
-<p>Relative paths are preferred because they keep the same sibling layout working
-across multiple PCs.</p>
+<p>Initialize and inspect the resolved mounts explicitly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>init
+taskledger<span class="w"> </span>storage<span class="w"> </span>where
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>data
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>indexes
+taskledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>user-data<span class="w"> </span>--local<span class="w"> </span>--move
+</pre></div>
+</div>
+<p>The project UUID and Ledgercore binding keep shared projects isolated.</p>
 </section>
-<section id="private-state-git-repo">
-<h2>Private state Git repo</h2>
-<p>Recommended layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/me/src/project-a/                  # source repo
-/home/me/src/taskledger-state/           # private state repo
-/home/me/src/taskledger-state/project-a/
-  storage.yaml
-  ledgers/
-    main/
-      tasks/
-      events/
-      releases/
-      indexes/
+<section id="shared-state-git-repo">
+<h2>Shared state Git repo</h2>
+<p>The sibling store can be an explicit Git repository. Taskledger Git sync derives
+the repository root and limits canonical operations to the resolved project path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>init
+taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>status
+taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>pull
+taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>push
 </pre></div>
 </div>
-<p>The source repository keeps <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> and ignores <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code>.
-The private state repository stores the external <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code> contents.</p>
 </section>
 <section id="second-pc-bootstrap">
 <h2>Second PC bootstrap</h2>

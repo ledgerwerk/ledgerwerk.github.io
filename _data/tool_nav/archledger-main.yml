@@ -5,7 +5,7 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: f3ce2dfd528705438caf0d95ab6d8690443ba043
+source_commit: 86a798bba520a788344889d25539b2b4cbd0dc11
 source_url: https://github.com/ledgerwerk/archledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/archledger
@@ -29,6 +29,12 @@ entries:
 - slug: cli
   title: archledger CLI guide
   url: /tools/archledger/main/cli/
+- slug: cli-reference
+  title: archledger CLI reference
+  url: /tools/archledger/main/cli-reference/
+- slug: storage
+  title: archledger Storage and migration
+  url: /tools/archledger/main/storage/
 - slug: configuration
   title: archledger Configuration
   url: /tools/archledger/main/configuration/

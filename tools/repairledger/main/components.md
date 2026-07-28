@@ -6,7 +6,7 @@ nav_tool: repairledger-main
 docs_project: "repairledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "35958b739a2a910a389542c4a0012a3ade5dd688"
+docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
 search_enabled: true
 ---
 

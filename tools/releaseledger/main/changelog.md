@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_commit: "05026ba436edbc5fc4fa36bc1a35796eb90b9013"
 search_enabled: true
 ---
 
@@ -542,6 +542,14 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="changelog-rendering">
 <h1>Changelog rendering</h1>
+<section id="cli-migration-notes">
+<h2>CLI migration notes</h2>
+<p>Changelog rendering is now exposed canonically as <code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">preview</span></code> and
+<code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">build</span></code>; the root <code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">VERSION</span></code> and <code class="docutils literal notranslate"><span class="pre">build</span></code> forms remain
+deprecated aliases. Use <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">review</span></code> for the canonical review command.
+All JSON output uses the <code class="docutils literal notranslate"><span class="pre">ledgerwerk.cli.v1</span></code> envelope, and <code class="docutils literal notranslate"><span class="pre">--root</span></code> replaces
+<code class="docutils literal notranslate"><span class="pre">--cwd</span></code> as the preferred project selector.</p>
+</section>
 <section id="two-step-model">
 <h2>Two-step model</h2>
 <p><code class="docutils literal notranslate"><span class="pre">releaseledger</span> <span class="pre">changelog</span></code> renders review context. Use it when a human or
@@ -582,6 +590,11 @@ release is finalized.</p></li>
 <li><p>Manual Unreleased content (without <code class="docutils literal notranslate"><span class="pre">&lt;!--</span> <span class="pre">releaseledger:unreleased-start</span></code>
 markers) is always preserved by default.</p></li>
 </ul>
+</section>
+<section id="provenance-and-canceled-releases">
+<h2>Provenance and canceled releases</h2>
+<p><code class="docutils literal notranslate"><span class="pre">source_refs</span></code> identifies the one coverage owner for a commit or other coverable change identity. <code class="docutils literal notranslate"><span class="pre">sources</span></code> records supporting provenance for additional entries describing the same commit. Supporting entries render as normal bullets and are not orphans, while duplicate <code class="docutils literal notranslate"><span class="pre">source_refs</span></code> ownership is rejected with remediation to move the reference to <code class="docutils literal notranslate"><span class="pre">sources</span></code>.</p>
+<p>A full build excludes canceled releases. A single-release build rejects a canceled version unless <code class="docutils literal notranslate"><span class="pre">--include-canceled</span></code> is explicitly used for archival/debug output.</p>
 </section>
 <section id="group-modes">
 <h2>Group modes</h2>

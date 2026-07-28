@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -576,16 +576,25 @@ smaller compatibility facade and move residual helpers into focused modules.</p>
 <section id="function-line-budget-whitelist-250-lines">
 <h2>Function line budget whitelist (&gt;250 lines)</h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor_checks/task_checks.py::scan_task_integrity</span></code></p>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases</span></code></p>
 <ul>
-<li><p>Current reason: Consolidated per-task integrity scan with change/lock
-validation; further splitting into focused inspectors is planned.</p></li>
+<li><p>Current reason: Sub-phases of scan_task_integrity with per-task lock, run, and validation checks.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_sync.py::register_sync_commands</span></code></p>
 <ul>
 <li><p>Current reason: Sync command registration currently co-locates legacy
 sync, archive alias, git sync, and hook command wiring.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/layout_migration.py::_apply_migration_phases</span></code></p>
+<ul>
+<li><p>Current reason: Migration apply logic covers file moves, UUID resolution, and config rewriting.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/layout_migration.py::_inspect_migration_phases</span></code></p>
+<ul>
+<li><p>Current reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.</p></li>
 </ul>
 </li>
 </ul>
@@ -648,6 +657,7 @@ service for compiled LLM-ready Markdown.</p></li>
 model and lifecycle mutations.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_trace.py:taskledger.services.trace</span></code> — Trace CLI delegates
 to the trace service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_migrate.py:taskledger.services.storage_migration</span></code> — Migration CLI delegates to the storage migration service.</p></li>
 </ul>
 </section>
 <section id="catch-all-exception-whitelist-except-exception">

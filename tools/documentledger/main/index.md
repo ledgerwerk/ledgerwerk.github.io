@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a6396d20598efec7b0464ac52fb2d52a62872027"
+docs_commit: "17a3c69ad1394ee99c66706c33d9351748b42f57"
 search_enabled: true
 ---
 
@@ -556,6 +556,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#validate-ledger-state">Validate ledger state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#json-and-human-output">JSON and human output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#ledger-state-and-commit-policy">Ledger state and commit policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#storage-commands">Storage commands</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="architecture/">Architecture</a><ul>
@@ -568,6 +569,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="architecture/#freshness-marking">Freshness marking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#cli-structure-and-errors">CLI structure and errors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#ledgercore-integration">ledgercore integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#canonical-storage">Canonical storage</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/">API reference</a><ul>
@@ -588,6 +590,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.status_result"><code class="docutils literal notranslate"><span class="pre">status_result()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.status"><code class="docutils literal notranslate"><span class="pre">status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.storage_where"><code class="docutils literal notranslate"><span class="pre">storage_where()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.storage_migrate"><code class="docutils literal notranslate"><span class="pre">storage_migrate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.storage_verify"><code class="docutils literal notranslate"><span class="pre">storage_verify()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.storage_recover"><code class="docutils literal notranslate"><span class="pre">storage_recover()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.storage_cleanup_legacy"><code class="docutils literal notranslate"><span class="pre">storage_cleanup_legacy()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.doctor"><code class="docutils literal notranslate"><span class="pre">doctor()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.scan"><code class="docutils literal notranslate"><span class="pre">scan()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.coverage"><code class="docutils literal notranslate"><span class="pre">coverage()</span></code></a></li>
@@ -609,6 +616,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.selected_sections_for_mark_fresh"><code class="docutils literal notranslate"><span class="pre">selected_sections_for_mark_fresh()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.mark_fresh"><code class="docutils literal notranslate"><span class="pre">mark_fresh()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.workspace_root"><code class="docutils literal notranslate"><span class="pre">workspace_root()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.workspace_data_dir"><code class="docutils literal notranslate"><span class="pre">workspace_data_dir()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.coerce_int"><code class="docutils literal notranslate"><span class="pre">coerce_int()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.strip_timestamp_keys"><code class="docutils literal notranslate"><span class="pre">strip_timestamp_keys()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.read_yaml"><code class="docutils literal notranslate"><span class="pre">read_yaml()</span></code></a></li>
@@ -735,6 +744,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.identity.normalize_repo_path"><code class="docutils literal notranslate"><span class="pre">normalize_repo_path()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.identity.doc_record_filename"><code class="docutils literal notranslate"><span class="pre">doc_record_filename()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.ToolConfig"><code class="docutils literal notranslate"><span class="pre">ToolConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.WorkspacePaths"><code class="docutils literal notranslate"><span class="pre">WorkspacePaths</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.Workspace"><code class="docutils literal notranslate"><span class="pre">Workspace</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.SourceUnit"><code class="docutils literal notranslate"><span class="pre">SourceUnit</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.DocSection"><code class="docutils literal notranslate"><span class="pre">DocSection</span></code></a></li>
@@ -755,6 +766,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#a-changed-source-is-reported-as-unlinked">A changed source is reported as unlinked</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#the-sphinx-build-warns-about-files-inside-the-virtual-environment">The Sphinx build warns about files inside the virtual environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#sphinx-build-is-not-found"><code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> is not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#storage-migration-errors">Storage migration errors</a></li>
 </ul>
 </li>
 </ul>

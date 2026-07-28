@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -552,6 +552,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#shell-completion">Shell completion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#initialize-state">Initialize state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#storage-migration-recovery">Storage migration recovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#branch-local-task-work">Branch-local task work</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#opaque-links-and-external-artifacts">Opaque links and external artifacts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#planning-guidance-profiles">Planning guidance profiles</a></li>
@@ -564,7 +565,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#compact-implementation-loop">Compact implementation loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#fresh-session-startup-and-monitoring">Fresh-session startup and monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#machine-readable-output">Machine-readable output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#cloud-backed-storage">Cloud-backed storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#resolved-storage">Resolved storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#integrity-and-recovery">Integrity and recovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#export-and-snapshots">Export and snapshots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#single-task-transfer-from-a-config-only-checkout">Single-task transfer from a config-only checkout</a></li>
@@ -667,8 +668,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sync/">Sync taskledger state across PCs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sync/#external-state-directory">External state directory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sync/#private-state-git-repo">Private state Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync/#schema-3-project-state">Schema-3 project state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync/#shared-state-git-repo">Shared state Git repo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#second-pc-bootstrap">Second PC bootstrap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#daily-sync-protocol">Daily sync protocol</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#active-lock-rule">Active lock rule</a></li>

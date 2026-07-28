@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a6396d20598efec7b0464ac52fb2d52a62872027"
+docs_commit: "17a3c69ad1394ee99c66706c33d9351748b42f57"
 search_enabled: true
 ---
 
@@ -614,6 +614,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="ledgercore-integration">
 <h2>ledgercore integration</h2>
 <p><code class="docutils literal notranslate"><span class="pre">ledgercore&gt;=0.2</span></code> is an active dependency. Documentledger uses ledgercore for YAML storage, atomic writes, config discovery, path validation, doc-record identity helpers, and SHA-256 hashing.</p>
+</section>
+<section id="canonical-storage">
+<h2>Canonical storage</h2>
+<p>Documentledger uses ledgercore 0.5 schema 3 as the shared project authority. The committed manifest is <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>; the tool config is derived at <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/config.toml</span></code>; durable scan, source-index, and document-record state is in the <code class="docutils literal notranslate"><span class="pre">data</span></code> project mount; and rendered/proposal output is in the resolved cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> mount. Ledgercore owns manifest TOML writing and schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger-project.toml</span></code> binding markers.</p>
+<p>Legacy <code class="docutils literal notranslate"><span class="pre">.documentledger</span></code> layouts remain compatibility input only. Migration is explicit, copy-first, SHA-256 verified, and activates the shared manifest last. <code class="docutils literal notranslate"><span class="pre">source-index.json</span></code> is part of the committed baseline and may only be repaired when exact reconstruction matches the recorded hash.</p>
 </section>
 </section>
 </div>

@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a6396d20598efec7b0464ac52fb2d52a62872027"
+docs_commit: "17a3c69ad1394ee99c66706c33d9351748b42f57"
 search_enabled: true
 ---
 
@@ -591,6 +591,16 @@ bash<span class="w"> </span>docs/build.sh
 <section id="sphinx-build-is-not-found">
 <h2><code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> is not found</h2>
 <p><code class="docutils literal notranslate"><span class="pre">docs/build.sh</span></code> creates and activates <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> and installs <code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code>, which provides <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code>. If the build cannot find <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code>, ensure the script reaches the <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">&quot;$VENV_DIR/bin/activate&quot;</span></code> step and that <code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code> installs successfully (it requires network access on first run).</p>
+</section>
+<section id="storage-migration-errors">
+<h2>Storage migration errors</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_required</span></code>: run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">storage</span> <span class="pre">migrate</span> <span class="pre">--dry-run</span></code> and review the plan.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_uuid_mismatch</span></code>: compare the legacy and shared manifest identities; pass <code class="docutils literal notranslate"><span class="pre">--adopt-project-uuid</span></code> only after review.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_index_missing</span></code> or <code class="docutils literal notranslate"><span class="pre">source_index_repair_failed</span></code>: restore the committed <code class="docutils literal notranslate"><span class="pre">source-index.json</span></code>, or use explicit repair only when the reconstructed SHA-256 exactly matches <code class="docutils literal notranslate"><span class="pre">scan.yaml</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_binding_invalid</span></code>: repair the canonical binding through an explicit initialization/recovery command; status and verification never repair it silently.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">legacy_cleanup_unsafe</span></code>: verify the completed migration journal, unchanged legacy inventory, and provisional proposal disposition before using <code class="docutils literal notranslate"><span class="pre">--yes</span></code>.</p></li>
+</ul>
 </section>
 </section>
 </div>

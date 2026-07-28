@@ -614,12 +614,12 @@ state directory. It also renders reviewable changelog context and final
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/">Python API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.releases">Release API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.entries">Entry API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.changelog">Changelog API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.config">Config API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.errors">Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.domain.release">Domain models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#release-api">Release API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#entry-api">Entry API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#changelog-api">Changelog API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#config-api">Config API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#domain-models">Domain models</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development/">Development</a><ul>

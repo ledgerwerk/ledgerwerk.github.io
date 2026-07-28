@@ -6,7 +6,7 @@ nav_tool: repairledger-main
 docs_project: "repairledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "35958b739a2a910a389542c4a0012a3ade5dd688"
+docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
 search_enabled: true
 ---
 
@@ -546,11 +546,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h2>Package layout</h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">repairledger</span><span class="o">/</span>
   <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>        <span class="n">Package</span> <span class="n">version</span>
-  <span class="n">constants</span><span class="o">.</span><span class="n">py</span>       <span class="n">Shared</span> <span class="n">constants</span> <span class="ow">and</span> <span class="n">enums</span>
+  <span class="n">constants</span><span class="o">.</span><span class="n">py</span>       <span class="n">Shared</span> <span class="n">constants</span> <span class="ow">and</span> <span class="n">enums</span> <span class="p">(</span><span class="n">incl</span><span class="o">.</span> <span class="k">global</span> <span class="n">path</span> <span class="n">config</span><span class="p">)</span>
   <span class="n">errors</span><span class="o">.</span><span class="n">py</span>          <span class="n">Structured</span> <span class="n">error</span> <span class="n">types</span>
   <span class="n">models</span><span class="o">.</span><span class="n">py</span>          <span class="n">Dataclass</span> <span class="n">models</span> <span class="p">(</span><span class="n">Workspace</span><span class="p">,</span> <span class="n">Repair</span><span class="p">,</span> <span class="n">ComponentSpec</span><span class="p">)</span>
   <span class="n">identity</span><span class="o">.</span><span class="n">py</span>        <span class="n">ID</span> <span class="n">formatting</span><span class="p">,</span> <span class="n">ref</span> <span class="n">derivation</span><span class="p">,</span> <span class="n">selector</span> <span class="n">normalization</span>
-  <span class="n">storage</span><span class="o">.</span><span class="n">py</span>         <span class="n">Filesystem</span> <span class="n">operations</span><span class="p">,</span> <span class="n">CRUD</span><span class="p">,</span> <span class="n">version</span> <span class="n">snapshots</span>
+  <span class="n">storage</span><span class="o">.</span><span class="n">py</span>         <span class="n">Filesystem</span> <span class="n">operations</span><span class="p">,</span> <span class="n">CRUD</span><span class="p">,</span> <span class="n">version</span> <span class="n">snapshots</span><span class="p">,</span> <span class="n">locking</span>
   <span class="n">guardrails</span><span class="o">.</span><span class="n">py</span>      <span class="n">Validation</span> <span class="k">for</span> <span class="n">observed</span> <span class="n">status</span>
   <span class="n">render</span><span class="o">.</span><span class="n">py</span>          <span class="n">Markdown</span> <span class="n">rendering</span> <span class="n">of</span> <span class="n">repair</span> <span class="n">artifacts</span>
   <span class="n">report</span><span class="o">.</span><span class="n">py</span>          <span class="n">Aggregate</span> <span class="n">report</span> <span class="n">generation</span>
@@ -574,12 +574,34 @@ identity → { constants } (via ledgercore refs)
 <section id="key-design-decisions">
 <h2>Key design decisions</h2>
 <ul class="simple">
-<li><p><strong>Flat package layout</strong>: No <code class="docutils literal notranslate"><span class="pre">src/</span></code> directory. Package is directly under repo root.</p></li>
+<li><p><strong>User-global config and data path</strong>: a single config at
+<code class="docutils literal notranslate"><span class="pre">${XDG_CONFIG_HOME:-~/.config}/ledger/repairledger.toml</span></code> and a single data
+path at <code class="docutils literal notranslate"><span class="pre">${XDG_DATA_HOME:-~/.local/share}/ledger/repairledger/</span></code>. Agents
+log observations from any repository without writing into the current
+source tree.</p></li>
+<li><p><strong>Global-only discovery</strong>: the local repository is never searched for a
+config. An absolute <code class="docutils literal notranslate"><span class="pre">REPAIRLEDGER_CONFIG</span></code> override is the only way to
+point at a custom config.</p></li>
+<li><p><strong>Flat package layout</strong>: No <code class="docutils literal notranslate"><span class="pre">src/</span></code> directory. Package is directly under
+repo root.</p></li>
 <li><p><strong>Dynamic versioning</strong>: Via <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> from Git tags.</p></li>
 <li><p><strong>Atomic writes</strong>: All file mutations use <code class="docutils literal notranslate"><span class="pre">ledgercore.atomic</span></code> helpers.</p></li>
 <li><p><strong>Version snapshots</strong>: Complete post-mutation copies under <code class="docutils literal notranslate"><span class="pre">versions/v000X/</span></code>.</p></li>
-<li><p><strong>Derived refs</strong>: Global and file refs are generated at render time, not stored.</p></li>
-<li><p><strong>ledgercore integration</strong>: Uses ledgercore for atomic I/O, YAML, ref parsing, timestamps, and hashing.</p></li>
+<li><p><strong>Derived refs</strong>: Global and file refs are generated at render time, not
+stored.</p></li>
+<li><p><strong>Inter-process locking</strong>: <code class="docutils literal notranslate"><span class="pre">fcntl.flock</span></code> against
+<code class="docutils literal notranslate"><span class="pre">&lt;data</span> <span class="pre">path&gt;/.repairledger.lock</span></code> serializes repair ID allocation, repair
+creation, and active-repair updates. Initialization uses a separate lock
+adjacent to the config file.</p></li>
+<li><p><strong>Explicit repair selector for mutations</strong>: when multiple repairs exist,
+mutating commands (<code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">archive</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">build</span></code>,
+<code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">component</span> <span class="pre">set</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">component</span> <span class="pre">append</span></code>) require an explicit
+<code class="docutils literal notranslate"><span class="pre">--repair</span> <span class="pre">REPAIR_ID</span></code>. The global <code class="docutils literal notranslate"><span class="pre">active_repair_id</span></code> is advisory only.</p></li>
+<li><p><strong>Read-only commands stay read-only</strong>: <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">next-action</span></code> never create files. <code class="docutils literal notranslate"><span class="pre">missing_storage</span></code> is reported instead
+of silently adopting or creating storage.</p></li>
+<li><p><strong>ledgercore integration</strong>: Uses ledgercore for atomic I/O, YAML, ref
+parsing, timestamps, and hashing.</p></li>
 </ul>
 </section>
 </section>

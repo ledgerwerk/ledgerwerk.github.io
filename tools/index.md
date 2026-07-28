@@ -59,7 +59,7 @@ permalink: /tools/
       <h3>ledgercore</h3>
       <div class="card-links">
         <a href="/tools/ledgercore/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/ledgercore/releases/tag/v0.4.0" rel="external noopener">Latest release: v0.4.0 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.0" rel="external noopener">Latest release: v0.6.0 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/ledgercore" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>

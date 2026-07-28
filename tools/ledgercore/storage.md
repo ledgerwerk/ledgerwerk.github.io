@@ -1,12 +1,12 @@
 ---
 layout: tool-doc
-title: "ledgercore Storage helpers"
+title: "Ledgercore storage"
 permalink: /tools/ledgercore/storage/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.4.0"
-docs_commit: "5739bea2ee3b1719a6666ec7166921ca3c2c2738"
+docs_ref: "v0.6.0"
+docs_commit: "5d59b6ef0b018f6af3a89f4749ea08b0ea8d1b79"
 search_enabled: true
 ---
 
@@ -540,452 +540,182 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="storage-helpers">
-<h1>Storage helpers</h1>
-<p><code class="docutils literal notranslate"><span class="pre">ledgercore</span></code> provides several storage primitives for safely reading and writing
-structured files.</p>
-<section id="atomic-writes">
-<h2>Atomic writes</h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">atomic_write_text</span></code> when replacing a file is expected:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.atomic</span><span class="w"> </span><span class="kn">import</span> <span class="n">atomic_write_text</span>
+<section id="ledgercore-storage">
+<h1>Ledgercore storage</h1>
+<p>Ledgercore 0.5.1 provides one deterministic storage model for Ledgerwerk tools.
+The normal configuration is schema 3:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">schema_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
 
-<span class="n">atomic_write_text</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;index.json&quot;</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">[project]</span>
+<span class="n">uuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;081c7c05-2d10-42b7-9b37-3d814c2f400a&quot;</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;taskledger&quot;</span>
+
+<span class="k">[ledgers.taskledger.mounts.data]</span>
+<span class="n">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;external&quot;</span>
+<span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;../ledger&quot;</span>
+
+<span class="k">[ledgers.taskledger.mounts.indexes]</span>
+<span class="n">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cache&quot;</span>
 </pre></div>
 </div>
-<p>The write goes to a temporary file first, then <code class="docutils literal notranslate"><span class="pre">os.replace</span></code> atomically moves it
-to the target. Parent directories are created automatically. Replacing an
-existing file preserves its permission bits; a newly created file keeps the
-private <code class="docutils literal notranslate"><span class="pre">0600</span></code> mode created by <code class="docutils literal notranslate"><span class="pre">mkstemp</span></code>.</p>
-<p>Use <code class="docutils literal notranslate"><span class="pre">atomic_create_text</span></code> when an existing file must not be overwritten:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.atomic</span><span class="w"> </span><span class="kn">import</span> <span class="n">atomic_create_text</span>
-
-<span class="n">atomic_create_text</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;records/task-0001.md&quot;</span><span class="p">),</span> <span class="s2">&quot;---</span><span class="se">\n</span><span class="s2">id: task-0001</span><span class="se">\n</span><span class="s2">---</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<p>The tool configuration path is always:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.ledger/taskledger/config.toml
 </pre></div>
 </div>
-<p>This uses <code class="docutils literal notranslate"><span class="pre">O_CREAT|O_EXCL</span></code> and raises <code class="docutils literal notranslate"><span class="pre">AtomicWriteError</span></code> if the target already
-exists.</p>
-<p>Both functions support an optional <code class="docutils literal notranslate"><span class="pre">fast_io_env_var</span></code> parameter. When the named
-environment variable is set, <code class="docutils literal notranslate"><span class="pre">fsync</span></code> is skipped for faster I/O on temporary
-filesystems.</p>
+<p>No local file is required for the committed external default. A machine-local
+override can change one existing mount:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">schema_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+
+<span class="k">[ledgers.taskledger.mounts.data]</span>
+<span class="n">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user-data&quot;</span>
+</pre></div>
+</div>
+<section id="storage-kinds">
+<h2>Storage kinds</h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kind</p></th>
+<th class="head"><p>Scope</p></th>
+<th class="head"><p>Root or formula</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">project</span></code></p></td>
+<td><p>project</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.ledger/&lt;tool&gt;/&lt;mount&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">external</span></code></p></td>
+<td><p>project</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;root&gt;/&lt;tool&gt;/&lt;project-uuid&gt;/&lt;mount&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">user-data</span></code></p></td>
+<td><p>project</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">platformdirs.user_data_path(&quot;ledgerwerk&quot;)/&lt;tool&gt;/&lt;project-uuid&gt;/&lt;mount&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cache</span></code></p></td>
+<td><p>checkout</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">platformdirs.user_cache_path(&quot;ledgerwerk&quot;)/&lt;tool&gt;/&lt;project-uuid&gt;/&lt;checkout-id&gt;/&lt;mount&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Schema 3 has no provider, namespace, configurable path, or generic scope fields.
+The mount name is always present, including for a mount named <code class="docutils literal notranslate"><span class="pre">data</span></code>.
+External roots may be project-relative, absolute in local overrides, or use <code class="docutils literal notranslate"><span class="pre">~</span></code>.
+Relative roots resolve from the project root. Committed absolute roots are rejected.</p>
 </section>
-<section id="front-matter-documents">
-<h2>Front matter documents</h2>
-<p>Front matter documents are Markdown files with a YAML header:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>---
-id: task-0001
-status: open
----
-# Task body here
-</pre></div>
-</div>
-<section id="reading">
-<h3>Reading</h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.frontmatter</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_front_matter_document</span>
-
-<span class="n">metadata</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">read_front_matter_document</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;records/task-0001.md&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>The YAML block must be a mapping. <code class="docutils literal notranslate"><span class="pre">metadata</span></code> is always a <code class="docutils literal notranslate"><span class="pre">dict</span></code>. <code class="docutils literal notranslate"><span class="pre">body</span></code>
-includes everything after the closing <code class="docutils literal notranslate"><span class="pre">---</span></code> delimiter.</p>
-<p>For content already held in memory:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.frontmatter</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">render_front_matter_text</span><span class="p">,</span>
-    <span class="n">split_front_matter_text</span><span class="p">,</span>
-    <span class="n">update_front_matter_text</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">metadata</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">split_front_matter_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">missing</span><span class="o">=</span><span class="s2">&quot;empty&quot;</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">update_front_matter_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">})</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">render_front_matter_text</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">key_order</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>Parsing can preserve YAML timestamps as strings and quote template
-placeholders. Rendering supports caller-defined key order and body modes.
-Minimal scalar rendering accepts only simple alphanumeric, underscore, and
-hyphen metadata keys and raises <code class="docutils literal notranslate"><span class="pre">FrontMatterError</span></code> for unsafe YAML keys.</p>
-<p>For deterministic front matter without PyYAML’s formatting choices:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">render_front_matter_text</span><span class="p">(</span>
-    <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Example&quot;</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">],</span> <span class="s2">&quot;empty&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;# Body</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
-    <span class="n">scalar_style</span><span class="o">=</span><span class="s2">&quot;minimal&quot;</span><span class="p">,</span>
-    <span class="n">sequence_indent</span><span class="o">=</span><span class="s2">&quot;  &quot;</span><span class="p">,</span>
-    <span class="n">empty_string_style</span><span class="o">=</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
-    <span class="n">remaining_key_order</span><span class="o">=</span><span class="s2">&quot;sorted&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>The default <code class="docutils literal notranslate"><span class="pre">scalar_style=&quot;pyyaml&quot;</span></code> preserves existing output. Minimal mode
-supports strings, booleans, integers, nulls, and flat scalar sequences. The minimal
-renderer quotes any string that is not a conservative safe plain scalar
-(alphanumeric lead character followed by letters, digits, spaces, underscores,
-dots, slashes, or hyphens) and any value that folds to a YAML boolean or null
-token, so values such as <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">item</span></code>, <code class="docutils literal notranslate"><span class="pre">*alias</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">no</span></code>, or <code class="docutils literal notranslate"><span class="pre">2026-06-13</span></code> round-trip
-without producing invalid YAML or silently changing type. Use
-<code class="docutils literal notranslate"><span class="pre">quote_template_placeholders=&quot;anywhere&quot;</span></code> to parse placeholders embedded in simple
-unquoted scalar values.</p>
-</section>
-<section id="writing">
-<h3>Writing</h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.frontmatter</span><span class="w"> </span><span class="kn">import</span> <span class="n">write_front_matter_document</span>
-
-<span class="n">write_front_matter_document</span><span class="p">(</span>
-    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;records/task-0001.md&quot;</span><span class="p">),</span>
-    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;task-0001&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;open&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;# Implement parser</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
-    <span class="n">body_mode</span><span class="o">=</span><span class="s2">&quot;ensure-single-final-newline&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">body_mode=&quot;ensure-single-final-newline&quot;</span></code> normalizes trailing whitespace in the
-body. The default <code class="docutils literal notranslate"><span class="pre">&quot;preserve&quot;</span></code> writes the body as-is.</p>
-</section>
-<section id="iterating-files">
-<h3>Iterating files</h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.frontmatter</span><span class="w"> </span><span class="kn">import</span> <span class="n">iter_markdown_files</span><span class="p">,</span> <span class="n">iter_source_files</span>
-
-<span class="n">md_files</span> <span class="o">=</span> <span class="n">iter_markdown_files</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;records/&quot;</span><span class="p">))</span>
-<span class="n">all_files</span> <span class="o">=</span> <span class="n">iter_source_files</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;records/&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">,</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>Both return sorted <code class="docutils literal notranslate"><span class="pre">list[Path]</span></code>.</p>
-</section>
-</section>
-<section id="json-store">
-<h2>JSON store</h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.jsonio</span><span class="w"> </span><span class="kn">import</span> <span class="n">dumps_json</span><span class="p">,</span> <span class="n">load_json_object</span><span class="p">,</span> <span class="n">write_json</span>
-
-<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;state.json&quot;</span><span class="p">)</span>
-<span class="n">write_json</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;next&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
-<span class="n">state</span> <span class="o">=</span> <span class="n">load_json_object</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">missing</span><span class="o">=</span><span class="s2">&quot;empty&quot;</span><span class="p">)</span>
-<span class="n">compact</span> <span class="o">=</span> <span class="n">dumps_json</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">load_json_object</span></code> validates that the root is a JSON object.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">load_json_array</span></code> validates that the root is a JSON array.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">write_json</span></code> produces deterministic output: indent 2, sorted keys, final newline.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dumps_json</span></code> and <code class="docutils literal notranslate"><span class="pre">write_json</span></code> can change indentation, key sorting, ASCII
-escaping, compact separators, and final-newline behavior.</p></li>
-<li><p>All operations raise <code class="docutils literal notranslate"><span class="pre">JsonStoreError</span></code> on failure.</p></li>
-</ul>
-<p>Both loaders accept <code class="docutils literal notranslate"><span class="pre">missing=&quot;empty&quot;</span></code> to return an empty container only when the
-file does not exist; an unreadable path that does exist (for example a directory,
-or a permission error) raises <code class="docutils literal notranslate"><span class="pre">JsonStoreError</span></code> rather than being masked as empty.
-<code class="docutils literal notranslate"><span class="pre">empty=&quot;empty&quot;</span></code> (the default) returns an empty container when the file is blank.</p>
-</section>
-<section id="jsonl-store">
-<h2>JSONL store</h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.jsonl</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_jsonl_object_map</span><span class="p">,</span> <span class="n">write_jsonl_objects</span>
-
-<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;records.jsonl&quot;</span><span class="p">)</span>
-<span class="n">write_jsonl_objects</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}])</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">load_jsonl_object_map</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">missing</span><span class="o">=</span><span class="s2">&quot;empty&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">load_jsonl_object_rows</span></code> retains each valid object’s source line.
-<code class="docutils literal notranslate"><span class="pre">load_jsonl_object_map</span></code> indexes rows by a selected field and reports missing,
-invalid, and duplicate keys in <code class="docutils literal notranslate"><span class="pre">issues</span></code>. Duplicate policy can be <code class="docutils literal notranslate"><span class="pre">&quot;last&quot;</span></code>,
-<code class="docutils literal notranslate"><span class="pre">&quot;first&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code>. Writes remain compact and deterministic.</p>
-</section>
-<section id="yaml-store">
-<h2>YAML store</h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.yamlio</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_yaml_object</span><span class="p">,</span> <span class="n">write_yaml</span>
-
-<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
-<span class="n">write_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;records_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;records&quot;</span><span class="p">},</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">load_yaml_object</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">missing</span><span class="o">=</span><span class="s2">&quot;empty&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">load_yaml_object</span></code> validates that the root is a YAML mapping.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">write_yaml</span></code> produces block-style output with a final newline. Keys can be
-sorted on request.</p></li>
-<li><p>All operations raise <code class="docutils literal notranslate"><span class="pre">YamlStoreError</span></code> on failure.</p></li>
-</ul>
-</section>
-<section id="path-safety">
-<h2>Path safety</h2>
-<p>Path helpers enforce strict rules to prevent directory traversal:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_relative_posix_path</span>
-
-<span class="n">validate_relative_posix_path</span><span class="p">(</span><span class="s2">&quot;records/task-0001.md&quot;</span><span class="p">)</span>  <span class="c1"># ok</span>
-<span class="n">validate_relative_posix_path</span><span class="p">(</span><span class="s2">&quot;../etc/passwd&quot;</span><span class="p">)</span>          <span class="c1"># raises PathValidationError</span>
-<span class="n">validate_relative_posix_path</span><span class="p">(</span><span class="s2">&quot;/etc/passwd&quot;</span><span class="p">)</span>            <span class="c1"># raises PathValidationError</span>
-</pre></div>
-</div>
-<p>Rejected inputs include:</p>
-<ul class="simple">
-<li><p>Absolute paths (starting with <code class="docutils literal notranslate"><span class="pre">/</span></code>).</p></li>
-<li><p>Paths containing <code class="docutils literal notranslate"><span class="pre">..</span></code> or <code class="docutils literal notranslate"><span class="pre">.</span></code> segments.</p></li>
-<li><p>Paths containing backslashes.</p></li>
-<li><p>Paths that resolve outside the base directory.</p></li>
-</ul>
-<section id="config-discovery">
-<h3>Config discovery</h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">locate_ledger_config</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_config_relative_path</span>
-
-<span class="n">locator</span> <span class="o">=</span> <span class="n">locate_ledger_config</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span>
-<span class="k">if</span> <span class="n">locator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">records_dir</span> <span class="o">=</span> <span class="n">resolve_config_relative_path</span><span class="p">(</span>
-        <span class="n">locator</span><span class="o">.</span><span class="n">config_path</span><span class="p">,</span>
-        <span class="s2">&quot;records&quot;</span><span class="p">,</span>
-        <span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;records_dir&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">locate_ledger_config</span></code> walks upward from the starting directory, preferring
-<code class="docutils literal notranslate"><span class="pre">.ledger.toml</span></code> over <code class="docutils literal notranslate"><span class="pre">ledger.toml</span></code>. It returns a <code class="docutils literal notranslate"><span class="pre">ConfigLocator</span></code> with
-<code class="docutils literal notranslate"><span class="pre">workspace_root</span></code>, <code class="docutils literal notranslate"><span class="pre">config_path</span></code>, and <code class="docutils literal notranslate"><span class="pre">source</span></code> fields.</p>
-<p>For canonical phase-2 project layout discovery, use <code class="docutils literal notranslate"><span class="pre">locate_ledger_project</span></code>
-instead. It looks for <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> first, preserves legacy discovery
-signals for migration-oriented callers, and returns a <code class="docutils literal notranslate"><span class="pre">LedgerProjectLocator</span></code>
-with <code class="docutils literal notranslate"><span class="pre">project_root</span></code>, <code class="docutils literal notranslate"><span class="pre">config_root</span></code>, <code class="docutils literal notranslate"><span class="pre">manifest_path</span></code>, <code class="docutils literal notranslate"><span class="pre">local_config_path</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">source</span></code>.</p>
-</section>
-<section id="shared-ledger-config-convention">
-<h3>Shared ledger config convention</h3>
-<p>Ledgercore-based tools should place shared project metadata under <code class="docutils literal notranslate"><span class="pre">[project]</span></code>
-and tool-specific settings under <code class="docutils literal notranslate"><span class="pre">[tools.&lt;tool-name&gt;]</span></code> in <code class="docutils literal notranslate"><span class="pre">.ledger.toml</span></code> when
-they still use the schema-version-1 shared config compatibility convention.
-Ledgercore provides discovery and generic mapping selectors, but deliberately
-does not parse TOML or define tool schemas.</p>
-<p>Downstream applications may pass legacy filenames to
-<code class="docutils literal notranslate"><span class="pre">locate_ledger_config</span></code>. Canonical names are searched first, so a
-<code class="docutils literal notranslate"><span class="pre">.ledger.toml</span></code> in the workspace wins over a legacy tool config. Applications
-should parse only the selected file rather than merging canonical and legacy
-configs implicitly.</p>
-<p><code class="docutils literal notranslate"><span class="pre">resolve_config_relative_path</span></code> resolves a path relative to the config file’s
-parent directory, applying the same safety checks.</p>
-</section>
-<section id="canonical-project-layout-resolution">
-<h3>Canonical project layout resolution</h3>
-<p><code class="docutils literal notranslate"><span class="pre">ledgercore</span></code> 0.4.0 resolves a common <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> topology through
-<code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code>. The layout is described by a schema-version-2 project
-manifest, an optional machine-local override mapping, and an explicit checkout ID.
-Tool configuration remains project-local (<code class="docutils literal notranslate"><span class="pre">config.location</span> <span class="pre">==</span> <span class="pre">&quot;project&quot;</span></code>). The
-resolver evaluates only the workspace and cache families used by the selected
-registration, so repository-only ledgers do not require external storage config.</p>
+<section id="loading-and-resolving">
+<h2>Loading and resolving</h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">locate_ledger_project</span><span class="p">,</span>
-    <span class="n">parse_ledger_project_manifest</span><span class="p">,</span>
-    <span class="n">resolve_ledger_layout</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.layout</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlatformRoots</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_ledger_project</span><span class="p">,</span> <span class="n">resolve_ledger_layout</span>
 
-<span class="n">locator</span> <span class="o">=</span> <span class="n">locate_ledger_project</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span>
-<span class="k">if</span> <span class="n">locator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">locator</span><span class="o">.</span><span class="n">is_legacy</span><span class="p">:</span>
-    <span class="n">manifest</span> <span class="o">=</span> <span class="n">parse_ledger_project_manifest</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;schema_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;565c0312-b531-4d07-aa1f-32c796f58dae&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;ledgers&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;taskledger&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;mounts&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-                            <span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="s2">&quot;workspace&quot;</span><span class="p">,</span>
-                            <span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span>
-                            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;task/taskledger&quot;</span><span class="p">,</span>
-                        <span class="p">},</span>
-                        <span class="s2">&quot;records&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="s2">&quot;repository&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;task/records&quot;</span><span class="p">},</span>
-                    <span class="p">},</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">resolve_ledger_layout</span><span class="p">(</span>
-        <span class="n">locator</span><span class="p">,</span>
-        <span class="n">manifest</span><span class="p">,</span>
-        <span class="s2">&quot;taskledger&quot;</span><span class="p">,</span>
-        <span class="n">platform_roots</span><span class="o">=</span><span class="n">PlatformRoots</span><span class="p">(</span>
-            <span class="n">user_data</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/tmp/ledger-data&quot;</span><span class="p">),</span>
-            <span class="n">user_cache</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/tmp/ledger-cache&quot;</span><span class="p">),</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-<section id="repository-only-example">
-<h4>Repository-only example</h4>
-<p>A repository-only ledger keeps every artifact inside the source checkout.
-It needs no external storage config and is unaffected by <code class="docutils literal notranslate"><span class="pre">workspace_root</span></code> or
-<code class="docutils literal notranslate"><span class="pre">cache_root</span></code> in <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">locate_ledger_project</span><span class="p">,</span>
-    <span class="n">parse_ledger_project_manifest</span><span class="p">,</span>
-    <span class="n">resolve_ledger_layout</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">locator</span> <span class="o">=</span> <span class="n">locate_ledger_project</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span>
-<span class="n">manifest</span> <span class="o">=</span> <span class="n">parse_ledger_project_manifest</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;schema_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;565c0312-b531-4d07-aa1f-32c796f58dae&quot;</span><span class="p">},</span>
-        <span class="s2">&quot;ledgers&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;archledger&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;mounts&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;records&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="s2">&quot;repository&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;arch/records&quot;</span><span class="p">},</span>
-                    <span class="s2">&quot;published&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="s2">&quot;repository&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;arch/published&quot;</span><span class="p">},</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-    <span class="p">}</span>
-<span class="p">)</span>
-<span class="n">layout</span> <span class="o">=</span> <span class="n">resolve_ledger_layout</span><span class="p">(</span><span class="n">locator</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="s2">&quot;archledger&quot;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">layout</span><span class="o">.</span><span class="n">mounts</span><span class="p">[</span><span class="s2">&quot;records&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="p">(</span>
-    <span class="n">locator</span><span class="o">.</span><span class="n">project_root</span> <span class="o">/</span> <span class="s2">&quot;.ledger&quot;</span> <span class="o">/</span> <span class="s2">&quot;arch&quot;</span> <span class="o">/</span> <span class="s2">&quot;records&quot;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="mixed-mount-example">
-<h4>Mixed-mount example</h4>
-<p>A mixed-mount ledger combines repository storage (durable, in-tree) with
-workspace storage (external, user-data) and cache storage (rebuildable).
-<code class="docutils literal notranslate"><span class="pre">platform_roots</span></code> is required for workspace and cache mounts; omit it only when
-all mounts are repository mounts.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">locate_ledger_project</span><span class="p">,</span>
-    <span class="n">parse_ledger_project_manifest</span><span class="p">,</span>
-    <span class="n">resolve_ledger_layout</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore.layout</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlatformRoots</span>
-
-<span class="n">locator</span> <span class="o">=</span> <span class="n">locate_ledger_project</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span>
-<span class="n">manifest</span> <span class="o">=</span> <span class="n">parse_ledger_project_manifest</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;schema_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;565c0312-b531-4d07-aa1f-32c796f58dae&quot;</span><span class="p">},</span>
-        <span class="s2">&quot;ledgers&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;taskledger&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;task/config.toml&quot;</span><span class="p">},</span>
-                <span class="s2">&quot;mounts&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;records&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="s2">&quot;repository&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;task/records&quot;</span><span class="p">},</span>
-                    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="s2">&quot;workspace&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;task/taskledger&quot;</span><span class="p">,</span>
-                    <span class="p">},</span>
-                    <span class="s2">&quot;indexes&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="s2">&quot;cache&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;task/indexes&quot;</span><span class="p">},</span>
-                <span class="p">},</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-    <span class="p">}</span>
-<span class="p">)</span>
+<span class="n">project</span> <span class="o">=</span> <span class="n">load_ledger_project</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span>
 <span class="n">layout</span> <span class="o">=</span> <span class="n">resolve_ledger_layout</span><span class="p">(</span>
-    <span class="n">locator</span><span class="p">,</span>
-    <span class="n">manifest</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">locator</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">manifest</span><span class="p">,</span>
     <span class="s2">&quot;taskledger&quot;</span><span class="p">,</span>
-    <span class="n">platform_roots</span><span class="o">=</span><span class="n">PlatformRoots</span><span class="p">(</span>
-        <span class="n">user_data</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/var/ledger-data&quot;</span><span class="p">),</span>
-        <span class="n">user_cache</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/var/ledger-cache&quot;</span><span class="p">),</span>
-    <span class="p">),</span>
+    <span class="n">local_overrides</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">local_overrides</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">tool_config_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">mounts</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">load_ledger_project</span></code> reads <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, reads an optional
+<code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code>, applies the strict overlay, and returns base,
+local, and effective values. Resolution and ordinary reads never create or move
+files.</p>
+</section>
+<section id="local-overlays">
+<h2>Local overlays</h2>
+<p>A local file may only address an existing tool and mount. It may set <code class="docutils literal notranslate"><span class="pre">storage</span></code>
+and, for external storage, <code class="docutils literal notranslate"><span class="pre">root</span></code>. It cannot change project identity, add a
+registration, add a mount, define a config path, or use provider/scope fields.
+Changing storage resets incompatible inherited fields. Thus changing an external
+mount to <code class="docutils literal notranslate"><span class="pre">user-data</span></code> never leaves the old external root attached.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">set_local_mount_override</span></code> and <code class="docutils literal notranslate"><span class="pre">clear_local_mount_override</span></code> to create new
+immutable values, then explicitly call <code class="docutils literal notranslate"><span class="pre">write_ledger_local_config</span></code>. Missing local
+files are normal. Empty schema-3 overlays are valid. Writers can remove an empty
+file with <code class="docutils literal notranslate"><span class="pre">delete_if_empty=True</span></code>.</p>
+</section>
+<section id="binding-markers">
+<h2>Binding markers</h2>
+<p>Ledgercore owns the marker at every resolved mount:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;mount&gt;/.ledger-project.toml
+</pre></div>
+</div>
+<p>The tool config directory uses the same marker with <code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">=</span> <span class="pre">&quot;config&quot;</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.ledger/&lt;tool&gt;/.ledger-project.toml
+</pre></div>
+</div>
+<p>A marker contains schema and layout versions, project UUID, tool, mount, storage,
+and optional informational project name. Validation checks regular-file status,
+exact identity, containment, and storage kind. Validation is read-only. Use
+<code class="docutils literal notranslate"><span class="pre">initialize_storage_binding</span></code> or <code class="docutils literal notranslate"><span class="pre">initialize_config_binding</span></code> explicitly for empty
+or new locations.</p>
+<p>External roots additionally contain:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;external-root&gt;/.ledger-store.toml
+</pre></div>
+</div>
+<p>with <code class="docutils literal notranslate"><span class="pre">schema_version</span> <span class="pre">=</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">kind</span> <span class="pre">=</span> <span class="pre">&quot;ledgerwerk-store&quot;</span></code>. The legacy regular
+<code class="docutils literal notranslate"><span class="pre">.ledger-store</span></code> marker can be accepted during compatibility validation but new
+initialization writes the structured marker.</p>
+<p>Unbound non-empty directories and mismatched markers are errors. Missing cache
+locations are not corruption when validation allows missing locations.</p>
+</section>
+<section id="migration">
+<h2>Migration</h2>
+<p>Storage changes are explicit. Planning does not write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore</span><span class="w"> </span><span class="kn">import</span> <span class="n">plan_storage_migration</span><span class="p">,</span> <span class="n">execute_storage_migration</span>
+
+<span class="n">plan</span> <span class="o">=</span> <span class="n">plan_storage_migration</span><span class="p">(</span>
+    <span class="n">project</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">manifest</span><span class="p">,</span>
+    <span class="n">target_overrides</span><span class="p">,</span>
+    <span class="s2">&quot;taskledger&quot;</span><span class="p">,</span>
+    <span class="n">mounts</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,),</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">execute_storage_migration</span><span class="p">(</span>
+    <span class="n">plan</span><span class="p">,</span>
+    <span class="n">verify</span><span class="o">=</span><span class="s2">&quot;sha256&quot;</span><span class="p">,</span>
+    <span class="n">quiescence_check</span><span class="o">=</span><span class="n">downstream_has_no_active_writers</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>Planning resolves current and target layouts independently, validates source
+bindings, refuses conflicting destinations, and selects cache rebuild by default.
+Execution defaults to copy-only mode. Destructive <code class="docutils literal notranslate"><span class="pre">mode=&quot;move&quot;</span></code> is disabled in
+0.5.1 because source cleanup is not safely recoverable. Durable mounts require
+the downstream quiescence callback.</p>
+<p>Execution uses a temporary sibling directory, refuses unexpected symlinks,
+writes the destination binding, verifies regular files, switches configuration
+atomically, and retains the source after successful activation. A schema-2
+journal is stored under <code class="docutils literal notranslate"><span class="pre">.ledger/migrations/&lt;migration-id&gt;.toml</span></code> with phases
+<code class="docutils literal notranslate"><span class="pre">planned</span></code>, <code class="docutils literal notranslate"><span class="pre">copying</span></code>, <code class="docutils literal notranslate"><span class="pre">verified</span></code>, <code class="docutils literal notranslate"><span class="pre">config-switched</span></code>, <code class="docutils literal notranslate"><span class="pre">complete</span></code>, or <code class="docutils literal notranslate"><span class="pre">failed</span></code>.</p>
+<p>Journal schema 2 persists exact source and destination binding identity,
+execution mode, verification mode, project root, items completed, and source
+removal outcome. Schema-1 journals from earlier versions remain inspectable
+but bindings are represented as <code class="docutils literal notranslate"><span class="pre">None</span></code> because the original journal did not
+persist them.</p>
+<p>Recovery of completed journals returns <code class="docutils literal notranslate"><span class="pre">source_removed=False</span></code> for schema-2
+copy journals and <code class="docutils literal notranslate"><span class="pre">source_removed=None</span></code> for schema-1 completed journals.
+Incomplete journals in any phase (<code class="docutils literal notranslate"><span class="pre">planned</span></code>, <code class="docutils literal notranslate"><span class="pre">copying</span></code>, <code class="docutils literal notranslate"><span class="pre">verified</span></code>,
+<code class="docutils literal notranslate"><span class="pre">config-switched</span></code>, or <code class="docutils literal notranslate"><span class="pre">failed</span></code>) require manual intervention; Ledgercore 0.5.1
+can inspect them but cannot safely resume or complete them automatically.
+Recovery is read-only: it never copies data, deletes sources, switches
+configuration, or rewrites a journal. Malformed or unsupported journal data is
+rejected with <code class="docutils literal notranslate"><span class="pre">STORAGE_MIGRATION_JOURNAL_INVALID</span></code>.</p>
+<p>Schema 2 can be read for migration. <code class="docutils literal notranslate"><span class="pre">plan_schema_v2_to_v3</span></code> provides conservative
+conversion for simple layouts. Schema-2 provider, namespace, custom path, and
+scope combinations that cannot be mapped safely require an operator decision.
+Writers emit schema 3 only. Schema 2 is deprecated outside explicit migration.</p>
 </section>
-<section id="built-in-sibling-ledger-provider">
-<h4>Built-in sibling-ledger provider</h4>
-<p>The machine-local selection below opts into the one fixed direct workspace backend:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="c1"># .ledger/ledger.local.toml</span>
-<span class="n">schema_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
-
-<span class="k">[storage.workspace]</span>
-<span class="n">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sibling-ledger&quot;</span>
-</pre></div>
-</div>
-<p>For a project root <code class="docutils literal notranslate"><span class="pre">/work/ledgercore</span></code>, the provider root is fixed at
-<code class="docutils literal notranslate"><span class="pre">/work/ledger</span></code>. It requires an existing directory and a regular
-<code class="docutils literal notranslate"><span class="pre">/work/ledger/.ledger-store</span></code> marker. Resolution never creates either path, invokes
-Git, or falls back to the platform data root. Missing or invalid selected storage
-is a fatal error with remediation in the exception text.</p>
-<p>A project-scoped workspace mount resolves directly below the provider root:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;project-root&gt;/../ledger/task/taskledger
-</pre></div>
-</div>
-<p>Root overrides retain the existing namespaced behavior instead:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>root = &quot;../ledger&quot;
-../ledger/projects/&lt;project-uuid&gt;/project/task/taskledger
-</pre></div>
-</div>
-<p>The direct provider supports workspace/project mounts only. It does not support
-cache selection, checkout-scoped mounts, provider declarations, configurable
-markers, or workspace-located tool configuration.</p>
-</section>
-<section id="named-mounts-and-lifecycle-rules">
-<h4>Named mounts and lifecycle rules</h4>
-<ul class="simple">
-<li><p>A mount is identified by name within one ledger registration. Two ledgers
-in the same project may reuse the same mount name; they do not share
-storage.</p></li>
-<li><p>Repository mounts resolve beneath <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> and cannot be redirected.
-They live with the source tree and are intended for durable, in-tree
-records.</p></li>
-<li><p>Workspace mounts normally resolve under <code class="docutils literal notranslate"><span class="pre">projects/&lt;project-uuid&gt;/...</span></code> outside
-the source checkout. The selected <code class="docutils literal notranslate"><span class="pre">sibling-ledger</span></code> provider is the fixed
-exception and resolves direct project-scoped mounts below <code class="docutils literal notranslate"><span class="pre">&lt;project-root&gt;/../ledger</span></code>.</p></li>
-<li><p>Cache mounts resolve under the same <code class="docutils literal notranslate"><span class="pre">projects/&lt;project-uuid&gt;/...</span></code> roots but are
-explicitly rebuildable. Deleting a cache mount is safe.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">config</span></code> block (when present) must point to a project-local file beneath
-<code class="docutils literal notranslate"><span class="pre">.ledger/</span></code>. Workspace-stored tool config is unsupported.</p></li>
-</ul>
-</section>
-<section id="local-roots-vs-provider-selections">
-<h4>Local roots vs provider selections</h4>
-<p><code class="docutils literal notranslate"><span class="pre">ledgercore</span></code> distinguishes two local override fields:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">workspace_root</span></code> / <code class="docutils literal notranslate"><span class="pre">cache_root</span></code> are explicit local filesystem roots. They redirect
-the matching family root while retaining namespaced project and checkout paths.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">workspace_provider</span></code> selects the fixed built-in <code class="docutils literal notranslate"><span class="pre">sibling-ledger</span></code> convention. It is
-valid only for workspace/project mounts and has no fallback.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cache_provider</span></code> selections are rejected. Root and provider cannot be combined.</p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">parse_ledger_project_manifest</span></code> and <code class="docutils literal notranslate"><span class="pre">parse_ledger_local_config</span></code> accept mappings,
-not TOML file paths. Repository mounts stay beneath <code class="docutils literal notranslate"><span class="pre">.ledger</span></code>; root overrides for
-workspace and cache mounts retain the fixed <code class="docutils literal notranslate"><span class="pre">projects/&lt;uuid&gt;/project</span></code> or
-<code class="docutils literal notranslate"><span class="pre">projects/&lt;uuid&gt;/checkouts/&lt;checkout-id&gt;</span></code> structural roots.</p>
-</section>
-<section id="external-store-bootstrap-and-downstream-ids">
-<h4>External store bootstrap and downstream IDs</h4>
-<p>On a second computer, clone or provision the external store as the sibling <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>
-before resolving the project. Create or verify the regular <code class="docutils literal notranslate"><span class="pre">../ledger/.ledger-store</span></code>
-marker, select <code class="docutils literal notranslate"><span class="pre">provider</span> <span class="pre">=</span> <span class="pre">&quot;sibling-ledger&quot;</span></code> in the machine-local config, and let the
-downstream tool initialize its project-binding marker. Ledgercore only validates these
-prerequisites. It does not clone, commit, push, or otherwise invoke Git.</p>
-<p>Taskledger owns the binding file and authoritative record policy. It must derive the
-next ID as the maximum validated allocated task number plus one across active records,
-archives, and tombstones. Gaps are not reused, and the stable project config does not
-store a next-task counter. Exclusive creation with bounded retry handles local races.
-Disconnected computers can still allocate the same numeric ID, so operators should
-pull or rebase first, create and push promptly, and resolve integration conflicts
-without silently renumbering referenced tasks.</p>
-<p>For arbitrary resolved paths, use <code class="docutils literal notranslate"><span class="pre">ensure_inside_base</span></code> before access and
-<code class="docutils literal notranslate"><span class="pre">relative_to_base</span></code> when storing a POSIX relative path. <code class="docutils literal notranslate"><span class="pre">resolve_under_base</span></code>
-combines strict relative validation with containment and optional existence
-checking.
-<code class="docutils literal notranslate"><span class="pre">normalize_path_text</span></code> is intentionally separate. It can normalize Unicode
-punctuation, backslashes, whitespace, and casing for matching, but its output
-must still pass the strict path helpers before filesystem use.</p>
-<p>The default punctuation profile preserves existing behavior. Use
-<code class="docutils literal notranslate"><span class="pre">punctuation_profile=&quot;wide&quot;</span></code> for additional quote, prime, dash, and minus
-variants, <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code> to disable named translations, or
-<code class="docutils literal notranslate"><span class="pre">punctuation_translation</span></code> to add application-specific matching substitutions.</p>
-</section>
-</section>
+<section id="compatibility">
+<h2>Compatibility</h2>
+<p>The old <code class="docutils literal notranslate"><span class="pre">ledgercore.layout</span></code> parser and resolver remain available for schema-2
+callers during the 0.5.x compatibility window. They emit <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code>.
+The old <code class="docutils literal notranslate"><span class="pre">workspace</span></code>, <code class="docutils literal notranslate"><span class="pre">repository</span></code>, <code class="docutils literal notranslate"><span class="pre">sibling-ledger</span></code>, provider, namespace, and
+scope vocabulary is compatibility input only and is not part of normal schema-3
+configuration.</p>
 </section>
 </section>
 </div>

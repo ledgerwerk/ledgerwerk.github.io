@@ -6,7 +6,7 @@ nav_tool: repairledger-main
 docs_project: "repairledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "35958b739a2a910a389542c4a0012a3ade5dd688"
+docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
 search_enabled: true
 ---
 
@@ -542,62 +542,84 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="storage">
 <h1>Storage</h1>
-<p>Repairledger stores data on the local filesystem under a configured storage directory (default: <code class="docutils literal notranslate"><span class="pre">.repairledger</span></code>).</p>
+<p>Repairledger is <strong>user-global</strong>: a single config at
+<code class="docutils literal notranslate"><span class="pre">${XDG_CONFIG_HOME:-~/.config}/ledger/repairledger.toml</span></code> and a single data path
+at <code class="docutils literal notranslate"><span class="pre">${XDG_DATA_HOME:-~/.local/share}/ledger/repairledger/</span></code>. Agents in any
+repository can log observations without writing into the current source tree.</p>
 <section id="configuration">
 <h2>Configuration</h2>
-<p>The workspace is identified by a <code class="docutils literal notranslate"><span class="pre">repairledger.toml</span></code> or <code class="docutils literal notranslate"><span class="pre">.repairledger.toml</span></code> file:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[ledger]</span>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">config_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+
+<span class="k">[ledger]</span>
 <span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;rl&quot;</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;repairledger&quot;</span>
 
-<span class="k">[project]</span>
-<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-project&quot;</span>
-
 <span class="k">[storage]</span>
-<span class="n">repairledger_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;.repairledger&quot;</span>
+<span class="n">data_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;~/.local/share/ledger/repairledger&quot;</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">[storage].data_path</span></code> accepts absolute paths, <code class="docutils literal notranslate"><span class="pre">~</span></code>-expanded paths, and paths
+relative to the config file directory. The legacy <code class="docutils literal notranslate"><span class="pre">[storage].repairledger_dir</span></code>
+field is still accepted when <code class="docutils literal notranslate"><span class="pre">data_path</span></code> is absent, but <code class="docutils literal notranslate"><span class="pre">data_path</span></code> is the
+preferred form.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">REPAIRLEDGER_CONFIG=/absolute/path/to/rl.toml</span></code> to point at a custom
+config file. The override must resolve to an absolute path.</p>
 </section>
 <section id="directory-layout">
 <h2>Directory layout</h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">workspace</span> <span class="n">root</span><span class="o">&gt;/</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">config</span><span class="o">/</span><span class="n">ledger</span><span class="o">/</span>
   <span class="n">repairledger</span><span class="o">.</span><span class="n">toml</span>
-  <span class="o">.</span><span class="n">repairledger</span><span class="o">/</span>
-    <span class="n">storage</span><span class="o">.</span><span class="n">yaml</span>
-    <span class="n">repairs</span><span class="o">/</span>
-      <span class="n">repair</span><span class="o">-</span><span class="mi">0001</span><span class="o">/</span>
-        <span class="n">repair</span><span class="o">.</span><span class="n">yaml</span>
-        <span class="n">components</span><span class="o">/</span>
-          <span class="mi">00</span><span class="o">-</span><span class="n">summary</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">10</span><span class="o">-</span><span class="n">context</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">20</span><span class="o">-</span><span class="n">tool</span><span class="o">-</span><span class="n">call</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">30</span><span class="o">-</span><span class="n">expected</span><span class="o">-</span><span class="n">behavior</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">40</span><span class="o">-</span><span class="n">actual</span><span class="o">-</span><span class="n">behavior</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">50</span><span class="o">-</span><span class="n">reproduction</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">60</span><span class="o">-</span><span class="n">impact</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">70</span><span class="o">-</span><span class="n">workaround</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">80</span><span class="o">-</span><span class="n">diagnosis</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">90</span><span class="o">-</span><span class="n">suggested</span><span class="o">-</span><span class="n">fix</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">95</span><span class="o">-</span><span class="n">validation</span><span class="o">.</span><span class="n">md</span>
-          <span class="mi">99</span><span class="o">-</span><span class="n">notes</span><span class="o">.</span><span class="n">md</span>
-        <span class="n">rendered</span><span class="o">/</span>
-          <span class="n">latest</span><span class="o">.</span><span class="n">md</span>
-          <span class="n">repair</span><span class="o">-</span><span class="mi">0001</span><span class="o">-</span><span class="n">v0003</span><span class="o">.</span><span class="n">md</span>
-        <span class="n">versions</span><span class="o">/</span>
-          <span class="n">v0001</span><span class="o">/</span>
-            <span class="n">repair</span><span class="o">.</span><span class="n">yaml</span>
-            <span class="n">components</span><span class="o">/</span>
-              <span class="o">...</span>
-          <span class="n">v0002</span><span class="o">/</span>
+
+<span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ledger</span><span class="o">/</span><span class="n">repairledger</span><span class="o">/</span>
+  <span class="n">storage</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="n">repairs</span><span class="o">/</span>
+    <span class="n">repair</span><span class="o">-</span><span class="mi">0001</span><span class="o">/</span>
+      <span class="n">repair</span><span class="o">.</span><span class="n">yaml</span>
+      <span class="n">components</span><span class="o">/</span>
+        <span class="mi">00</span><span class="o">-</span><span class="n">summary</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">10</span><span class="o">-</span><span class="n">context</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">20</span><span class="o">-</span><span class="n">tool</span><span class="o">-</span><span class="n">call</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">30</span><span class="o">-</span><span class="n">expected</span><span class="o">-</span><span class="n">behavior</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">40</span><span class="o">-</span><span class="n">actual</span><span class="o">-</span><span class="n">behavior</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">50</span><span class="o">-</span><span class="n">reproduction</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">60</span><span class="o">-</span><span class="n">impact</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">70</span><span class="o">-</span><span class="n">workaround</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">80</span><span class="o">-</span><span class="n">diagnosis</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">90</span><span class="o">-</span><span class="n">suggested</span><span class="o">-</span><span class="n">fix</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">95</span><span class="o">-</span><span class="n">validation</span><span class="o">.</span><span class="n">md</span>
+        <span class="mi">99</span><span class="o">-</span><span class="n">notes</span><span class="o">.</span><span class="n">md</span>
+      <span class="n">rendered</span><span class="o">/</span>
+        <span class="n">latest</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">repair</span><span class="o">-</span><span class="mi">0001</span><span class="o">-</span><span class="n">v0003</span><span class="o">.</span><span class="n">md</span>
+      <span class="n">versions</span><span class="o">/</span>
+        <span class="n">v0001</span><span class="o">/</span>
+          <span class="n">repair</span><span class="o">.</span><span class="n">yaml</span>
+          <span class="n">components</span><span class="o">/</span>
             <span class="o">...</span>
-    <span class="n">reports</span><span class="o">/</span>
-      <span class="n">repairledger</span><span class="o">-</span><span class="n">report</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">v0002</span><span class="o">/</span>
+          <span class="o">...</span>
+  <span class="n">reports</span><span class="o">/</span>
+    <span class="n">repairledger</span><span class="o">-</span><span class="n">report</span><span class="o">.</span><span class="n">md</span>
+  <span class="n">exports</span><span class="o">/</span>
+    <span class="n">repairledger</span><span class="o">-</span><span class="n">report</span><span class="o">.</span><span class="n">md</span>
+    <span class="n">repair</span><span class="o">-</span><span class="mf">0001.</span><span class="n">md</span>
 </pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">exports/</span></code> directory holds the default output of <code class="docutils literal notranslate"><span class="pre">repairledger</span> <span class="pre">report</span> <span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">repairledger</span> <span class="pre">repair</span> <span class="pre">export</span></code>. The <code class="docutils literal notranslate"><span class="pre">reports/</span></code> directory holds the
+default output of <code class="docutils literal notranslate"><span class="pre">repairledger</span> <span class="pre">report</span> <span class="pre">build</span></code>.</p>
 </section>
 <section id="version-snapshots">
 <h2>Version snapshots</h2>
 <p>Every mutation increments the repair version and writes a complete post-mutation snapshot under <code class="docutils literal notranslate"><span class="pre">versions/v000X/</span></code>. Snapshots contain <code class="docutils literal notranslate"><span class="pre">repair.yaml</span></code> and all component files.</p>
+</section>
+<section id="concurrency">
+<h2>Concurrency</h2>
+<p><code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code> is shared across all agents. Repair ID allocation, repair
+creation, and active-repair updates are serialized with an inter-process
+<code class="docutils literal notranslate"><span class="pre">fcntl.flock</span></code> against <code class="docutils literal notranslate"><span class="pre">&lt;data</span> <span class="pre">path&gt;/.repairledger.lock</span></code>. Initialization is
+serialized with a separate lock adjacent to the config file.</p>
+<p>A global <code class="docutils literal notranslate"><span class="pre">active_repair_id</span></code> is advisory. When multiple repairs exist, mutating
+commands (<code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">archive</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">build</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">component</span> <span class="pre">set</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">component</span> <span class="pre">append</span></code>) require an explicit <code class="docutils literal notranslate"><span class="pre">--repair</span> <span class="pre">REPAIR_ID</span></code>.</p>
 </section>
 </section>
 </div>

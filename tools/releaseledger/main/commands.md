@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_commit: "05026ba436edbc5fc4fa36bc1a35796eb90b9013"
 search_enabled: true
 ---
 
@@ -542,15 +542,53 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="commands">
 <h1>Commands</h1>
-<section id="root-options">
-<h2>Root options</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger --cwd PATH ...
+<section id="unified-cli-contract">
+<h2>Unified CLI contract</h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger --root PATH ...
+releaseledger --cwd PATH ...        # deprecated compatibility alias
 releaseledger --json ...
 releaseledger --version
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">--cwd</span></code> runs as if started from another directory. <code class="docutils literal notranslate"><span class="pre">--json</span></code> emits
-deterministic JSON envelopes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--root</span></code> selects the project without changing the process working directory.
+<code class="docutils literal notranslate"><span class="pre">--cwd</span></code> remains accepted with a structured deprecation warning. <code class="docutils literal notranslate"><span class="pre">--json</span></code>
+emits the deterministic <code class="docutils literal notranslate"><span class="pre">ledgerwerk.cli.v1</span></code> success/error envelope; warnings
+are included in <code class="docutils literal notranslate"><span class="pre">warnings</span></code> rather than mixed into stdout.</p>
+<p>Every command has a space-separated canonical path and exits with <code class="docutils literal notranslate"><span class="pre">0</span></code> for
+success, <code class="docutils literal notranslate"><span class="pre">1</span></code> for a failed check, <code class="docutils literal notranslate"><span class="pre">2</span></code> for usage/input errors, <code class="docutils literal notranslate"><span class="pre">3</span></code> for an
+unavailable dependency, <code class="docutils literal notranslate"><span class="pre">4</span></code> for conflicts or stale plans, and <code class="docutils literal notranslate"><span class="pre">5</span></code> for
+external-process failures.</p>
+</section>
+<section id="common-and-migration-commands">
+<h2>Common and migration commands</h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>releaseledger commands
+releaseledger help release review
+releaseledger status [--check]
+releaseledger info
+releaseledger doctor [--check]
+releaseledger next-action
+releaseledger storage where
+releaseledger storage validate [--strict]
+releaseledger storage set data --storage project|external|user-data
+                             [--storage-root PATH] [--scope project|local]
+                             [--dry-run]
+releaseledger storage clear-override data [--dry-run]
+releaseledger migrate status
+releaseledger migrate plan storage-layout [--storage ...] [--output PLAN.json]
+releaseledger migrate apply storage-layout [--plan-file PLAN.json]
+                             --reason TEXT [--dry-run]
+releaseledger migrate recover [--journal PATH]
+releaseledger migrate cleanup storage-layout [--dry-run]
+                             [--yes --reason TEXT]
+releaseledger config show
+releaseledger config validate [--strict]
+</pre></div>
+</div>
+<p>Migration plans use <code class="docutils literal notranslate"><span class="pre">releaseledger.migration-plan.v1</span></code>, include source and
+destination fingerprints, and are rejected with exit <code class="docutils literal notranslate"><span class="pre">4</span></code> if the source
+changes before apply. Cleanup is explicit, confirmation-gated, and requires
+an audit reason. <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">migrate</span> <span class="pre">...</span></code> remains a deprecated compatibility
+entry point for the named migration commands.</p>
 </section>
 <section id="project-commands">
 <h2>Project commands</h2>
@@ -593,6 +631,8 @@ releaseledger release cancel VERSION [--reason TEXT]
                                     [--target-file PATH]
                                     [--remove-changelog-section]
                                     [--ignore-missing]
+                                    [--rewrite-successors]
+                                    [--successor-previous VERSION] [--dry-run]
 releaseledger release rename OLD_VERSION NEW_VERSION [--previous VERSION]
                                                       [--title TEXT]
                                                       [--released-at YYYY-MM-DD]
@@ -603,6 +643,8 @@ releaseledger release rename OLD_VERSION NEW_VERSION [--previous VERSION]
                                                       [--replace-existing-section]
 releaseledger release chain check
 releaseledger release chain repair [--dry-run] [--apply]
+releaseledger release chain check [--strict]
+releaseledger release reconcile [--strict] [--target-file PATH]
 releaseledger release list
 releaseledger release show VERSION
 </pre></div>
@@ -625,6 +667,8 @@ releaseledger entry add-many VERSION --file FILE [--dry-run] [--strict]
                                     [--guard-commit-subjects]
                                     [--sync-audit]
 releaseledger entry update VERSION ENTRY_ID [entry metadata options]
+releaseledger entry delete VERSION ENTRY_ID --reason TEXT [--dry-run]
+                                    [--force-accepted] [--detach-audit]
 releaseledger entry show VERSION ENTRY_ID
 releaseledger entry import VERSION --file FILE [--replace]
                                    [--source-ledger LEDGER]
@@ -640,6 +684,9 @@ releaseledger entry prompt VERSION [--source-ref REF]...
 returns the full per-entry <code class="docutils literal notranslate"><span class="pre">issues</span></code> and <code class="docutils literal notranslate"><span class="pre">entries</span></code> payload, <strong>including on
 failure</strong>; the command still exits non-zero. <code class="docutils literal notranslate"><span class="pre">--strict</span></code> fails on warnings.
 <code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span> <span class="pre">--dry-run</span></code> and <code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span></code> now share the same pre-write
+<code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add-many</span> <span class="pre">--dry-run</span> <span class="pre">--json</span></code> preserves the complete <code class="docutils literal notranslate"><span class="pre">result</span></code> payload on
+validation failure, including proposed entries, lint findings, coverage projection,
+and stable issue codes. Human mode prints one actionable row per issue.
 validation path, so strict dry-run results match write-mode gating.</p>
 </section>
 <section id="batch-file-format">
@@ -690,6 +737,8 @@ releaseledger build [VERSION] [--all] [--target-file PATH]
                             [--include-internal]
                             [--include-status STATUS]... [--strict]
                             [--dry-run] [--allow-empty]
+Single-release builds reject canceled releases unless `--include-canceled` is
+passed for archival/debug rendering. Full builds always exclude canceled releases.
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">build</span></code> with no <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> (or <code class="docutils literal notranslate"><span class="pre">--all</span></code>) is a full rebuild. <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">VERSION</span></code>
@@ -704,6 +753,8 @@ excludes that release from the normal release sections.</p>
 before the final build. Manual Unreleased content is preserved by default;
 generated folded Unreleased content is automatically removed once the folded
 release is finalized.</p>
+<p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">reconcile</span> <span class="pre">--strict</span></code> is read-only and compares release records, Git tags,
+and changelog headings before finalization.</p>
 </section>
 <section id="review-commands">
 <h2>Review commands</h2>

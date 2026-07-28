@@ -5,7 +5,7 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 746b23bc8364931701e960ae760861c304925257
+source_commit: cd505575fc2ae1a841ae9ab911f8f492223104ef
 source_url: https://github.com/ledgerwerk/wikimason/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/wikimason

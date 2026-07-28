@@ -6,7 +6,7 @@ nav_tool: repairledger-main
 docs_project: "repairledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "35958b739a2a910a389542c4a0012a3ade5dd688"
+docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
 search_enabled: true
 ---
 
@@ -543,7 +543,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="overview">
 <h1>Overview</h1>
 <p>Repairledger is a Python CLI and agent skill for durable repair observations. A repair observation records an agent-discovered tool failure, validation false positive, unclear command contract, missing documentation, skill gap, workflow pain point, or concrete improvement opportunity.</p>
-<p>The primary user is a coding agent working on another task. The agent can log an observation quickly, continue the primary task, then export a maintainer-facing Markdown report from the workspace root.</p>
+<p>The primary user is a coding agent working on another task. The agent can log an observation quickly from any source repository, continue the primary task, then export a maintainer-facing Markdown report from the user-global data path.</p>
 <section id="key-concepts">
 <h2>Key concepts</h2>
 <ul class="simple">
@@ -551,7 +551,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Component</strong>: A modular Markdown file within a repair (e.g., summary, reproduction, suggested fix).</p></li>
 <li><p><strong>Version snapshot</strong>: A complete copy of a repair after every mutation.</p></li>
 <li><p><strong>Rendered artifact</strong>: A standalone Markdown document with YAML front matter.</p></li>
-<li><p><strong>Aggregate report</strong>: A workspace-root Markdown report covering all active observations.</p></li>
+<li><p><strong>Aggregate report</strong>: A global-data-path Markdown report covering all active observations.</p></li>
+<li><p><strong>User-global ledger</strong>: A single config at
+<code class="docutils literal notranslate"><span class="pre">~/.config/ledger/repairledger.toml</span></code> and a single data path at
+<code class="docutils literal notranslate"><span class="pre">~/.local/share/ledger/repairledger/</span></code>. Agents log observations from any
+repository without writing into the current source tree.</p></li>
 </ul>
 </section>
 </section>

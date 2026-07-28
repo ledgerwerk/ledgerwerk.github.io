@@ -6,7 +6,7 @@ nav_tool: archledger-main
 docs_project: "archledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_commit: "86a798bba520a788344889d25539b2b4cbd0dc11"
 search_enabled: true
 ---
 
@@ -554,12 +554,24 @@ validation, <code class="docutils literal notranslate"><span class="pre">source<
 <code class="docutils literal notranslate"><span class="pre">record</span></code>, <code class="docutils literal notranslate"><span class="pre">refs</span></code>, <code class="docutils literal notranslate"><span class="pre">links</span></code>, and <code class="docutils literal notranslate"><span class="pre">ac</span></code>. JSON Schemas are returned with
 <code class="docutils literal notranslate"><span class="pre">schema</span> <span class="pre">--format</span> <span class="pre">jsonschema</span> <span class="pre">--target</span> <span class="pre">TARGET</span></code>. <code class="docutils literal notranslate"><span class="pre">install</span></code> creates optional
 integration scaffolds and refuses overwrites unless <code class="docutils literal notranslate"><span class="pre">--force</span></code> is supplied.</p>
+<p>The canonical record and migration syntax is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>storage<span class="w"> </span>where
+archledger<span class="w"> </span>--json<span class="w"> </span>record<span class="w"> </span>create<span class="w"> </span>adr<span class="w"> </span><span class="s2">&quot;Architecture decision&quot;</span>
+archledger<span class="w"> </span>--json<span class="w"> </span>record<span class="w"> </span>list
+archledger<span class="w"> </span>--json<span class="w"> </span>record<span class="w"> </span>show<span class="w"> </span>adr-0001
+archledger<span class="w"> </span>--json<span class="w"> </span>record<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--body
+archledger<span class="w"> </span>--json<span class="w"> </span>record<span class="w"> </span>archive<span class="w"> </span>adr-0001<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;superseded&quot;</span>
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>identity-ledgercore
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>identity-ledgercore<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;approved migration&quot;</span>
+</pre></div>
+</div>
+<p>Compatibility aliases remain available with structured deprecation warnings.
+The complete inventory is in the <a class="reference internal" href="../cli-reference/"><span class="std std-doc">generated CLI reference</span></a>.</p>
 </section>
 <section id="init-initialize-a-workspace">
 <span id="init"></span><h2><code class="docutils literal notranslate"><span class="pre">init</span></code> — Initialize a workspace</h2>
-<p>Creates <code class="docutils literal notranslate"><span class="pre">archledger.toml</span></code>, the state directory, section stubs, record-type
-subdirectories, and <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code> in one step.</p>
-<p>Fails if a config file already exists in the target workspace.</p>
+<p>Creates <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code>, canonical repository data, section stubs, record-type subdirectories, and <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code> in one step.</p>
+<p>Legacy layouts fail with migration instructions. A valid canonical project is idempotent.</p>
 <section id="synopsis">
 <h3>Synopsis</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>init<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
@@ -579,19 +591,14 @@ archledger<span class="w"> </span>init<span class="w"> </span>--source-format<sp
 <section id="what-init-creates">
 <h3>What init creates</h3>
 <p>Running <code class="docutils literal notranslate"><span class="pre">init</span></code> produces:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">archledger.toml</span></code> — project configuration (see <a class="reference internal" href="../configuration/"><span class="doc">Configuration</span></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;archledger-dir&gt;/</span></code> — state directory (default <code class="docutils literal notranslate"><span class="pre">.archledger</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;archledger-dir&gt;/sections/</span></code> — 12 arc42 section stubs (default <code class="docutils literal notranslate"><span class="pre">al_0001</span></code> through <code class="docutils literal notranslate"><span class="pre">al_0012</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;archledger-dir&gt;/records/</span></code> — typed subdirectories:</p>
-<p><code class="docutils literal notranslate"><span class="pre">building_blocks</span></code>, <code class="docutils literal notranslate"><span class="pre">concepts</span></code>, <code class="docutils literal notranslate"><span class="pre">constraints</span></code>, <code class="docutils literal notranslate"><span class="pre">contexts</span></code>,
-<code class="docutils literal notranslate"><span class="pre">decisions</span></code>, <code class="docutils literal notranslate"><span class="pre">deployment</span></code>, <code class="docutils literal notranslate"><span class="pre">diagrams</span></code>, <code class="docutils literal notranslate"><span class="pre">glossary</span></code>,
-<code class="docutils literal notranslate"><span class="pre">quality_goals</span></code>, <code class="docutils literal notranslate"><span class="pre">quality_requirements</span></code>, <code class="docutils literal notranslate"><span class="pre">quality_scenarios</span></code>,
-<code class="docutils literal notranslate"><span class="pre">requirements</span></code>, <code class="docutils literal notranslate"><span class="pre">risks</span></code>, <code class="docutils literal notranslate"><span class="pre">runtime</span></code>, <code class="docutils literal notranslate"><span class="pre">stakeholders</span></code>, <code class="docutils literal notranslate"><span class="pre">strategy</span></code></p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;archledger-dir&gt;/archive/</span></code> — for archived records</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;archledger-dir&gt;/build/</span></code> — default build output directory</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;archledger-dir&gt;/storage.yaml</span></code> — ledger counter state</p></li>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> - shared project identity and ledger topology</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code> - stable Archledger settings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/</span></code> - authoritative repository data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/profiles/arc42/sections/</span></code> - section stubs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/records/</span></code> - typed record directories</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/archive/</span></code> - archived records</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/storage.yaml</span></code> - ledger counter state</p></li>
 </ul>
 <p>Section files are numbered by configured <code class="docutils literal notranslate"><span class="pre">[ids]</span></code> format (default <code class="docutils literal notranslate"><span class="pre">al_0001</span></code> through <code class="docutils literal notranslate"><span class="pre">al_0012</span></code>) matching the 12
 major arc42 sections:</p>
@@ -622,11 +629,9 @@ Default: <code class="docutils literal notranslate"><span class="pre">asciidoc</
 Determines file extensions, default build output name, and template
 rendering for all generated section stubs.</p>
 <p><code class="docutils literal notranslate"><span class="pre">--archledger-dir</span> <span class="pre">PATH</span></code>
-State directory to create, relative to the config path unless absolute.
-Default: <code class="docutils literal notranslate"><span class="pre">.archledger</span></code>.
-Use an absolute path to store state outside the project tree.</p>
+Deprecated and rejected. Canonical storage is fixed at <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code>; use <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">migrate</span> <span class="pre">project</span></code> for legacy paths.</p>
 <p><code class="docutils literal notranslate"><span class="pre">--project-name</span> <span class="pre">TEXT</span></code>
-Stable project identity stored in <code class="docutils literal notranslate"><span class="pre">archledger.toml</span></code>.
+Stable project identity stored in <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>.
 Defaults to the workspace directory basename (slug-normalized).</p>
 <p><code class="docutils literal notranslate"><span class="pre">--project-uuid</span> <span class="pre">TEXT</span></code>
 Stable project UUID. Auto-generated when omitted.
@@ -813,6 +818,20 @@ archledger<span class="w"> </span>build<span class="w"> </span>--format<span cla
 archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>html<span class="w"> </span>--format<span class="w"> </span>markdown
 </pre></div>
 </div>
+</section>
+<section id="project-storage-migration">
+<h2>Project storage migration</h2>
+<p>See <a class="reference internal" href="../storage/"><span class="std std-doc">Storage and migration</span></a> for derived paths, topology changes,
+strict plans, receipts, and the no-manual-move workflow.</p>
+<p>Inspect legacy layout without writes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>project
+</pre></div>
+</div>
+<p>Apply with mandatory backup, staging, verification, and a preserved source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>migrate<span class="w"> </span>project<span class="w"> </span>--apply
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--backup-dir</span> <span class="pre">PATH</span></code> to select a backup location or <code class="docutils literal notranslate"><span class="pre">--retire-source</span></code> to timestamp-rename the verified legacy source.</p>
 </section>
 </section>
 </div>

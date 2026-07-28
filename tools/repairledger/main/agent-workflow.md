@@ -6,7 +6,7 @@ nav_tool: repairledger-main
 docs_project: "repairledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "35958b739a2a910a389542c4a0012a3ade5dd688"
+docs_commit: "3459ee7d2ed9faa0a5ef37d20aad23a80d74e8c9"
 search_enabled: true
 ---
 
@@ -542,12 +542,21 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="agent-workflow">
 <h1>Agent workflow</h1>
+<p>Repairledger is a <strong>user-global</strong> ledger. Run <code class="docutils literal notranslate"><span class="pre">repairledger</span> <span class="pre">init</span></code> once on
+each new machine; it creates the global config and data path. From then on,
+log observations from any repository without writing into the current source
+tree.</p>
+<blockquote>
+<div><p>Do not initialize Repairledger inside the current source repository.
+If <code class="docutils literal notranslate"><span class="pre">repairledger</span> <span class="pre">--json</span> <span class="pre">status</span></code> reports missing config, run
+<code class="docutils literal notranslate"><span class="pre">repairledger</span> <span class="pre">init</span></code> to create the user-global config and data path.</p>
+</div></blockquote>
 <section id="normal-observation-logging">
 <h2>Normal observation logging</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check workspace status</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check global status</span>
 repairledger<span class="w"> </span>--json<span class="w"> </span>status
 
-<span class="c1"># Initialize</span>
+<span class="c1"># Initialize the global config and data path (once per machine)</span>
 repairledger<span class="w"> </span>init
 
 <span class="c1"># Create via structured bundle</span>
@@ -583,10 +592,10 @@ JSON
 <span class="c1"># Validate</span>
 repairledger<span class="w"> </span>repair<span class="w"> </span>validate<span class="w"> </span>--repair<span class="w"> </span>repair-0001<span class="w"> </span>--for-observed
 
-<span class="c1"># Build</span>
+<span class="c1"># Build rendered artifacts in the global data path</span>
 repairledger<span class="w"> </span>repair<span class="w"> </span>build<span class="w"> </span>--repair<span class="w"> </span>repair-0001
 
-<span class="c1"># Export report</span>
+<span class="c1"># Export the aggregate report</span>
 repairledger<span class="w"> </span>report<span class="w"> </span><span class="nb">export</span>
 </pre></div>
 </div>
@@ -609,6 +618,8 @@ repairledger<span class="w"> </span>report<span class="w"> </span><span class="n
 <span class="w">  </span>--status<span class="w"> </span>observed
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">repairledger</span> <span class="pre">log</span></code> returns the new repair ID. Capture it and pass it
+explicitly to later mutating commands when multiple repairs exist.</p>
 </section>
 </section>
 </div>

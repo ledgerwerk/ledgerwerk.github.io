@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f56060c5db1d39c47e92bfe8e8e018812d4b6ff8"
+docs_commit: "ac33cd7389178b4a80e89dcb0a3696b31503d961"
 search_enabled: true
 ---
 
@@ -1119,45 +1119,42 @@ inferred from the active lock:</p>
 </section>
 <section id="storage-compatibility">
 <h2>Storage Compatibility</h2>
-<p>Taskledger stores canonical project configuration in <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>
-and <code class="docutils literal notranslate"><span class="pre">.ledger/task/config.toml</span></code>. Legacy <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">.taskledger.toml</span></code>
-remain readable during migration.</p>
-<p>Plain <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> keeps authoritative data under <code class="docutils literal notranslate"><span class="pre">.ledger</span></code> and never
-infers a sibling store. External storage requires
-<code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span> <span class="pre">--sibling-ledger-root</span> <span class="pre">PATH</span> <span class="pre">--create-store</span></code>; each project is
-isolated under <code class="docutils literal notranslate"><span class="pre">PATH/taskledger/&lt;project-uuid&gt;</span></code>, with a matching binding.
+<p>Taskledger stores canonical project configuration in schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>
+and Taskledger config in <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>. Legacy
+<code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">.taskledger.toml</span></code> remain readable for explicit migration.</p>
+<p>The default <code class="docutils literal notranslate"><span class="pre">data</span></code> mount is persistent external storage at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; <code class="docutils literal notranslate"><span class="pre">indexes</span></code>
+is cache storage. A local <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code> may select <code class="docutils literal notranslate"><span class="pre">user-data</span></code>.
 Commands keep <code class="docutils literal notranslate"><span class="pre">--root</span></code> scoped to the source workspace, not the storage root.</p>
 <p>Taskledger uses:</p>
 <ul class="simple">
-<li><p>a workspace storage layout version in <code class="docutils literal notranslate"><span class="pre">taskledger_dir/storage.yaml</span></code></p></li>
+<li><p>storage layout version 5 in the UUID-scoped data root’s <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code></p></li>
+<li><p>schema-2 canonical ledger state</p></li>
 <li><p>per-record <code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></li>
 <li><p>per-record <code class="docutils literal notranslate"><span class="pre">object_type</span></code></p></li>
 <li><p>per-file <code class="docutils literal notranslate"><span class="pre">file_version</span></code> for durable Markdown/YAML/JSON record files</p></li>
 </ul>
-<p>Storage layout version history:</p>
-<ul class="simple">
-<li><p>Layout 2: Introduced branch-scoped ledgers under <code class="docutils literal notranslate"><span class="pre">taskledger_dir/ledgers/&lt;ledger_ref&gt;/</span></code></p></li>
-<li><p>Layout 3: Consolidates layout-2 root-level task state into branch-scoped ledgers; migrates legacy root <code class="docutils literal notranslate"><span class="pre">tasks/</span></code>, <code class="docutils literal notranslate"><span class="pre">events/</span></code>, <code class="docutils literal notranslate"><span class="pre">intros/</span></code>, <code class="docutils literal notranslate"><span class="pre">releases/</span></code>, and <code class="docutils literal notranslate"><span class="pre">active-task.yaml</span></code> into the active ledger namespace</p></li>
-</ul>
+<p>Storage layout history is maintained by explicit migration receipts. The
+current layout keeps branch-scoped ledgers under
+<code class="docutils literal notranslate"><span class="pre">&lt;data-root&gt;/ledgers/&lt;ledger_ref&gt;/</span></code>.</p>
 <p>Taskledger does not silently rewrite storage during read-only commands.</p>
 <p>If the installed taskledger version can read but not write an older workspace,
 it reports that migration is required.</p>
 <p>To migrate:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>migrate<span class="w"> </span>status
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>storage<span class="w"> </span>validate
 taskledger<span class="w"> </span>migrate<span class="w"> </span>plan
-taskledger<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>--sibling-ledger-root<span class="w"> </span>PATH<span class="w"> </span>--backup
+taskledger<span class="w"> </span>migrate<span class="w"> </span>apply
 </pre></div>
 </div>
-<p>After migration to layout 3, verify health with:</p>
+<p>After migration to layout 5, verify health with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>doctor
 taskledger<span class="w"> </span>ledger<span class="w"> </span>doctor
 </pre></div>
 </div>
-<p>Indexes under <code class="docutils literal notranslate"><span class="pre">taskledger_dir/ledgers/&lt;ledger_ref&gt;/indexes/</span></code> are optional derived caches or
-registries. Task, plan, and run commands must continue to work from canonical
-Markdown/YAML records even when task/run/plan JSON cache files are absent. The
-remaining derived caches may be plain JSON arrays with no version metadata and
-can be rebuilt with:</p>
+<p>Checkout-scoped indexes under the resolved cache mount are optional derived
+caches or registries. Task, plan, and run commands must continue to work from
+canonical Markdown/YAML records even when cache files are absent. The remaining
+derived caches may be plain JSON arrays with no version metadata and can be
+rebuilt with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>reindex
 </pre></div>
 </div>
@@ -1196,7 +1193,25 @@ from local process checks; inspect handoffs or ask the user before repairing.</p
 </section>
 <section id="layout-and-migration-commands">
 <h2>Layout and migration commands</h2>
-<p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">config</span> <span class="pre">path</span></code> reports the project-located Taskledger configuration. <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|indexes</span></code> reports a named mount. Legacy layout conversion is explicit and requires a destination: <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code>, and <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span> <span class="pre">--sibling-ledger-root</span> <span class="pre">PATH</span> <span class="pre">--backup</span></code>; canonical <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">move</span></code> is rejected because storage mode is selected through explicit Ledger local configuration.</p>
+<p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">config</span> <span class="pre">path</span></code> reports the project-located Taskledger configuration.
+<code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|indexes</span></code> reports named resolved mounts.
+Use <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">validate</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code>, and <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">clear-override</span></code> for schema-3
+storage selection. Legacy layout conversion remains explicit through
+<code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code>, and <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span></code>.</p>
+<p>Migration inspection and apply share these options:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--sibling-ledger-root PATH
+--source-data-root PATH
+--source-checkout-id ID
+--project-uuid UUID
+</pre></div>
+</div>
+<p>The canonical project UUID is selected when a legacy Taskledger UUID differs. The
+legacy UUID is retained as source metadata. <code class="docutils literal notranslate"><span class="pre">--source-data-root</span></code> is the recovery
+override for a specific data root. <code class="docutils literal notranslate"><span class="pre">--source-checkout-id</span></code> accepts an identifier,
+not a filesystem path. Backups are automatic. Other ledger registrations are
+preserved, sources are not retired by default, and authoritative split-brain
+targets are refused without mutation. <code class="docutils literal notranslate"><span class="pre">--create-sibling-store</span></code> only initializes
+the sibling root marker; it does not repair target metadata.</p>
 </section>
 </section>
 </div>

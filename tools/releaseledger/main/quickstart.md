@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_commit: "05026ba436edbc5fc4fa36bc1a35796eb90b9013"
 search_enabled: true
 ---
 
@@ -555,9 +555,28 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="initialize-a-project">
 <h2>Initialize a project</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>init
+releaseledger<span class="w"> </span>status
+releaseledger<span class="w"> </span>doctor
 </pre></div>
 </div>
-<p>This creates <code class="docutils literal notranslate"><span class="pre">.releaseledger.toml</span></code> and the default state layout:</p>
+<p>This creates a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, the Releaseledger tool config,
+and the default state layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.ledger/
+  ledger.toml
+  releaseledger/
+    config.toml
+    data/
+    indexes/
+</pre></div>
+</div>
+<p>Inspect paths and validate the bindings before mutating state:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>storage<span class="w"> </span>where
+releaseledger<span class="w"> </span>storage<span class="w"> </span>validate<span class="w"> </span>--strict
+releaseledger<span class="w"> </span>config<span class="w"> </span>validate
+</pre></div>
+</div>
+<p>The legacy layout may still be discovered and migrated; it is not the format
+created by new projects:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.releaseledger/
   ledgers/
     main/

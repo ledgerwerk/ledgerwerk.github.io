@@ -5,7 +5,7 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: f56060c5db1d39c47e92bfe8e8e018812d4b6ff8
+source_commit: ac33cd7389178b4a80e89dcb0a3696b31503d961
 source_url: https://github.com/ledgerwerk/taskledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/taskledger

@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f079f5e181b7d2f6f7aac29c2a3a519990c78ecd"
+docs_commit: "05026ba436edbc5fc4fa36bc1a35796eb90b9013"
 search_enabled: true
 ---
 
@@ -577,7 +577,8 @@ state directory. It also renders reviewable changelog context and final
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="commands/">Commands</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="commands/#root-options">Root options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/#unified-cli-contract">Unified CLI contract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/#common-and-migration-commands">Common and migration commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commands/#project-commands">Project commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commands/#release-commands">Release commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commands/#entry-commands">Entry commands</a></li>
@@ -591,8 +592,10 @@ state directory. It also renders reviewable changelog context and final
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog rendering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#cli-migration-notes">CLI migration notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#two-step-model">Two-step model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#full-changelog-rebuild">Full changelog rebuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#provenance-and-canceled-releases">Provenance and canceled releases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#group-modes">Group modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#default-template">Default template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#template-context">Template context</a></li>
@@ -614,12 +617,12 @@ state directory. It also renders reviewable changelog context and final
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/">Python API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.releases">Release API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.entries">Entry API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.changelog">Changelog API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.api.config">Config API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.errors">Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#module-releaseledger.domain.release">Domain models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#release-api">Release API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#entry-api">Entry API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#changelog-api">Changelog API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#config-api">Config API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#domain-models">Domain models</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development/">Development</a><ul>
