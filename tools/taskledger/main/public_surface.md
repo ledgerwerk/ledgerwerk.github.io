@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a8dce9cf436c16e939ee979c50e068a6496175ca"
+docs_commit: "6077611b089056d555c1c0cf88605b7c07958ff4"
 search_enabled: true
 ---
 
@@ -604,8 +604,8 @@ the same underlying taskledger read models.</p>
 new child task instead of reopening a <code class="docutils literal notranslate"><span class="pre">done</span></code> task.</p>
 <p>Release boundaries are tracked separately from task lifecycle state with
 <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">tag</span></code>, <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">list</span></code>, and <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">show</span></code>. Taskledger does not
-manage changelog entries or <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code>; use the separate <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code>
-tool for changelog entries, changelog context, and <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> builds.</p>
+manage changelog entries or <a class="reference internal" href="../changelog/"><span class="std std-doc">docs/changelog.md</span></a>; use the separate <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code>
+tool for changelog entries, changelog context, and <a class="reference internal" href="../changelog/"><span class="std std-doc">docs/changelog.md</span></a> builds.</p>
 <p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">move</span></code>, <code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">pull/push/sync</span></code>, sync hooks,
 <code class="docutils literal notranslate"><span class="pre">ledger</span> <span class="pre">fork/switch/adopt</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">*</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">search</span></code>/<code class="docutils literal notranslate"><span class="pre">grep</span></code>/<code class="docutils literal notranslate"><span class="pre">symbols</span></code>/<code class="docutils literal notranslate"><span class="pre">deps</span></code> are not normal task work. They are

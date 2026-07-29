@@ -5,8 +5,8 @@ permalink: /tools/archledger/
 nav_tool: archledger
 docs_project: "archledger"
 docs_variant: "release"
-docs_ref: "v0.3.2"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_ref: "v0.4.0"
+docs_commit: "8273773236d316149ef8fe3a87fed711a5832701"
 search_enabled: true
 ---
 
@@ -550,8 +550,14 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="cli/#ledger-boundary">Ledger boundary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#init-initialize-a-workspace"><code class="docutils literal notranslate"><span class="pre">init</span></code> — Initialize a workspace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#other-commands">Other commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#project-storage-migration">Project storage migration</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cli-reference/">CLI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli-reference/#canonical-syntax-and-compatibility-aliases">Canonical syntax and compatibility aliases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage/">Storage and migration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration/">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="configuration/#important-sections">Important sections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/#example">Example</a></li>
@@ -587,6 +593,15 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="release-process/#installed-wheel-smoke-test">Installed-wheel smoke test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-process/#converter-backed-release-confidence">Converter-backed release confidence</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-process/#release-decision">Release decision</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-0-2026-07-28">[v0.4.0] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-3-2-2026-07-11">[v0.3.2] - 2026-07-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-3-1-2026-06-17">[v0.3.1] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-3-0-2026-06-09">[v0.3.0] - 2026-06-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-0-2026-05-30">[v0.2.0] - 2026-05-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-1-0-2026-05-22">[v0.1.0] - 2026-05-22</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="agent-workflow/">Agent workflow</a><ul>

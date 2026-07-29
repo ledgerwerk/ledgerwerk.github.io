@@ -1,7 +1,7 @@
 ---
 layout: tool-doc
-title: "archledger Build and export"
-permalink: /tools/archledger/build-and-export/
+title: "archledger CLI reference"
+permalink: /tools/archledger/cli-reference/
 nav_tool: archledger
 docs_project: "archledger"
 docs_variant: "release"
@@ -540,67 +540,280 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="build-and-export">
-<h1>Build and export</h1>
-<section id="native-builds">
-<h2>Native builds</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>markdown
-archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>asciidoc
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">[build].default_output_dir</span></code> is relative to the project root. Stable settings are stored in <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code>, while profile sections and state are relative to <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code>.</p>
-</section>
-<section id="converter-backed-exports">
-<h2>Converter-backed exports</h2>
-<ul class="simple">
-<li><p>Markdown source uses <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> for HTML, DOCX, RST, Textile, PDF, and AsciiDoc.</p></li>
-<li><p>AsciiDoc source uses <code class="docutils literal notranslate"><span class="pre">asciidoctor</span></code> for HTML.</p></li>
-<li><p>AsciiDoc source uses <code class="docutils literal notranslate"><span class="pre">asciidoctor-pdf</span></code> for PDF.</p></li>
-<li><p>AsciiDoc source uses Asciidoctor DocBook plus <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> for DOCX, Markdown, RST, and Textile.</p></li>
-</ul>
-<p>These export paths are supported when the external tools are installed and the
-corresponding integration checks pass. Native Markdown and AsciiDoc assembly
-remain the lowest-friction path because they do not depend on external converters.</p>
-</section>
-<section id="diagram-records">
-<h2>Diagram records</h2>
-<p>Diagram records are plain text by default. Dense architecture diagrams should use
-<code class="docutils literal notranslate"><span class="pre">diagram_type</span> <span class="pre">=</span> <span class="pre">&quot;text&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;unicode&quot;</span></code> so they remain readable in source,
-Git diffs, terminal output, and native Markdown/AsciiDoc builds. Mermaid remains
-available for compact sequence or flow diagrams, but it is not the default.</p>
-<p>Supported <code class="docutils literal notranslate"><span class="pre">diagram_type</span></code> values: <code class="docutils literal notranslate"><span class="pre">text</span></code> (default), <code class="docutils literal notranslate"><span class="pre">ascii</span></code>, <code class="docutils literal notranslate"><span class="pre">unicode</span></code>,
-<code class="docutils literal notranslate"><span class="pre">svgbob</span></code>, <code class="docutils literal notranslate"><span class="pre">mermaid</span></code>.</p>
-<p>Native builds preserve text diagram blocks as readable fenced code blocks or
-literal blocks — no external tool is required.</p>
-<p>Optional materialization for converter-backed outputs can be enabled with:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[diagrams]</span>
-<span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="n">renderer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;mermaid-cli&quot;</span>
-<span class="n">default_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;text&quot;</span>
-<span class="n">output_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;diagrams&quot;</span>
-<span class="n">image_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;svg&quot;</span>
-<span class="n">kroki_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
-</pre></div>
-</div>
-<p>Notes:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">renderer</span> <span class="pre">=</span> <span class="pre">&quot;pass-through&quot;</span></code> keeps diagram blocks unchanged (default).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">renderer</span> <span class="pre">=</span> <span class="pre">&quot;mermaid-cli&quot;</span></code> requires <code class="docutils literal notranslate"><span class="pre">mmdc</span></code> on <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and only processes Mermaid blocks.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">renderer</span> <span class="pre">=</span> <span class="pre">&quot;asciidoctor-diagram&quot;</span></code> is intended for direct Asciidoctor flows.</p></li>
-<li><p>Kroki is not currently supported by config validation.</p></li>
-</ul>
-</section>
-<section id="source-migration">
-<h2>Source migration</h2>
-<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">convert</span></code> migrates Markdown-source projects to AsciiDoc-source projects.
-Write mode is strict by default and requires <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>convert<span class="w"> </span>--to<span class="w"> </span>asciidoc<span class="w"> </span>--apply
-</pre></div>
-</div>
-<p>For an explicit temporary mixed-body migration:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>convert<span class="w"> </span>--to<span class="w"> </span>asciidoc<span class="w"> </span>--apply<span class="w"> </span>--allow-mixed-body-format
-</pre></div>
-</div>
+<!-- Generated from archledger.cli_inventory.COMMAND_INVENTORY. Do not edit by hand. -->
+<section id="cli-reference">
+<h1>CLI reference</h1>
+<p>The command inventory is the source for <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">commands</span></code>, nested
+<code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">help</span></code>, and this reference. Compatibility aliases remain supported
+and emit structured deprecation warnings.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Effect</p></th>
+<th class="head"><p>Summary</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Initialize an Archledger workspace.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show current Archledger status.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show resolved project and storage details.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">commands</span></code></p></td>
+<td><p>read</p></td>
+<td><p>List the shared command inventory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">help</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show inventory-driven command help.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Recommend the next safe read-only action.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Inspect Archledger health.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Validate Archledger records.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">build</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Build the architecture document.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">where</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show effective storage topology.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">validate</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Validate storage topology and bindings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Set storage topology without moving data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">clear-override</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Clear local storage topology override.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Report migration state and recovery needs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Create a deterministic migration plan.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Execute a reviewed migration plan.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">recover</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Analyze or recover an interrupted migration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">cleanup</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Remove verified legacy source after migration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">create</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Create one architecture record.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">list</span></code></p></td>
+<td><p>read</p></td>
+<td><p>List architecture records.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">show</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show one architecture record.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">read</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Read one architecture record.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">set-status</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Set record status and reason.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">archive</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Archive one architecture record.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">meta</span> <span class="pre">set</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Set typed record metadata.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">body</span> <span class="pre">append</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Append to a record body.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">body</span> <span class="pre">set</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Replace a record body.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">export</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Export one complete record.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">apply</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Apply a complete record document.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ref</span> <span class="pre">add</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Add a source reference.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">add</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Add a record link.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">changed</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Report source drift.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">snapshot</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Record a source snapshot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">convert</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Convert source dialects.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">context</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Read focused architecture context.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">trace</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Trace architecture evidence.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schema</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show published schemas.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">renumber</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Inspect or apply ID renumbering.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scope</span> <span class="pre">list</span></code></p></td>
+<td><p>read</p></td>
+<td><p>List record scope metadata.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scope</span> <span class="pre">show</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show record scope metadata.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scope</span> <span class="pre">affected</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Show affected records.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ac</span> <span class="pre">add</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Add an inline acceptance criterion.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">install</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Install integration scaffolding.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profile</span> <span class="pre">list</span></code></p></td>
+<td><p>read</p></td>
+<td><p>List enabled profiles.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profile</span> <span class="pre">enable</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Enable a profile.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profile</span> <span class="pre">disable</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Disable a profile.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profile</span> <span class="pre">migrate</span></code></p></td>
+<td><p>workspace-write</p></td>
+<td><p>Migrate profile data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">paths</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Compatibility path inspection alias.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ref</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Manage source references.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">link</span></code></p></td>
+<td><p>ledger-write</p></td>
+<td><p>Manage record links.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">project</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Compatibility project-layout migration alias.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">ids</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Compatibility identity migration alias.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">metadata</span></code></p></td>
+<td><p>read</p></td>
+<td><p>Compatibility metadata migration alias.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="canonical-syntax-and-compatibility-aliases">
+<h2>Canonical syntax and compatibility aliases</h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Older path</p></th>
+<th class="head"><p>Canonical path</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">new</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">create</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">show</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">show</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">read</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">read</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">archive</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">archive</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">refs</span> <span class="pre">add</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ref</span> <span class="pre">add</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">add</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">add</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">ids</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span> <span class="pre">identity-ledgercore</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">metadata</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span> <span class="pre">metadata-versioned</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">project</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span> <span class="pre">project-layout</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">paths</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">where</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Aliases are not removed. They return the same result shape and include a
+deprecation warning in both human and JSON output.</p>
 </section>
 </section>
 </div>

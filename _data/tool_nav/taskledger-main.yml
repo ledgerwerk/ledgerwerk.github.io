@@ -5,7 +5,7 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: a8dce9cf436c16e939ee979c50e068a6496175ca
+source_commit: 6077611b089056d555c1c0cf88605b7c07958ff4
 source_url: https://github.com/ledgerwerk/taskledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/taskledger
@@ -59,3 +59,6 @@ entries:
 - slug: documentation_freshness
   title: taskledger Documentation freshness
   url: /tools/taskledger/main/documentation_freshness/
+- slug: changelog
+  title: taskledger Changelog
+  url: /tools/taskledger/main/changelog/

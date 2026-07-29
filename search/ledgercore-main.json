@@ -173,8 +173,8 @@
         {
           "anchor": "",
           "heading": "Fixed",
-          "text": "Fixed fail-open validation where fingerprint errors allowed owned+replaceable state\n\n\nFixed missing config file bypassing foreign parent detection\n\n\nFixed unknown destination policies/strategies falling through to default action",
-          "lower": "fixed fail-open validation where fingerprint errors allowed owned+replaceable state\n\n\nfixed missing config file bypassing foreign parent detection\n\n\nfixed unknown destination policies/strategies falling through to default action"
+          "text": "Fixed fail-open validation where fingerprint errors allowed owned+replaceable state\n\n\nFixed missing config file bypassing foreign parent detection\n\n\nFixed unknown destination policies/strategies falling through to default action\n\n\nFixed MigrationLock creating .ledger/migrations/write.lock with executable\npermissions on POSIX; lock files now use private 0600 permissions, stale\ndiagnostics are replaced only after lock acquisition, and failed acquisition\ncloses the opened descriptor.",
+          "lower": "fixed fail-open validation where fingerprint errors allowed owned+replaceable state\n\n\nfixed missing config file bypassing foreign parent detection\n\n\nfixed unknown destination policies/strategies falling through to default action\n\n\nfixed migrationlock creating .ledger/migrations/write.lock with executable\npermissions on posix; lock files now use private 0600 permissions, stale\ndiagnostics are replaced only after lock acquisition, and failed acquisition\ncloses the opened descriptor."
         },
         {
           "anchor": "",

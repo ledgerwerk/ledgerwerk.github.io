@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a8dce9cf436c16e939ee979c50e068a6496175ca"
+docs_commit: "6077611b089056d555c1c0cf88605b7c07958ff4"
 search_enabled: true
 ---
 
@@ -692,6 +692,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#maintain-section-links">Maintain section links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#validate-and-mark-sections-fresh">Validate and mark sections fresh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#review-boundaries">Review boundaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-0-2026-07-28">[v0.6.0] - 2026-07-28</a></li>
 </ul>
 </li>
 </ul>

@@ -4,17 +4,17 @@ nav_key: documentledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.1.1
-source_commit: a6396d20598efec7b0464ac52fb2d52a62872027
-source_url: https://github.com/ledgerwerk/documentledger/releases/tag/v0.1.1
+source_ref: v0.2.0
+source_commit: 6962cc7b28a003ec8c95c563805d858ecc38e52d
+source_url: https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.0
 is_default: true
 repo_url: https://github.com/ledgerwerk/documentledger
-release_tag: v0.1.1
-release_url: https://github.com/ledgerwerk/documentledger/releases/tag/v0.1.1
+release_tag: v0.2.0
+release_url: https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.1.1
+  ref: v0.2.0
   url: /tools/documentledger/
   current: true
 - name: main

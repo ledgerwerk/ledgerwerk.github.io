@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "8520090bbcb78c6cab98cee8f3c6ea28bfc0c3f0"
+docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
 search_enabled: true
 ---
 
@@ -544,7 +544,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>Troubleshooting</h1>
 <section id="status-reports-uninitialized">
 <h2><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code></h2>
-<p>An <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> result can mean there is no config yet, or that <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> exists but <code class="docutils literal notranslate"><span class="pre">.documentledger/storage.yaml</span></code> is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> result can mean there is no config yet, or that the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> exists but <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/storage.yaml</span></code> is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
 </pre></div>
 </div>
@@ -582,7 +582,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="the-sphinx-build-warns-about-files-inside-the-virtual-environment">
 <h2>The Sphinx build warns about files inside the virtual environment</h2>
-<p>The documentation build creates a virtual environment under <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code>. <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> excludes <code class="docutils literal notranslate"><span class="pre">_build</span></code>, <code class="docutils literal notranslate"><span class="pre">venv</span></code>, and <code class="docutils literal notranslate"><span class="pre">.documentledger</span></code> from the Sphinx source scan. If you still see warnings from virtual-environment files, confirm <code class="docutils literal notranslate"><span class="pre">exclude_patterns</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> includes <code class="docutils literal notranslate"><span class="pre">venv</span></code> and <code class="docutils literal notranslate"><span class="pre">venv/**</span></code>, and remove any stale <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> before rebuilding:</p>
+<p>The documentation build creates a virtual environment under <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code>. <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> excludes <code class="docutils literal notranslate"><span class="pre">_build</span></code>, <code class="docutils literal notranslate"><span class="pre">venv</span></code>, and <code class="docutils literal notranslate"><span class="pre">.ledger</span></code> from the Sphinx source scan. If you still see warnings from virtual-environment files, confirm <code class="docutils literal notranslate"><span class="pre">exclude_patterns</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> includes <code class="docutils literal notranslate"><span class="pre">venv</span></code> and <code class="docutils literal notranslate"><span class="pre">venv/**</span></code>, and remove any stale <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> before rebuilding:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>docs/venv<span class="w"> </span>docs/_build
 bash<span class="w"> </span>docs/build.sh
 </pre></div>

@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "8520090bbcb78c6cab98cee8f3c6ea28bfc0c3f0"
+docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
 search_enabled: true
 ---
 
@@ -628,13 +628,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>The supported workflow is:</p>
 <ol class="arabic simple">
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">status</span></code> to confirm that the workspace is initialized.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> to rewrite <code class="docutils literal notranslate"><span class="pre">.documentledger/scan.yaml</span></code> when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> to rewrite <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scan.yaml</span></code> when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">docs</span> <span class="pre">affected</span></code> to find the documentation sections whose linked source units changed.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">docs</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--print</span></code> to render update context for affected sections and unlinked changed sources.</p></li>
 <li><p>Inspect the affected sections and linked changed source units before editing documentation.</p></li>
 <li><p>Update only the affected sections by default, run configured validation commands, then mark the updated section or doc fresh with <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">mark-fresh</span> <span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">--section</span> <span class="pre">SECTION</span> <span class="pre">--reason</span> <span class="pre">&quot;Docs</span> <span class="pre">updated</span> <span class="pre">after</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">VERSION.&quot;</span></code>.</p></li>
 </ol>
-<p>Documentledger stores its own state under the configured <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> directory. Do not edit that directory directly.</p>
+<p>Documentledger stores its durable state under <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/</span></code>. Do not edit the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> layout directly.</p>
 </section>
 </section>
 </div>

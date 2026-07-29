@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a8dce9cf436c16e939ee979c50e068a6496175ca"
+docs_commit: "6077611b089056d555c1c0cf88605b7c07958ff4"
 search_enabled: true
 ---
 
@@ -770,7 +770,7 @@ taskledger<span class="w"> </span>release<span class="w"> </span>show<span class
 <p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">tag</span></code> writes a durable release record under the current ledger’s
 <code class="docutils literal notranslate"><span class="pre">releases/</span></code> directory. Release boundaries must point to done tasks.
 Taskledger does not provide changelog entry, changelog context, or
-<code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> build commands; those belong to the separate <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code>
+<a class="reference internal" href="../changelog/"><span class="std std-doc">docs/changelog.md</span></a> build commands; those belong to the separate <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code>
 tool. Load both skills when cross-ledger release notes need task context.</p>
 </section>
 <section id="ledger-commands">

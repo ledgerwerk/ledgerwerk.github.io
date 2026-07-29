@@ -5,8 +5,8 @@ permalink: /tools/archledger/source-tracking/
 nav_tool: archledger
 docs_project: "archledger"
 docs_variant: "release"
-docs_ref: "v0.3.2"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_ref: "v0.4.0"
+docs_commit: "8273773236d316149ef8fe3a87fed711a5832701"
 search_enabled: true
 ---
 
@@ -599,6 +599,7 @@ archledger<span class="w"> </span>--json<span class="w"> </span><span class="nb"
 <li><p>Update only the impacted fragments and validate them with <code class="docutils literal notranslate"><span class="pre">check</span> <span class="pre">--strict</span></code>.</p></li>
 <li><p>Record a fresh snapshot only after the documentation update is complete and all validation passes.</p></li>
 </ol>
+<p>Canonical source tracking scans the project root and excludes the complete <code class="docutils literal notranslate"><span class="pre">.ledger/**</span></code> tree, including <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/source-state.json</span></code>. Tracking state is stored relative to the Archledger data mount, not relative to the nested stable configuration file.</p>
 </section>
 </section>
 </div>

@@ -6,7 +6,7 @@ nav_tool: archledger-main
 docs_project: "archledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "759603f9ae21bd9e3c47ef0675ffa0c7d30f14fe"
+docs_commit: "8273773236d316149ef8fe3a87fed711a5832701"
 search_enabled: true
 ---
 
@@ -593,6 +593,15 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="release-process/#installed-wheel-smoke-test">Installed-wheel smoke test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-process/#converter-backed-release-confidence">Converter-backed release confidence</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-process/#release-decision">Release decision</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-0-2026-07-28">[v0.4.0] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-3-2-2026-07-11">[v0.3.2] - 2026-07-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-3-1-2026-06-17">[v0.3.1] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-3-0-2026-06-09">[v0.3.0] - 2026-06-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-0-2026-05-30">[v0.2.0] - 2026-05-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-1-0-2026-05-22">[v0.1.0] - 2026-05-22</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="agent-workflow/">Agent workflow</a><ul>

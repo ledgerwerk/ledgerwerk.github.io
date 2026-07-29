@@ -5,8 +5,8 @@ permalink: /tools/documentledger/usage/
 nav_tool: documentledger
 docs_project: "documentledger"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "a6396d20598efec7b0464ac52fb2d52a62872027"
+docs_ref: "v0.2.0"
+docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
 search_enabled: true
 ---
 
@@ -549,7 +549,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
 </pre></div>
 </div>
-<p>By default this creates <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> and a <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> storage directory. Use <code class="docutils literal notranslate"><span class="pre">--project-name</span></code> to set the project name, <code class="docutils literal notranslate"><span class="pre">--documentledger-dir</span></code> to choose another storage path, or <code class="docutils literal notranslate"><span class="pre">--hidden-config</span></code> to create <code class="docutils literal notranslate"><span class="pre">.documentledger.toml</span></code> instead.</p>
+<p>By default this creates the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> layout: <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, the Documentledger tool configuration, and its project data mount. Use <code class="docutils literal notranslate"><span class="pre">--project-name</span></code> to set the project name. Legacy storage-path and hidden-config options are migration-only.</p>
 <!-- docledger-section: usage-check-workspace-status -->
 </section>
 <section id="check-workspace-status">
@@ -595,7 +595,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>add-section<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--section<span class="w"> </span>usage-validate-ledger-state<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--source-unit<span class="w"> </span>py:function:documentledger/cli.py::doctor<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-unit<span class="w"> </span>py:function:documentledger/commands/root.py::doctor<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--coverage<span class="w"> </span>cli-command<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--impact<span class="w"> </span>behavior<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Documents the doctor command.&quot;</span>
@@ -605,7 +605,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>List and remove links with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>list
 docledger<span class="w"> </span>links<span class="w"> </span>remove<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--source<span class="w"> </span>documentledger/cli.py
-docledger<span class="w"> </span>links<span class="w"> </span>remove-section<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--section<span class="w"> </span>usage-validate-ledger-state<span class="w"> </span>--source-unit<span class="w"> </span>py:function:documentledger/cli.py::doctor
+docledger<span class="w"> </span>links<span class="w"> </span>remove-section<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--section<span class="w"> </span>usage-validate-ledger-state<span class="w"> </span>--source-unit<span class="w"> </span>py:function:documentledger/commands/root.py::doctor
 docledger<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--file<span class="w"> </span>/tmp/documentledger-map.yaml<span class="w"> </span>--validate
 docledger<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/documentledger-maps<span class="w"> </span>--check-and-apply
 </pre></div>
@@ -682,12 +682,23 @@ docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span cl
 </section>
 <section id="ledger-state-and-commit-policy">
 <h2>Ledger state and commit policy</h2>
-<p>Documentledger stores its own state under the configured <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> directory. The recommended commit policy for a documentation freshness ledger is:</p>
+<p>Documentledger stores its durable state under <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/</span></code>; rendered and proposal artifacts use the resolved cache mount. The recommended commit policy for a documentation freshness ledger is:</p>
 <ul class="simple">
-<li><p>Commit <code class="docutils literal notranslate"><span class="pre">.documentledger/storage.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">.documentledger/scan.yaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">.documentledger/docs/*.yaml</span></code>. These are the source of truth for project identity, the current scan baseline, section-level links, tracked hash state, and freshness markers.</p></li>
-<li><p>Ignore <code class="docutils literal notranslate"><span class="pre">.documentledger/rendered/</span></code>. Rendered context is regenerated on demand by <code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">build-context</span></code>.</p></li>
+<li><p>Commit <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/config.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/storage.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scan.yaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/docs/*.yaml</span></code>. These are the source of truth for project identity, the current scan baseline, section-level links, tracked hash state, and freshness markers.</p></li>
+<li><p>Ignore the resolved cache artifacts directory. Rendered context is regenerated on demand by <code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">build-context</span></code>.</p></li>
 </ul>
-<p>Do not edit <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> files directly; use the <code class="docutils literal notranslate"><span class="pre">docledger</span></code> commands so the records stay consistent.</p>
+<p>Do not edit <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> files directly; use the <code class="docutils literal notranslate"><span class="pre">docledger</span></code> commands so the records stay consistent. Existing <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> layouts are compatibility input for explicit migration only.</p>
+</section>
+<section id="storage-commands">
+<h2>Storage commands</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">storage</span> <span class="pre">where</span></code> to inspect the active layout. Migrate a legacy workspace with a reviewed dry-run plan, then verify before any cleanup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>storage<span class="w"> </span>migrate<span class="w"> </span>--dry-run<span class="w"> </span>--plan-file<span class="w"> </span>migration.json
+docledger<span class="w"> </span>storage<span class="w"> </span>migrate<span class="w"> </span>--plan-file<span class="w"> </span>migration.json<span class="w"> </span>--adopt-project-uuid
+docledger<span class="w"> </span>storage<span class="w"> </span>verify<span class="w"> </span>--strict
+docledger<span class="w"> </span>storage<span class="w"> </span>cleanup-legacy<span class="w"> </span>--dry-run
+</pre></div>
+</div>
+<p>Routine commands never migrate automatically and read-only commands do not initialize cache directories or repair bindings.</p>
 </section>
 </section>
 </div>

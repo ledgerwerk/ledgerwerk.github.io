@@ -5,16 +5,16 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 759603f9ae21bd9e3c47ef0675ffa0c7d30f14fe
+source_commit: 8273773236d316149ef8fe3a87fed711a5832701
 source_url: https://github.com/ledgerwerk/archledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/archledger
-release_tag: v0.3.2
-release_url: https://github.com/ledgerwerk/archledger/releases/tag/v0.3.2
+release_tag: v0.4.0
+release_url: https://github.com/ledgerwerk/archledger/releases/tag/v0.4.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.3.2
+  ref: v0.4.0
   url: /tools/archledger/
   current: false
 - name: main
@@ -50,6 +50,9 @@ entries:
 - slug: release-process
   title: archledger Release process
   url: /tools/archledger/main/release-process/
+- slug: changelog
+  title: archledger Changelog
+  url: /tools/archledger/main/changelog/
 - slug: agent-workflow
   title: archledger Agent workflow
   url: /tools/archledger/main/agent-workflow/

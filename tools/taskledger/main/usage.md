@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a8dce9cf436c16e939ee979c50e068a6496175ca"
+docs_commit: "6077611b089056d555c1c0cf88605b7c07958ff4"
 search_enabled: true
 ---
 
@@ -802,7 +802,7 @@ pipeline:</p>
 <section id="release-boundary-tags">
 <h2>Release boundary tags</h2>
 <p>Use taskledger only to record the task boundary for a release. Taskledger does not
-manage changelog entries or edit <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code>; that belongs to the separate
+manage changelog entries or edit <a class="reference internal" href="../changelog/"><span class="std std-doc">docs/changelog.md</span></a>; that belongs to the separate
 <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code> tool.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>release<span class="w"> </span>tag<span class="w"> </span><span class="m">0</span>.4.1<span class="w"> </span>--at-task<span class="w"> </span>task-0030<span class="w"> </span>--note<span class="w"> </span><span class="s2">&quot;0.4.1 released&quot;</span>
 taskledger<span class="w"> </span>release<span class="w"> </span>show<span class="w"> </span><span class="m">0</span>.4.1
@@ -810,7 +810,7 @@ taskledger<span class="w"> </span>release<span class="w"> </span>list
 </pre></div>
 </div>
 <p>Release boundaries must point to done tasks. When the user asks for release notes,
-changelog entries, or <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> updates, use <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code>. Load both
+changelog entries, or <a class="reference internal" href="../changelog/"><span class="std std-doc">docs/changelog.md</span></a> updates, use <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code>. Load both
 skills when cross-ledger release notes need task context.</p>
 </section>
 <section id="recording-manually-completed-work">

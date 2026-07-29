@@ -5,8 +5,8 @@ permalink: /tools/archledger/release-process/
 nav_tool: archledger
 docs_project: "archledger"
 docs_variant: "release"
-docs_ref: "v0.3.2"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_ref: "v0.4.0"
+docs_commit: "8273773236d316149ef8fe3a87fed711a5832701"
 search_enabled: true
 ---
 
@@ -597,7 +597,7 @@ python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </
 <h2>Release decision</h2>
 <p>Before tagging or publishing:</p>
 <ol class="arabic simple">
-<li><p>Confirm the changelog is updated.</p></li>
+<li><p>Confirm the changelog is updated (see <a class="reference internal" href="../changelog/"><span class="std std-doc">changelog</span></a>).</p></li>
 <li><p>Confirm CI is green on the supported Python versions.</p></li>
 <li><p>Confirm the built artifact version matches <code class="docutils literal notranslate"><span class="pre">archledger.__version__</span></code> when installed.</p></li>
 <li><p>Confirm the installed console script works outside the repository checkout.</p></li>

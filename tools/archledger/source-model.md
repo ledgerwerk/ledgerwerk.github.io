@@ -5,8 +5,8 @@ permalink: /tools/archledger/source-model/
 nav_tool: archledger
 docs_project: "archledger"
 docs_variant: "release"
-docs_ref: "v0.3.2"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_ref: "v0.4.0"
+docs_commit: "8273773236d316149ef8fe3a87fed711a5832701"
 search_enabled: true
 ---
 
@@ -544,7 +544,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>Source model</h1>
 <section id="canonical-source">
 <h2>Canonical source</h2>
-<p>The source of truth is the fragment tree under <code class="docutils literal notranslate"><span class="pre">archledger_dir</span></code>:</p>
+<p>The source of truth is the fragment tree under <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">sections/</span></code> for the major arc42 chapter skeleton</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">records/</span></code> for individual architecture facts</p></li>

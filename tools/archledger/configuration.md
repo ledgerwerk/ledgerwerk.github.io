@@ -5,8 +5,8 @@ permalink: /tools/archledger/configuration/
 nav_tool: archledger
 docs_project: "archledger"
 docs_variant: "release"
-docs_ref: "v0.3.2"
-docs_commit: "f3ce2dfd528705438caf0d95ab6d8690443ba043"
+docs_ref: "v0.4.0"
+docs_commit: "8273773236d316149ef8fe3a87fed711a5832701"
 search_enabled: true
 ---
 
@@ -542,7 +542,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="configuration">
 <h1>Configuration</h1>
-<p>Configuration lives in <code class="docutils literal notranslate"><span class="pre">archledger.toml</span></code>.</p>
+<p>Stable configuration lives in <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code>. Shared project identity and topology live in <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>. Authoritative Archledger data is <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code> through a Ledgercore repository mount. Root-level configs and <code class="docutils literal notranslate"><span class="pre">archledger_dir</span></code> are migration-only input.</p>
 <section id="important-sections">
 <h2>Important sections</h2>
 <ul class="simple">
@@ -556,17 +556,16 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="example">
 <h2>Example</h2>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">config_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span>
-<span class="n">archledger_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;.archledger&quot;</span>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">config_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span>
+
+<span class="k">[ledger]</span>
+<span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;al&quot;</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;archledger&quot;</span>
 
 <span class="k">[ids]</span>
-<span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;al&quot;</span>
 <span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
-<span class="n">segment_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;none&quot;</span>
-<span class="n">default_segment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;content&quot;</span>
 
-<span class="k">[ids.segment_map]</span>
-<span class="n">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;content&quot;</span>
+<span class="k">[ids.kind_map]</span>
 <span class="n">requirement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;content&quot;</span>
 <span class="n">risk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;risk&quot;</span>
 
@@ -588,11 +587,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;auto&quot;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">[build].default_output_dir</span></code> is relative to the directory containing
-<code class="docutils literal notranslate"><span class="pre">archledger.toml</span></code> or <code class="docutils literal notranslate"><span class="pre">.archledger.toml</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[build].default_output_dir</span></code> is relative to the project root. Profile sections and tracking state are relative to the Archledger data root.</p>
 <p><code class="docutils literal notranslate"><span class="pre">source-state.json</span></code> stores SHA-256 content hashes only for files. It does not
 persist mtimes or file sizes. Directory hashes are derived from file hashes.</p>
-<p>The archive path is fixed at <code class="docutils literal notranslate"><span class="pre">&lt;archledger_dir&gt;/archive</span></code> and is used by
+<p>The archive path is fixed at <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/archive</span></code> and is used by
 <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">archive</span></code> and <code class="docutils literal notranslate"><span class="pre">archledger</span> <span class="pre">doctor</span> <span class="pre">--repair</span></code> to preserve
 ledger-number history without renumbering.</p>
 </section>

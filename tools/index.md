@@ -50,7 +50,7 @@ permalink: /tools/
       <h3>archledger</h3>
       <div class="card-links">
         <a href="/tools/archledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/archledger/releases/tag/v0.3.2" rel="external noopener">Latest release: v0.3.2 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/archledger/releases/tag/v0.4.0" rel="external noopener">Latest release: v0.4.0 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/archledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -68,7 +68,7 @@ permalink: /tools/
       <h3>documentledger</h3>
       <div class="card-links">
         <a href="/tools/documentledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/documentledger/releases/tag/v0.1.1" rel="external noopener">Latest release: v0.1.1 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.0" rel="external noopener">Latest release: v0.2.0 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/documentledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>

@@ -4,17 +4,17 @@ nav_key: archledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.3.2
-source_commit: f3ce2dfd528705438caf0d95ab6d8690443ba043
-source_url: https://github.com/ledgerwerk/archledger/releases/tag/v0.3.2
+source_ref: v0.4.0
+source_commit: 8273773236d316149ef8fe3a87fed711a5832701
+source_url: https://github.com/ledgerwerk/archledger/releases/tag/v0.4.0
 is_default: true
 repo_url: https://github.com/ledgerwerk/archledger
-release_tag: v0.3.2
-release_url: https://github.com/ledgerwerk/archledger/releases/tag/v0.3.2
+release_tag: v0.4.0
+release_url: https://github.com/ledgerwerk/archledger/releases/tag/v0.4.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.3.2
+  ref: v0.4.0
   url: /tools/archledger/
   current: true
 - name: main
@@ -29,6 +29,12 @@ entries:
 - slug: cli
   title: archledger CLI guide
   url: /tools/archledger/cli/
+- slug: cli-reference
+  title: archledger CLI reference
+  url: /tools/archledger/cli-reference/
+- slug: storage
+  title: archledger Storage and migration
+  url: /tools/archledger/storage/
 - slug: configuration
   title: archledger Configuration
   url: /tools/archledger/configuration/
@@ -44,6 +50,9 @@ entries:
 - slug: release-process
   title: archledger Release process
   url: /tools/archledger/release-process/
+- slug: changelog
+  title: archledger Changelog
+  url: /tools/archledger/changelog/
 - slug: agent-workflow
   title: archledger Agent workflow
   url: /tools/archledger/agent-workflow/

@@ -1,7 +1,7 @@
 ---
 layout: tool-doc
-title: "archledger Build and export"
-permalink: /tools/archledger/build-and-export/
+title: "archledger Storage and migration"
+permalink: /tools/archledger/storage/
 nav_tool: archledger
 docs_project: "archledger"
 docs_variant: "release"
@@ -540,68 +540,36 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="build-and-export">
-<h1>Build and export</h1>
-<section id="native-builds">
-<h2>Native builds</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>markdown
-archledger<span class="w"> </span>build<span class="w"> </span>--format<span class="w"> </span>asciidoc
+<section id="storage-and-migration">
+<h1>Storage and migration</h1>
+<p>Archledger derives its storage topology from Ledgercore. The shared project
+manifest is <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>; the Archledger tool configuration is
+<code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code>; and authoritative source data is under
+<code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code>. Do not infer paths from old <code class="docutils literal notranslate"><span class="pre">archledger_dir</span></code> values.</p>
+<p>Inspect the effective topology without writes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>storage<span class="w"> </span>where
+archledger<span class="w"> </span>--json<span class="w"> </span>storage<span class="w"> </span>validate
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">[build].default_output_dir</span></code> is relative to the project root. Stable settings are stored in <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/config.toml</span></code>, while profile sections and state are relative to <code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data</span></code>.</p>
-</section>
-<section id="converter-backed-exports">
-<h2>Converter-backed exports</h2>
-<ul class="simple">
-<li><p>Markdown source uses <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> for HTML, DOCX, RST, Textile, PDF, and AsciiDoc.</p></li>
-<li><p>AsciiDoc source uses <code class="docutils literal notranslate"><span class="pre">asciidoctor</span></code> for HTML.</p></li>
-<li><p>AsciiDoc source uses <code class="docutils literal notranslate"><span class="pre">asciidoctor-pdf</span></code> for PDF.</p></li>
-<li><p>AsciiDoc source uses Asciidoctor DocBook plus <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> for DOCX, Markdown, RST, and Textile.</p></li>
-</ul>
-<p>These export paths are supported when the external tools are installed and the
-corresponding integration checks pass. Native Markdown and AsciiDoc assembly
-remain the lowest-friction path because they do not depend on external converters.</p>
-</section>
-<section id="diagram-records">
-<h2>Diagram records</h2>
-<p>Diagram records are plain text by default. Dense architecture diagrams should use
-<code class="docutils literal notranslate"><span class="pre">diagram_type</span> <span class="pre">=</span> <span class="pre">&quot;text&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;unicode&quot;</span></code> so they remain readable in source,
-Git diffs, terminal output, and native Markdown/AsciiDoc builds. Mermaid remains
-available for compact sequence or flow diagrams, but it is not the default.</p>
-<p>Supported <code class="docutils literal notranslate"><span class="pre">diagram_type</span></code> values: <code class="docutils literal notranslate"><span class="pre">text</span></code> (default), <code class="docutils literal notranslate"><span class="pre">ascii</span></code>, <code class="docutils literal notranslate"><span class="pre">unicode</span></code>,
-<code class="docutils literal notranslate"><span class="pre">svgbob</span></code>, <code class="docutils literal notranslate"><span class="pre">mermaid</span></code>.</p>
-<p>Native builds preserve text diagram blocks as readable fenced code blocks or
-literal blocks — no external tool is required.</p>
-<p>Optional materialization for converter-backed outputs can be enabled with:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[diagrams]</span>
-<span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="n">renderer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;mermaid-cli&quot;</span>
-<span class="n">default_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;text&quot;</span>
-<span class="n">output_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;diagrams&quot;</span>
-<span class="n">image_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;svg&quot;</span>
-<span class="n">kroki_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code> changes the manifest or local override only. It does not move
+authoritative data. A topology change that needs data movement must be planned
+and applied through the canonical migration handler:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span>--json<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>--storage<span class="w"> </span>external<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-root<span class="w"> </span>../archledger-data<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;use shared data volume&quot;</span>
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>storage-layout<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage<span class="w"> </span>external<span class="w"> </span>--external-root<span class="w"> </span>../archledger-data
+archledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>storage-layout<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;activate reviewed storage plan&quot;</span>
 </pre></div>
 </div>
-<p>Notes:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">renderer</span> <span class="pre">=</span> <span class="pre">&quot;pass-through&quot;</span></code> keeps diagram blocks unchanged (default).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">renderer</span> <span class="pre">=</span> <span class="pre">&quot;mermaid-cli&quot;</span></code> requires <code class="docutils literal notranslate"><span class="pre">mmdc</span></code> on <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and only processes Mermaid blocks.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">renderer</span> <span class="pre">=</span> <span class="pre">&quot;asciidoctor-diagram&quot;</span></code> is intended for direct Asciidoctor flows.</p></li>
-<li><p>Kroki is not currently supported by config validation.</p></li>
-</ul>
-</section>
-<section id="source-migration">
-<h2>Source migration</h2>
-<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">convert</span></code> migrates Markdown-source projects to AsciiDoc-source projects.
-Write mode is strict by default and requires <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>convert<span class="w"> </span>--to<span class="w"> </span>asciidoc<span class="w"> </span>--apply
-</pre></div>
-</div>
-<p>For an explicit temporary mixed-body migration:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>archledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>convert<span class="w"> </span>--to<span class="w"> </span>asciidoc<span class="w"> </span>--apply<span class="w"> </span>--allow-mixed-body-format
-</pre></div>
-</div>
-</section>
+<p>Plans are strict, hashed, tied to the project root and source fingerprint, and
+must be recreated after topology or data changes. The source remains preserved
+until a successful activation receipt exists. Never copy or move the data
+directory manually.</p>
+<p>The installed Ledgercore release reports its migration capabilities in plan,
+status, and apply results. When schema-3 execution hooks or resume/rollback
+recovery are unavailable, Archledger reports <code class="docutils literal notranslate"><span class="pre">manual-intervention</span></code> and does
+not attempt an unsafe move.</p>
 </section>
 </div>
 <script data-sphinxpress-script="search" defer>

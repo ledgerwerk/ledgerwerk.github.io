@@ -5,8 +5,8 @@ permalink: /tools/documentledger/troubleshooting/
 nav_tool: documentledger
 docs_project: "documentledger"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "a6396d20598efec7b0464ac52fb2d52a62872027"
+docs_ref: "v0.2.0"
+docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
 search_enabled: true
 ---
 
@@ -544,7 +544,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>Troubleshooting</h1>
 <section id="status-reports-uninitialized">
 <h2><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code></h2>
-<p>An <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> result can mean there is no config yet, or that <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> exists but <code class="docutils literal notranslate"><span class="pre">.documentledger/storage.yaml</span></code> is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> result can mean there is no config yet, or that the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> exists but <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/storage.yaml</span></code> is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
 </pre></div>
 </div>
@@ -582,7 +582,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="the-sphinx-build-warns-about-files-inside-the-virtual-environment">
 <h2>The Sphinx build warns about files inside the virtual environment</h2>
-<p>The documentation build creates a virtual environment under <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code>. <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> excludes <code class="docutils literal notranslate"><span class="pre">_build</span></code>, <code class="docutils literal notranslate"><span class="pre">venv</span></code>, and <code class="docutils literal notranslate"><span class="pre">.documentledger</span></code> from the Sphinx source scan. If you still see warnings from virtual-environment files, confirm <code class="docutils literal notranslate"><span class="pre">exclude_patterns</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> includes <code class="docutils literal notranslate"><span class="pre">venv</span></code> and <code class="docutils literal notranslate"><span class="pre">venv/**</span></code>, and remove any stale <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> before rebuilding:</p>
+<p>The documentation build creates a virtual environment under <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code>. <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> excludes <code class="docutils literal notranslate"><span class="pre">_build</span></code>, <code class="docutils literal notranslate"><span class="pre">venv</span></code>, and <code class="docutils literal notranslate"><span class="pre">.ledger</span></code> from the Sphinx source scan. If you still see warnings from virtual-environment files, confirm <code class="docutils literal notranslate"><span class="pre">exclude_patterns</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> includes <code class="docutils literal notranslate"><span class="pre">venv</span></code> and <code class="docutils literal notranslate"><span class="pre">venv/**</span></code>, and remove any stale <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> before rebuilding:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>docs/venv<span class="w"> </span>docs/_build
 bash<span class="w"> </span>docs/build.sh
 </pre></div>
@@ -591,6 +591,16 @@ bash<span class="w"> </span>docs/build.sh
 <section id="sphinx-build-is-not-found">
 <h2><code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> is not found</h2>
 <p><code class="docutils literal notranslate"><span class="pre">docs/build.sh</span></code> creates and activates <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> and installs <code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code>, which provides <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code>. If the build cannot find <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code>, ensure the script reaches the <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">&quot;$VENV_DIR/bin/activate&quot;</span></code> step and that <code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code> installs successfully (it requires network access on first run).</p>
+</section>
+<section id="storage-migration-errors">
+<h2>Storage migration errors</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_required</span></code>: run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">storage</span> <span class="pre">migrate</span> <span class="pre">--dry-run</span></code> and review the plan.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_uuid_mismatch</span></code>: compare the legacy and shared manifest identities; pass <code class="docutils literal notranslate"><span class="pre">--adopt-project-uuid</span></code> only after review.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_index_missing</span></code> or <code class="docutils literal notranslate"><span class="pre">source_index_repair_failed</span></code>: restore the committed <code class="docutils literal notranslate"><span class="pre">source-index.json</span></code>, or use explicit repair only when the reconstructed SHA-256 exactly matches <code class="docutils literal notranslate"><span class="pre">scan.yaml</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_binding_invalid</span></code>: repair the canonical binding through an explicit initialization/recovery command; status and verification never repair it silently.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">legacy_cleanup_unsafe</span></code>: verify the completed migration journal, unchanged legacy inventory, and provisional proposal disposition before using <code class="docutils literal notranslate"><span class="pre">--yes</span></code>.</p></li>
+</ul>
 </section>
 </section>
 </div>

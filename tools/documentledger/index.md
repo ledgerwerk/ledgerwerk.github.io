@@ -5,8 +5,8 @@ permalink: /tools/documentledger/
 nav_tool: documentledger
 docs_project: "documentledger"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "a6396d20598efec7b0464ac52fb2d52a62872027"
+docs_ref: "v0.2.0"
+docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
 search_enabled: true
 ---
 
@@ -556,6 +556,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#validate-ledger-state">Validate ledger state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#json-and-human-output">JSON and human output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#ledger-state-and-commit-policy">Ledger state and commit policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#storage-commands">Storage commands</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="architecture/">Architecture</a><ul>
@@ -568,135 +569,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="architecture/#freshness-marking">Freshness marking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#cli-structure-and-errors">CLI structure and errors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#ledgercore-integration">ledgercore integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#canonical-storage">Canonical storage</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/">API reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.envelope"><code class="docutils literal notranslate"><span class="pre">envelope()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.error_envelope"><code class="docutils literal notranslate"><span class="pre">error_envelope()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.emit"><code class="docutils literal notranslate"><span class="pre">emit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.render_error"><code class="docutils literal notranslate"><span class="pre">render_error()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.handle_errors"><code class="docutils literal notranslate"><span class="pre">handle_errors()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.display_path"><code class="docutils literal notranslate"><span class="pre">display_path()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.profile_events"><code class="docutils literal notranslate"><span class="pre">profile_events()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.scan_diagnostics"><code class="docutils literal notranslate"><span class="pre">scan_diagnostics()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.status_classification"><code class="docutils literal notranslate"><span class="pre">status_classification()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.normalize_cursor"><code class="docutils literal notranslate"><span class="pre">normalize_cursor()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.trim_source_record"><code class="docutils literal notranslate"><span class="pre">trim_source_record()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.coverage_result"><code class="docutils literal notranslate"><span class="pre">coverage_result()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.proposal_links_for_text"><code class="docutils literal notranslate"><span class="pre">proposal_links_for_text()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.status_result"><code class="docutils literal notranslate"><span class="pre">status_result()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.status"><code class="docutils literal notranslate"><span class="pre">status()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.doctor"><code class="docutils literal notranslate"><span class="pre">doctor()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.scan"><code class="docutils literal notranslate"><span class="pre">scan()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.coverage"><code class="docutils literal notranslate"><span class="pre">coverage()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.sources_list"><code class="docutils literal notranslate"><span class="pre">sources_list()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.sources_show"><code class="docutils literal notranslate"><span class="pre">sources_show()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_list"><code class="docutils literal notranslate"><span class="pre">links_list()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_add"><code class="docutils literal notranslate"><span class="pre">links_add()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_remove"><code class="docutils literal notranslate"><span class="pre">links_remove()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_add_section"><code class="docutils literal notranslate"><span class="pre">links_add_section()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_remove_section"><code class="docutils literal notranslate"><span class="pre">links_remove_section()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_import_map"><code class="docutils literal notranslate"><span class="pre">links_import_map()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_audit"><code class="docutils literal notranslate"><span class="pre">links_audit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.links_propose"><code class="docutils literal notranslate"><span class="pre">links_propose()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.docs_list"><code class="docutils literal notranslate"><span class="pre">docs_list()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.docs_sections"><code class="docutils literal notranslate"><span class="pre">docs_sections()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.docs_affected"><code class="docutils literal notranslate"><span class="pre">docs_affected()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.docs_stale"><code class="docutils literal notranslate"><span class="pre">docs_stale()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.docs_build_context"><code class="docutils literal notranslate"><span class="pre">docs_build_context()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.selected_sections_for_mark_fresh"><code class="docutils literal notranslate"><span class="pre">selected_sections_for_mark_fresh()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.mark_fresh"><code class="docutils literal notranslate"><span class="pre">mark_fresh()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.cli.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.coerce_int"><code class="docutils literal notranslate"><span class="pre">coerce_int()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.strip_timestamp_keys"><code class="docutils literal notranslate"><span class="pre">strip_timestamp_keys()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.read_yaml"><code class="docutils literal notranslate"><span class="pre">read_yaml()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.write_yaml"><code class="docutils literal notranslate"><span class="pre">write_yaml()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.read_json"><code class="docutils literal notranslate"><span class="pre">read_json()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.write_json"><code class="docutils literal notranslate"><span class="pre">write_json()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.discover_config"><code class="docutils literal notranslate"><span class="pre">discover_config()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.default_metadata"><code class="docutils literal notranslate"><span class="pre">default_metadata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.validate_storage_metadata"><code class="docutils literal notranslate"><span class="pre">validate_storage_metadata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.load_workspace"><code class="docutils literal notranslate"><span class="pre">load_workspace()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.init_workspace"><code class="docutils literal notranslate"><span class="pre">init_workspace()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.state_version"><code class="docutils literal notranslate"><span class="pre">state_version()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.next_state_version"><code class="docutils literal notranslate"><span class="pre">next_state_version()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.set_state_version"><code class="docutils literal notranslate"><span class="pre">set_state_version()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.save_metadata"><code class="docutils literal notranslate"><span class="pre">save_metadata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.normalize_line_span"><code class="docutils literal notranslate"><span class="pre">normalize_line_span()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.normalize_source_unit_record"><code class="docutils literal notranslate"><span class="pre">normalize_source_unit_record()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.normalize_changed_unit"><code class="docutils literal notranslate"><span class="pre">normalize_changed_unit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.doc_sections_map"><code class="docutils literal notranslate"><span class="pre">doc_sections_map()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.normalize_section_link"><code class="docutils literal notranslate"><span class="pre">normalize_section_link()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.normalize_doc_record"><code class="docutils literal notranslate"><span class="pre">normalize_doc_record()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.normalize_source_index_payload"><code class="docutils literal notranslate"><span class="pre">normalize_source_index_payload()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.source_index_payload"><code class="docutils literal notranslate"><span class="pre">source_index_payload()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.normalize_scan_summary"><code class="docutils literal notranslate"><span class="pre">normalize_scan_summary()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.build_scan_summary"><code class="docutils literal notranslate"><span class="pre">build_scan_summary()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.scan_record_path"><code class="docutils literal notranslate"><span class="pre">scan_record_path()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.source_index_path"><code class="docutils literal notranslate"><span class="pre">source_index_path()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.update_scan_metadata"><code class="docutils literal notranslate"><span class="pre">update_scan_metadata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.stage_yaml"><code class="docutils literal notranslate"><span class="pre">stage_yaml()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.stage_json"><code class="docutils literal notranslate"><span class="pre">stage_json()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.commit_staged_files"><code class="docutils literal notranslate"><span class="pre">commit_staged_files()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.save_scan"><code class="docutils literal notranslate"><span class="pre">save_scan()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.load_scan_summary"><code class="docutils literal notranslate"><span class="pre">load_scan_summary()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.load_source_index"><code class="docutils literal notranslate"><span class="pre">load_source_index()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.load_scan"><code class="docutils literal notranslate"><span class="pre">load_scan()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.latest_scan_summary"><code class="docutils literal notranslate"><span class="pre">latest_scan_summary()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.latest_scan"><code class="docutils literal notranslate"><span class="pre">latest_scan()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.doc_record_path"><code class="docutils literal notranslate"><span class="pre">doc_record_path()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.load_doc_record"><code class="docutils literal notranslate"><span class="pre">load_doc_record()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.save_doc_record"><code class="docutils literal notranslate"><span class="pre">save_doc_record()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.save_doc_records_batch"><code class="docutils literal notranslate"><span class="pre">save_doc_records_batch()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.iter_doc_records"><code class="docutils literal notranslate"><span class="pre">iter_doc_records()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.storage.CommandState"><code class="docutils literal notranslate"><span class="pre">CommandState</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.file_hash"><code class="docutils literal notranslate"><span class="pre">file_hash()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.collect_files"><code class="docutils literal notranslate"><span class="pre">collect_files()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.hash_paths"><code class="docutils literal notranslate"><span class="pre">hash_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.changed_source_paths"><code class="docutils literal notranslate"><span class="pre">changed_source_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.scan_state_changed"><code class="docutils literal notranslate"><span class="pre">scan_state_changed()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.changed_units"><code class="docutils literal notranslate"><span class="pre">changed_units()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.filter_unit_changes"><code class="docutils literal notranslate"><span class="pre">filter_unit_changes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.scanner.run_scan"><code class="docutils literal notranslate"><span class="pre">run_scan()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.PreparedSection"><code class="docutils literal notranslate"><span class="pre">PreparedSection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.PreparedDocument"><code class="docutils literal notranslate"><span class="pre">PreparedDocument</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.PreparedMappingBatch"><code class="docutils literal notranslate"><span class="pre">PreparedMappingBatch</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.ensure_extension"><code class="docutils literal notranslate"><span class="pre">ensure_extension()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.validate_existing"><code class="docutils literal notranslate"><span class="pre">validate_existing()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.current_source_inventory"><code class="docutils literal notranslate"><span class="pre">current_source_inventory()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.current_doc_sections"><code class="docutils literal notranslate"><span class="pre">current_doc_sections()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.ensure_valid_enum"><code class="docutils literal notranslate"><span class="pre">ensure_valid_enum()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.section_lookup"><code class="docutils literal notranslate"><span class="pre">section_lookup()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.find_section"><code class="docutils literal notranslate"><span class="pre">find_section()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.record_for_doc"><code class="docutils literal notranslate"><span class="pre">record_for_doc()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.ensure_section_entry"><code class="docutils literal notranslate"><span class="pre">ensure_section_entry()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.refresh_linked_sources"><code class="docutils literal notranslate"><span class="pre">refresh_linked_sources()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.source_unit_record"><code class="docutils literal notranslate"><span class="pre">source_unit_record()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.edge_tracked_hashes"><code class="docutils literal notranslate"><span class="pre">edge_tracked_hashes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.edge_key"><code class="docutils literal notranslate"><span class="pre">edge_key()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.add_edge"><code class="docutils literal notranslate"><span class="pre">add_edge()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.add_link"><code class="docutils literal notranslate"><span class="pre">add_link()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.remove_link"><code class="docutils literal notranslate"><span class="pre">remove_link()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.add_section_link"><code class="docutils literal notranslate"><span class="pre">add_section_link()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.remove_section_link"><code class="docutils literal notranslate"><span class="pre">remove_section_link()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.load_mapping_payload"><code class="docutils literal notranslate"><span class="pre">load_mapping_payload()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.prepare_mapping_batch"><code class="docutils literal notranslate"><span class="pre">prepare_mapping_batch()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.apply_mapping_batch"><code class="docutils literal notranslate"><span class="pre">apply_mapping_batch()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.import_mapping"><code class="docutils literal notranslate"><span class="pre">import_mapping()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.audit_links"><code class="docutils literal notranslate"><span class="pre">audit_links()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.list_links"><code class="docutils literal notranslate"><span class="pre">list_links()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.links.docs_for_source"><code class="docutils literal notranslate"><span class="pre">docs_for_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.HeadingRecord"><code class="docutils literal notranslate"><span class="pre">HeadingRecord</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.section_identity"><code class="docutils literal notranslate"><span class="pre">section_identity()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.whole_doc_section"><code class="docutils literal notranslate"><span class="pre">whole_doc_section()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.summarize_section"><code class="docutils literal notranslate"><span class="pre">summarize_section()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.normalize_heading_title"><code class="docutils literal notranslate"><span class="pre">normalize_heading_title()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.next_fence_state"><code class="docutils literal notranslate"><span class="pre">next_fence_state()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.markdown_sections"><code class="docutils literal notranslate"><span class="pre">markdown_sections()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.doc_index.doc_sections_for_file"><code class="docutils literal notranslate"><span class="pre">doc_sections_for_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.file_unit_id"><code class="docutils literal notranslate"><span class="pre">file_unit_id()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.module_unit_id"><code class="docutils literal notranslate"><span class="pre">module_unit_id()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.qualified_unit_id"><code class="docutils literal notranslate"><span class="pre">qualified_unit_id()</span></code></a></li>
@@ -719,27 +595,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.source_units_for_file"><code class="docutils literal notranslate"><span class="pre">source_units_for_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.source_inventory"><code class="docutils literal notranslate"><span class="pre">source_inventory()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.source_inventory_for_paths"><code class="docutils literal notranslate"><span class="pre">source_inventory_for_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.impact.link_mismatches"><code class="docutils literal notranslate"><span class="pre">link_mismatches()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.impact.resolve_affected_sections"><code class="docutils literal notranslate"><span class="pre">resolve_affected_sections()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.impact.stale_doc_details"><code class="docutils literal notranslate"><span class="pre">stale_doc_details()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.impact.unmapped_changed_units"><code class="docutils literal notranslate"><span class="pre">unmapped_changed_units()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.impact.linked_source_map"><code class="docutils literal notranslate"><span class="pre">linked_source_map()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.stale_details"><code class="docutils literal notranslate"><span class="pre">stale_details()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.section_text_map"><code class="docutils literal notranslate"><span class="pre">section_text_map()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.source_snippet"><code class="docutils literal notranslate"><span class="pre">source_snippet()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.trim_lines"><code class="docutils literal notranslate"><span class="pre">trim_lines()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.linked_sections"><code class="docutils literal notranslate"><span class="pre">linked_sections()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.selected_doc_sections"><code class="docutils literal notranslate"><span class="pre">selected_doc_sections()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.bootstrap_inventory"><code class="docutils literal notranslate"><span class="pre">bootstrap_inventory()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.render.render_context"><code class="docutils literal notranslate"><span class="pre">render_context()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.identity.normalize_repo_path"><code class="docutils literal notranslate"><span class="pre">normalize_repo_path()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.identity.doc_record_filename"><code class="docutils literal notranslate"><span class="pre">doc_record_filename()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.ToolConfig"><code class="docutils literal notranslate"><span class="pre">ToolConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.WorkspacePaths"><code class="docutils literal notranslate"><span class="pre">WorkspacePaths</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.Workspace"><code class="docutils literal notranslate"><span class="pre">Workspace</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.SourceUnit"><code class="docutils literal notranslate"><span class="pre">SourceUnit</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.DocSection"><code class="docutils literal notranslate"><span class="pre">DocSection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.ScanResult"><code class="docutils literal notranslate"><span class="pre">ScanResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.errors.DocumentledgerError"><code class="docutils literal notranslate"><span class="pre">DocumentledgerError</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bootstrap/">Bootstrapping a new repository</a><ul>
@@ -755,6 +617,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#a-changed-source-is-reported-as-unlinked">A changed source is reported as unlinked</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#the-sphinx-build-warns-about-files-inside-the-virtual-environment">The Sphinx build warns about files inside the virtual environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#sphinx-build-is-not-found"><code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> is not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#storage-migration-errors">Storage migration errors</a></li>
 </ul>
 </li>
 </ul>
@@ -765,13 +628,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>The supported workflow is:</p>
 <ol class="arabic simple">
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">status</span></code> to confirm that the workspace is initialized.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> to rewrite <code class="docutils literal notranslate"><span class="pre">.documentledger/scan.yaml</span></code> when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> to rewrite <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scan.yaml</span></code> when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">docs</span> <span class="pre">affected</span></code> to find the documentation sections whose linked source units changed.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">docs</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--print</span></code> to render update context for affected sections and unlinked changed sources.</p></li>
 <li><p>Inspect the affected sections and linked changed source units before editing documentation.</p></li>
 <li><p>Update only the affected sections by default, run configured validation commands, then mark the updated section or doc fresh with <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">mark-fresh</span> <span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">--section</span> <span class="pre">SECTION</span> <span class="pre">--reason</span> <span class="pre">&quot;Docs</span> <span class="pre">updated</span> <span class="pre">after</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">VERSION.&quot;</span></code>.</p></li>
 </ol>
-<p>Documentledger stores its own state under the configured <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> directory. Do not edit that directory directly.</p>
+<p>Documentledger stores its durable state under <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/</span></code>. Do not edit the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> layout directly.</p>
 </section>
 </section>
 </div>
