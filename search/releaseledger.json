@@ -28,6 +28,30 @@
         },
         {
           "anchor": "",
+          "heading": "Added",
+          "text": "Added mode-specific CLI output messages for init command showing unchanged, registered, repaired, or created status",
+          "lower": "added mode-specific cli output messages for init command showing unchanged, registered, repaired, or created status"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Changed –force flag to a deprecated alias for –force-config that no longer rewrites existing storage mounts",
+          "lower": "changed –force flag to a deprecated alias for –force-config that no longer rewrites existing storage mounts"
+        },
+        {
+          "anchor": "",
+          "heading": "Fixed",
+          "text": "Fixed init command to correctly handle existing shared Ledgercore manifests by detecting project state and only materializing missing config, bindings, and directories",
+          "lower": "fixed init command to correctly handle existing shared ledgercore manifests by detecting project state and only materializing missing config, bindings, and directories"
+        },
+        {
+          "anchor": "",
+          "heading": "Quality",
+          "text": "Added comprehensive regression tests covering shared manifest initialization scenarios including manifest-only registration and idempotent re-runs",
+          "lower": "added comprehensive regression tests covering shared manifest initialization scenarios including manifest-only registration and idempotent re-runs"
+        },
+        {
+          "anchor": "",
           "heading": "Changed",
           "text": "Changed storage backend to ledgercore 0.6.0 with typed migration plans and fingerprint-based change detection\n\n\nImproved handling of large commits for better performance and reliability",
           "lower": "changed storage backend to ledgercore 0.6.0 with typed migration plans and fingerprint-based change detection\n\n\nimproved handling of large commits for better performance and reliability"

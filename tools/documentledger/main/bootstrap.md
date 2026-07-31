@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
+docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
 search_enabled: true
 ---
 
@@ -542,46 +542,52 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="bootstrapping-a-new-repository">
 <h1>Bootstrapping a new repository</h1>
-<p>Documentledger computes staleness from explicit doc-to-source links. A freshly initialized repository has no links yet, so the first scan reports no stale docs even though no documentation exists. This page describes the recommended setup sequence for first-time documentation work.</p>
-<section id="why-the-first-scan-is-a-baseline">
-<h2>Why the first scan is a baseline</h2>
-<p>The first <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">scan</span></code> hashes every configured source and documentation file and stores them as the baseline. Because there is no previous scan to compare against, it reports no changed, deleted, stale, or unlinked sources. Staleness and unlinked-source reporting only begin from the second scan onward.</p>
+<p>Bootstrap is the first documentation pass in a newly initialized project.</p>
+<section id="id1">
+<h2>Bootstrapping a new repository</h2>
+<p>Create the canonical project, establish a baseline, and build bounded context before adding or reviewing links.</p>
+<!-- docledger-section: why-the-first-scan-is-a-baseline -->
 </section>
-<section id="setup-sequence">
-<h2>Setup sequence</h2>
-<ol class="arabic">
-<li><p>Initialize the workspace and record a baseline scan:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
-docledger<span class="w"> </span>--json<span class="w"> </span>scan
+<section id="first-scan-baseline">
+<h2>First scan baseline</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>init<span class="w"> </span>--project-name<span class="w"> </span>example
+documentledger<span class="w"> </span>--json<span class="w"> </span>scan
 </pre></div>
 </div>
-</li>
-<li><p>Render a bootstrap context that includes the unlinked source inventory and current doc inventory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--bootstrap
+<p>The first scan hashes configured sources and docs but has no prior version for comparison. It therefore reports no deltas. Later scans can report affected sections and unlinked changed sources.</p>
+<!-- docledger-section: bootstrap-context -->
+</section>
+<section id="build-bootstrap-context">
+<h2>Build bootstrap context</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>build-context<span class="w"> </span>--bootstrap<span class="w"> </span>--out<span class="w"> </span>/tmp/documentledger-bootstrap.md
 </pre></div>
 </div>
-<p>The bootstrap context file lists every source file that has no doc record link. These are the sources that need documentation or explicit omission.</p>
-</li>
-<li><p>Create documentation files for those sources under a configured documentation root (for example <code class="docutils literal notranslate"><span class="pre">docs/</span></code>).</p></li>
-<li><p>Generate deterministic proposal files and review them before applying:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>propose<span class="w"> </span>--all-docs
-docledger<span class="w"> </span>--json<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>&lt;reviewed-proposals&gt;<span class="w"> </span>--check-and-apply
+<p>The output contains the current inventory and unlinked source evidence. Use it to decide what documentation should exist before adding links.</p>
+<!-- docledger-section: bootstrap-proposals -->
+</section>
+<section id="review-deterministic-proposals">
+<h2>Review deterministic proposals</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>propose<span class="w"> </span>--all-docs<span class="w"> </span>--out-dir<span class="w"> </span>/tmp/documentledger-maps
+documentledger<span class="w"> </span>--json<span class="w"> </span>link<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/documentledger-maps<span class="w"> </span>--validate
+documentledger<span class="w"> </span>--json<span class="w"> </span>link<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/documentledger-maps<span class="w"> </span>--check-and-apply
 </pre></div>
 </div>
-</li>
-<li><p>Run a link audit and coverage review:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>--json<span class="w"> </span>links<span class="w"> </span>audit
-docledger<span class="w"> </span>--json<span class="w"> </span>coverage
+<p><code class="docutils literal notranslate"><span class="pre">--validate</span></code> checks the complete batch without writing. Review and correct proposal files, then use <code class="docutils literal notranslate"><span class="pre">--check-and-apply</span></code> for an atomic application.</p>
+<!-- docledger-section: setup-sequence -->
+</section>
+<section id="coverage-and-final-gates-setup-sequence">
+<h2>Coverage and final gates {#setup-sequence}</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>--json<span class="w"> </span>link<span class="w"> </span>audit
+documentledger<span class="w"> </span>--json<span class="w"> </span>coverage
 </pre></div>
 </div>
-</li>
-<li><p>Validate the documentation with the configured validation commands, then mark the new docs fresh:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--all<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Initial docs after bootstrap link application.&quot;</span>
+<p>Run configured tests and documentation validation before freshness marking. Finish with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>--json<span class="w"> </span>doctor
+documentledger<span class="w"> </span>--json<span class="w"> </span>check
+documentledger<span class="w"> </span>--json<span class="w"> </span>status
 </pre></div>
 </div>
-</li>
-</ol>
-<p>From this point on, normal incremental maintenance applies: subsequent scans mark a doc stale only when one of its linked sources changes.</p>
+<p>Mark fresh only after validation and only for intentionally linked or explicitly allowed unlinked docs.</p>
 </section>
 </section>
 </div>

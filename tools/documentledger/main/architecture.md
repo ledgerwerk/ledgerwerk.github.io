@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
+docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
 search_enabled: true
 ---
 
@@ -542,83 +542,65 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="architecture">
 <h1>Architecture</h1>
-<!-- docledger-section: architecture-configuration-and-workspace-loading -->
-<section id="configuration-and-workspace-loading">
-<h2>Configuration and workspace loading</h2>
-<p>Documentledger discovers <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> or <code class="docutils literal notranslate"><span class="pre">.documentledger.toml</span></code> by walking upward from the current directory. The loaded configuration defines the project metadata, storage directory, scan roots, allowed file extensions, validation commands, and policy flags.</p>
-<p>A workspace combines the loaded configuration with storage metadata from the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/storage.yaml</span></code>. Commands that require an initialized workspace fail with a structured <code class="docutils literal notranslate"><span class="pre">workspace_not_found</span></code> error when no config is found, or a <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code> error when the config exists but storage metadata is absent. <code class="docutils literal notranslate"><span class="pre">status</span></code> classifies the workspace operationally (<code class="docutils literal notranslate"><span class="pre">uninitialized</span></code>, <code class="docutils literal notranslate"><span class="pre">bootstrap_required</span></code>, <code class="docutils literal notranslate"><span class="pre">incremental_clean</span></code>, <code class="docutils literal notranslate"><span class="pre">incremental_affected</span></code>, or <code class="docutils literal notranslate"><span class="pre">mapping_incomplete</span></code>) and reports a recommended next command.</p>
-<p>Workspace loading is read-only. It validates the current storage schema and metadata, but it does not rewrite scan or doc records as a side effect of read-only commands.</p>
-<!-- docledger-section: architecture-storage-model -->
+<!-- docledger-section: configuration-and-workspace-loading -->
+<section id="canonical-project-resolution">
+<h2>Canonical project resolution</h2>
+<p>Documentledger resolves the repository through ledgercore’s schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> manifest. The manifest registers the tool and supplies project identity and mount routing. <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/config.toml</span></code> contains only tool-owned configuration version 2. Legacy root TOML files are migration inputs, not normal discovery.</p>
+<!-- docledger-section: architecture-command-registration -->
 </section>
-<section id="storage-model">
-<h2>Storage model</h2>
-<p>The storage layer writes YAML files only through the Documentledger APIs:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/storage.yaml</span></code> stores schema metadata, project UUID, the current <code class="docutils literal notranslate"><span class="pre">state_version</span></code>, and compact latest-scan counts used by <code class="docutils literal notranslate"><span class="pre">status</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scan.yaml</span></code> stores the current source hashes, document hashes, source-index metadata, unit deltas, affected-section snapshots, stale-doc projections, unlinked changed sources, unmapped changed units, and the monotonic current scan <code class="docutils literal notranslate"><span class="pre">version</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/source-index.json</span></code> stores the current source-unit inventory as deterministic compact JSON.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/docs/*.yaml</span></code> stores document records with <code class="docutils literal notranslate"><span class="pre">sections[].links[]</span></code>, derived <code class="docutils literal notranslate"><span class="pre">linked_sources</span></code>, section hashes, tracked source-unit hashes, freshness metadata including <code class="docutils literal notranslate"><span class="pre">last_fresh_scan_version</span></code>, notes, and a doc-record <code class="docutils literal notranslate"><span class="pre">version</span></code>.</p></li>
-<li><p>The resolved cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> mount stores regenerated rendered context and proposals.</p></li>
-</ul>
-<p>Git history is the record of older scan baselines. <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scans/</span></code> does not exist in the v5 storage model.</p>
-<p>The recommended commit policy is to version <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">scan.yaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">docs/*.yaml</span></code> as the source of truth, and to ignore <code class="docutils literal notranslate"><span class="pre">rendered/</span></code> because it is regenerated on demand.</p>
-<p>State is hash- and version-based. Timestamps are intentionally absent from persisted storage and rendered context front matter.</p>
-<!-- docledger-section: architecture-path-identity -->
+<section id="command-registration-and-metadata">
+<h2>Command registration and metadata</h2>
+<p>Typer command modules register the canonical singular <code class="docutils literal notranslate"><span class="pre">document</span></code>, <code class="docutils literal notranslate"><span class="pre">source</span></code>, and <code class="docutils literal notranslate"><span class="pre">link</span></code> groups plus configuration, schema, storage, and migration groups. <code class="docutils literal notranslate"><span class="pre">COMMAND_INVENTORY</span></code> supplies stable summaries, effects, audience, workspace requirements, targeting, and aliases. The CLI reference generator traverses Click objects directly and checks catalog drift.</p>
+<!-- docledger-section: cli-structure-and-errors -->
 </section>
-<section id="path-identity">
-<h2>Path identity</h2>
-<p>All user supplied doc and source paths are normalized as repository-relative POSIX paths. Absolute paths, backslash paths, empty paths, <code class="docutils literal notranslate"><span class="pre">.</span></code> paths, and paths containing <code class="docutils literal notranslate"><span class="pre">..</span></code> are rejected. Document record filenames are derived from the documentation path slug plus a short SHA-256 digest, so records remain filesystem-safe while preserving unique document identities.</p>
-<p>Source units and doc sections use stable semantic ids rather than line-number identities. For Python, ids look like <code class="docutils literal notranslate"><span class="pre">py:function:documentledger/commands/root.py::doctor</span></code>. For Markdown, ids look like <code class="docutils literal notranslate"><span class="pre">md:section:docs/usage.md::usage-validate-ledger-state</span></code>.</p>
-<!-- docledger-section: architecture-scanning-algorithm -->
+<section id="cli-state-and-result-envelopes-cli-structure-and-errors">
+<h2>CLI state and result envelopes {#cli-structure-and-errors}</h2>
+<p>Global options create a command state containing root, JSON, profile, and warnings. A centralized error wrapper preserves the real command path and renders either human output or a stable JSON envelope with <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, <code class="docutils literal notranslate"><span class="pre">result</span></code> or <code class="docutils literal notranslate"><span class="pre">error</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>.</p>
+<!-- docledger-section: architecture-configuration -->
 </section>
-<section id="scanning-algorithm">
-<h2>Scanning algorithm</h2>
-<p>The scanner collects files under the configured source roots and documentation roots. It skips storage files, excluded directories such as <code class="docutils literal notranslate"><span class="pre">.git</span></code>, <code class="docutils literal notranslate"><span class="pre">__pycache__</span></code>, <code class="docutils literal notranslate"><span class="pre">build</span></code>, <code class="docutils literal notranslate"><span class="pre">dist</span></code>, virtual environments, and files whose extensions are not configured. Documentation files are parsed into stable sections from Markdown headings and optional <code class="docutils literal notranslate"><span class="pre">docledger-section</span></code> markers; files without headings still receive a whole-document section id.</p>
-<p>Each collected file is hashed with SHA-256. Python source files are also parsed into source units: a file fallback unit, a module unit, and any top-level functions, classes, and methods. Each source unit carries separate hashes for signatures, decorators, bodies, docstrings, public contract, and exact content. Public contract hashes include semantic details such as exported assignments and public literal values so section links can track meaningful API behavior instead of only raw file bytes.</p>
-<p>On the first scan, Documentledger records a clean baseline. On later scans it compares current source hashes and source-unit hashes with the previous scan:</p>
-<ul class="simple">
-<li><p>Current paths with missing or different previous hashes become changed sources.</p></li>
-<li><p>Previous source paths missing from the current set become deleted sources.</p></li>
-<li><p>Changed or deleted source units are resolved through section links to produce affected sections.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stale_docs</span></code> remains available as a compatibility projection of the docs that still contain affected sections.</p></li>
-<li><p>Changed sources with no link record are reported as unlinked changed sources.</p></li>
-<li><p>Changed units with no matching section link are reported as unmapped changed units.</p></li>
-<li><p>If every source and documentation hash matches the previous scan, <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scan.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/source-index.json</span></code> are not rewritten, no source ASTs are reparsed, the previous scan version is reused, and the result reports <code class="docutils literal notranslate"><span class="pre">unchanged</span></code> as true.</p></li>
-</ul>
-<!-- docledger-section: architecture-link-management -->
+<section id="configuration-parsing">
+<h2>Configuration parsing</h2>
+<p><code class="docutils literal notranslate"><span class="pre">documentledger.config</span></code> validates the exact version-2 TOML shape, rejects unknown fields, normalizes arrays of strings, and produces typed <code class="docutils literal notranslate"><span class="pre">ToolConfig</span></code> values. Project identity, UUID, and mounts remain ledgercore concerns.</p>
+<!-- docledger-section: storage-model -->
 </section>
-<section id="link-management">
-<h2>Link management</h2>
-<p>A document link is usually a section edge: one documentation section linked to one source unit plus a coverage type, impact type, reason, and tracked hash set. <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">add-section</span></code> validates the doc, section, and source unit, then records tracked hashes based on the coverage defaults. <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">import-map</span></code> validates full multi-file batches before writing and applies them as one logical operation so section replacement and versioning stay coherent.</p>
-<p><code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">audit</span></code> checks stored section links for missing sections, missing source units, and duplicate edges. <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">add</span></code> and <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">remove</span></code> remain as broad-file fallback commands. They store whole-doc fallback links that track the file fallback unit, which is still useful for unparseable sources or intentionally coarse docs.</p>
-<!-- docledger-section: architecture-context-rendering -->
+<section id="storage-and-atomic-state-transitions-storage-model">
+<h2>Storage and atomic state transitions {#storage-model}</h2>
+<p>Storage writers validate schema constants, strip timestamp keys, increment integer state versions, and use atomic writes. Durable data includes <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">scan.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">source-index.json</span></code>, and document records under <code class="docutils literal notranslate"><span class="pre">docs/*.yaml</span></code>. Rendered context and proposals use the resolved cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> mount. Read-only commands validate state without repairing or rewriting it.</p>
+<!-- docledger-section: scanning-algorithm -->
 </section>
-<section id="context-rendering">
-<h2>Context rendering</h2>
-<p><code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">affected</span></code> computes a live affected-section projection from the latest scan and the current doc records. This means section-level <code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> can clear affectedness without requiring a follow-up scan.</p>
-<p><code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">build-context</span></code> renders a Markdown context document for distinct selector modes: <code class="docutils literal notranslate"><span class="pre">--affected</span></code>, <code class="docutils literal notranslate"><span class="pre">--all</span></code>, <code class="docutils literal notranslate"><span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">[--section</span> <span class="pre">SECTION]</span></code>, or <code class="docutils literal notranslate"><span class="pre">--bootstrap</span></code>. The context is always written to a file; printing is explicit. Bounded output options limit source lines, section lines, and total bytes while surfacing a truncation manifest instead of silently dropping content.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">--include-unlinked</span></code> flag adds the full unlinked source inventory to non-bootstrap context modes. The bootstrap mode is intended for first-time documentation passes in repositories that do not yet have a link graph.</p>
-<!-- docledger-section: architecture-freshness-marking -->
+<section id="scanning-and-source-unit-identity-scanning-algorithm">
+<h2>Scanning and source-unit identity {#scanning-algorithm}</h2>
+<p>The scanner collects configured roots, filters excluded directories and extensions, hashes files, and indexes Python modules, functions, classes, methods, and fallback units. Source-unit identity is semantic and repository-relative; hash dimensions distinguish exact content, signatures, decorators, bodies, docstrings, and public contract.</p>
+<!-- docledger-section: path-identity -->
 </section>
-<section id="freshness-marking">
-<h2>Freshness marking</h2>
-<p><code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> requires a latest scan and a non-empty reason. It can update one selected section, one selected doc, or all currently affected docs. For each selected section it stores the current section hash, refreshes the tracked source-unit hashes for that section’s links, updates the latest scan version and document hash, and records the reason in the document record.</p>
-<p>By default <code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> rejects documents that have no linked sources with an <code class="docutils literal notranslate"><span class="pre">unlinked_doc</span></code> error. This prevents tracking a document that can never become stale from source changes. The <code class="docutils literal notranslate"><span class="pre">--allow-unlinked</span></code> option overrides the check for intentionally unlinked documents and records the reason with an <code class="docutils literal notranslate"><span class="pre">(intentionally</span> <span class="pre">unlinked)</span></code> marker.</p>
-<!-- docledger-section: architecture-cli-structure-and-errors -->
+<section id="markdown-sections-and-markers">
+<h2>Markdown sections and markers</h2>
+<p>The document index parses Markdown headings outside fenced code blocks and creates stable section ids, heading paths, line spans, summaries, and hashes. Explicit <code class="docutils literal notranslate"><span class="pre">docledger-section</span></code> markers provide semantic ids that survive wording and line-number changes.</p>
+<!-- docledger-section: link-management -->
 </section>
-<section id="cli-structure-and-errors">
-<h2>CLI structure and errors</h2>
-<p>The Typer CLI exposes top-level commands for initialization, status, doctor checks, scans, and freshness marking. Nested command groups handle links, docs, and source-unit inspection.</p>
-<p>Error handling is centralized through a per-command error decorator. Each command callback is wrapped so that a <code class="docutils literal notranslate"><span class="pre">DocumentledgerError</span></code> is rendered with the real command name. With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the CLI emits a stable envelope with <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, <code class="docutils literal notranslate"><span class="pre">error</span></code> (code, message, remediation), and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Without <code class="docutils literal notranslate"><span class="pre">--json</span></code>, it prints a concise human-readable <code class="docutils literal notranslate"><span class="pre">Error:</span></code> message and remediation hints. <code class="docutils literal notranslate"><span class="pre">DocumentledgerError</span></code> is a plain exception rather than a Click exception, which keeps command names accurate and lets the CLI choose the output format.</p>
+<section id="link-graph-and-tracked-hashes">
+<h2>Link graph and tracked hashes</h2>
+<p>Section links connect document sections to source units with coverage, impact, reason, and tracked hash sets. Broad document-to-file edges remain a fallback. Audits detect missing sections, missing units, duplicate edges, and invalid records.</p>
+<!-- docledger-section: context-rendering -->
+</section>
+<section id="affectedness-and-context">
+<h2>Affectedness and context</h2>
+<p>Incremental scans compare the current source index to the prior baseline. Changed or deleted linked units resolve to affected sections; unlinked changed sources and unmapped units are reported separately. Context rendering selects bootstrap, affected, all, or doc/section modes and emits truncation metadata when bounds apply.</p>
+<!-- docledger-section: architecture-migration-boundary -->
+</section>
+<section id="migration-boundary">
+<h2>Migration boundary</h2>
+<p>Migration plans inspect legacy state, copy and verify files, validate plan digests, optionally adopt project identity, and activate the shared manifest last. Journals support recovery. Cleanup is a separate explicit operation.</p>
+<!-- docledger-section: freshness-marking -->
+</section>
+<section id="persistence-and-testing-boundaries">
+<h2>Persistence and testing boundaries</h2>
+<p>All persisted state is deterministic, versioned, atomic, and timestamp-free. Unit tests cover parsing, storage, scanning, links, rendering, migration, CLI envelopes, and read-only invariants. Documentation tests cover requirements, generated CLI drift, page reachability, markers, links, API imports, and changelog ownership.</p>
+<!-- docledger-section: canonical-storage -->
 </section>
 <section id="ledgercore-integration">
 <h2>ledgercore integration</h2>
-<p><code class="docutils literal notranslate"><span class="pre">ledgercore&gt;=0.2</span></code> is an active dependency. Documentledger uses ledgercore for YAML storage, atomic writes, config discovery, path validation, doc-record identity helpers, and SHA-256 hashing.</p>
-</section>
-<section id="canonical-storage">
-<h2>Canonical storage</h2>
-<p>Documentledger uses ledgercore 0.5 schema 3 as the shared project authority. The committed manifest is <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>; the tool config is derived at <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/config.toml</span></code>; durable scan, source-index, and document-record state is in the <code class="docutils literal notranslate"><span class="pre">data</span></code> project mount; and rendered/proposal output is in the resolved cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> mount. Ledgercore owns manifest TOML writing and schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger-project.toml</span></code> binding markers.</p>
-<p>Legacy <code class="docutils literal notranslate"><span class="pre">.documentledger</span></code> layouts remain compatibility input only. Migration is explicit, copy-first, SHA-256 verified, and activates the shared manifest last. <code class="docutils literal notranslate"><span class="pre">source-index.json</span></code> is part of the committed baseline and may only be repaired when exact reconstruction matches the recorded hash.</p>
+<p>Documentledger requires <code class="docutils literal notranslate"><span class="pre">ledgercore&gt;=0.6.0,&lt;0.7.0</span></code> for shared schema-3 project authority, storage bindings, path handling, atomic writes, and hashing. The application owns its tool config and domain records while ledgercore owns shared project identity and mount resolution.</p>
 </section>
 </section>
 </div>

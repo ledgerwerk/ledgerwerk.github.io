@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
+docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
 search_enabled: true
 ---
 
@@ -542,99 +542,234 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="documentledger">
 <h1>Documentledger</h1>
-<p>Documentledger is a documentation freshness ledger for coding-agent workflows. It records repository scans, maps documentation files to source files, reports stale documentation when linked source files change or disappear, and renders update context for agents.</p>
+<p>Documentledger is a documentation freshness ledger for coding-agent workflows. It records repository scans, maps documentation files to source units, reports stale documentation when linked implementation changes, and renders bounded update context for agents.</p>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Start here</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="usage/">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage/#initialize-a-workspace">Initialize a workspace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#check-workspace-status">Check workspace status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#scan-source-and-documentation-files">Scan source and documentation files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#link-documentation-to-sources">Link documentation to sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#find-and-update-stale-documentation">Find and update stale documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#bootstrapping-a-new-repository">Bootstrapping a new repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#mark-documentation-fresh">Mark documentation fresh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#validate-ledger-state">Validate ledger state</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#json-and-human-output">JSON and human output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#ledger-state-and-commit-policy">Ledger state and commit policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#storage-commands">Storage commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation/">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/#install-the-package">Install the package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/#install-documentation-dependencies">Install documentation dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/#console-scripts-and-completion">Console scripts and completion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="architecture/">Architecture</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#configuration-and-workspace-loading">Configuration and workspace loading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#storage-model">Storage model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#path-identity">Path identity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#scanning-algorithm">Scanning algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#link-management">Link management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#context-rendering">Context rendering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#freshness-marking">Freshness marking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#cli-structure-and-errors">CLI structure and errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#ledgercore-integration">ledgercore integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#canonical-storage">Canonical storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/#canonical-path">Canonical path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/#incremental-path">Incremental path</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/">API reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.file_unit_id"><code class="docutils literal notranslate"><span class="pre">file_unit_id()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.module_unit_id"><code class="docutils literal notranslate"><span class="pre">module_unit_id()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.qualified_unit_id"><code class="docutils literal notranslate"><span class="pre">qualified_unit_id()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.hash_text"><code class="docutils literal notranslate"><span class="pre">hash_text()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.semantic_dump"><code class="docutils literal notranslate"><span class="pre">semantic_dump()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.line_span"><code class="docutils literal notranslate"><span class="pre">line_span()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.slice_source"><code class="docutils literal notranslate"><span class="pre">slice_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.function_signature"><code class="docutils literal notranslate"><span class="pre">function_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.class_signature"><code class="docutils literal notranslate"><span class="pre">class_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.docstring_value"><code class="docutils literal notranslate"><span class="pre">docstring_value()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.without_docstring"><code class="docutils literal notranslate"><span class="pre">without_docstring()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.public_literal_values"><code class="docutils literal notranslate"><span class="pre">public_literal_values()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.exported_assignments"><code class="docutils literal notranslate"><span class="pre">exported_assignments()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.decorator_hash"><code class="docutils literal notranslate"><span class="pre">decorator_hash()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.function_unit"><code class="docutils literal notranslate"><span class="pre">function_unit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.class_unit"><code class="docutils literal notranslate"><span class="pre">class_unit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.module_unit"><code class="docutils literal notranslate"><span class="pre">module_unit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.file_unit"><code class="docutils literal notranslate"><span class="pre">file_unit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.index_python_source"><code class="docutils literal notranslate"><span class="pre">index_python_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.source_units_for_file"><code class="docutils literal notranslate"><span class="pre">source_units_for_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.source_inventory"><code class="docutils literal notranslate"><span class="pre">source_inventory()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.source_index.source_inventory_for_paths"><code class="docutils literal notranslate"><span class="pre">source_inventory_for_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.ToolConfig"><code class="docutils literal notranslate"><span class="pre">ToolConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.WorkspacePaths"><code class="docutils literal notranslate"><span class="pre">WorkspacePaths</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.Workspace"><code class="docutils literal notranslate"><span class="pre">Workspace</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.SourceUnit"><code class="docutils literal notranslate"><span class="pre">SourceUnit</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.DocSection"><code class="docutils literal notranslate"><span class="pre">DocSection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/#documentledger.models.ScanResult"><code class="docutils literal notranslate"><span class="pre">ScanResult</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="bootstrap/">Bootstrapping a new repository</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bootstrap/#why-the-first-scan-is-a-baseline">Why the first scan is a baseline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bootstrap/#setup-sequence">Setup sequence</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting/">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#status-reports-uninitialized"><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#scan-fails-with-storage-missing"><code class="docutils literal notranslate"><span class="pre">scan</span></code> fails with <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#mark-fresh-fails-with-unlinked-doc"><code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> fails with <code class="docutils literal notranslate"><span class="pre">unlinked_doc</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#every-change-makes-too-many-docs-stale">Every change makes too many docs stale</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#a-changed-source-is-reported-as-unlinked">A changed source is reported as unlinked</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#the-sphinx-build-warns-about-files-inside-the-virtual-environment">The Sphinx build warns about files inside the virtual environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#sphinx-build-is-not-found"><code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> is not found</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#storage-migration-errors">Storage migration errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/">Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts/#project-tool-data-and-artifacts">Project, tool, data, and artifacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/#source-units-and-document-sections">Source units and document sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/#link-edges-coverage-and-impact">Link edges, coverage, and impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/#freshness-and-affectedness">Freshness and affectedness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/#deterministic-persistence">Deterministic persistence</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<!-- docledger-section: index-documentation-freshness-workflow -->
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage/#initialize">Initialize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#inspect-status-and-next-action">Inspect status and next action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#scan">Scan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#inspect-documents-and-source-units">Inspect documents and source units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#add-broad-and-precise-links-link-documentation-to-sources">Add broad and precise links {#link-documentation-to-sources}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#propose-import-and-audit-links">Propose, import, and audit links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#build-context-update-and-validate">Build context, update, and validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#mark-fresh">Mark fresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#json-human-and-profile-output">JSON, human, and profile output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#ledger-state-and-commit-policy">Ledger state and commit policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#storage-commands">Storage commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#validate-ledger-state">Validate ledger state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#bootstrapping-a-new-repository">Bootstrapping a new repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrap/">Bootstrapping a new repository</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap/#id1">Bootstrapping a new repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap/#first-scan-baseline">First scan baseline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap/#build-bootstrap-context">Build bootstrap context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap/#review-deterministic-proposals">Review deterministic proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap/#coverage-and-final-gates-setup-sequence">Coverage and final gates {#setup-sequence}</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="incremental-workflow/">Incremental workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="incremental-workflow/#sequence">Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incremental-workflow/#live-freshness-projection">Live freshness projection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incremental-workflow/#scope-discipline">Scope discipline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ci/">Continuous integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ci/#deterministic-gate">Deterministic gate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci/#ci-environment">CI environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci/#network-policy">Network policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="migration/">Migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="migration/#plan-apply-validate-clean-up">Plan, apply, validate, clean up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migration/#safety-rules">Safety rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migration/#recovery-and-journals">Recovery and journals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migration/#compatibility-mapping">Compatibility mapping</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration/">Configuration reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration/#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/#fields">Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/#inspect-and-validate">Inspect and validate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli/">CLI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli/#global-options">Global options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#canonical-commands">Canonical commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#init">init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#status">status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#info">info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#doctor">doctor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#check">check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#next-action">next-action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#scan">scan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#coverage">coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#commands">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#config-show">config show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#config-validate">config validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#schema-list">schema list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#schema-show">schema show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#schema-values">schema values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#document-list">document list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#document-sections">document sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#document-affected">document affected</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#document-stale">document stale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#document-build-context">document build-context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#document-mark-fresh">document mark-fresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#source-list">source list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#source-show">source show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-list">link list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-add">link add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-remove">link remove</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-add-section">link add-section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-remove-section">link remove-section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-import-map">link import-map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-audit">link audit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#link-propose">link propose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#storage-where">storage where</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#storage-validate">storage validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#migrate-status">migrate status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#migrate-plan">migrate plan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#migrate-apply">migrate apply</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#migrate-recover">migrate recover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#migrate-cleanup">migrate cleanup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#compatibility-commands">Compatibility commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage/">Storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storage/#canonical-authority-and-mounts">Canonical authority and mounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#durable-and-derived-files">Durable and derived files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#ownership-and-invariants">Ownership and invariants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/#inspect-storage">Inspect storage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schemas/">Schemas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schemas/#storage-yaml-schema-version-5"><code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code> — schema version 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemas/#scan-and-source-index">Scan and source index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemas/#document-records-and-section-links">Document records and section links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemas/#mapping-and-migration-payloads">Mapping and migration payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemas/#cli-envelope">CLI envelope</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="errors/">Errors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="errors/#categories-and-remediation">Categories and remediation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors/#json-error-envelope">JSON error envelope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors/#common-codes">Common codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/project-and-config/">Project and configuration API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/storage-and-scanning/">Storage and scanning API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/indexing-and-links/">Indexing and links API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/rendering-and-impact/">Rendering and impact API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/migration-and-errors/">Migration and errors API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/cli-internals/">CLI internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#support-policy">Support policy</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture/">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#canonical-project-resolution">Canonical project resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#command-registration-and-metadata">Command registration and metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#cli-state-and-result-envelopes-cli-structure-and-errors">CLI state and result envelopes {#cli-structure-and-errors}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#configuration-parsing">Configuration parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#storage-and-atomic-state-transitions-storage-model">Storage and atomic state transitions {#storage-model}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#scanning-and-source-unit-identity-scanning-algorithm">Scanning and source-unit identity {#scanning-algorithm}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#markdown-sections-and-markers">Markdown sections and markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#link-graph-and-tracked-hashes">Link graph and tracked hashes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#affectedness-and-context">Affectedness and context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#migration-boundary">Migration boundary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#persistence-and-testing-boundaries">Persistence and testing boundaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#ledgercore-integration">ledgercore integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development/">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development/#environment-and-checks">Environment and checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/#add-a-command">Add a command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/#change-a-persisted-schema">Change a persisted schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/#maintain-links-and-markers">Maintain links and markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/#releases-and-self-maintenance">Releases and self-maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting/">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#the-executable-is-not-found">The executable is not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#a-deprecation-warning-appears">A deprecation warning appears</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#canonical-storage-binding-is-invalid">Canonical storage binding is invalid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#configuration-validation-fails">Configuration validation fails</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#there-is-no-baseline-or-no-links">There is no baseline or no links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#check-reports-stale-sections">Check reports stale sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#source-index-is-missing-or-corrupt">Source index is missing or corrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#cursor-or-selector-errors-occur">Cursor or selector errors occur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#mapping-batch-validation-fails">Mapping batch validation fails</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#migration-conflicts-or-is-interrupted">Migration conflicts or is interrupted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#sphinx-fails-with-warnings-or-autodoc-import-errors">Sphinx fails with warnings or autodoc import errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#status-reports-uninitialized">Status reports uninitialized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#scan-fails-with-storage-missing">Scan fails with storage missing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#a-changed-source-is-reported-as-unlinked">A changed source is reported as unlinked</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#every-change-makes-too-many-docs-stale">Every change makes too many docs stale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#mark-fresh-fails-with-unlinked-doc">Mark fresh fails with unlinked doc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#sphinx-build-is-not-found">Sphinx build is not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#the-sphinx-build-warns-about-files-inside-the-virtual-environment">The Sphinx build warns about files inside the virtual environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#storage-migration-errors">Storage migration errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-0-2026-07-28">[v0.2.0] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-1-1-2026-07-11">[v0.1.1] - 2026-07-11</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!-- docledger-section: documentation-freshness-workflow -->
 <section id="documentation-freshness-workflow">
 <h2>Documentation freshness workflow</h2>
 <p>The supported workflow is:</p>
 <ol class="arabic simple">
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">status</span></code> to confirm that the workspace is initialized.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> to rewrite <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scan.yaml</span></code> when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">--json</span> <span class="pre">docs</span> <span class="pre">affected</span></code> to find the documentation sections whose linked source units changed.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">docs</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--print</span></code> to render update context for affected sections and unlinked changed sources.</p></li>
-<li><p>Inspect the affected sections and linked changed source units before editing documentation.</p></li>
-<li><p>Update only the affected sections by default, run configured validation commands, then mark the updated section or doc fresh with <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">mark-fresh</span> <span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">--section</span> <span class="pre">SECTION</span> <span class="pre">--reason</span> <span class="pre">&quot;Docs</span> <span class="pre">updated</span> <span class="pre">after</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">VERSION.&quot;</span></code>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">status</span></code> to inspect the canonical workspace.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> to compare current source and documentation hashes with the latest baseline.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">document</span> <span class="pre">affected</span></code> to find sections affected by linked source-unit changes.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--out</span> <span class="pre">/tmp/documentledger-context.md</span></code> to render bounded update context.</p></li>
+<li><p>Inspect the affected sections and linked source evidence before editing.</p></li>
+<li><p>Update the affected sections, run configured validation commands, then mark them fresh with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">mark-fresh</span> <span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">--section</span> <span class="pre">SECTION</span> <span class="pre">--reason</span> <span class="pre">&quot;Docs</span> <span class="pre">updated</span> <span class="pre">after</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">VERSION.&quot;</span></code>.</p></li>
 </ol>
-<p>Documentledger stores its durable state under <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/</span></code>. Do not edit the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> layout directly.</p>
+<p>Documentledger stores durable state in the resolved <code class="docutils literal notranslate"><span class="pre">data</span></code> mount under <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/</span></code>. Do not edit canonical <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> records directly.</p>
 </section>
 </section>
 </div>

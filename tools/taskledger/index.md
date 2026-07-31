@@ -5,8 +5,8 @@ permalink: /tools/taskledger/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.5.2"
-docs_commit: "1e080d8afa12581b6fc5d5484e86b05060f16b56"
+docs_ref: "v0.6.0"
+docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
 search_enabled: true
 ---
 
@@ -552,6 +552,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#shell-completion">Shell completion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#initialize-state">Initialize state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#storage-migration-recovery">Storage migration recovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#branch-local-task-work">Branch-local task work</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#opaque-links-and-external-artifacts">Opaque links and external artifacts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#planning-guidance-profiles">Planning guidance profiles</a></li>
@@ -564,11 +565,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#compact-implementation-loop">Compact implementation loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#fresh-session-startup-and-monitoring">Fresh-session startup and monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#machine-readable-output">Machine-readable output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#cloud-backed-storage">Cloud-backed storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#resolved-storage">Resolved storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#integrity-and-recovery">Integrity and recovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#export-and-snapshots">Export and snapshots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#single-task-transfer-from-a-config-only-checkout">Single-task transfer from a config-only checkout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#task-centered-traceability">Task-centered traceability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#canonical-project-layout">Canonical project layout</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="full_task_cycle/">Full Task Cycle</a><ul>
@@ -589,7 +591,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l1"><a class="reference internal" href="architecture_taskledger_split/">Taskledger architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#owning-layers">Owning layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#storage-model">Storage model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#lifecycle-flow">Lifecycle flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#command-surface">Command surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#architecture-records">Architecture records</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="multi_repo/">Multi-repo context</a><ul>
@@ -607,6 +611,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="api/#run-api">Run API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#review-api">Review API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#other-apis">Other APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#canonical-layout-apis">Canonical layout APIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="public_surface/">Public surface</a><ul>
@@ -650,6 +655,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#todo-source-inference">Todo source inference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#storage-compatibility">Storage Compatibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#lock-recovery-contract">Lock recovery contract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_contract/#layout-and-migration-commands">Layout and migration commands</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="transfer/">Transfer archives</a><ul>
@@ -658,17 +664,19 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="transfer/#single-task-transfer-from-a-config-only-checkout">Single-task transfer from a config-only checkout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#dry-run-import">Dry-run import</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#lock-policy-and-next-action">Lock policy and next action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transfer/#canonical-identity">Canonical identity</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sync/">Sync taskledger state across PCs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sync/#external-state-directory">External state directory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sync/#private-state-git-repo">Private state Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync/#schema-3-project-state">Schema-3 project state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync/#shared-state-git-repo">Shared state Git repo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#second-pc-bootstrap">Second PC bootstrap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#daily-sync-protocol">Daily sync protocol</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#active-lock-rule">Active lock rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#when-to-use-export-import-instead">When to use export/import instead</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#syncthing-rclone-caveats">Syncthing/rclone caveats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#task-centered-traceability">Task-centered traceability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync/#canonical-mounts">Canonical mounts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="service_boundary_whitelist/">Service boundary whitelist</a><ul>
@@ -677,6 +685,17 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="service_boundary_whitelist/#function-line-budget-whitelist-250-lines">Function line budget whitelist (&gt;250 lines)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service_boundary_whitelist/#cliservices-import-whitelist">CLI→services import whitelist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service_boundary_whitelist/#catch-all-exception-whitelist-except-exception">Catch-all exception whitelist (<code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">Exception</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation_freshness/">Documentation freshness</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#detect-documentation-affected-by-code-changes">Detect documentation affected by code changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#maintain-section-links">Maintain section links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#validate-and-mark-sections-fresh">Validate and mark sections fresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#review-boundaries">Review boundaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-0-2026-07-28">[v0.6.0] - 2026-07-28</a></li>
 </ul>
 </li>
 </ul>

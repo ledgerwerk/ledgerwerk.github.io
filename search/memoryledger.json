@@ -1,0 +1,94 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "memoryledger",
+  "entries": [
+    {
+      "url": "/tools/memoryledger/api/",
+      "title": "memoryledger API Reference",
+      "snippet": "memoryledger package\nSubmodules\n\nmemoryledger.cli module\n\nmemoryledger.config module\n\nmemoryledger.errors module\n\nmemoryledger.models module …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "API Reference",
+          "text": "memoryledger package\nSubmodules\n\nmemoryledger.cli module\n\nmemoryledger.config module\n\nmemoryledger.errors module\n\nmemoryledger.models module\n\nmemoryledger.storage module",
+          "lower": "memoryledger package\nsubmodules\n\nmemoryledger.cli module\n\nmemoryledger.config module\n\nmemoryledger.errors module\n\nmemoryledger.models module\n\nmemoryledger.storage module"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/api/memoryledger/",
+      "title": "memoryledger package",
+      "snippet": "Strict Memoryledger tool configuration and legacy conversion helpers.\n\n\n\nmemoryledger.config.global_config_path()[source]\n\nReturn type:\nPat …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "memoryledger.config module",
+          "text": "Strict Memoryledger tool configuration and legacy conversion helpers.\n\n\n\nmemoryledger.config.global_config_path()[source]\n\nReturn type:\nPath\n\n\n\n\n\n\n\nmemoryledger.config.legacy_config_to_tool_config(config)[source]\n\nReturn type:\nToolConfig\n\n\n\n\n\n\n\nmemoryledger.config.load_tool_config(path, *, global_defaults=True)[source]\nLoad and validate a schema-3 project tool config without resolving paths.\n\n\nReturn type:\nToolConfig\n\n\n\n\n\n\n\nmemoryledger.config.render_tool_config(config)[source]\n\nReturn type:\nstr\n\n\n\n\n\n\n\nmemoryledger.config.tool_config_from_legacy(data)[source]\nTranslate legacy settings while dropping identity and storage paths.\n\n\nReturn type:\nToolConfig\n\n\n\n\n\n\n\nmemoryledger.config.write_tool_config(path, config)[source]\n\nReturn type:\nNone",
+          "lower": "strict memoryledger tool configuration and legacy conversion helpers.\n\n\n\nmemoryledger.config.global_config_path()[source]\n\nreturn type:\npath\n\n\n\n\n\n\n\nmemoryledger.config.legacy_config_to_tool_config(config)[source]\n\nreturn type:\ntoolconfig\n\n\n\n\n\n\n\nmemoryledger.config.load_tool_config(path, *, global_defaults=true)[source]\nload and validate a schema-3 project tool config without resolving paths.\n\n\nreturn type:\ntoolconfig\n\n\n\n\n\n\n\nmemoryledger.config.render_tool_config(config)[source]\n\nreturn type:\nstr\n\n\n\n\n\n\n\nmemoryledger.config.tool_config_from_legacy(data)[source]\ntranslate legacy settings while dropping identity and storage paths.\n\n\nreturn type:\ntoolconfig\n\n\n\n\n\n\n\nmemoryledger.config.write_tool_config(path, config)[source]\n\nreturn type:\nnone"
+        },
+        {
+          "anchor": "",
+          "heading": "memoryledger.errors module",
+          "text": "exception memoryledger.errors.MemoryledgerError(code, message, details=None)[source]\nBases: Exception\n\n\n\ncode: str\n\n\n\n\ndetails: dict[str, object] | None = None\n\n\n\n\nmessage: str\n\n\n\n\n\n\nmemoryledger.errors.require(condition, code, message)[source]\n\nReturn type:\nNone",
+          "lower": "exception memoryledger.errors.memoryledgererror(code, message, details=none)[source]\nbases: exception\n\n\n\ncode: str\n\n\n\n\ndetails: dict[str, object] | none = none\n\n\n\n\nmessage: str\n\n\n\n\n\n\nmemoryledger.errors.require(condition, code, message)[source]\n\nreturn type:\nnone"
+        },
+        {
+          "anchor": "",
+          "heading": "memoryledger.models module",
+          "text": "class memoryledger.models.Config(root, config_path, ledger_code='ml', ledger_name='memoryledger', project_name='my-project', project_uuid='', memoryledger_dir='.memoryledger', render=<factory>, allow_run_html=True, allow_current_run=True, default_review_status='candidate', template_policy=<factory>, artifacts_dir=None)[source]\nBases: object\n\n\n\nallow_current_run: bool = True\n\n\n\n\nallow_run_html: bool = True\n\n\n\n\nartifacts_dir: Path | None = None\n\n\n\n\nconfig_path: Path\n\n\n\n\ndefault_review_status: str = 'candidate'\n\n\n\n\nledger_code: str = 'ml'\n\n\n\n\nledger_name: str = 'memoryledger'\n\n\n\n\nmemoryledger_dir: str = '.memoryledger'\n\n\n\n\nproject_name: str = 'my-project'\n\n\n\n\nproject_uuid: str = ''\n\n\n\n\nrender: RenderConfig\n\n\n\n\nroot: Path\n\n\n\n\nproperty storage_dir: Path\n\n\n\n\ntemplate_policy: Templ…",
+          "lower": "class memoryledger.models.config(root, config_path, ledger_code='ml', ledger_name='memoryledger', project_name='my-project', project_uuid='', memoryledger_dir='.memoryledger', render=<factory>, allow_run_html=true, allow_current_run=true, default_review_status='candidate', template_policy=<factory>, artifacts_dir=none)[source]\nbases: object\n\n\n\nallow_current_run: bool = true\n\n\n\n\nallow_run_html: bool = true\n\n\n\n\nartifacts_dir: path | none = none\n\n\n\n\nconfig_path: path\n\n\n\n\ndefault_review_status: str = 'candidate'\n\n\n\n\nledger_code: str = 'ml'\n\n\n\n\nledger_name: str = 'memoryledger'\n\n\n\n\nmemoryledger_dir: str = '.memoryledger'\n\n\n\n\nproject_name: str = 'my-project'\n\n\n\n\nproject_uuid: str = ''\n\n\n\n\nrender: renderconfig\n\n\n\n\nroot: path\n\n\n\n\nproperty storage_dir: path\n\n\n\n\ntemplate_policy: templ…"
+        },
+        {
+          "anchor": "",
+          "heading": "memoryledger.storage module",
+          "text": "class memoryledger.storage.Store(config)[source]\nBases: object\n\n\n\nadd_evidence(memory_id, evidence, reason)[source]\n\nReturn type:\nMemory\n\n\n\n\n\n\n\nall_memories()[source]\n\nReturn type:\nlist[Memory]\n\n\n\n\n\n\n\nbump_ledger_version()[source]\n\nReturn type:\nint\n\n\n\n\n\n\n\ncreate(kind, title, content, evidence, scope, scope_path, render_target, source='cli', *, origin='', origin_hash='', section='', evidence_refs=None)[source]\n\nReturn type:\nMemory\n\n\n\n\n\n\n\nensure_initialized()[source]\nCreate legacy durable state explicitly before a mutation.\n\n\nReturn type:\nNone\n\n\n\n\n\n\n\nget(memory_id)[source]\n\nReturn type:\nMemory\n\n\n\n\n\n\n\nledger_version()[source]\n\nReturn type:\nint\n\n\n\n\n\n\n\nmemory_dir(memory_id)[source]\n\nReturn type:\nPath\n\n\n\n\n\n\n\nmemory_file(memory_id)[source]\n\nReturn type:\nPath\n\n\n\n\n\n\n\nmigrate_storage_v2(b…",
+          "lower": "class memoryledger.storage.store(config)[source]\nbases: object\n\n\n\nadd_evidence(memory_id, evidence, reason)[source]\n\nreturn type:\nmemory\n\n\n\n\n\n\n\nall_memories()[source]\n\nreturn type:\nlist[memory]\n\n\n\n\n\n\n\nbump_ledger_version()[source]\n\nreturn type:\nint\n\n\n\n\n\n\n\ncreate(kind, title, content, evidence, scope, scope_path, render_target, source='cli', *, origin='', origin_hash='', section='', evidence_refs=none)[source]\n\nreturn type:\nmemory\n\n\n\n\n\n\n\nensure_initialized()[source]\ncreate legacy durable state explicitly before a mutation.\n\n\nreturn type:\nnone\n\n\n\n\n\n\n\nget(memory_id)[source]\n\nreturn type:\nmemory\n\n\n\n\n\n\n\nledger_version()[source]\n\nreturn type:\nint\n\n\n\n\n\n\n\nmemory_dir(memory_id)[source]\n\nreturn type:\npath\n\n\n\n\n\n\n\nmemory_file(memory_id)[source]\n\nreturn type:\npath\n\n\n\n\n\n\n\nmigrate_storage_v2(b…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/changelog/",
+      "title": "memoryledger Changelog",
+      "snippet": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\n\n\n\nAll notable chan …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Changelog",
+          "text": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\n\n\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on Keep a Changelog, and this project adheres to Semantic Versioning.",
+          "lower": "generated by releaseledger. manual edits may be overwritten. update releaseledger entries and rebuild this file instead.\n\n\n\nall notable changes to this project will be documented in this file.\n\nthe format is based on keep a changelog, and this project adheres to semantic versioning."
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Configuration discovery module with project-level and user-level config resolution\n\n\nLegacy compatibility layer for backward-compatible storage format handling\n\n\nMigration framework with storage v2 and linked docs directory migration support\n\n\nProject locator and models modules for structured project metadata\n\n\nCommand catalog and command results modules for CLI command registry",
+          "lower": "configuration discovery module with project-level and user-level config resolution\n\n\nlegacy compatibility layer for backward-compatible storage format handling\n\n\nmigration framework with storage v2 and linked docs directory migration support\n\n\nproject locator and models modules for structured project metadata\n\n\ncommand catalog and command results modules for cli command registry"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Migrated to ledgercore 0.6.0 with unified CLI command surface and modular architecture\n\n\nAdded tests for ledgercore schema, storage v2, config discovery, and migration workflows",
+          "lower": "migrated to ledgercore 0.6.0 with unified cli command surface and modular architecture\n\n\nadded tests for ledgercore schema, storage v2, config discovery, and migration workflows"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/",
+      "title": "Welcome to memoryledger’s documentation!",
+      "snippet": "Contents:\n\n\nChangelog\n[v0.2.0] - 2026-07-28\n\n\n\n\nAPI Reference\nmemoryledger package\nIndex\n\n\nModule Index\n\n\nSearch Page",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Welcome to memoryledger’s documentation!",
+          "text": "Contents:\n\n\nChangelog\n[v0.2.0] - 2026-07-28\n\n\n\n\nAPI Reference\nmemoryledger package",
+          "lower": "contents:\n\n\nchangelog\n[v0.2.0] - 2026-07-28\n\n\n\n\napi reference\nmemoryledger package"
+        },
+        {
+          "anchor": "",
+          "heading": "Indices and tables",
+          "text": "Index\n\n\nModule Index\n\n\nSearch Page",
+          "lower": "index\n\n\nmodule index\n\n\nsearch page"
+        }
+      ]
+    }
+  ]
+}

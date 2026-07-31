@@ -5,8 +5,8 @@ permalink: /tools/taskledger/full_task_cycle/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.5.2"
-docs_commit: "1e080d8afa12581b6fc5d5484e86b05060f16b56"
+docs_ref: "v0.6.0"
+docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
 search_enabled: true
 ---
 
@@ -554,15 +554,13 @@ is active, add <code class="docutils literal notranslate"><span class="pre">--ta
 <h2>1. Initialize The Ledger</h2>
 <p>Run this once per workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>init
-taskledger<span class="w"> </span>init<span class="w"> </span>--taskledger-dir<span class="w"> </span>/mnt/cloud/taskledger/project-a
 taskledger<span class="w"> </span>doctor
 taskledger<span class="w"> </span>status<span class="w"> </span>--full
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">init</span></code> writes <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> in the workspace root and points it at the
-default <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code> storage root unless <code class="docutils literal notranslate"><span class="pre">--taskledger-dir</span></code> chooses an
-external location. <code class="docutils literal notranslate"><span class="pre">doctor</span></code> checks integrity. <code class="docutils literal notranslate"><span class="pre">status</span> <span class="pre">--full</span></code> shows the
-current task, counts, health, and resolved storage paths.</p>
+<p><code class="docutils literal notranslate"><span class="pre">init</span></code> writes a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> registration and
+<code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>. Default data is external at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>;
+indexes are cache data. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code> to inspect paths.</p>
 </section>
 <section id="create-and-activate-a-task">
 <h2>2. Create And Activate A Task</h2>

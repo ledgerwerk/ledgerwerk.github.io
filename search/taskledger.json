@@ -88,8 +88,8 @@
         {
           "anchor": "",
           "heading": "Storage API",
-          "text": "storage_where\n\n\nstorage_move\n\n\nsync_preflight\n\n\nsync_status\n\n\nsync_commit",
-          "lower": "storage_where\n\n\nstorage_move\n\n\nsync_preflight\n\n\nsync_status\n\n\nsync_commit"
+          "text": "storage_where\n\n\nstorage_path\n\n\nstorage_move\n\n\nstorage_validate\n\n\nstorage_set\n\n\nstorage_clear_override\n\n\nstorage_migration_inspect\n\n\nstorage_migration_apply\n\n\nstorage_migration_status\n\n\nstorage_migration_recover\n\n\nsync_preflight\n\n\nsync_status\n\n\nsync_commit",
+          "lower": "storage_where\n\n\nstorage_path\n\n\nstorage_move\n\n\nstorage_validate\n\n\nstorage_set\n\n\nstorage_clear_override\n\n\nstorage_migration_inspect\n\n\nstorage_migration_apply\n\n\nstorage_migration_status\n\n\nstorage_migration_recover\n\n\nsync_preflight\n\n\nsync_status\n\n\nsync_commit"
         },
         {
           "anchor": "",
@@ -102,6 +102,12 @@
           "heading": "Sync API",
           "text": "sync_git_init\n\n\nsync_git_paths\n\n\nsync_git_status\n\n\nsync_git_import_local\n\n\nsync_git_commit\n\n\nsync_git_export_local\n\n\nsync_git_pull\n\n\nsync_git_push\n\n\nsync_git_sync\n\n\nsync_git_hooks_install\n\n\nsync_git_hooks_status\n\n\nsync_git_hooks_uninstall",
           "lower": "sync_git_init\n\n\nsync_git_paths\n\n\nsync_git_status\n\n\nsync_git_import_local\n\n\nsync_git_commit\n\n\nsync_git_export_local\n\n\nsync_git_pull\n\n\nsync_git_push\n\n\nsync_git_sync\n\n\nsync_git_hooks_install\n\n\nsync_git_hooks_status\n\n\nsync_git_hooks_uninstall"
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical layout APIs",
+          "text": "Project and storage APIs resolve identity from .ledger/ledger.toml and expose named mount reports. Taskledger does not expose Ledgercore dataclasses as a public API.",
+          "lower": "project and storage apis resolve identity from .ledger/ledger.toml and expose named mount reports. taskledger does not expose ledgercore dataclasses as a public api."
         }
       ]
     },
@@ -119,20 +125,63 @@
         {
           "anchor": "",
           "heading": "Owning layers",
-          "text": "taskledger/domain/ owns lifecycle enums, policies, and record models.\n\n\ntaskledger/storage/task_store.py and taskledger/storage/locks.py own persisted\ntask bundles and visible lock files under .taskledger/.\n\n\ntaskledger/services/tasks.py owns task lifecycle orchestration.\n\n\ntaskledger/services/handoff.py owns handoff payloads and rendering.\n\n\ntaskledger/services/doctor.py owns integrity checks.\n\n\ntaskledger/api/* exposes public wrappers.\n\n\ntaskledger/cli*.py wires commands only.",
-          "lower": "taskledger/domain/ owns lifecycle enums, policies, and record models.\n\n\ntaskledger/storage/task_store.py and taskledger/storage/locks.py own persisted\ntask bundles and visible lock files under .taskledger/.\n\n\ntaskledger/services/tasks.py owns task lifecycle orchestration.\n\n\ntaskledger/services/handoff.py owns handoff payloads and rendering.\n\n\ntaskledger/services/doctor.py owns integrity checks.\n\n\ntaskledger/api/* exposes public wrappers.\n\n\ntaskledger/cli*.py wires commands only."
+          "text": "taskledger/domain/ owns lifecycle enums, policies, record models, and the\ncanonical TASKLEDGER_STORAGE_LAYOUT_VERSION constant.\n\n\ntaskledger/storage/ owns persisted task bundles, locks, and the\ntask_sidecars.json summary index. Low-level atomic I/O, JSON I/O, YAML\nI/O, front matter parsing, and cross-ledger ref parsing are delegated to\nledgercore.\n\n\ntaskledger/services/ owns task lifecycle orchestration, including\nplan_input.py, plan_lint.py, plan_review.py, planning_flow.py,\nimplementation_flow.py, workspace_snapshot.py, validation_flow.py,\nhandoff.py, doctor.py, and navigation.py.\n\n\ntaskledger/api/* exposes stable public wrappers.\n\n\ntaskledger/cli*.py wires Typer commands only.",
+          "lower": "taskledger/domain/ owns lifecycle enums, policies, record models, and the\ncanonical taskledger_storage_layout_version constant.\n\n\ntaskledger/storage/ owns persisted task bundles, locks, and the\ntask_sidecars.json summary index. low-level atomic i/o, json i/o, yaml\ni/o, front matter parsing, and cross-ledger ref parsing are delegated to\nledgercore.\n\n\ntaskledger/services/ owns task lifecycle orchestration, including\nplan_input.py, plan_lint.py, plan_review.py, planning_flow.py,\nimplementation_flow.py, workspace_snapshot.py, validation_flow.py,\nhandoff.py, doctor.py, and navigation.py.\n\n\ntaskledger/api/* exposes stable public wrappers.\n\n\ntaskledger/cli*.py wires typer commands only."
         },
         {
           "anchor": "",
           "heading": "Storage model",
-          "text": "Markdown records are canonical. Task, plan, and run reads come from those\nrecords directly. JSON files under .taskledger/indexes/ are optional derived\ncaches or registries. Active stages require visible lock files, and stale locks\nare reported instead of being cleared silently.",
-          "lower": "markdown records are canonical. task, plan, and run reads come from those\nrecords directly. json files under .taskledger/indexes/ are optional derived\ncaches or registries. active stages require visible lock files, and stale locks\nare reported instead of being cleared silently."
+          "text": "Markdown records are canonical. Task, plan, and run reads come from those\nrecords directly. The authoritative Taskledger data mount is\n../ledger/taskledger/<project-uuid> under the shared sibling base. The\ntask_sidecars.json summary index and other rebuildable indexes are\ncheckout-scoped cache data. Action and event logging is enabled by default and\nappends immutable TaskEvent records to the ledger-level events/\ndirectory. Active stages require visible lock files, and stale locks are\nreported instead of being cleared silently.",
+          "lower": "markdown records are canonical. task, plan, and run reads come from those\nrecords directly. the authoritative taskledger data mount is\n../ledger/taskledger/<project-uuid> under the shared sibling base. the\ntask_sidecars.json summary index and other rebuildable indexes are\ncheckout-scoped cache data. action and event logging is enabled by default and\nappends immutable taskevent records to the ledger-level events/\ndirectory. active stages require visible lock files, and stale locks are\nreported instead of being cleared silently."
+        },
+        {
+          "anchor": "",
+          "heading": "Lifecycle flow",
+          "text": "plan start opens planning. plan guidance reports the active project\nplanning profile. plan template writes a fresh plan skeleton, and\nplan check --file plan.md runs the preflight parser in\ntaskledger/services/plan_input.py without mutating state. plan upsert\npersists the plan; plan lint surfaces blocking issues; plan review\nproduces the approval brief; plan accept --note \"...\" records the\nuser-only decision.\n\nimplement start acquires a lock, starts a run, and captures a workspace\nsnapshot through taskledger/services/workspace_snapshot.py. validate start\nblocks when the current workspace diverges; implement snapshot refresh --reason \"...\" is the only sanctioned recovery path. Validation checks\ngate completion. Code-review records extend traceability as append-only\nevidence without creating…",
+          "lower": "plan start opens planning. plan guidance reports the active project\nplanning profile. plan template writes a fresh plan skeleton, and\nplan check --file plan.md runs the preflight parser in\ntaskledger/services/plan_input.py without mutating state. plan upsert\npersists the plan; plan lint surfaces blocking issues; plan review\nproduces the approval brief; plan accept --note \"...\" records the\nuser-only decision.\n\nimplement start acquires a lock, starts a run, and captures a workspace\nsnapshot through taskledger/services/workspace_snapshot.py. validate start\nblocks when the current workspace diverges; implement snapshot refresh --reason \"...\" is the only sanctioned recovery path. validation checks\ngate completion. code-review records extend traceability as append-only\nevidence without creating…"
         },
         {
           "anchor": "",
           "heading": "Command surface",
-          "text": "The supported command groups are task, plan, question,\nimplement, validate, review, todo, intro, file, link,\nrequire, release, lock, handoff, context, actor,\nharness, view, tree, next-action, can, search,\ngrep, symbols, deps, doctor, repair, reindex,\nmigrate, init, status, export, import, snapshot,\nstorage, sync, ledger, report, serve, pipeline,\ncommands, and review (code-review records).",
-          "lower": "the supported command groups are task, plan, question,\nimplement, validate, review, todo, intro, file, link,\nrequire, release, lock, handoff, context, actor,\nharness, view, tree, next-action, can, search,\ngrep, symbols, deps, doctor, repair, reindex,\nmigrate, init, status, export, import, snapshot,\nstorage, sync, ledger, report, serve, pipeline,\ncommands, and review (code-review records)."
+          "text": "The supported command groups are task, plan, question, implement,\nvalidate, todo, intro, file, link, require, release, lock,\nhandoff, context, actor, harness, view, tree, next-action,\ncan, search, grep, symbols, deps, doctor, repair, reindex,\nmigrate, init, status, export, import, snapshot, storage,\nsync, ledger, pipeline, commands, review, monitor, usage, and\nref. The authoritative source for the complete command surface and flags\nis taskledger/command_inventory.py and docs/command_contract.md.",
+          "lower": "the supported command groups are task, plan, question, implement,\nvalidate, todo, intro, file, link, require, release, lock,\nhandoff, context, actor, harness, view, tree, next-action,\ncan, search, grep, symbols, deps, doctor, repair, reindex,\nmigrate, init, status, export, import, snapshot, storage,\nsync, ledger, pipeline, commands, review, monitor, usage, and\nref. the authoritative source for the complete command surface and flags\nis taskledger/command_inventory.py and docs/command_contract.md."
+        },
+        {
+          "anchor": "",
+          "heading": "Architecture records",
+          "text": "Arc42 architecture records live under the Archledger direct sibling mount\n../ledger/archledger/<project-uuid>/ and are the source of\nARCHITECTURE.md. Skills (skills/taskledger/SKILL.md) and\ndocs/architecture_taskledger_split.md live outside the Python package and\noutside the archledger build output.",
+          "lower": "arc42 architecture records live under the archledger direct sibling mount\n../ledger/archledger/<project-uuid>/ and are the source of\narchitecture.md. skills (skills/taskledger/skill.md) and\ndocs/architecture_taskledger_split.md live outside the python package and\noutside the archledger build output."
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/changelog/",
+      "title": "taskledger Changelog",
+      "snippet": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\nLedgercore 0.6.0 co …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Changelog",
+          "text": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.",
+          "lower": "generated by releaseledger. manual edits may be overwritten. update releaseledger entries and rebuild this file instead."
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Ledgercore 0.6.0 compatibility boundary with strict public-API imports and version validation\n\n\nUnified CLI envelope format with ledgerwerk.cli.v1 schema and space-separated command paths\n\n\nFamily exit code mapping (0-5 only): SUCCESS, DOMAIN_FAILURE, USAGE, UNAVAILABLE, CONFLICT, EXTERNAL_FAILURE\n\n\n--root as canonical global option; --cwd is now a hidden deprecated alias\n\n\ntaskledger X canonical version output format\n\n\nNested help command with CommandInventory integration\n\n\ninfo command replacing deprecated status --full usage\n\n\nTolerant root callback for init/status/info/doctor/commands/help/storage/migrate\n\n\nCommand metadata family schema mapping with Taskledger extensions\n\n\nconfig validate and config unset commands\n\n\nstorage validate --strict with additional binding/fingerprint checks…",
+          "lower": "ledgercore 0.6.0 compatibility boundary with strict public-api imports and version validation\n\n\nunified cli envelope format with ledgerwerk.cli.v1 schema and space-separated command paths\n\n\nfamily exit code mapping (0-5 only): success, domain_failure, usage, unavailable, conflict, external_failure\n\n\n--root as canonical global option; --cwd is now a hidden deprecated alias\n\n\ntaskledger x canonical version output format\n\n\nnested help command with commandinventory integration\n\n\ninfo command replacing deprecated status --full usage\n\n\ntolerant root callback for init/status/info/doctor/commands/help/storage/migrate\n\n\ncommand metadata family schema mapping with taskledger extensions\n\n\nconfig validate and config unset commands\n\n\nstorage validate --strict with additional binding/fingerprint checks…"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Updated Ledgercore dependency to >=0.5.0,<0.7.0 (supports 0.6.0)\n\n\nUpdated exit codes to family contract: NOT_FOUND 5->3, STORAGE 6->4, VALIDATION 7->1\n\n\nstorage set is now topology-only (no data movement)\n\n\nCommand paths now use space separators instead of dots",
+          "lower": "updated ledgercore dependency to >=0.5.0,<0.7.0 (supports 0.6.0)\n\n\nupdated exit codes to family contract: not_found 5->3, storage 6->4, validation 7->1\n\n\nstorage set is now topology-only (no data movement)\n\n\ncommand paths now use space separators instead of dots"
+        },
+        {
+          "anchor": "",
+          "heading": "Deprecated",
+          "text": "--cwd global option (use --root instead)\n\n\nstatus --full (use info instead)\n\n\nStorage options --root, --project, --local in storage set",
+          "lower": "--cwd global option (use --root instead)\n\n\nstatus --full (use info instead)\n\n\nstorage options --root, --project, --local in storage set"
         }
       ]
     },
@@ -216,8 +265,8 @@
         {
           "anchor": "",
           "heading": "Release commands",
-          "text": "Release boundaries are durable project records, not task lifecycle states:\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release list\ntaskledger release show 0.4.1\n\n\n\n\nrelease tag writes a durable release record under the current ledger’s\nreleases/ directory. Release boundaries must point to done tasks.\nTaskledger does not provide changelog entry, changelog context, or\nCHANGELOG.md build commands; those belong to the separate releaseledger\ntool. Load both skills when cross-ledger release notes need task context.",
-          "lower": "release boundaries are durable project records, not task lifecycle states:\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release list\ntaskledger release show 0.4.1\n\n\n\n\nrelease tag writes a durable release record under the current ledger’s\nreleases/ directory. release boundaries must point to done tasks.\ntaskledger does not provide changelog entry, changelog context, or\nchangelog.md build commands; those belong to the separate releaseledger\ntool. load both skills when cross-ledger release notes need task context."
+          "text": "Release boundaries are durable project records, not task lifecycle states:\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release list\ntaskledger release show 0.4.1\n\n\n\n\nrelease tag writes a durable release record under the current ledger’s\nreleases/ directory. Release boundaries must point to done tasks.\nTaskledger does not provide changelog entry, changelog context, or\ndocs/changelog.md build commands; those belong to the separate releaseledger\ntool. Load both skills when cross-ledger release notes need task context.",
+          "lower": "release boundaries are durable project records, not task lifecycle states:\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release list\ntaskledger release show 0.4.1\n\n\n\n\nrelease tag writes a durable release record under the current ledger’s\nreleases/ directory. release boundaries must point to done tasks.\ntaskledger does not provide changelog entry, changelog context, or\ndocs/changelog.md build commands; those belong to the separate releaseledger\ntool. load both skills when cross-ledger release notes need task context."
         },
         {
           "anchor": "",
@@ -300,14 +349,57 @@
         {
           "anchor": "",
           "heading": "Storage Compatibility",
-          "text": "Taskledger stores project-local configuration in taskledger.toml at the\nworkspace root. .taskledger.toml is also read as a local override file when\nit exists.\n\nThe resolved taskledger_dir defaults to .taskledger/ beside that config\nfile, but taskledger init --taskledger-dir /path/to/state may point durable\nstate elsewhere. Commands resolve config files upward from the starting\ndirectory and keep --root scoped to the source workspace, not the storage\nroot.\n\nTaskledger uses:\n\n\na workspace storage layout version in taskledger_dir/storage.yaml\n\n\nper-record schema_version\n\n\nper-record object_type\n\n\nper-file file_version for durable Markdown/YAML/JSON record files\n\n\n\nStorage layout version history:\n\n\nLayout 2: Introduced branch-scoped ledgers under taskledger_dir/ledgers/<ledger_ref>/\n\n\nLayout…",
-          "lower": "taskledger stores project-local configuration in taskledger.toml at the\nworkspace root. .taskledger.toml is also read as a local override file when\nit exists.\n\nthe resolved taskledger_dir defaults to .taskledger/ beside that config\nfile, but taskledger init --taskledger-dir /path/to/state may point durable\nstate elsewhere. commands resolve config files upward from the starting\ndirectory and keep --root scoped to the source workspace, not the storage\nroot.\n\ntaskledger uses:\n\n\na workspace storage layout version in taskledger_dir/storage.yaml\n\n\nper-record schema_version\n\n\nper-record object_type\n\n\nper-file file_version for durable markdown/yaml/json record files\n\n\n\nstorage layout version history:\n\n\nlayout 2: introduced branch-scoped ledgers under taskledger_dir/ledgers/<ledger_ref>/\n\n\nlayout…"
+          "text": "Taskledger stores canonical project configuration in schema-3 .ledger/ledger.toml\nand Taskledger config in .ledger/taskledger/config.toml. Legacy\ntaskledger.toml and .taskledger.toml remain readable for explicit migration.\n\nThe default data mount is persistent external storage at ../ledger; indexes\nis cache storage. A local .ledger/ledger.local.toml may select user-data.\nCommands keep --root scoped to the source workspace, not the storage root.\n\nTaskledger uses:\n\n\nstorage layout version 5 in the UUID-scoped data root’s storage.yaml\n\n\nschema-2 canonical ledger state\n\n\nper-record schema_version\n\n\nper-record object_type\n\n\nper-file file_version for durable Markdown/YAML/JSON record files\n\n\n\nStorage layout history is maintained by explicit migration receipts. The\ncurrent layout keeps branch-sc…",
+          "lower": "taskledger stores canonical project configuration in schema-3 .ledger/ledger.toml\nand taskledger config in .ledger/taskledger/config.toml. legacy\ntaskledger.toml and .taskledger.toml remain readable for explicit migration.\n\nthe default data mount is persistent external storage at ../ledger; indexes\nis cache storage. a local .ledger/ledger.local.toml may select user-data.\ncommands keep --root scoped to the source workspace, not the storage root.\n\ntaskledger uses:\n\n\nstorage layout version 5 in the uuid-scoped data root’s storage.yaml\n\n\nschema-2 canonical ledger state\n\n\nper-record schema_version\n\n\nper-record object_type\n\n\nper-file file_version for durable markdown/yaml/json record files\n\n\n\nstorage layout history is maintained by explicit migration receipts. the\ncurrent layout keeps branch-sc…"
         },
         {
           "anchor": "",
           "heading": "Lock recovery contract",
           "text": "Lock diagnostics are exposed through three surfaces:\n\n\ntaskledger lock show --task TASK returns a diagnostics object and\na structured human block. The classification field names the lock\nstate: none, expired, active_dead_local_process,\nactive_live_local_process, active_unverifiable_remote_or_unknown_process,\nactive_no_pid, active_same_actor, or active_other_actor.\n\n\ntaskledger --json next-action returns lock_status whenever a lock\nexists, and sets action=repair-lock with a diagnostics blocker when the\nactive implementation lock has a dead local holder PID.\n\n\ntaskledger implement resume --repair-expired-lock returns a\nLOCK_CONFLICT error (exit code 4) with diagnostics and remediation\ncommands when the existing lock is non-expired.\n\n\n\n--repair-expired-lock is not a general stale-lock takeov…",
           "lower": "lock diagnostics are exposed through three surfaces:\n\n\ntaskledger lock show --task task returns a diagnostics object and\na structured human block. the classification field names the lock\nstate: none, expired, active_dead_local_process,\nactive_live_local_process, active_unverifiable_remote_or_unknown_process,\nactive_no_pid, active_same_actor, or active_other_actor.\n\n\ntaskledger --json next-action returns lock_status whenever a lock\nexists, and sets action=repair-lock with a diagnostics blocker when the\nactive implementation lock has a dead local holder pid.\n\n\ntaskledger implement resume --repair-expired-lock returns a\nlock_conflict error (exit code 4) with diagnostics and remediation\ncommands when the existing lock is non-expired.\n\n\n\n--repair-expired-lock is not a general stale-lock takeov…"
+        },
+        {
+          "anchor": "",
+          "heading": "Layout and migration commands",
+          "text": "taskledger config path reports the project-located Taskledger configuration.\ntaskledger storage path data|indexes reports named resolved mounts.\nUse storage validate, storage set, and storage clear-override for schema-3\nstorage selection. Legacy layout conversion remains explicit through\nmigrate status, migrate plan, and migrate apply.\n\nMigration inspection and apply share these options:\n\n--sibling-ledger-root PATH\n--source-data-root PATH\n--source-checkout-id ID\n--project-uuid UUID\n\n\n\n\nThe canonical project UUID is selected when a legacy Taskledger UUID differs. The\nlegacy UUID is retained as source metadata. --source-data-root is the recovery\noverride for a specific data root. --source-checkout-id accepts an identifier,\nnot a filesystem path. Backups are automatic. Other ledger registrat…",
+          "lower": "taskledger config path reports the project-located taskledger configuration.\ntaskledger storage path data|indexes reports named resolved mounts.\nuse storage validate, storage set, and storage clear-override for schema-3\nstorage selection. legacy layout conversion remains explicit through\nmigrate status, migrate plan, and migrate apply.\n\nmigration inspection and apply share these options:\n\n--sibling-ledger-root path\n--source-data-root path\n--source-checkout-id id\n--project-uuid uuid\n\n\n\n\nthe canonical project uuid is selected when a legacy taskledger uuid differs. the\nlegacy uuid is retained as source metadata. --source-data-root is the recovery\noverride for a specific data root. --source-checkout-id accepts an identifier,\nnot a filesystem path. backups are automatic. other ledger registrat…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/taskledger/documentation_freshness/",
+      "title": "taskledger Documentation freshness",
+      "snippet": "Taskledger uses Documentledger to connect sections under docs/ to the Python source units they describe. The committed .documentledger.toml …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Documentation freshness",
+          "text": "Taskledger uses Documentledger to connect sections under docs/ to the Python source units they describe. The committed .documentledger.toml defines the scan roots and validation commands. The committed .documentledger/ records hold the current scan baseline, section links, tracked source hashes, and freshness state.\n\nDo not edit .documentledger/ records directly. Use the docledger commands below so record validation and versioning remain intact.",
+          "lower": "taskledger uses documentledger to connect sections under docs/ to the python source units they describe. the committed .documentledger.toml defines the scan roots and validation commands. the committed .documentledger/ records hold the current scan baseline, section links, tracked source hashes, and freshness state.\n\ndo not edit .documentledger/ records directly. use the docledger commands below so record validation and versioning remain intact."
+        },
+        {
+          "anchor": "",
+          "heading": "Detect documentation affected by code changes",
+          "text": "Run the freshness workflow from the repository root:\n\ndocledger --json status\ndocledger --json scan\ndocledger --json docs affected\ndocledger docs build-context --affected --print\n\n\n\n\nInspect each affected section and its linked changed source units before editing. Update only the affected sections unless the changed contract requires a broader consistency correction. The generated context also reports changed source files that have no documentation links. Review those files explicitly instead of treating an empty affected-section list as proof that no documentation work is needed.",
+          "lower": "run the freshness workflow from the repository root:\n\ndocledger --json status\ndocledger --json scan\ndocledger --json docs affected\ndocledger docs build-context --affected --print\n\n\n\n\ninspect each affected section and its linked changed source units before editing. update only the affected sections unless the changed contract requires a broader consistency correction. the generated context also reports changed source files that have no documentation links. review those files explicitly instead of treating an empty affected-section list as proof that no documentation work is needed."
+        },
+        {
+          "anchor": "",
+          "heading": "Maintain section links",
+          "text": "Prefer links from one documentation section to the smallest source unit that owns the documented behavior. A CLI section should normally link to its command callback or owning CLI module. API reference sections should link to the corresponding public API module. Lifecycle and storage explanations may link to the owning service, policy, model, or storage module.\n\nFor a single edge, use links add-section with a source unit returned by docledger sources list or docledger sources show:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --source-unit py:module:taskledger/services/workflow_guidance.py \\\n  --coverage workflow \\\n  --impact behavior \\\n  --reason \"Documents project planning guidance behavior.\"\n\n\n\n\nFor a reviewed set of links, write a d…",
+          "lower": "prefer links from one documentation section to the smallest source unit that owns the documented behavior. a cli section should normally link to its command callback or owning cli module. api reference sections should link to the corresponding public api module. lifecycle and storage explanations may link to the owning service, policy, model, or storage module.\n\nfor a single edge, use links add-section with a source unit returned by docledger sources list or docledger sources show:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --source-unit py:module:taskledger/services/workflow_guidance.py \\\n  --coverage workflow \\\n  --impact behavior \\\n  --reason \"documents project planning guidance behavior.\"\n\n\n\n\nfor a reviewed set of links, write a d…"
+        },
+        {
+          "anchor": "",
+          "heading": "Validate and mark sections fresh",
+          "text": "The configured validation commands are authoritative for this documentation set. Run them after updating affected sections:\n\npytest tests/test_docs_and_skill.py tests/test_command_example_linter.py\nsphinx-build -W -b html docs docs/_build/html\ndocledger --json links audit\n\n\n\n\nMark a section fresh only after its content and links have been validated against the latest scan:\n\ndocledger mark-fresh \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --reason \"Docs updated and validated after scan version 3.\"\n\n\n\n\nThen run docledger --json docs affected again. A section-level mark updates its tracked source hashes immediately, so a follow-up scan is optional confirmation rather than a prerequisite for clearing affectedness.",
+          "lower": "the configured validation commands are authoritative for this documentation set. run them after updating affected sections:\n\npytest tests/test_docs_and_skill.py tests/test_command_example_linter.py\nsphinx-build -w -b html docs docs/_build/html\ndocledger --json links audit\n\n\n\n\nmark a section fresh only after its content and links have been validated against the latest scan:\n\ndocledger mark-fresh \\\n  --doc docs/usage.md \\\n  --section planning-guidance-profiles \\\n  --reason \"docs updated and validated after scan version 3.\"\n\n\n\n\nthen run docledger --json docs affected again. a section-level mark updates its tracked source hashes immediately, so a follow-up scan is optional confirmation rather than a prerequisite for clearing affectedness."
+        },
+        {
+          "anchor": "",
+          "heading": "Review boundaries",
+          "text": "Documentledger reports evidence, not documentation policy. Internal implementation units do not need links when a change cannot affect user, integrator, operator, or contributor documentation. Conversely, public CLI grammar, JSON contracts, lifecycle gates, public Python APIs, persisted storage behavior, transfer semantics, and operational recovery rules should have an owning documentation section and source link.",
+          "lower": "documentledger reports evidence, not documentation policy. internal implementation units do not need links when a change cannot affect user, integrator, operator, or contributor documentation. conversely, public cli grammar, json contracts, lifecycle gates, public python apis, persisted storage behavior, transfer semantics, and operational recovery rules should have an owning documentation section and source link."
         }
       ]
     },
@@ -325,8 +417,8 @@
         {
           "anchor": "",
           "heading": "1. Initialize The Ledger",
-          "text": "Run this once per workspace:\n\ntaskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\ntaskledger doctor\ntaskledger status --full\n\n\n\n\ninit writes taskledger.toml in the workspace root and points it at the\ndefault .taskledger/ storage root unless --taskledger-dir chooses an\nexternal location. doctor checks integrity. status --full shows the\ncurrent task, counts, health, and resolved storage paths.",
-          "lower": "run this once per workspace:\n\ntaskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\ntaskledger doctor\ntaskledger status --full\n\n\n\n\ninit writes taskledger.toml in the workspace root and points it at the\ndefault .taskledger/ storage root unless --taskledger-dir chooses an\nexternal location. doctor checks integrity. status --full shows the\ncurrent task, counts, health, and resolved storage paths."
+          "text": "Run this once per workspace:\n\ntaskledger init\ntaskledger doctor\ntaskledger status --full\n\n\n\n\ninit writes a schema-3 .ledger/ledger.toml registration and\n.ledger/taskledger/config.toml. Default data is external at ../ledger;\nindexes are cache data. Use taskledger storage where to inspect paths.",
+          "lower": "run this once per workspace:\n\ntaskledger init\ntaskledger doctor\ntaskledger status --full\n\n\n\n\ninit writes a schema-3 .ledger/ledger.toml registration and\n.ledger/taskledger/config.toml. default data is external at ../ledger;\nindexes are cache data. use taskledger storage where to inspect paths."
         },
         {
           "anchor": "",
@@ -434,8 +526,8 @@
         {
           "anchor": "",
           "heading": "Contents",
-          "text": "Documentation\n\n\nUsage\nInstallation\n\nShell completion\n\nInitialize state\n\nBranch-local task work\n\nOpaque links and external artifacts\n\nPlanning guidance profiles\n\nOptional worker pipelines\n\nRelease boundary tags\n\nRecording manually completed work\n\nArchiving tasks\n\nPost-completion follow-up deltas\n\nFresh-context entrypoint\n\nCompact implementation loop\n\nFresh-session startup and monitoring\n\nMachine-readable output\n\nCloud-backed storage\n\nIntegrity and recovery\n\nExport and snapshots\n\nSingle-task transfer from a config-only checkout\n\nTask-centered traceability\n\n\n\n\nFull Task Cycle\n1. Initialize The Ledger\n\n2. Create And Activate A Task\n\n3. Start Planning\n\n4. Ask And Answer Questions\n\n5. Propose A Plan\n\n6. Materialize Todos And Approve\n\n7. Start Implementation\n\n8. Complete Implementation Todos\n\n9.…",
-          "lower": "documentation\n\n\nusage\ninstallation\n\nshell completion\n\ninitialize state\n\nbranch-local task work\n\nopaque links and external artifacts\n\nplanning guidance profiles\n\noptional worker pipelines\n\nrelease boundary tags\n\nrecording manually completed work\n\narchiving tasks\n\npost-completion follow-up deltas\n\nfresh-context entrypoint\n\ncompact implementation loop\n\nfresh-session startup and monitoring\n\nmachine-readable output\n\ncloud-backed storage\n\nintegrity and recovery\n\nexport and snapshots\n\nsingle-task transfer from a config-only checkout\n\ntask-centered traceability\n\n\n\n\nfull task cycle\n1. initialize the ledger\n\n2. create and activate a task\n\n3. start planning\n\n4. ask and answer questions\n\n5. propose a plan\n\n6. materialize todos and approve\n\n7. start implementation\n\n8. complete implementation todos\n\n9.…"
+          "text": "Documentation\n\n\nUsage\nInstallation\n\nShell completion\n\nInitialize state\n\nStorage migration recovery\n\nBranch-local task work\n\nOpaque links and external artifacts\n\nPlanning guidance profiles\n\nOptional worker pipelines\n\nRelease boundary tags\n\nRecording manually completed work\n\nArchiving tasks\n\nPost-completion follow-up deltas\n\nFresh-context entrypoint\n\nCompact implementation loop\n\nFresh-session startup and monitoring\n\nMachine-readable output\n\nResolved storage\n\nIntegrity and recovery\n\nExport and snapshots\n\nSingle-task transfer from a config-only checkout\n\nTask-centered traceability\n\nCanonical project layout\n\n\n\n\nFull Task Cycle\n1. Initialize The Ledger\n\n2. Create And Activate A Task\n\n3. Start Planning\n\n4. Ask And Answer Questions\n\n5. Propose A Plan\n\n6. Materialize Todos And Approve\n\n7. Start Im…",
+          "lower": "documentation\n\n\nusage\ninstallation\n\nshell completion\n\ninitialize state\n\nstorage migration recovery\n\nbranch-local task work\n\nopaque links and external artifacts\n\nplanning guidance profiles\n\noptional worker pipelines\n\nrelease boundary tags\n\nrecording manually completed work\n\narchiving tasks\n\npost-completion follow-up deltas\n\nfresh-context entrypoint\n\ncompact implementation loop\n\nfresh-session startup and monitoring\n\nmachine-readable output\n\nresolved storage\n\nintegrity and recovery\n\nexport and snapshots\n\nsingle-task transfer from a config-only checkout\n\ntask-centered traceability\n\ncanonical project layout\n\n\n\n\nfull task cycle\n1. initialize the ledger\n\n2. create and activate a task\n\n3. start planning\n\n4. ask and answer questions\n\n5. propose a plan\n\n6. materialize todos and approve\n\n7. start im…"
         },
         {
           "anchor": "",
@@ -575,8 +667,8 @@
         {
           "anchor": "",
           "heading": "Function line budget whitelist (>250 lines)",
-          "text": "taskledger/services/doctor_checks/task_checks.py::scan_task_integrity\n\n\nCurrent reason: Consolidated per-task integrity scan with change/lock\nvalidation; further splitting into focused inspectors is planned.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\nCurrent reason: Sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.",
-          "lower": "taskledger/services/doctor_checks/task_checks.py::scan_task_integrity\n\n\ncurrent reason: consolidated per-task integrity scan with change/lock\nvalidation; further splitting into focused inspectors is planned.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\ncurrent reason: sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring."
+          "text": "taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases\n\n\nCurrent reason: Sub-phases of scan_task_integrity with per-task lock, run, and validation checks.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\nCurrent reason: Sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_apply_migration_phases\n\n\nCurrent reason: Migration apply logic covers file moves, UUID resolution, and config rewriting.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_inspect_migration_phases\n\n\nCurrent reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.",
+          "lower": "taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases\n\n\ncurrent reason: sub-phases of scan_task_integrity with per-task lock, run, and validation checks.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\ncurrent reason: sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_apply_migration_phases\n\n\ncurrent reason: migration apply logic covers file moves, uuid resolution, and config rewriting.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_inspect_migration_phases\n\n\ncurrent reason: migration inspect logic covers candidate discovery, config analysis, and issue assembly."
         },
         {
           "anchor": "",
@@ -587,33 +679,33 @@
         {
           "anchor": "",
           "heading": "Catch-all exception whitelist (except Exception)",
-          "text": "Current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under EXCEPT_EXCEPTION_WHITELIST.\n\nPolicy intent:\n\n\nAllow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nBlock new catch-all sites unless explicitly reviewed and justified.\n\n\nRequire whitelist edits to be intentional and reasoned.",
-          "lower": "current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under except_exception_whitelist.\n\npolicy intent:\n\n\nallow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nblock new catch-all sites unless explicitly reviewed and justified.\n\n\nrequire whitelist edits to be intentional and reasoned."
+          "text": "Current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under EXCEPT_EXCEPTION_WHITELIST.\n\nThe reviewed resilience sites include storage validation, migration command\nand hook handling, and project-config parsing boundaries listed in the test\nconstants.\n\nPolicy intent:\n\n\nAllow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nBlock new catch-all sites unless explicitly reviewed and justified.\n\n\nRequire whitelist edits to be intentional and reasoned.",
+          "lower": "current allowed sites are listed with reasons in\ntests/test_service_boundaries.py under except_exception_whitelist.\n\nthe reviewed resilience sites include storage validation, migration command\nand hook handling, and project-config parsing boundaries listed in the test\nconstants.\n\npolicy intent:\n\n\nallow catch-all handling only in doctor/repair and resilience wrappers.\n\n\nblock new catch-all sites unless explicitly reviewed and justified.\n\n\nrequire whitelist edits to be intentional and reasoned."
         }
       ]
     },
     {
       "url": "/tools/taskledger/sync/",
       "title": "taskledger Sync taskledger state across PCs",
-      "snippet": "Taskledger already supports keeping durable task state outside the source\nrepository. The recommended workflow is to commit only taskledger. …",
+      "snippet": "Taskledger stores durable state below the Ledgercore-resolved data mount. The\ndefault mount is external storage at ../ledger; local override …",
       "sections": [
         {
           "anchor": "",
           "heading": "Sync taskledger state across PCs",
-          "text": "Taskledger already supports keeping durable task state outside the source\nrepository. The recommended workflow is to commit only taskledger.toml in\nthe source repo, point taskledger_dir at an external sibling directory, and\nsync that external directory with a private Git repository.",
-          "lower": "taskledger already supports keeping durable task state outside the source\nrepository. the recommended workflow is to commit only taskledger.toml in\nthe source repo, point taskledger_dir at an external sibling directory, and\nsync that external directory with a private git repository."
+          "text": "Taskledger stores durable state below the Ledgercore-resolved data mount. The\ndefault mount is external storage at ../ledger; local overrides may select\nuser-data. Rebuildable indexes are always resolved as cache storage.",
+          "lower": "taskledger stores durable state below the ledgercore-resolved data mount. the\ndefault mount is external storage at ../ledger; local overrides may select\nuser-data. rebuildable indexes are always resolved as cache storage."
         },
         {
           "anchor": "",
-          "heading": "External state directory",
-          "text": "Use taskledger init --taskledger-dir or edit taskledger.toml so the\nworkspace keeps only config while the durable state lives elsewhere:\n\nconfig_version = 2\ntaskledger_dir = \"../taskledger-state/project-a\"\nproject_uuid = \"keep-existing-uuid\"\nproject_name = \"project-a\"\nledger_ref = \"main\"\n\n\n\n\nRelative paths are preferred because they keep the same sibling layout working\nacross multiple PCs.",
-          "lower": "use taskledger init --taskledger-dir or edit taskledger.toml so the\nworkspace keeps only config while the durable state lives elsewhere:\n\nconfig_version = 2\ntaskledger_dir = \"../taskledger-state/project-a\"\nproject_uuid = \"keep-existing-uuid\"\nproject_name = \"project-a\"\nledger_ref = \"main\"\n\n\n\n\nrelative paths are preferred because they keep the same sibling layout working\nacross multiple pcs."
+          "heading": "Schema-3 project state",
+          "text": "The canonical layout is:\n\n/home/me/src/project-a/.ledger/ledger.toml\n/home/me/src/project-a/.ledger/taskledger/config.toml\n/home/me/src/ledger/taskledger/<project-uuid>/data\n<user-cache>/taskledger/<project-uuid>/<checkout>/indexes\n\n\n\n\nInitialize and inspect the resolved mounts explicitly:\n\ntaskledger init\ntaskledger storage where\ntaskledger storage path data\ntaskledger storage path indexes\ntaskledger storage set data user-data --local --move\n\n\n\n\nThe project UUID and Ledgercore binding keep shared projects isolated.",
+          "lower": "the canonical layout is:\n\n/home/me/src/project-a/.ledger/ledger.toml\n/home/me/src/project-a/.ledger/taskledger/config.toml\n/home/me/src/ledger/taskledger/<project-uuid>/data\n<user-cache>/taskledger/<project-uuid>/<checkout>/indexes\n\n\n\n\ninitialize and inspect the resolved mounts explicitly:\n\ntaskledger init\ntaskledger storage where\ntaskledger storage path data\ntaskledger storage path indexes\ntaskledger storage set data user-data --local --move\n\n\n\n\nthe project uuid and ledgercore binding keep shared projects isolated."
         },
         {
           "anchor": "",
-          "heading": "Private state Git repo",
-          "text": "Recommended layout:\n\n/home/me/src/project-a/                  # source repo\n/home/me/src/taskledger-state/           # private state repo\n/home/me/src/taskledger-state/project-a/\n  storage.yaml\n  ledgers/\n    main/\n      tasks/\n      events/\n      releases/\n      indexes/\n\n\n\n\nThe source repository keeps taskledger.toml and ignores .taskledger/.\nThe private state repository stores the external taskledger_dir contents.",
-          "lower": "recommended layout:\n\n/home/me/src/project-a/                  # source repo\n/home/me/src/taskledger-state/           # private state repo\n/home/me/src/taskledger-state/project-a/\n  storage.yaml\n  ledgers/\n    main/\n      tasks/\n      events/\n      releases/\n      indexes/\n\n\n\n\nthe source repository keeps taskledger.toml and ignores .taskledger/.\nthe private state repository stores the external taskledger_dir contents."
+          "heading": "Shared state Git repo",
+          "text": "The sibling store can be an explicit Git repository. Taskledger Git sync derives\nthe repository root and limits canonical operations to the resolved project path:\n\ntaskledger sync git init\ntaskledger sync git status\ntaskledger sync git pull\ntaskledger sync git push",
+          "lower": "the sibling store can be an explicit git repository. taskledger git sync derives\nthe repository root and limits canonical operations to the resolved project path:\n\ntaskledger sync git init\ntaskledger sync git status\ntaskledger sync git pull\ntaskledger sync git push"
         },
         {
           "anchor": "",
@@ -650,6 +742,12 @@
           "heading": "Task-centered traceability",
           "text": "Taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\nCross-ledger links are opaque file or ID references.\n\nUse taskledger trace TASK --format json to emit a read-only\ntaskledger.trace.v1 task bundle. The bundle links task IDs, accepted AC IDs,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nEvidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ....",
           "lower": "taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\ncross-ledger links are opaque file or id references.\n\nuse taskledger trace task --format json to emit a read-only\ntaskledger.trace.v1 task bundle. the bundle links task ids, accepted ac ids,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nevidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ...."
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical mounts",
+          "text": "Canonical sync includes the durable data mount and optional logs mount. Cache indexes are excluded and can be deleted and rebuilt. Workspace and cache family roots are resolved by Ledgercore and are not changed by taskledger storage move.",
+          "lower": "canonical sync includes the durable data mount and optional logs mount. cache indexes are excluded and can be deleted and rebuilt. workspace and cache family roots are resolved by ledgercore and are not changed by taskledger storage move."
         }
       ]
     },
@@ -679,8 +777,8 @@
         {
           "anchor": "",
           "heading": "Single-task transfer from a config-only checkout",
-          "text": "# fresh checkout on another PC\ntaskledger init\ntaskledger task create \"Fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan/implement/validate workflow ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz\ntaskledger task list\ntaskledger task show task-0040\n\n\n\n\nRules:\n\n\nKeep project_uuid committed in taskledger.toml (or legacy .taskledger.toml if the project still uses it).\n\n\n.taskledger/ is local operational state and can be absent on another PC.\n\n\nRun taskledger init after cloning to create local state.\n\n\ntaskledger export --task TASK_REF and taskledger export TASK_REF export task-scoped archives.\n\n\ntaskledger sync export and taskledger sync import are aliases for the same…",
-          "lower": "# fresh checkout on another pc\ntaskledger init\ntaskledger task create \"fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan/implement/validate workflow ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509t101500z.tar.gz\ntaskledger task list\ntaskledger task show task-0040\n\n\n\n\nrules:\n\n\nkeep project_uuid committed in taskledger.toml (or legacy .taskledger.toml if the project still uses it).\n\n\n.taskledger/ is local operational state and can be absent on another pc.\n\n\nrun taskledger init after cloning to create local state.\n\n\ntaskledger export --task task_ref and taskledger export task_ref export task-scoped archives.\n\n\ntaskledger sync export and taskledger sync import are aliases for the same…"
+          "text": "# fresh checkout on another PC\ntaskledger init\ntaskledger task create \"Fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan/implement/validate workflow ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz\ntaskledger task list\ntaskledger task show task-0040\n\n\n\n\nRules:\n\n\nKeep the project UUID in the schema-3 .ledger/ledger.toml manifest.\n\n\nInspect resolved data and index mounts with taskledger storage where.\n\n\nRun taskledger init after cloning when the configured mounts are absent.\n\n\ntaskledger export --task TASK_REF and taskledger export TASK_REF export task-scoped archives.\n\n\ntaskledger sync export and taskledger sync import are aliases for the same archive transfer primiti…",
+          "lower": "# fresh checkout on another pc\ntaskledger init\ntaskledger task create \"fix import edge case\" --slug fix-import-edge-case --description \"...\"\n# ... normal plan/implement/validate workflow ...\ntaskledger export task-0040\n\n# main dev repo\ntaskledger import ./taskledger-task-planledger-main-task-0040-20260509t101500z.tar.gz\ntaskledger task list\ntaskledger task show task-0040\n\n\n\n\nrules:\n\n\nkeep the project uuid in the schema-3 .ledger/ledger.toml manifest.\n\n\ninspect resolved data and index mounts with taskledger storage where.\n\n\nrun taskledger init after cloning when the configured mounts are absent.\n\n\ntaskledger export --task task_ref and taskledger export task_ref export task-scoped archives.\n\n\ntaskledger sync export and taskledger sync import are aliases for the same archive transfer primiti…"
         },
         {
           "anchor": "",
@@ -693,6 +791,12 @@
           "heading": "Lock policy and next action",
           "text": "Imported runtime locks are quarantined by default. After import, follow:\n\ntaskledger next-action\ntaskledger implement resume --reason \"Continue imported implementation.\"",
           "lower": "imported runtime locks are quarantined by default. after import, follow:\n\ntaskledger next-action\ntaskledger implement resume --reason \"continue imported implementation.\""
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical identity",
+          "text": "Archive identity comes from the shared Ledger manifest. Mutable ledger state remains in the canonical data mount. Physical mount paths are not part of the archive record schema.",
+          "lower": "archive identity comes from the shared ledger manifest. mutable ledger state remains in the canonical data mount. physical mount paths are not part of the archive record schema."
         }
       ]
     },
@@ -716,8 +820,14 @@
         {
           "anchor": "",
           "heading": "Initialize state",
-          "text": "taskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\ntaskledger init writes taskledger.toml in the workspace root. The\nconfig defaults to taskledger_dir = \".taskledger\" and stores only safe\nbranch-scoped ledger state such as ledger_ref and\nledger_next_task_number. .taskledger/ remains ignored and stores\noperational task state under .taskledger/ledgers/<ledger_ref>/.",
-          "lower": "taskledger init\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\ntaskledger init writes taskledger.toml in the workspace root. the\nconfig defaults to taskledger_dir = \".taskledger\" and stores only safe\nbranch-scoped ledger state such as ledger_ref and\nledger_next_task_number. .taskledger/ remains ignored and stores\noperational task state under .taskledger/ledgers/<ledger_ref>/."
+          "text": "taskledger init\ntaskledger storage where\n\n\n\n\ntaskledger init writes a schema-3 Ledger manifest at .ledger/ledger.toml and\nTaskledger configuration at .ledger/taskledger/config.toml. Default data is\nexternal at ../ledger; indexes are cache storage. Use taskledger storage where\nand taskledger storage set for storage selection. Branch state remains in\nthe resolved data mount’s state.toml.\n\nThe manifest registration is authoritative. A .ledger/taskledger/ directory\nor config.toml does not register Taskledger until [ledgers.taskledger] is\npresent in .ledger/ledger.toml. Once a canonical manifest is found, discovery\nnever falls back to taskledger.toml, .taskledger.toml, or .taskledger/.\nReads are side-effect free, and canonical-unregistered mutations fail before\nwriting; use taskledger init to…",
+          "lower": "taskledger init\ntaskledger storage where\n\n\n\n\ntaskledger init writes a schema-3 ledger manifest at .ledger/ledger.toml and\ntaskledger configuration at .ledger/taskledger/config.toml. default data is\nexternal at ../ledger; indexes are cache storage. use taskledger storage where\nand taskledger storage set for storage selection. branch state remains in\nthe resolved data mount’s state.toml.\n\nthe manifest registration is authoritative. a .ledger/taskledger/ directory\nor config.toml does not register taskledger until [ledgers.taskledger] is\npresent in .ledger/ledger.toml. once a canonical manifest is found, discovery\nnever falls back to taskledger.toml, .taskledger.toml, or .taskledger/.\nreads are side-effect free, and canonical-unregistered mutations fail before\nwriting; use taskledger init to…"
+        },
+        {
+          "anchor": "",
+          "heading": "Storage migration recovery",
+          "text": "Legacy Taskledger data is discovered independently from the canonical Ledger manifest.\nThe canonical manifest UUID is authoritative when it differs from the legacy Taskledger\nUUID. Inspect and apply with the same destination and source options:\n\ntaskledger migrate plan --sibling-ledger-root ../ledger\ntaskledger migrate plan --sibling-ledger-root ../ledger --source-data-root ../ledger/taskledger/LEGACY_UUID/data\ntaskledger migrate apply --sibling-ledger-root ../ledger\n\n\n\n\n--source-data-root selects a data root. --source-checkout-id selects a checkout\nidentifier and is not a filesystem path. Backups are automatic. Existing ledger\nregistrations and the legacy source remain in place by default. Metadata-only targets\nare backed up and replaced atomically; authoritative split-brain targets are…",
+          "lower": "legacy taskledger data is discovered independently from the canonical ledger manifest.\nthe canonical manifest uuid is authoritative when it differs from the legacy taskledger\nuuid. inspect and apply with the same destination and source options:\n\ntaskledger migrate plan --sibling-ledger-root ../ledger\ntaskledger migrate plan --sibling-ledger-root ../ledger --source-data-root ../ledger/taskledger/legacy_uuid/data\ntaskledger migrate apply --sibling-ledger-root ../ledger\n\n\n\n\n--source-data-root selects a data root. --source-checkout-id selects a checkout\nidentifier and is not a filesystem path. backups are automatic. existing ledger\nregistrations and the legacy source remain in place by default. metadata-only targets\nare backed up and replaced atomically; authoritative split-brain targets are…"
         },
         {
           "anchor": "",
@@ -746,8 +856,8 @@
         {
           "anchor": "",
           "heading": "Release boundary tags",
-          "text": "Use taskledger only to record the task boundary for a release. Taskledger does not\nmanage changelog entries or edit CHANGELOG.md; that belongs to the separate\nreleaseledger tool.\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release show 0.4.1\ntaskledger release list\n\n\n\n\nRelease boundaries must point to done tasks. When the user asks for release notes,\nchangelog entries, or CHANGELOG.md updates, use releaseledger. Load both\nskills when cross-ledger release notes need task context.",
-          "lower": "use taskledger only to record the task boundary for a release. taskledger does not\nmanage changelog entries or edit changelog.md; that belongs to the separate\nreleaseledger tool.\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release show 0.4.1\ntaskledger release list\n\n\n\n\nrelease boundaries must point to done tasks. when the user asks for release notes,\nchangelog entries, or changelog.md updates, use releaseledger. load both\nskills when cross-ledger release notes need task context."
+          "text": "Use taskledger only to record the task boundary for a release. Taskledger does not\nmanage changelog entries or edit docs/changelog.md; that belongs to the separate\nreleaseledger tool.\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release show 0.4.1\ntaskledger release list\n\n\n\n\nRelease boundaries must point to done tasks. When the user asks for release notes,\nchangelog entries, or docs/changelog.md updates, use releaseledger. Load both\nskills when cross-ledger release notes need task context.",
+          "lower": "use taskledger only to record the task boundary for a release. taskledger does not\nmanage changelog entries or edit docs/changelog.md; that belongs to the separate\nreleaseledger tool.\n\ntaskledger release tag 0.4.1 --at-task task-0030 --note \"0.4.1 released\"\ntaskledger release show 0.4.1\ntaskledger release list\n\n\n\n\nrelease boundaries must point to done tasks. when the user asks for release notes,\nchangelog entries, or docs/changelog.md updates, use releaseledger. load both\nskills when cross-ledger release notes need task context."
         },
         {
           "anchor": "",
@@ -799,9 +909,9 @@
         },
         {
           "anchor": "",
-          "heading": "Cloud-backed storage",
-          "text": "Use one storage root per source project:\n\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\nDo not point two unrelated repositories at the same taskledger_dir.\nSee Sync taskledger state across PCs for the recommended private-Git workflow when you want to use\nthe same Taskledger state across multiple PCs without committing .taskledger/.",
-          "lower": "use one storage root per source project:\n\ntaskledger init --taskledger-dir /mnt/cloud/taskledger/project-a\n\n\n\n\ndo not point two unrelated repositories at the same taskledger_dir.\nsee sync taskledger state across pcs for the recommended private-git workflow when you want to use\nthe same taskledger state across multiple pcs without committing .taskledger/."
+          "heading": "Resolved storage",
+          "text": "Use the schema-3 Ledgercore mounts:\n\ntaskledger init\ntaskledger storage where\ntaskledger storage path data\ntaskledger storage path indexes\ntaskledger storage set data user-data --local --move\n\n\n\n\nDefault data is external at ../ledger; indexes are checkout-specific cache data.",
+          "lower": "use the schema-3 ledgercore mounts:\n\ntaskledger init\ntaskledger storage where\ntaskledger storage path data\ntaskledger storage path indexes\ntaskledger storage set data user-data --local --move\n\n\n\n\ndefault data is external at ../ledger; indexes are checkout-specific cache data."
         },
         {
           "anchor": "",
@@ -826,6 +936,12 @@
           "heading": "Task-centered traceability",
           "text": "Taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\nCross-ledger links are opaque file or ID references.\n\nUse taskledger trace TASK --format json to emit a read-only\ntaskledger.trace.v1 task bundle. The bundle links task IDs, accepted AC IDs,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nEvidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ....",
           "lower": "taskledger owns temporal work truth: task history, plans, acceptance criteria,\nimplementation changes, validation checks, reviews, locks, and handoffs.\ncross-ledger links are opaque file or id references.\n\nuse taskledger trace task --format json to emit a read-only\ntaskledger.trace.v1 task bundle. the bundle links task ids, accepted ac ids,\nopaque link refs, source refs, evidence refs, changes, reviews, and handoffs.\n\nevidence import is explicit and auditable through\ntaskledger validate check --criterion ... --status ... --evidence ...."
+        },
+        {
+          "anchor": "",
+          "heading": "Canonical project layout",
+          "text": "Taskledger uses a schema-3 .ledger/ledger.toml manifest and .ledger/taskledger/config.toml. The default persistent data mount is external storage rooted at ../ledger; indexes is cache storage. A machine-local .ledger/ledger.local.toml may select user-data for data. Use taskledger storage where, taskledger storage path data|indexes, taskledger storage set, and taskledger storage clear-override to inspect or change mounts.",
+          "lower": "taskledger uses a schema-3 .ledger/ledger.toml manifest and .ledger/taskledger/config.toml. the default persistent data mount is external storage rooted at ../ledger; indexes is cache storage. a machine-local .ledger/ledger.local.toml may select user-data for data. use taskledger storage where, taskledger storage path data|indexes, taskledger storage set, and taskledger storage clear-override to inspect or change mounts."
         }
       ]
     }

@@ -5,8 +5,8 @@ permalink: /tools/taskledger/api/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.5.2"
-docs_commit: "1e080d8afa12581b6fc5d5484e86b05060f16b56"
+docs_ref: "v0.6.0"
+docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
 search_enabled: true
 ---
 
@@ -750,7 +750,15 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h3>Storage API</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">storage_where</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_path</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">storage_move</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_validate</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_set</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_clear_override</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_inspect</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_apply</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_status</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_recover</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync_preflight</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync_status</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync_commit</span></code></p></li>
@@ -782,6 +790,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">sync_git_hooks_uninstall</span></code></p></li>
 </ul>
 </section>
+</section>
+<section id="canonical-layout-apis">
+<h2>Canonical layout APIs</h2>
+<p>Project and storage APIs resolve identity from <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> and expose named mount reports. Taskledger does not expose Ledgercore dataclasses as a public API.</p>
 </section>
 </section>
 </div>

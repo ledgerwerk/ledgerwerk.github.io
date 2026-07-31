@@ -5,8 +5,8 @@ permalink: /tools/taskledger/architecture_taskledger_split/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.5.2"
-docs_commit: "1e080d8afa12581b6fc5d5484e86b05060f16b56"
+docs_ref: "v0.6.0"
+docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
 search_enabled: true
 ---
 
@@ -550,33 +550,64 @@ The canonical workflow is:</p>
 <section id="owning-layers">
 <h2>Owning layers</h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/domain/</span></code> owns lifecycle enums, policies, and record models.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/task_store.py</span></code> and <code class="docutils literal notranslate"><span class="pre">taskledger/storage/locks.py</span></code> own persisted
-task bundles and visible lock files under <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/tasks.py</span></code> owns task lifecycle orchestration.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/handoff.py</span></code> owns handoff payloads and rendering.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor.py</span></code> owns integrity checks.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/api/*</span></code> exposes public wrappers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli*.py</span></code> wires commands only.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/domain/</span></code> owns lifecycle enums, policies, record models, and the
+canonical <code class="docutils literal notranslate"><span class="pre">TASKLEDGER_STORAGE_LAYOUT_VERSION</span></code> constant.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/</span></code> owns persisted task bundles, locks, and the
+<code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index. Low-level atomic I/O, JSON I/O, YAML
+I/O, front matter parsing, and cross-ledger ref parsing are delegated to
+<code class="docutils literal notranslate"><span class="pre">ledgercore</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/</span></code> owns task lifecycle orchestration, including
+<code class="docutils literal notranslate"><span class="pre">plan_input.py</span></code>, <code class="docutils literal notranslate"><span class="pre">plan_lint.py</span></code>, <code class="docutils literal notranslate"><span class="pre">plan_review.py</span></code>, <code class="docutils literal notranslate"><span class="pre">planning_flow.py</span></code>,
+<code class="docutils literal notranslate"><span class="pre">implementation_flow.py</span></code>, <code class="docutils literal notranslate"><span class="pre">workspace_snapshot.py</span></code>, <code class="docutils literal notranslate"><span class="pre">validation_flow.py</span></code>,
+<code class="docutils literal notranslate"><span class="pre">handoff.py</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor.py</span></code>, and <code class="docutils literal notranslate"><span class="pre">navigation.py</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/api/*</span></code> exposes stable public wrappers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli*.py</span></code> wires Typer commands only.</p></li>
 </ul>
 </section>
 <section id="storage-model">
 <h2>Storage model</h2>
 <p>Markdown records are canonical. Task, plan, and run reads come from those
-records directly. JSON files under <code class="docutils literal notranslate"><span class="pre">.taskledger/indexes/</span></code> are optional derived
-caches or registries. Active stages require visible lock files, and stale locks
-are reported instead of being cleared silently.</p>
+records directly. The authoritative Taskledger data mount is
+<code class="docutils literal notranslate"><span class="pre">../ledger/taskledger/&lt;project-uuid&gt;</span></code> under the shared sibling base. The
+<code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index and other rebuildable indexes are
+checkout-scoped cache data. Action and event logging is enabled by default and
+appends immutable <code class="docutils literal notranslate"><span class="pre">TaskEvent</span></code> records to the ledger-level <code class="docutils literal notranslate"><span class="pre">events/</span></code>
+directory. Active stages require visible lock files, and stale locks are
+reported instead of being cleared silently.</p>
+</section>
+<section id="lifecycle-flow">
+<h2>Lifecycle flow</h2>
+<p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">start</span></code> opens planning. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">guidance</span></code> reports the active project
+planning profile. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">template</span></code> writes a fresh plan skeleton, and
+<code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">check</span> <span class="pre">--file</span> <span class="pre">plan.md</span></code> runs the preflight parser in
+<code class="docutils literal notranslate"><span class="pre">taskledger/services/plan_input.py</span></code> without mutating state. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">upsert</span></code>
+persists the plan; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">lint</span></code> surfaces blocking issues; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">review</span></code>
+produces the approval brief; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">accept</span> <span class="pre">--note</span> <span class="pre">&quot;...&quot;</span></code> records the
+user-only decision.</p>
+<p><code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">start</span></code> acquires a lock, starts a run, and captures a workspace
+snapshot through <code class="docutils literal notranslate"><span class="pre">taskledger/services/workspace_snapshot.py</span></code>. <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">start</span></code>
+blocks when the current workspace diverges; <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">snapshot</span> <span class="pre">refresh</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code> is the only sanctioned recovery path. Validation checks
+gate completion. Code-review records extend traceability as append-only
+evidence without creating a new lifecycle stage.</p>
 </section>
 <section id="command-surface">
 <h2>Command surface</h2>
-<p>The supported command groups are <code class="docutils literal notranslate"><span class="pre">task</span></code>, <code class="docutils literal notranslate"><span class="pre">plan</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span></code>,
-<code class="docutils literal notranslate"><span class="pre">implement</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span></code>, <code class="docutils literal notranslate"><span class="pre">review</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">intro</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">link</span></code>,
-<code class="docutils literal notranslate"><span class="pre">require</span></code>, <code class="docutils literal notranslate"><span class="pre">release</span></code>, <code class="docutils literal notranslate"><span class="pre">lock</span></code>, <code class="docutils literal notranslate"><span class="pre">handoff</span></code>, <code class="docutils literal notranslate"><span class="pre">context</span></code>, <code class="docutils literal notranslate"><span class="pre">actor</span></code>,
-<code class="docutils literal notranslate"><span class="pre">harness</span></code>, <code class="docutils literal notranslate"><span class="pre">view</span></code>, <code class="docutils literal notranslate"><span class="pre">tree</span></code>, <code class="docutils literal notranslate"><span class="pre">next-action</span></code>, <code class="docutils literal notranslate"><span class="pre">can</span></code>, <code class="docutils literal notranslate"><span class="pre">search</span></code>,
-<code class="docutils literal notranslate"><span class="pre">grep</span></code>, <code class="docutils literal notranslate"><span class="pre">symbols</span></code>, <code class="docutils literal notranslate"><span class="pre">deps</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span></code>, <code class="docutils literal notranslate"><span class="pre">reindex</span></code>,
-<code class="docutils literal notranslate"><span class="pre">migrate</span></code>, <code class="docutils literal notranslate"><span class="pre">init</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">export</span></code>, <code class="docutils literal notranslate"><span class="pre">import</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot</span></code>,
-<code class="docutils literal notranslate"><span class="pre">storage</span></code>, <code class="docutils literal notranslate"><span class="pre">sync</span></code>, <code class="docutils literal notranslate"><span class="pre">ledger</span></code>, <code class="docutils literal notranslate"><span class="pre">report</span></code>, <code class="docutils literal notranslate"><span class="pre">serve</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>,
-<code class="docutils literal notranslate"><span class="pre">commands</span></code>, and <code class="docutils literal notranslate"><span class="pre">review</span></code> (code-review records).</p>
+<p>The supported command groups are <code class="docutils literal notranslate"><span class="pre">task</span></code>, <code class="docutils literal notranslate"><span class="pre">plan</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span></code>,
+<code class="docutils literal notranslate"><span class="pre">validate</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">intro</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">link</span></code>, <code class="docutils literal notranslate"><span class="pre">require</span></code>, <code class="docutils literal notranslate"><span class="pre">release</span></code>, <code class="docutils literal notranslate"><span class="pre">lock</span></code>,
+<code class="docutils literal notranslate"><span class="pre">handoff</span></code>, <code class="docutils literal notranslate"><span class="pre">context</span></code>, <code class="docutils literal notranslate"><span class="pre">actor</span></code>, <code class="docutils literal notranslate"><span class="pre">harness</span></code>, <code class="docutils literal notranslate"><span class="pre">view</span></code>, <code class="docutils literal notranslate"><span class="pre">tree</span></code>, <code class="docutils literal notranslate"><span class="pre">next-action</span></code>,
+<code class="docutils literal notranslate"><span class="pre">can</span></code>, <code class="docutils literal notranslate"><span class="pre">search</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, <code class="docutils literal notranslate"><span class="pre">symbols</span></code>, <code class="docutils literal notranslate"><span class="pre">deps</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span></code>, <code class="docutils literal notranslate"><span class="pre">reindex</span></code>,
+<code class="docutils literal notranslate"><span class="pre">migrate</span></code>, <code class="docutils literal notranslate"><span class="pre">init</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">export</span></code>, <code class="docutils literal notranslate"><span class="pre">import</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span></code>,
+<code class="docutils literal notranslate"><span class="pre">sync</span></code>, <code class="docutils literal notranslate"><span class="pre">ledger</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>, <code class="docutils literal notranslate"><span class="pre">commands</span></code>, <code class="docutils literal notranslate"><span class="pre">review</span></code>, <code class="docutils literal notranslate"><span class="pre">monitor</span></code>, <code class="docutils literal notranslate"><span class="pre">usage</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">ref</span></code>. The authoritative source for the complete command surface and flags
+is <code class="docutils literal notranslate"><span class="pre">taskledger/command_inventory.py</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/command_contract.md</span></code>.</p>
+</section>
+<section id="architecture-records">
+<h2>Architecture records</h2>
+<p>Arc42 architecture records live under the Archledger direct sibling mount
+<code class="docutils literal notranslate"><span class="pre">../ledger/archledger/&lt;project-uuid&gt;/</span></code> and are the source of
+<code class="docutils literal notranslate"><span class="pre">ARCHITECTURE.md</span></code>. Skills (<code class="docutils literal notranslate"><span class="pre">skills/taskledger/SKILL.md</span></code>) and
+<code class="docutils literal notranslate"><span class="pre">docs/architecture_taskledger_split.md</span></code> live outside the Python package and
+outside the archledger build output.</p>
 </section>
 </section>
 </div>

@@ -5,8 +5,8 @@ permalink: /tools/taskledger/service_boundary_whitelist/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.5.2"
-docs_commit: "1e080d8afa12581b6fc5d5484e86b05060f16b56"
+docs_ref: "v0.6.0"
+docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
 search_enabled: true
 ---
 
@@ -576,16 +576,25 @@ smaller compatibility facade and move residual helpers into focused modules.</p>
 <section id="function-line-budget-whitelist-250-lines">
 <h2>Function line budget whitelist (&gt;250 lines)</h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor_checks/task_checks.py::scan_task_integrity</span></code></p>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases</span></code></p>
 <ul>
-<li><p>Current reason: Consolidated per-task integrity scan with change/lock
-validation; further splitting into focused inspectors is planned.</p></li>
+<li><p>Current reason: Sub-phases of scan_task_integrity with per-task lock, run, and validation checks.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_sync.py::register_sync_commands</span></code></p>
 <ul>
 <li><p>Current reason: Sync command registration currently co-locates legacy
 sync, archive alias, git sync, and hook command wiring.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/layout_migration.py::_apply_migration_phases</span></code></p>
+<ul>
+<li><p>Current reason: Migration apply logic covers file moves, UUID resolution, and config rewriting.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/layout_migration.py::_inspect_migration_phases</span></code></p>
+<ul>
+<li><p>Current reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.</p></li>
 </ul>
 </li>
 </ul>
@@ -648,12 +657,17 @@ service for compiled LLM-ready Markdown.</p></li>
 model and lifecycle mutations.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_trace.py:taskledger.services.trace</span></code> — Trace CLI delegates
 to the trace service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_migrate.py:taskledger.services.storage_migration</span></code> — Migration CLI delegates to the storage migration service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_runtime.py:taskledger.services.runtime_info</span></code> — Runtime CLI delegates provenance collection to the runtime service.</p></li>
 </ul>
 </section>
 <section id="catch-all-exception-whitelist-except-exception">
 <h2>Catch-all exception whitelist (<code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">Exception</span></code>)</h2>
 <p>Current allowed sites are listed with reasons in
 <code class="docutils literal notranslate"><span class="pre">tests/test_service_boundaries.py</span></code> under <code class="docutils literal notranslate"><span class="pre">EXCEPT_EXCEPTION_WHITELIST</span></code>.</p>
+<p>The reviewed resilience sites include storage validation, migration command
+and hook handling, and project-config parsing boundaries listed in the test
+constants.</p>
 <p>Policy intent:</p>
 <ul class="simple">
 <li><p>Allow catch-all handling only in doctor/repair and resilience wrappers.</p></li>

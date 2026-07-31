@@ -5,7 +5,7 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 6962cc7b28a003ec8c95c563805d858ecc38e52d
+source_commit: 484e1109219b289c70053352c3fe8001c3244e35
 source_url: https://github.com/ledgerwerk/documentledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/documentledger
@@ -26,18 +26,72 @@ entries:
 - slug: index
   title: Documentledger
   url: /tools/documentledger/main/
+- slug: installation
+  title: documentledger Installation
+  url: /tools/documentledger/main/installation/
+- slug: quickstart
+  title: documentledger Quickstart
+  url: /tools/documentledger/main/quickstart/
+- slug: concepts
+  title: documentledger Concepts
+  url: /tools/documentledger/main/concepts/
 - slug: usage
   title: documentledger Usage
   url: /tools/documentledger/main/usage/
-- slug: architecture
-  title: documentledger Architecture
-  url: /tools/documentledger/main/architecture/
-- slug: api
-  title: documentledger API reference
-  url: /tools/documentledger/main/api/
 - slug: bootstrap
   title: documentledger Bootstrapping a new repository
   url: /tools/documentledger/main/bootstrap/
+- slug: incremental-workflow
+  title: documentledger Incremental workflow
+  url: /tools/documentledger/main/incremental-workflow/
+- slug: ci
+  title: documentledger Continuous integration
+  url: /tools/documentledger/main/ci/
+- slug: migration
+  title: documentledger Migration
+  url: /tools/documentledger/main/migration/
+- slug: configuration
+  title: documentledger Configuration reference
+  url: /tools/documentledger/main/configuration/
+- slug: cli
+  title: documentledger CLI reference
+  url: /tools/documentledger/main/cli/
+- slug: storage
+  title: documentledger Storage
+  url: /tools/documentledger/main/storage/
+- slug: schemas
+  title: documentledger Schemas
+  url: /tools/documentledger/main/schemas/
+- slug: errors
+  title: documentledger Errors
+  url: /tools/documentledger/main/errors/
+- slug: api/project-and-config
+  title: documentledger Project and configuration API
+  url: /tools/documentledger/main/api/project-and-config/
+- slug: api/storage-and-scanning
+  title: documentledger Storage and scanning API
+  url: /tools/documentledger/main/api/storage-and-scanning/
+- slug: api/indexing-and-links
+  title: documentledger Indexing and links API
+  url: /tools/documentledger/main/api/indexing-and-links/
+- slug: api/rendering-and-impact
+  title: documentledger Rendering and impact API
+  url: /tools/documentledger/main/api/rendering-and-impact/
+- slug: api/migration-and-errors
+  title: documentledger Migration and errors API
+  url: /tools/documentledger/main/api/migration-and-errors/
+- slug: api/cli-internals
+  title: documentledger CLI internals
+  url: /tools/documentledger/main/api/cli-internals/
+- slug: architecture
+  title: documentledger Architecture
+  url: /tools/documentledger/main/architecture/
+- slug: development
+  title: documentledger Development
+  url: /tools/documentledger/main/development/
 - slug: troubleshooting
   title: documentledger Troubleshooting
   url: /tools/documentledger/main/troubleshooting/
+- slug: changelog
+  title: documentledger Changelog
+  url: /tools/documentledger/main/changelog/

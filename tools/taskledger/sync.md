@@ -5,8 +5,8 @@ permalink: /tools/taskledger/sync/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.5.2"
-docs_commit: "1e080d8afa12581b6fc5d5484e86b05060f16b56"
+docs_ref: "v0.6.0"
+docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
 search_enabled: true
 ---
 
@@ -542,41 +542,38 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="sync-taskledger-state-across-pcs">
 <h1>Sync taskledger state across PCs</h1>
-<p>Taskledger already supports keeping durable task state outside the source
-repository. The recommended workflow is to commit only <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> in
-the source repo, point <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code> at an external sibling directory, and
-sync that external directory with a private Git repository.</p>
-<section id="external-state-directory">
-<h2>External state directory</h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span> <span class="pre">--taskledger-dir</span></code> or edit <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> so the
-workspace keeps only config while the durable state lives elsewhere:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">config_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
-<span class="n">taskledger_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;../taskledger-state/project-a&quot;</span>
-<span class="n">project_uuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;keep-existing-uuid&quot;</span>
-<span class="n">project_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;project-a&quot;</span>
-<span class="n">ledger_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;main&quot;</span>
+<p>Taskledger stores durable state below the Ledgercore-resolved <code class="docutils literal notranslate"><span class="pre">data</span></code> mount. The
+default mount is external storage at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; local overrides may select
+<code class="docutils literal notranslate"><span class="pre">user-data</span></code>. Rebuildable indexes are always resolved as cache storage.</p>
+<section id="schema-3-project-state">
+<h2>Schema-3 project state</h2>
+<p>The canonical layout is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/me/src/project-a/.ledger/ledger.toml
+/home/me/src/project-a/.ledger/taskledger/config.toml
+/home/me/src/ledger/taskledger/&lt;project-uuid&gt;/data
+&lt;user-cache&gt;/taskledger/&lt;project-uuid&gt;/&lt;checkout&gt;/indexes
 </pre></div>
 </div>
-<p>Relative paths are preferred because they keep the same sibling layout working
-across multiple PCs.</p>
+<p>Initialize and inspect the resolved mounts explicitly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>init
+taskledger<span class="w"> </span>storage<span class="w"> </span>where
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>data
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>indexes
+taskledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>user-data<span class="w"> </span>--local<span class="w"> </span>--move
+</pre></div>
+</div>
+<p>The project UUID and Ledgercore binding keep shared projects isolated.</p>
 </section>
-<section id="private-state-git-repo">
-<h2>Private state Git repo</h2>
-<p>Recommended layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/me/src/project-a/                  # source repo
-/home/me/src/taskledger-state/           # private state repo
-/home/me/src/taskledger-state/project-a/
-  storage.yaml
-  ledgers/
-    main/
-      tasks/
-      events/
-      releases/
-      indexes/
+<section id="shared-state-git-repo">
+<h2>Shared state Git repo</h2>
+<p>The sibling store can be an explicit Git repository. Taskledger Git sync derives
+the repository root and limits canonical operations to the resolved project path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>init
+taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>status
+taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>pull
+taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>push
 </pre></div>
 </div>
-<p>The source repository keeps <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> and ignores <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code>.
-The private state repository stores the external <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code> contents.</p>
 </section>
 <section id="second-pc-bootstrap">
 <h2>Second PC bootstrap</h2>
@@ -688,6 +685,10 @@ Cross-ledger links are opaque file or ID references.</p>
 opaque link refs, source refs, evidence refs, changes, reviews, and handoffs.</p>
 <p>Evidence import is explicit and auditable through
 <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">validate</span> <span class="pre">check</span> <span class="pre">--criterion</span> <span class="pre">...</span> <span class="pre">--status</span> <span class="pre">...</span> <span class="pre">--evidence</span> <span class="pre">...</span></code>.</p>
+</section>
+<section id="canonical-mounts">
+<h2>Canonical mounts</h2>
+<p>Canonical sync includes the durable data mount and optional logs mount. Cache indexes are excluded and can be deleted and rebuilt. Workspace and cache family roots are resolved by Ledgercore and are not changed by <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">move</span></code>.</p>
 </section>
 </section>
 </div>

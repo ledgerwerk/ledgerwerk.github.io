@@ -4,17 +4,17 @@ nav_key: taskledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.5.2
-source_commit: 1e080d8afa12581b6fc5d5484e86b05060f16b56
-source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.5.2
+source_ref: v0.6.0
+source_commit: 5911e83bc713afe533666157bcb2d6a8b246ad2d
+source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.0
 is_default: true
 repo_url: https://github.com/ledgerwerk/taskledger
-release_tag: v0.5.2
-release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.5.2
+release_tag: v0.6.0
+release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.5.2
+  ref: v0.6.0
   url: /tools/taskledger/
   current: true
 - name: main
@@ -56,3 +56,9 @@ entries:
 - slug: service_boundary_whitelist
   title: taskledger Service boundary whitelist
   url: /tools/taskledger/service_boundary_whitelist/
+- slug: documentation_freshness
+  title: taskledger Documentation freshness
+  url: /tools/taskledger/documentation_freshness/
+- slug: changelog
+  title: taskledger Changelog
+  url: /tools/taskledger/changelog/

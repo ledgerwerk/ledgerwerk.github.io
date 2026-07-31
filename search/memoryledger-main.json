@@ -1,0 +1,924 @@
+{
+  "_generated_by": "sphinxpress",
+  "tool": "memoryledger-main",
+  "entries": [
+    {
+      "url": "/tools/memoryledger/main/api/cli-contracts/",
+      "title": "memoryledger CLI contract APIs",
+      "snippet": "These modules define result envelopes and command metadata used by automation\nand generated documentation. The command catalog, not raw Type …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "CLI contract APIs",
+          "text": "These modules define result envelopes and command metadata used by automation\nand generated documentation. The command catalog, not raw Typer implementation\ndetails, is the source of truth for the generated reference.\n\n.. py:module:: memoryledger.command_results\n\nTyped result dataclasses for major commands.\n\nUse these instead of constructing unrelated dictionaries in command handlers.\n\n.. py:class:: StatusResult(initialized, configured, layout=’’, config_path=None, storage_path=None, memory_count=0, candidate_count=0, accepted_count=0, rejected_count=0, archived_count=0, next_action=None)\n\n\nmodule:\nmemoryledger.command_results\n\nBases: :py:class:object\n\nResult for the status command.\n\n\ntype initialized:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\bool``\n\n\n\n\nparam initialized:\n\ntype confi…",
+          "lower": "these modules define result envelopes and command metadata used by automation\nand generated documentation. the command catalog, not raw typer implementation\ndetails, is the source of truth for the generated reference.\n\n.. py:module:: memoryledger.command_results\n\ntyped result dataclasses for major commands.\n\nuse these instead of constructing unrelated dictionaries in command handlers.\n\n.. py:class:: statusresult(initialized, configured, layout=’’, config_path=none, storage_path=none, memory_count=0, candidate_count=0, accepted_count=0, rejected_count=0, archived_count=0, next_action=none)\n\n\nmodule:\nmemoryledger.command_results\n\nbases: :py:class:object\n\nresult for the status command.\n\n\ntype initialized:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\bool``\n\n\n\n\nparam initialized:\n\ntype confi…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/configuration/",
+      "title": "memoryledger Configuration API",
+      "snippet": "Configuration loading is supported for integrations that need effective\nsettings. It validates version 2 fields, merges global defaults, and …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Configuration API",
+          "text": "Configuration loading is supported for integrations that need effective\nsettings. It validates version 2 fields, merges global defaults, and rejects\nunknown fields without writing files. See the configuration reference\nfor the TOML contract.\n\n.. py:module:: memoryledger.config\n\nStrict Memoryledger tool configuration and legacy conversion helpers.\n\n.. py:function:: load_tool_config(path, *, global_defaults=True)\n\n\nmodule:\nmemoryledger.config\n\nLoad and validate a schema-3 project tool config without resolving paths.\n\n\ntype path:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~pathlib.Path``\n\n\n\n\nparam path:\n\ntype global_defaults:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\bool``\n\n\nparam global_defaults:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~memoryledger.models.ToolConfig``…",
+          "lower": "configuration loading is supported for integrations that need effective\nsettings. it validates version 2 fields, merges global defaults, and rejects\nunknown fields without writing files. see the configuration reference\nfor the toml contract.\n\n.. py:module:: memoryledger.config\n\nstrict memoryledger tool configuration and legacy conversion helpers.\n\n.. py:function:: load_tool_config(path, *, global_defaults=true)\n\n\nmodule:\nmemoryledger.config\n\nload and validate a schema-3 project tool config without resolving paths.\n\n\ntype path:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~pathlib.path``\n\n\n\n\nparam path:\n\ntype global_defaults:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\bool``\n\n\nparam global_defaults:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~memoryledger.models.toolconfig``…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/",
+      "title": "memoryledger Python API",
+      "snippet": "The CLI is Memoryledger’s primary stable interface. The pages below document\nsupported or intentionally semi-public Python modules; implemen …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Python API",
+          "text": "The CLI is Memoryledger’s primary stable interface. The pages below document\nsupported or intentionally semi-public Python modules; implementation modules\nare labeled as internal and may change without a CLI compatibility promise.\n\n\n\nModels API\n\nConfiguration API\n\nProject API\n\nStorage API\n\nRendering API\n\nWorkflow APIs\n\nMigration APIs\n\nCLI contract APIs\n\nInternal modules",
+          "lower": "the cli is memoryledger’s primary stable interface. the pages below document\nsupported or intentionally semi-public python modules; implementation modules\nare labeled as internal and may change without a cli compatibility promise.\n\n\n\nmodels api\n\nconfiguration api\n\nproject api\n\nstorage api\n\nrendering api\n\nworkflow apis\n\nmigration apis\n\ncli contract apis\n\ninternal modules"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/internals/",
+      "title": "memoryledger Internal modules",
+      "snippet": "The following modules are implementation details or compatibility shims. They\nare documented for maintainers and debugging, not promised as …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Internal modules",
+          "text": "The following modules are implementation details or compatibility shims. They\nare documented for maintainers and debugging, not promised as stable public\nimports. Prefer the CLI and the supported pages above.\n\n.. py:module:: memoryledger.legacy\n\nLegacy Memoryledger discovery isolated from canonical project resolution.\n\nmemoryledger.cli is deliberately not autodocumented here: its Typer surface\nis represented by the generated CLI reference.",
+          "lower": "the following modules are implementation details or compatibility shims. they\nare documented for maintainers and debugging, not promised as stable public\nimports. prefer the cli and the supported pages above.\n\n.. py:module:: memoryledger.legacy\n\nlegacy memoryledger discovery isolated from canonical project resolution.\n\nmemoryledger.cli is deliberately not autodocumented here: its typer surface\nis represented by the generated cli reference."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/migrations/",
+      "title": "memoryledger Migration APIs",
+      "snippet": "Migration orchestration is semi-public and intentionally stricter than ordinary\nfile operations. Plans, fingerprints, journals, activation o …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Migration APIs",
+          "text": "Migration orchestration is semi-public and intentionally stricter than ordinary\nfile operations. Plans, fingerprints, journals, activation ordering, and\ncleanup are part of the safety contract.\n\n.. py:module:: memoryledger.migrations\n\nMemoryledger migration handlers registry.\n\nProvides a common protocol for migration handlers and a registry\nthat maps migration names to their implementations.\n\n.. py:class:: MigrationHandler(*args, **kwargs)\n\n\nmodule:\nmemoryledger.migrations\n\nBases: :py:class:~typing.Protocol\n\nProtocol for Memoryledger migration handlers.\n\n.. py:method:: MigrationHandler.status(root)\n\n\nmodule:\nmemoryledger.migrations\n\nReturn migration status for this handler.\n\n\ntype root:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~pathlib.Path``\n\n\n\n\nparam root:\n:rtype: :sphinx_autodoc_t…",
+          "lower": "migration orchestration is semi-public and intentionally stricter than ordinary\nfile operations. plans, fingerprints, journals, activation ordering, and\ncleanup are part of the safety contract.\n\n.. py:module:: memoryledger.migrations\n\nmemoryledger migration handlers registry.\n\nprovides a common protocol for migration handlers and a registry\nthat maps migration names to their implementations.\n\n.. py:class:: migrationhandler(*args, **kwargs)\n\n\nmodule:\nmemoryledger.migrations\n\nbases: :py:class:~typing.protocol\n\nprotocol for memoryledger migration handlers.\n\n.. py:method:: migrationhandler.status(root)\n\n\nmodule:\nmemoryledger.migrations\n\nreturn migration status for this handler.\n\n\ntype root:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~pathlib.path``\n\n\n\n\nparam root:\n:rtype: :sphinx_autodoc_t…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/models/",
+      "title": "memoryledger Models API",
+      "snippet": "This page documents the supported data-model boundary used by integrations.\nThe CLI remains more stable than direct model construction. Mode …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Models API",
+          "text": "This page documents the supported data-model boundary used by integrations.\nThe CLI remains more stable than direct model construction. Model operations are\nside-effect free unless a caller passes them to storage or workflow functions.\n\n.. py:module:: memoryledger.models\n\n.. py:class:: EvidenceRef(kind, title, uri, excerpt=’’, content_hash=’’, line_start=None, line_end=None, timestamp=’’)\n\n\nmodule:\nmemoryledger.models\n\nBases: :py:class:object\n\nA reviewable pointer to source evidence for a memory.\n\n\ntype kind:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\nparam kind:\n\ntype title:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam title:\n\ntype uri:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam uri:\n\ntype excerpt:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\st…",
+          "lower": "this page documents the supported data-model boundary used by integrations.\nthe cli remains more stable than direct model construction. model operations are\nside-effect free unless a caller passes them to storage or workflow functions.\n\n.. py:module:: memoryledger.models\n\n.. py:class:: evidenceref(kind, title, uri, excerpt=’’, content_hash=’’, line_start=none, line_end=none, timestamp=’’)\n\n\nmodule:\nmemoryledger.models\n\nbases: :py:class:object\n\na reviewable pointer to source evidence for a memory.\n\n\ntype kind:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\nparam kind:\n\ntype title:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam title:\n\ntype uri:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam uri:\n\ntype excerpt:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\st…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/project/",
+      "title": "memoryledger Project API",
+      "snippet": "Project discovery and Ledgercore compatibility helpers are semi-public\nintegration APIs. Discovery is read-only and must not initialize stor …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Project API",
+          "text": "Project discovery and Ledgercore compatibility helpers are semi-public\nintegration APIs. Discovery is read-only and must not initialize storage. Path\nresolution is confined by the project and Ledgercore bindings.\n\n.. py:module:: memoryledger.project\n\nCanonical schema-3 project discovery and read-only workspace resolution.\n\n.. py:function:: resolve_canonical_workspace(start, loaded=None)\n\n\nmodule:\nmemoryledger.project\n\nResolve and validate the registered schema-3 workspace without writes.\n\n\ntype start:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~pathlib.Path``\n\n\n\n\nparam start:\n\ntype loaded:\n:sphinx_autodoc_typehints_type:\\:py\\:data\\:\\~typing.Any` | :py:obj:`None``\n\n\nparam loaded:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~memoryledger.models.Workspace``\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:fu…",
+          "lower": "project discovery and ledgercore compatibility helpers are semi-public\nintegration apis. discovery is read-only and must not initialize storage. path\nresolution is confined by the project and ledgercore bindings.\n\n.. py:module:: memoryledger.project\n\ncanonical schema-3 project discovery and read-only workspace resolution.\n\n.. py:function:: resolve_canonical_workspace(start, loaded=none)\n\n\nmodule:\nmemoryledger.project\n\nresolve and validate the registered schema-3 workspace without writes.\n\n\ntype start:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~pathlib.path``\n\n\n\n\nparam start:\n\ntype loaded:\n:sphinx_autodoc_typehints_type:\\:py\\:data\\:\\~typing.any` | :py:obj:`none``\n\n\nparam loaded:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~memoryledger.models.workspace``\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:fu…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/rendering/",
+      "title": "memoryledger Rendering API",
+      "snippet": "Rendering converts canonical records into owned derived documents. Rendering is\ndeterministic; export and artifact initialization are the si …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Rendering API",
+          "text": "Rendering converts canonical records into owned derived documents. Rendering is\ndeterministic; export and artifact initialization are the side-effecting steps.\n\n.. py:module:: memoryledger.render\n\n.. py:class:: RenderResult(root_text, linked_docs, nested_docs)\n\n\nmodule:\nmemoryledger.render\n\nBases: :py:class:object\n\nRendered root, linked, and nested documents before export.\n\n\ntype root_text:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\nparam root_text:\n\ntype linked_docs:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\dict`\\ \\[:py:class:`str`, :py:class:`str`]`\n\n\nparam linked_docs:\n\ntype nested_docs:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\dict`\\ \\[:py:class:`str`, :py:class:`str`]`\n\n\nparam nested_docs:\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:function:: render_all(config)\n\n\nmodule:\nmemoryledger.re…",
+          "lower": "rendering converts canonical records into owned derived documents. rendering is\ndeterministic; export and artifact initialization are the side-effecting steps.\n\n.. py:module:: memoryledger.render\n\n.. py:class:: renderresult(root_text, linked_docs, nested_docs)\n\n\nmodule:\nmemoryledger.render\n\nbases: :py:class:object\n\nrendered root, linked, and nested documents before export.\n\n\ntype root_text:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\nparam root_text:\n\ntype linked_docs:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\dict`\\ \\[:py:class:`str`, :py:class:`str`]`\n\n\nparam linked_docs:\n\ntype nested_docs:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\dict`\\ \\[:py:class:`str`, :py:class:`str`]`\n\n\nparam nested_docs:\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:function:: render_all(config)\n\n\nmodule:\nmemoryledger.re…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/storage/",
+      "title": "memoryledger Storage API",
+      "snippet": "The storage API owns canonical memory records, serialization, versions, and\nevidence metadata. It writes only inside resolved workspace data …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Storage API",
+          "text": "The storage API owns canonical memory records, serialization, versions, and\nevidence metadata. It writes only inside resolved workspace data paths.\n\n.. py:module:: memoryledger.storage\n\n.. py:function:: default_config_text(project_name, memoryledger_dir)\n\n\nmodule:\nmemoryledger.storage\n\nRender legacy-compatible configuration text for initialization or migration.\n\n\ntype project_name:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\nparam project_name:\n\ntype memoryledger_dir:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam memoryledger_dir:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:function:: find_config(start=None)\n\n\nmodule:\nmemoryledger.storage\n\nFind a supported project configuration walking upward from a path.\n\n\ntype start:\n\nsphinx_au…",
+          "lower": "the storage api owns canonical memory records, serialization, versions, and\nevidence metadata. it writes only inside resolved workspace data paths.\n\n.. py:module:: memoryledger.storage\n\n.. py:function:: default_config_text(project_name, memoryledger_dir)\n\n\nmodule:\nmemoryledger.storage\n\nrender legacy-compatible configuration text for initialization or migration.\n\n\ntype project_name:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\nparam project_name:\n\ntype memoryledger_dir:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam memoryledger_dir:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\str``\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:function:: find_config(start=none)\n\n\nmodule:\nmemoryledger.storage\n\nfind a supported project configuration walking upward from a path.\n\n\ntype start:\n\nsphinx_au…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/api/workflows/",
+      "title": "memoryledger Workflow APIs",
+      "snippet": "Review, template, intake, run-import, and evidence-scan modules implement the\nCLI workflows. They preserve candidate-by-default intake and r …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Workflow APIs",
+          "text": "Review, template, intake, run-import, and evidence-scan modules implement the\nCLI workflows. They preserve candidate-by-default intake and review reasons.\n\n.. py:module:: memoryledger.review\n\n.. py:function:: transition(store, memory_id, status, reason)\n\n\nmodule:\nmemoryledger.review\n\nApply a reasoned lifecycle transition and return the updated memory.\n\n\ntype store:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~memoryledger.storage.Store``\n\n\n\n\nparam store:\n\ntype memory_id:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam memory_id:\n\ntype status:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam status:\n\ntype reason:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam reason:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:module:: memoryledger.…",
+          "lower": "review, template, intake, run-import, and evidence-scan modules implement the\ncli workflows. they preserve candidate-by-default intake and review reasons.\n\n.. py:module:: memoryledger.review\n\n.. py:function:: transition(store, memory_id, status, reason)\n\n\nmodule:\nmemoryledger.review\n\napply a reasoned lifecycle transition and return the updated memory.\n\n\ntype store:\n\nsphinx_autodoc_typehints_type:\n\\:py\\:class\\:\\~memoryledger.storage.store``\n\n\n\n\nparam store:\n\ntype memory_id:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam memory_id:\n\ntype status:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam status:\n\ntype reason:\n:sphinx_autodoc_typehints_type:\\:py\\:class\\:\\str``\n\n\nparam reason:\n\nrtype:\n\nsphinx_autodoc_typehints_type:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.. py:module:: memoryledger.…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/changelog/",
+      "title": "memoryledger Changelog",
+      "snippet": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\n\n\n\nAll notable chan …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Changelog",
+          "text": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\n\n\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on Keep a Changelog, and this project adheres to Semantic Versioning.",
+          "lower": "generated by releaseledger. manual edits may be overwritten. update releaseledger entries and rebuild this file instead.\n\n\n\nall notable changes to this project will be documented in this file.\n\nthe format is based on keep a changelog, and this project adheres to semantic versioning."
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Configuration discovery module with project-level and user-level config resolution\n\n\nLegacy compatibility layer for backward-compatible storage format handling\n\n\nMigration framework with storage v2 and linked docs directory migration support\n\n\nProject locator and models modules for structured project metadata\n\n\nCommand catalog and command results modules for CLI command registry",
+          "lower": "configuration discovery module with project-level and user-level config resolution\n\n\nlegacy compatibility layer for backward-compatible storage format handling\n\n\nmigration framework with storage v2 and linked docs directory migration support\n\n\nproject locator and models modules for structured project metadata\n\n\ncommand catalog and command results modules for cli command registry"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Migrated to ledgercore 0.6.0 with unified CLI command surface and modular architecture\n\n\nAdded tests for ledgercore schema, storage v2, config discovery, and migration workflows",
+          "lower": "migrated to ledgercore 0.6.0 with unified cli command surface and modular architecture\n\n\nadded tests for ledgercore schema, storage v2, config discovery, and migration workflows"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/concepts/evidence/",
+      "title": "memoryledger Evidence",
+      "snippet": "Evidence references use the kinds file, config, run, command,\nuser_approval, and external. Every reference has a title and URI and may\ninclu …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Evidence",
+          "text": "Evidence references use the kinds file, config, run, command,\nuser_approval, and external. Every reference has a title and URI and may\ninclude line ranges, an excerpt, a content hash, and a timestamp.\n\nFile and config evidence must remain confined to the workspace. Internal run\nevidence uses an opaque run URI rather than copying an entire transcript. The\nguardrails reject secret-like values and unsafe paths; excerpts should be the\nsmallest useful proof. Evidence comments can explain why a reference supports\nthe memory, and include_evidence can enable an evidence index in rendered\noutput.\n\nAdd evidence with:\n\nmemoryledger memory evidence add memory-0001 \\\n  --kind file --title \"Policy source\" --uri README.md \\\n  --reason \"The repository states this rule.\"",
+          "lower": "evidence references use the kinds file, config, run, command,\nuser_approval, and external. every reference has a title and uri and may\ninclude line ranges, an excerpt, a content hash, and a timestamp.\n\nfile and config evidence must remain confined to the workspace. internal run\nevidence uses an opaque run uri rather than copying an entire transcript. the\nguardrails reject secret-like values and unsafe paths; excerpts should be the\nsmallest useful proof. evidence comments can explain why a reference supports\nthe memory, and include_evidence can enable an evidence index in rendered\noutput.\n\nadd evidence with:\n\nmemoryledger memory evidence add memory-0001 \\\n  --kind file --title \"policy source\" --uri readme.md \\\n  --reason \"the repository states this rule.\""
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/concepts/",
+      "title": "memoryledger Concepts",
+      "snippet": "These pages describe the memory model, review lifecycle, evidence, rendering,\nand Ledgercore-backed storage model.\n\n\n\nMemory model\n\nLifecycl …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Concepts",
+          "text": "These pages describe the memory model, review lifecycle, evidence, rendering,\nand Ledgercore-backed storage model.\n\n\n\nMemory model\n\nLifecycle\n\nEvidence\n\nRendering\n\nStorage model",
+          "lower": "these pages describe the memory model, review lifecycle, evidence, rendering,\nand ledgercore-backed storage model.\n\n\n\nmemory model\n\nlifecycle\n\nevidence\n\nrendering\n\nstorage model"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/concepts/lifecycle/",
+      "title": "memoryledger Lifecycle",
+      "snippet": "candidate ──accept──> accepted\ncandidate ──reject──> rejected\naccepted ────────────> archived\nrejected ────────────> archived\n\n\n\n\nIntake def …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Lifecycle",
+          "text": "candidate ──accept──> accepted\ncandidate ──reject──> rejected\naccepted ────────────> archived\nrejected ────────────> archived\n\n\n\n\nIntake defaults to candidate, which prevents unreviewed material from\nappearing in generated output. Accept and reject transitions require a reason;\nthe reason becomes review evidence. Archive removes a record from active\nrendering without pretending that it never existed.\n\nRendering includes accepted records by default. include_rejected can opt\nrejected records into a configured render, while include_local controls local\nscope records. Candidates remain excluded by default. The CLI and service layer\nvalidate the target status and reason before updating storage, so direct\nacceptance without review context is rejected.",
+          "lower": "candidate ──accept──> accepted\ncandidate ──reject──> rejected\naccepted ────────────> archived\nrejected ────────────> archived\n\n\n\n\nintake defaults to candidate, which prevents unreviewed material from\nappearing in generated output. accept and reject transitions require a reason;\nthe reason becomes review evidence. archive removes a record from active\nrendering without pretending that it never existed.\n\nrendering includes accepted records by default. include_rejected can opt\nrejected records into a configured render, while include_local controls local\nscope records. candidates remain excluded by default. the cli and service layer\nvalidate the target status and reason before updating storage, so direct\nacceptance without review context is rejected."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/concepts/memory-model/",
+      "title": "memoryledger Memory model",
+      "snippet": "A memory has a stable identifier such as memory-0001. The identifier is\nallocated from storage metadata, not from timestamps. Supported kind …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Memory model",
+          "text": "A memory has a stable identifier such as memory-0001. The identifier is\nallocated from storage metadata, not from timestamps. Supported kinds are\nrule, learning, episode, procedure, semantic, document, and local.\nScopes are global, repo, directory, file, command, workflow, and\nlocal. Render targets are root_agents, linked_doc, nested_agents, and\nnone.\n\nRecords also carry a priority (default 100), title, content, source, origin,\ntags, and optional section. created_version and modified_version identify\nthe ledger versions that created and last changed the record. Version numbers\nare deterministic ledger history references; timestamps are unsuitable as\nidentity or ordering keys. Git is the history for changes rather than a\nper-record snapshot directory.\n\nMemory content is Markdown with YAML…",
+          "lower": "a memory has a stable identifier such as memory-0001. the identifier is\nallocated from storage metadata, not from timestamps. supported kinds are\nrule, learning, episode, procedure, semantic, document, and local.\nscopes are global, repo, directory, file, command, workflow, and\nlocal. render targets are root_agents, linked_doc, nested_agents, and\nnone.\n\nrecords also carry a priority (default 100), title, content, source, origin,\ntags, and optional section. created_version and modified_version identify\nthe ledger versions that created and last changed the record. version numbers\nare deterministic ledger history references; timestamps are unsuitable as\nidentity or ordering keys. git is the history for changes rather than a\nper-record snapshot directory.\n\nmemory content is markdown with yaml…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/concepts/rendering/",
+      "title": "memoryledger Rendering",
+      "snippet": "Canonical memory records are authoritative. AGENTS.md, linked documents,\nand nested AGENTS.md files are derived artifacts with a generated o …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Rendering",
+          "text": "Canonical memory records are authoritative. AGENTS.md, linked documents,\nand nested AGENTS.md files are derived artifacts with a generated ownership\nmarker. The root document contains concise sections; content beyond configured\nthresholds is placed in linked documents when the target and configuration\nallow it.\n\nRendering is deterministic: eligible statuses and scopes are filtered first,\nthen records are sorted by configured kind order and stable record fields.\nRoot and linked-document size limits are validated before output is written.\nManual files are never overwritten. --backup preserves an already generated\nfile before replacement but does not grant permission to overwrite a manual\ntarget; adoption is the explicit workflow for converting a manual file.\n\npreview returns derived text, b…",
+          "lower": "canonical memory records are authoritative. agents.md, linked documents,\nand nested agents.md files are derived artifacts with a generated ownership\nmarker. the root document contains concise sections; content beyond configured\nthresholds is placed in linked documents when the target and configuration\nallow it.\n\nrendering is deterministic: eligible statuses and scopes are filtered first,\nthen records are sorted by configured kind order and stable record fields.\nroot and linked-document size limits are validated before output is written.\nmanual files are never overwritten. --backup preserves an already generated\nfile before replacement but does not grant permission to overwrite a manual\ntarget; adoption is the explicit workflow for converting a manual file.\n\npreview returns derived text, b…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/concepts/storage-model/",
+      "title": "memoryledger Storage model",
+      "snippet": "Memoryledger uses Ledgercore’s shared schema-3 manifest. The manifest identifies\nthe project UUID and registers a Memoryledger tool with:\n\n[ …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Storage model",
+          "text": "Memoryledger uses Ledgercore’s shared schema-3 manifest. The manifest identifies\nthe project UUID and registers a Memoryledger tool with:\n\n[ledgers.memoryledger.mounts.data]\nstorage = \"project\"\n\n[ledgers.memoryledger.mounts.artifacts]\nstorage = \"cache\"\n\n\n\n\nProject data contains the config binding, storage metadata, memories, and\nimports. Derived artifacts use a cache checkout identity so separate checkouts\ndo not overwrite one another. Binding markers and the config binding connect\nthe registration to those paths.\n\nDiscovery and read-only layout validation do not write. Local mount overrides\nare machine-local and can change resolved locations without changing shared\nmanifest intent. The artifacts mount is initialized only when a build or other\nrendering operation actually writes output. S…",
+          "lower": "memoryledger uses ledgercore’s shared schema-3 manifest. the manifest identifies\nthe project uuid and registers a memoryledger tool with:\n\n[ledgers.memoryledger.mounts.data]\nstorage = \"project\"\n\n[ledgers.memoryledger.mounts.artifacts]\nstorage = \"cache\"\n\n\n\n\nproject data contains the config binding, storage metadata, memories, and\nimports. derived artifacts use a cache checkout identity so separate checkouts\ndo not overwrite one another. binding markers and the config binding connect\nthe registration to those paths.\n\ndiscovery and read-only layout validation do not write. local mount overrides\nare machine-local and can change resolved locations without changing shared\nmanifest intent. the artifacts mount is initialized only when a build or other\nrendering operation actually writes output. s…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/development/contributing/",
+      "title": "memoryledger Contributing",
+      "snippet": "Use an editable install and keep changes in the owning layer:\n\npython -m pip install -e \".[dev]\"\npython -m pytest -q\npython -m ruff check . …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Contributing",
+          "text": "Use an editable install and keep changes in the owning layer:\n\npython -m pip install -e \".[dev]\"\npython -m pytest -q\npython -m ruff check .\npython -m mypy memoryledger\npython -m sphinx -W --keep-going -b html docs docs/_build/html\n\n\n\n\nDo not edit generated CLI or agent artifacts directly. The command catalog and\nTyper tree are the source of truth for CLI documentation. Changelog ownership\nbelongs to releaseledger.",
+          "lower": "use an editable install and keep changes in the owning layer:\n\npython -m pip install -e \".[dev]\"\npython -m pytest -q\npython -m ruff check .\npython -m mypy memoryledger\npython -m sphinx -w --keep-going -b html docs docs/_build/html\n\n\n\n\ndo not edit generated cli or agent artifacts directly. the command catalog and\ntyper tree are the source of truth for cli documentation. changelog ownership\nbelongs to releaseledger."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/development/documentation/",
+      "title": "memoryledger Documentation maintenance",
+      "snippet": "Author pages in MyST Markdown. Use headings consistently, fenced code blocks\nwith a language, relative Markdown links for pages, and toctree …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Documentation maintenance",
+          "text": "Author pages in MyST Markdown. Use headings consistently, fenced code blocks\nwith a language, relative Markdown links for pages, and toctree directives\nfor navigation. Keep normative claims tied to the source modules and tests\nlisted in the implementation brief.\n\nThe CLI page is generated; update command_catalog.py, Typer help, or the\ngenerator and run:\n\npython docs/_scripts/generate_cli_reference.py\npython docs/_scripts/generate_cli_reference.py --check\n\n\n\n\nAdd a new page to the relevant group index and keep warning-as-error builds\nclean. Do not hide broken references by disabling nitpicky.",
+          "lower": "author pages in myst markdown. use headings consistently, fenced code blocks\nwith a language, relative markdown links for pages, and toctree directives\nfor navigation. keep normative claims tied to the source modules and tests\nlisted in the implementation brief.\n\nthe cli page is generated; update command_catalog.py, typer help, or the\ngenerator and run:\n\npython docs/_scripts/generate_cli_reference.py\npython docs/_scripts/generate_cli_reference.py --check\n\n\n\n\nadd a new page to the relevant group index and keep warning-as-error builds\nclean. do not hide broken references by disabling nitpicky."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/development/",
+      "title": "memoryledger Development",
+      "snippet": "Contributor workflow, tests, documentation maintenance, and release gates.\n\n\n\nContributing\n\nTesting\n\nDocumentation maintenance\n\nRelease docu …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Development",
+          "text": "Contributor workflow, tests, documentation maintenance, and release gates.\n\n\n\nContributing\n\nTesting\n\nDocumentation maintenance\n\nRelease documentation gates",
+          "lower": "contributor workflow, tests, documentation maintenance, and release gates.\n\n\n\ncontributing\n\ntesting\n\ndocumentation maintenance\n\nrelease documentation gates"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/development/release/",
+      "title": "memoryledger Release documentation gates",
+      "snippet": "Before release:\n\n\nRegenerate and check the CLI reference.\n\n\nBuild Sphinx HTML with warnings as errors.\n\n\nValidate the package version and de …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Release documentation gates",
+          "text": "Before release:\n\n\nRegenerate and check the CLI reference.\n\n\nBuild Sphinx HTML with warnings as errors.\n\n\nValidate the package version and declared Ledgercore range.\n\n\nValidate changelog freshness through releaseledger.\n\n\nBuild a wheel and, when possible, verify that documented public modules\nimport from the installed artifact.\n\n\n\nDocumentation changes do not introduce a hosted deployment or a new toolchain;\nthe repository’s existing test, Ruff, mypy, and Sphinx commands remain the\nrelease evidence.",
+          "lower": "before release:\n\n\nregenerate and check the cli reference.\n\n\nbuild sphinx html with warnings as errors.\n\n\nvalidate the package version and declared ledgercore range.\n\n\nvalidate changelog freshness through releaseledger.\n\n\nbuild a wheel and, when possible, verify that documented public modules\nimport from the installed artifact.\n\n\n\ndocumentation changes do not introduce a hosted deployment or a new toolchain;\nthe repository’s existing test, ruff, mypy, and sphinx commands remain the\nrelease evidence."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/development/testing/",
+      "title": "memoryledger Testing",
+      "snippet": "The repository quality gates are:\n\npython -m pytest -q\npython -m ruff check .\npython -m mypy memoryledger\npython -m sphinx -W --keep-going - …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Testing",
+          "text": "The repository quality gates are:\n\npython -m pytest -q\npython -m ruff check .\npython -m mypy memoryledger\npython -m sphinx -W --keep-going -b html docs docs/_build/html\npython docs/_scripts/generate_cli_reference.py --check\n\n\n\n\nTests use temporary canonical workspaces rather than repository-local legacy\nstate. Documentation tests cover command/catalog synchronization, generated\nreference freshness, MyST structure, links, and important CLI examples.",
+          "lower": "the repository quality gates are:\n\npython -m pytest -q\npython -m ruff check .\npython -m mypy memoryledger\npython -m sphinx -w --keep-going -b html docs docs/_build/html\npython docs/_scripts/generate_cli_reference.py --check\n\n\n\n\ntests use temporary canonical workspaces rather than repository-local legacy\nstate. documentation tests cover command/catalog synchronization, generated\nreference freshness, myst structure, links, and important cli examples."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/getting-started/first-project/",
+      "title": "memoryledger First project",
+      "snippet": "memoryledger init discovers or creates the canonical Ledgercore project and\nregisters Memoryledger. The relevant project-local files are:\n\n. …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "First project",
+          "text": "memoryledger init discovers or creates the canonical Ledgercore project and\nregisters Memoryledger. The relevant project-local files are:\n\n.ledger/\n├── ledger.toml\n└── memoryledger/\n    ├── .ledger-project.toml\n    ├── config.toml\n    └── data/\n        ├── .ledger-project.toml\n        ├── storage.yaml\n        ├── memories/\n        └── imports/\n\n\n\n\nThe generated registration uses project data and cache artifacts:\n\n[ledgers.memoryledger.mounts.data]\nstorage = \"project\"\n\n[ledgers.memoryledger.mounts.artifacts]\nstorage = \"cache\"\n\n\n\n\nThe project manifest carries the project UUID. Rendered artifacts are placed in\nthe resolved Ledgercore cache under a project- and checkout-specific path; the\nexact platform-dependent path is shown by memoryledger storage where.\n.ledger/ledger.local.toml may provi…",
+          "lower": "memoryledger init discovers or creates the canonical ledgercore project and\nregisters memoryledger. the relevant project-local files are:\n\n.ledger/\n├── ledger.toml\n└── memoryledger/\n    ├── .ledger-project.toml\n    ├── config.toml\n    └── data/\n        ├── .ledger-project.toml\n        ├── storage.yaml\n        ├── memories/\n        └── imports/\n\n\n\n\nthe generated registration uses project data and cache artifacts:\n\n[ledgers.memoryledger.mounts.data]\nstorage = \"project\"\n\n[ledgers.memoryledger.mounts.artifacts]\nstorage = \"cache\"\n\n\n\n\nthe project manifest carries the project uuid. rendered artifacts are placed in\nthe resolved ledgercore cache under a project- and checkout-specific path; the\nexact platform-dependent path is shown by memoryledger storage where.\n.ledger/ledger.local.toml may provi…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/getting-started/",
+      "title": "memoryledger Getting started",
+      "snippet": "Start with installation, run the approved workflow, then inspect the files\ncreated by canonical initialization.\n\n\n\nInstallation\n\nQuickstart …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Getting started",
+          "text": "Start with installation, run the approved workflow, then inspect the files\ncreated by canonical initialization.\n\n\n\nInstallation\n\nQuickstart\n\nFirst project",
+          "lower": "start with installation, run the approved workflow, then inspect the files\ncreated by canonical initialization.\n\n\n\ninstallation\n\nquickstart\n\nfirst project"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/getting-started/installation/",
+      "title": "memoryledger Installation",
+      "snippet": "Memoryledger supports Python 3.10 and newer and requires Ledgercore\n>=0.6.0,<0.7.0.\npython -m pip install memoryledger\nmemoryledger --versio …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Installation",
+          "text": "Memoryledger supports Python 3.10 and newer and requires Ledgercore\n>=0.6.0,<0.7.0.",
+          "lower": "memoryledger supports python 3.10 and newer and requires ledgercore\n>=0.6.0,<0.7.0."
+        },
+        {
+          "anchor": "",
+          "heading": "Standard installation",
+          "text": "python -m pip install memoryledger\nmemoryledger --version\n\n\n\n\nThe memoryledger executable is the canonical entry point. memledger remains\navailable as a deprecated alias and emits a deprecation warning.",
+          "lower": "python -m pip install memoryledger\nmemoryledger --version\n\n\n\n\nthe memoryledger executable is the canonical entry point. memledger remains\navailable as a deprecated alias and emits a deprecation warning."
+        },
+        {
+          "anchor": "",
+          "heading": "Development and documentation installations",
+          "text": "From a checkout:\n\npython -m pip install -e .\npython -m pip install -r docs/requirements.txt\n\n\n\n\nAlternatively install the project development group:\n\npython -m pip install -e \".[dev]\"\n\n\n\n\nThe documentation requirements file installs documentation tooling; it does\nnot install Memoryledger itself.",
+          "lower": "from a checkout:\n\npython -m pip install -e .\npython -m pip install -r docs/requirements.txt\n\n\n\n\nalternatively install the project development group:\n\npython -m pip install -e \".[dev]\"\n\n\n\n\nthe documentation requirements file installs documentation tooling; it does\nnot install memoryledger itself."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/getting-started/quickstart/",
+      "title": "memoryledger Quickstart",
+      "snippet": "Memory enters the ledger as a candidate and becomes renderable only after an\nexplicit review transition.\n\nmemoryledger init\n\ncat <<'EOF' | m …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Quickstart",
+          "text": "Memory enters the ledger as a candidate and becomes renderable only after an\nexplicit review transition.\n\nmemoryledger init\n\ncat <<'EOF' | memoryledger memory create \\\n  --kind rule \\\n  --title \"Use plans\" \\\n  --scope repo \\\n  --stdin\nAlways create and review a plan before implementation.\nEOF\n\nmemoryledger review accept memory-0001 \\\n  --reason \"User approved the project rule.\"\n\nmemoryledger preview\nmemoryledger build\nmemoryledger export\n\n\n\n\nFor an agent-oriented batch workflow:\n\nmemoryledger finalize \\\n  --accept-all \\\n  --reason \"User approved the candidate memories.\" \\\n  --export\n\n\n\n\npreview renders without materializing artifacts, build writes deterministic\nartifacts to the resolved cache mount, export writes selected owned targets,\nand finalize orchestrates review, build, and optiona…",
+          "lower": "memory enters the ledger as a candidate and becomes renderable only after an\nexplicit review transition.\n\nmemoryledger init\n\ncat <<'eof' | memoryledger memory create \\\n  --kind rule \\\n  --title \"use plans\" \\\n  --scope repo \\\n  --stdin\nalways create and review a plan before implementation.\neof\n\nmemoryledger review accept memory-0001 \\\n  --reason \"user approved the project rule.\"\n\nmemoryledger preview\nmemoryledger build\nmemoryledger export\n\n\n\n\nfor an agent-oriented batch workflow:\n\nmemoryledger finalize \\\n  --accept-all \\\n  --reason \"user approved the candidate memories.\" \\\n  --export\n\n\n\n\npreview renders without materializing artifacts, build writes deterministic\nartifacts to the resolved cache mount, export writes selected owned targets,\nand finalize orchestrates review, build, and optiona…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/adopt-existing-agents/",
+      "title": "memoryledger Adopt existing <code class=\"docutils literal notranslate\"><span class=\"pre\">AGENTS.md</span></code>",
+      "snippet": "Adoption is a preview-first migration that preserves the source and extracts\ncandidate memories:\n\nmemoryledger agents adopt AGENTS.md --json …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Adopt existing AGENTS.md",
+          "text": "Adoption is a preview-first migration that preserves the source and extracts\ncandidate memories:\n\nmemoryledger agents adopt AGENTS.md --json\nmemoryledger agents adopt AGENTS.md \\\n  --apply --backup --accept \\\n  --reason \"User approved migration.\"\nmemoryledger agents verify-adoption \\\n  --source AGENTS.md.memoryledger-adopt-1.bak\nmemoryledger finalize --accept-all \\\n  --reason \"User approved migration.\" --export\n\n\n\n\nPreview is read-only. The plan records a source hash, heading inventory, and\nfull-source preservation. Apply prevalidates before changing the ledger,\ndeduplicates retry attempts, and uses deterministic backup names. A root source\nis expected to shrink to a concise generated file while detailed content moves\nto linked documents. Verification compares the adopted records and head…",
+          "lower": "adoption is a preview-first migration that preserves the source and extracts\ncandidate memories:\n\nmemoryledger agents adopt agents.md --json\nmemoryledger agents adopt agents.md \\\n  --apply --backup --accept \\\n  --reason \"user approved migration.\"\nmemoryledger agents verify-adoption \\\n  --source agents.md.memoryledger-adopt-1.bak\nmemoryledger finalize --accept-all \\\n  --reason \"user approved migration.\" --export\n\n\n\n\npreview is read-only. the plan records a source hash, heading inventory, and\nfull-source preservation. apply prevalidates before changing the ledger,\ndeduplicates retry attempts, and uses deterministic backup names. a root source\nis expected to shrink to a concise generated file while detailed content moves\nto linked documents. verification compares the adopted records and head…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/agents-md/",
+      "title": "memoryledger Managing <code class=\"docutils literal notranslate\"><span class=\"pre\">AGENTS.md</span></code>",
+      "snippet": "The non-negotiable workflow is:\n\n\nUpdate Memoryledger records.\n\n\nReview and accept the records with reasons.\n\n\nRender/build derived files. …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Managing AGENTS.md",
+          "text": "The non-negotiable workflow is:\n\n\nUpdate Memoryledger records.\n\n\nReview and accept the records with reasons.\n\n\nRender/build derived files.\n\n\nExport them to their configured destinations.\n\n\nNever directly patch generated targets.\n\n\n\nOwnership is detected from configuration and the generated marker\n<!-- Generated by memoryledger. Do not edit directly. -->. A manual file is\nprotected even if --backup is supplied. Move manual material through the\nadoption workflow instead.",
+          "lower": "the non-negotiable workflow is:\n\n\nupdate memoryledger records.\n\n\nreview and accept the records with reasons.\n\n\nrender/build derived files.\n\n\nexport them to their configured destinations.\n\n\nnever directly patch generated targets.\n\n\n\nownership is detected from configuration and the generated marker\n<!-- generated by memoryledger. do not edit directly. -->. a manual file is\nprotected even if --backup is supplied. move manual material through the\nadoption workflow instead."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/evidence-scan/",
+      "title": "memoryledger Evidence scanning",
+      "snippet": "evidence scan inspects repository files and proposes candidate memories. It\ncan recognize project evidence such as pyproject.toml and mypy s …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Evidence scanning",
+          "text": "evidence scan inspects repository files and proposes candidate memories. It\ncan recognize project evidence such as pyproject.toml and mypy settings,\nRuff configuration, pre-commit hooks, test commands, and project-specific\nconfiguration. Scan output is proposal-only until candidates are applied and\nthen reviewed; a scan never silently creates accepted policy.\n\nmemoryledger evidence scan\nmemoryledger evidence scan --apply-candidates\nmemoryledger review list",
+          "lower": "evidence scan inspects repository files and proposes candidate memories. it\ncan recognize project evidence such as pyproject.toml and mypy settings,\nruff configuration, pre-commit hooks, test commands, and project-specific\nconfiguration. scan output is proposal-only until candidates are applied and\nthen reviewed; a scan never silently creates accepted policy.\n\nmemoryledger evidence scan\nmemoryledger evidence scan --apply-candidates\nmemoryledger review list"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/importing-memory/",
+      "title": "memoryledger Importing memory",
+      "snippet": "Text, run HTML, and current-run import paths create candidates and preserve\nprovenance:\n\nmemoryledger import text --stdin <<'EOF'\nThe focuse …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Importing memory",
+          "text": "Text, run HTML, and current-run import paths create candidates and preserve\nprovenance:\n\nmemoryledger import text --stdin <<'EOF'\nThe focused test suite must pass before the full suite.\nEOF\nmemoryledger import run-html --file run.html\nmemoryledger import current-run\n\n\n\n\nRun HTML and current-run intake are controlled by config feature flags. Import\nmetadata identifies the source and uses safe excerpts. Transcript-like input,\nsecret-like values, and oversized raw transcripts are rejected. Imported\nrecords still require explicit review before rendering.",
+          "lower": "text, run html, and current-run import paths create candidates and preserve\nprovenance:\n\nmemoryledger import text --stdin <<'eof'\nthe focused test suite must pass before the full suite.\neof\nmemoryledger import run-html --file run.html\nmemoryledger import current-run\n\n\n\n\nrun html and current-run intake are controlled by config feature flags. import\nmetadata identifies the source and uses safe excerpts. transcript-like input,\nsecret-like values, and oversized raw transcripts are rejected. imported\nrecords still require explicit review before rendering."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/",
+      "title": "memoryledger Guides",
+      "snippet": "Task-oriented recipes for managing memory and its derived agent documentation.\n\n\n\nMemory workflow\n\nManaging AGENTS.md\n\nAdopt existing AGENTS …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Guides",
+          "text": "Task-oriented recipes for managing memory and its derived agent documentation.\n\n\n\nMemory workflow\n\nManaging AGENTS.md\n\nAdopt existing AGENTS.md\n\nNested AGENTS.md\n\nLinked documents\n\nTemplates\n\nEvidence scanning\n\nImporting memory\n\nMigrations\n\nJSON automation\n\nTroubleshooting",
+          "lower": "task-oriented recipes for managing memory and its derived agent documentation.\n\n\n\nmemory workflow\n\nmanaging agents.md\n\nadopt existing agents.md\n\nnested agents.md\n\nlinked documents\n\ntemplates\n\nevidence scanning\n\nimporting memory\n\nmigrations\n\njson automation\n\ntroubleshooting"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/json-automation/",
+      "title": "memoryledger JSON automation",
+      "snippet": "Machine integrations should use the ledgerwerk.cli.v1 envelope and process\nthe exit code, not parse human output.\n\n{\n  \"schema\": \"ledgerwerk …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "JSON automation",
+          "text": "Machine integrations should use the ledgerwerk.cli.v1 envelope and process\nthe exit code, not parse human output.\n\n{\n  \"schema\": \"ledgerwerk.cli.v1\",\n  \"ok\": true,\n  \"tool\": \"memoryledger\",\n  \"command\": \"status\",\n  \"result\": {},\n  \"events\": [],\n  \"warnings\": []\n}\n\n\n\n\nErrors use the same envelope:\n\n{\n  \"schema\": \"ledgerwerk.cli.v1\",\n  \"ok\": false,\n  \"tool\": \"memoryledger\",\n  \"command\": \"memory show\",\n  \"error\": {\n    \"code\": \"not-found\",\n    \"message\": \"Memory not found.\",\n    \"details\": { \"domain_code\": \"NOT_FOUND\" },\n    \"remediation\": []\n  },\n  \"events\": [],\n  \"warnings\": []\n}\n\n\n\n\nGlobal options are --root PATH, --json, and --version. Exit codes are:\n\n\n\nCode\n\nMeaning\n\n\n\n\n\n0\n\nSuccess\n\n\n\n1\n\nDomain failure\n\n\n\n2\n\nUsage or invalid input\n\n\n\n3\n\nUnavailable or missing resource\n\n\n\n4\n\nConflict or…",
+          "lower": "machine integrations should use the ledgerwerk.cli.v1 envelope and process\nthe exit code, not parse human output.\n\n{\n  \"schema\": \"ledgerwerk.cli.v1\",\n  \"ok\": true,\n  \"tool\": \"memoryledger\",\n  \"command\": \"status\",\n  \"result\": {},\n  \"events\": [],\n  \"warnings\": []\n}\n\n\n\n\nerrors use the same envelope:\n\n{\n  \"schema\": \"ledgerwerk.cli.v1\",\n  \"ok\": false,\n  \"tool\": \"memoryledger\",\n  \"command\": \"memory show\",\n  \"error\": {\n    \"code\": \"not-found\",\n    \"message\": \"memory not found.\",\n    \"details\": { \"domain_code\": \"not_found\" },\n    \"remediation\": []\n  },\n  \"events\": [],\n  \"warnings\": []\n}\n\n\n\n\nglobal options are --root path, --json, and --version. exit codes are:\n\n\n\ncode\n\nmeaning\n\n\n\n\n\n0\n\nsuccess\n\n\n\n1\n\ndomain failure\n\n\n\n2\n\nusage or invalid input\n\n\n\n3\n\nunavailable or missing resource\n\n\n\n4\n\nconflict or…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/linked-documents/",
+      "title": "memoryledger Linked documents",
+      "snippet": "The default linked-document directory is agent_docs. Long accepted content\ncan be placed there when the root threshold would be exceeded. Th …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Linked documents",
+          "text": "The default linked-document directory is agent_docs. Long accepted content\ncan be placed there when the root threshold would be exceeded. The kind and\nconfigured section determine document placement; exact mapping is stable only\nthrough the renderer and config.\n\nGenerated documents carry the Memoryledger marker and are protected from direct\nedits. Files without the marker remain manual. The linked-docs-dir migration\ncan move the legacy docs/agents directory through the migration framework;\nmanual copying is not a substitute for its ownership and journal checks.",
+          "lower": "the default linked-document directory is agent_docs. long accepted content\ncan be placed there when the root threshold would be exceeded. the kind and\nconfigured section determine document placement; exact mapping is stable only\nthrough the renderer and config.\n\ngenerated documents carry the memoryledger marker and are protected from direct\nedits. files without the marker remain manual. the linked-docs-dir migration\ncan move the legacy docs/agents directory through the migration framework;\nmanual copying is not a substitute for its ownership and journal checks."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/memory-workflow/",
+      "title": "memoryledger Memory workflow",
+      "snippet": "Use the record lifecycle as the unit of work:\n\n# Create multiline content safely.\nmemoryledger memory create --kind procedure --title \"Run t …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Memory workflow",
+          "text": "Use the record lifecycle as the unit of work:\n\n# Create multiline content safely.\nmemoryledger memory create --kind procedure --title \"Run tests\" --stdin <<'EOF'\nRun the focused tests before the full suite.\nEOF\n\nmemoryledger memory list\nmemoryledger memory show memory-0001 --content\nmemoryledger memory update memory-0001 --stdin --reason \"Clarified the procedure.\" <<'EOF'\nRun focused tests, then run the full suite.\nEOF\nmemoryledger memory append memory-0001 --stdin --reason \"Added a note.\" <<'EOF'\nRecord failures as evidence.\nEOF\nmemoryledger memory validate memory-0001\nmemoryledger memory evidence add memory-0001 --kind command --title \"Test run\" \\\n  --uri \"command:pytest\" --reason \"The command verifies the procedure.\"\nmemoryledger review accept memory-0001 --reason \"User approved this p…",
+          "lower": "use the record lifecycle as the unit of work:\n\n# create multiline content safely.\nmemoryledger memory create --kind procedure --title \"run tests\" --stdin <<'eof'\nrun the focused tests before the full suite.\neof\n\nmemoryledger memory list\nmemoryledger memory show memory-0001 --content\nmemoryledger memory update memory-0001 --stdin --reason \"clarified the procedure.\" <<'eof'\nrun focused tests, then run the full suite.\neof\nmemoryledger memory append memory-0001 --stdin --reason \"added a note.\" <<'eof'\nrecord failures as evidence.\neof\nmemoryledger memory validate memory-0001\nmemoryledger memory evidence add memory-0001 --kind command --title \"test run\" \\\n  --uri \"command:pytest\" --reason \"the command verifies the procedure.\"\nmemoryledger review accept memory-0001 --reason \"user approved this p…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/migrations/",
+      "title": "memoryledger Migrations",
+      "snippet": "Use the migration framework for all layout changes. It validates source and\ndestination, writes a deterministic plan and fingerprints, copie …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Migrations",
+          "text": "Use the migration framework for all layout changes. It validates source and\ndestination, writes a deterministic plan and fingerprints, copies first,\nactivates last, and records a journal:\n\nmemoryledger migrate status\nmemoryledger migrate plan storage-layout\nmemoryledger migrate apply storage-layout --dry-run\nmemoryledger migrate apply storage-layout --plan-file <path>\nmemoryledger migrate recover storage-layout --journal <path>\nmemoryledger migrate cleanup storage-layout --dry-run\nmemoryledger migrate cleanup storage-layout --yes\n\n\n\n\nSupported migration names include storage-layout, storage-v2, and\nlinked-docs-dir. Plans are read-only until apply. Ownership, source/destination\nfingerprints, and activation ordering protect against ambiguous or conflicting\nlayouts. Recovery uses the journal…",
+          "lower": "use the migration framework for all layout changes. it validates source and\ndestination, writes a deterministic plan and fingerprints, copies first,\nactivates last, and records a journal:\n\nmemoryledger migrate status\nmemoryledger migrate plan storage-layout\nmemoryledger migrate apply storage-layout --dry-run\nmemoryledger migrate apply storage-layout --plan-file <path>\nmemoryledger migrate recover storage-layout --journal <path>\nmemoryledger migrate cleanup storage-layout --dry-run\nmemoryledger migrate cleanup storage-layout --yes\n\n\n\n\nsupported migration names include storage-layout, storage-v2, and\nlinked-docs-dir. plans are read-only until apply. ownership, source/destination\nfingerprints, and activation ordering protect against ambiguous or conflicting\nlayouts. recovery uses the journal…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/nested-agents/",
+      "title": "memoryledger Nested <code class=\"docutils literal notranslate\"><span class=\"pre\">AGENTS.md</span></code>",
+      "snippet": "Set nested_agents_enabled = true in the project render configuration. A\nmemory with a directory scope and scope_path such as src/package may …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Nested AGENTS.md",
+          "text": "Set nested_agents_enabled = true in the project render configuration. A\nmemory with a directory scope and scope_path such as src/package may use\nthe nested_agents render target. Include nested output explicitly when\nexporting:\n\nmemoryledger export --include-nested\n\n\n\n\nPaths are confined to the project root and cannot escape through .. or an\nabsolute path. This is useful for package-specific instructions while keeping\nthe root file concise. Nested output is disabled by default.",
+          "lower": "set nested_agents_enabled = true in the project render configuration. a\nmemory with a directory scope and scope_path such as src/package may use\nthe nested_agents render target. include nested output explicitly when\nexporting:\n\nmemoryledger export --include-nested\n\n\n\n\npaths are confined to the project root and cannot escape through .. or an\nabsolute path. this is useful for package-specific instructions while keeping\nthe root file concise. nested output is disabled by default."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/templates/",
+      "title": "memoryledger Templates",
+      "snippet": "Global templates live at the user configuration path and define an id, version,\nkind, title, scope, render target, and either inline content …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Templates",
+          "text": "Global templates live at the user configuration path and define an id, version,\nkind, title, scope, render target, and either inline content or a\ncontent_file. Inspect and manage them with:\n\nmemoryledger template list\nmemoryledger template show project-rule\nmemoryledger template apply project-rule\nmemoryledger template sync project-rule\nmemoryledger template remove project-rule --reason \"Retired template.\"\n\n\n\n\nTemplate policy controls whether templates are enabled, which ids are allowed,\nand whether auto-accept is permitted. Project policy overrides global policy;\nauto-accept should be used only when an explicit review policy authorizes it.\nCanonical content hashes and versions make sync updates deterministic.",
+          "lower": "global templates live at the user configuration path and define an id, version,\nkind, title, scope, render target, and either inline content or a\ncontent_file. inspect and manage them with:\n\nmemoryledger template list\nmemoryledger template show project-rule\nmemoryledger template apply project-rule\nmemoryledger template sync project-rule\nmemoryledger template remove project-rule --reason \"retired template.\"\n\n\n\n\ntemplate policy controls whether templates are enabled, which ids are allowed,\nand whether auto-accept is permitted. project policy overrides global policy;\nauto-accept should be used only when an explicit review policy authorizes it.\ncanonical content hashes and versions make sync updates deterministic."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/guides/troubleshooting/",
+      "title": "memoryledger Troubleshooting",
+      "snippet": "Symptom/code\n\nRemediation\n\n\n\n\n\nNO_CONFIG\n\nRun memoryledger init or select the correct --root.\n\n\n\nMIGRATION_REQUIRED\n\nInspect migrate status, …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Troubleshooting",
+          "text": "Symptom/code\n\nRemediation\n\n\n\n\n\nNO_CONFIG\n\nRun memoryledger init or select the correct --root.\n\n\n\nMIGRATION_REQUIRED\n\nInspect migrate status, then plan and apply the named migration.\n\n\n\nINVALID_LEDGER_LAYOUT\n\nRun storage validate; repair through migration, not manual copying.\n\n\n\nINVALID_STORAGE_BINDING\n\nCheck the schema-3 manifest, binding markers, and local overrides.\n\n\n\nmanual_file\n\nAdopt the manual file or choose a different export target; do not force overwrite.\n\n\n\nAdoption backup/source changed\n\nRestore the source, rerun preview, and apply only after the hash matches.\n\n\n\nSecret-like content\n\nRemove the secret and store a safe reference or redacted excerpt.\n\n\n\nInvalid scope/evidence path\n\nUse a repo-relative confined path and a supported enum value.\n\n\n\nMigration conflict/incomplete jou…",
+          "lower": "symptom/code\n\nremediation\n\n\n\n\n\nno_config\n\nrun memoryledger init or select the correct --root.\n\n\n\nmigration_required\n\ninspect migrate status, then plan and apply the named migration.\n\n\n\ninvalid_ledger_layout\n\nrun storage validate; repair through migration, not manual copying.\n\n\n\ninvalid_storage_binding\n\ncheck the schema-3 manifest, binding markers, and local overrides.\n\n\n\nmanual_file\n\nadopt the manual file or choose a different export target; do not force overwrite.\n\n\n\nadoption backup/source changed\n\nrestore the source, rerun preview, and apply only after the hash matches.\n\n\n\nsecret-like content\n\nremove the secret and store a safe reference or redacted excerpt.\n\n\n\ninvalid scope/evidence path\n\nuse a repo-relative confined path and a supported enum value.\n\n\n\nmigration conflict/incomplete jou…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/",
+      "title": "Memoryledger",
+      "snippet": "Memoryledger is an auditable long-term project-memory ledger and deterministic\nAGENTS.md renderer. Durable canonical memory lives in Ledgerc …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Memoryledger",
+          "text": "Memoryledger is an auditable long-term project-memory ledger and deterministic\nAGENTS.md renderer. Durable canonical memory lives in Ledgercore-managed\nschema-3 storage; AGENTS.md and owned linked documents are derived output.\n\n\nWarning\n\nDo not edit generated AGENTS.md files or marker-owned linked documents\ndirectly. Update memory records, review them, build, and export instead.",
+          "lower": "memoryledger is an auditable long-term project-memory ledger and deterministic\nagents.md renderer. durable canonical memory lives in ledgercore-managed\nschema-3 storage; agents.md and owned linked documents are derived output.\n\n\nwarning\n\ndo not edit generated agents.md files or marker-owned linked documents\ndirectly. update memory records, review them, build, and export instead."
+        },
+        {
+          "anchor": "",
+          "heading": "Five-command quick start",
+          "text": "memoryledger init\nmemoryledger memory create --kind rule --title \"Use plans\" --stdin <<'EOF'\nAlways create and review a plan before implementation.\nEOF\nmemoryledger review accept memory-0001 --reason \"User approved the project rule.\"\nmemoryledger build\nmemoryledger export\n\n\n\n\nInstall from Python 3.10+ with python -m pip install memoryledger or use an\neditable checkout as described in Installation.\nThe CLI is the primary supported interface. The Python API is useful for\nintegrations, but its supported boundary is explicitly marked in the API\nreference. The project is active and its compatibility target is Ledgercore\n>=0.6.0,<0.7.0.\n\n\nGetting started\n\n\nGetting started\nInstallation\n\nQuickstart\n\nFirst project\n\n\n\n\n\n\n\n\nConcepts\n\n\nConcepts\nMemory model\n\nLifecycle\n\nEvidence\n\nRendering\n\nStorage mo…",
+          "lower": "memoryledger init\nmemoryledger memory create --kind rule --title \"use plans\" --stdin <<'eof'\nalways create and review a plan before implementation.\neof\nmemoryledger review accept memory-0001 --reason \"user approved the project rule.\"\nmemoryledger build\nmemoryledger export\n\n\n\n\ninstall from python 3.10+ with python -m pip install memoryledger or use an\neditable checkout as described in installation.\nthe cli is the primary supported interface. the python api is useful for\nintegrations, but its supported boundary is explicitly marked in the api\nreference. the project is active and its compatibility target is ledgercore\n>=0.6.0,<0.7.0.\n\n\ngetting started\n\n\ngetting started\ninstallation\n\nquickstart\n\nfirst project\n\n\n\n\n\n\n\n\nconcepts\n\n\nconcepts\nmemory model\n\nlifecycle\n\nevidence\n\nrendering\n\nstorage mo…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/cli/",
+      "title": "memoryledger CLI reference",
+      "snippet": "The canonical command reference is generated from the Typer command tree and memoryledger.command_catalog.CATALOG.\n\n\nNote\n\nDeprecated compat …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "CLI reference",
+          "text": "The canonical command reference is generated from the Typer command tree and memoryledger.command_catalog.CATALOG.\n\n\nNote\n\nDeprecated compatibility aliases are listed in Deprecations.",
+          "lower": "the canonical command reference is generated from the typer command tree and memoryledger.command_catalog.catalog.\n\n\nnote\n\ndeprecated compatibility aliases are listed in deprecations."
+        },
+        {
+          "anchor": "",
+          "heading": "agents adopt",
+          "text": "Adopt an existing AGENTS.md into memory records.\n\n\nAudience: agent\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger agents adopt\n\nArguments and options\n\n\ntarget — argument; optional; type path; default AGENTS.md\n\n\n--apply — option; optional; type boolean; flag\n\n\n--backup — option; optional; type boolean; flag\n\n\n--accept — option; optional; type boolean; flag\n\n\n--reason — option; optional; type text; default ``\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger agents adopt\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "adopt an existing agents.md into memory records.\n\n\naudience: agent\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger agents adopt\n\narguments and options\n\n\ntarget — argument; optional; type path; default agents.md\n\n\n--apply — option; optional; type boolean; flag\n\n\n--backup — option; optional; type boolean; flag\n\n\n--accept — option; optional; type boolean; flag\n\n\n--reason — option; optional; type text; default ``\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger agents adopt\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "agents plan",
+          "text": "Print the canonical agent workflow commands.\n\n\nAudience: agent\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: False\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger agents plan\n\nArguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger agents plan\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "print the canonical agent workflow commands.\n\n\naudience: agent\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: false\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger agents plan\n\narguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger agents plan\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "agents verify-adoption",
+          "text": "Verify that adopted memories match a source AGENTS.md.\n\n\nAudience: agent\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger agents verify-adoption\n\nArguments and options\n\n\n--source — option; required; type path\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger agents verify-adoption\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "verify that adopted memories match a source agents.md.\n\n\naudience: agent\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger agents verify-adoption\n\narguments and options\n\n\n--source — option; required; type path\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger agents verify-adoption\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "config show",
+          "text": "Show effective configuration with source tracking.\n\n\nAudience: both\n\n\nStability: beta\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger config show\n\nArguments and options\n\n\nNone.\n\n\n\nExample\n\nmemoryledger config show\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "show effective configuration with source tracking.\n\n\naudience: both\n\n\nstability: beta\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger config show\n\narguments and options\n\n\nnone.\n\n\n\nexample\n\nmemoryledger config show\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "config validate",
+          "text": "Validate configuration without writing.\n\n\nAudience: both\n\n\nStability: beta\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger config validate\n\nArguments and options\n\n\nNone.\n\n\n\nExample\n\nmemoryledger config validate\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "validate configuration without writing.\n\n\naudience: both\n\n\nstability: beta\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger config validate\n\narguments and options\n\n\nnone.\n\n\n\nexample\n\nmemoryledger config validate\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "evidence scan",
+          "text": "Scan repository evidence and propose candidate memories.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger evidence scan\n\nArguments and options\n\n\n--apply-candidates — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger evidence scan\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "scan repository evidence and propose candidate memories.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger evidence scan\n\narguments and options\n\n\n--apply-candidates — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger evidence scan\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "import current-run",
+          "text": "Import memory candidates from the current agent run.\n\n\nAudience: agent\n\n\nStability: beta\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger import current-run\n\nArguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger import current-run\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "import memory candidates from the current agent run.\n\n\naudience: agent\n\n\nstability: beta\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger import current-run\n\narguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger import current-run\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "import run-html",
+          "text": "Import memory candidates from run HTML logs.\n\n\nAudience: agent\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger import run-html\n\nArguments and options\n\n\n--file — option; required; type path\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger import run-html\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "import memory candidates from run html logs.\n\n\naudience: agent\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger import run-html\n\narguments and options\n\n\n--file — option; required; type path\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger import run-html\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "import text",
+          "text": "Import memory candidates from text input.\n\n\nAudience: agent\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger import text\n\nArguments and options\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger import text\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "import memory candidates from text input.\n\n\naudience: agent\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger import text\n\narguments and options\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger import text\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory append",
+          "text": "Append text to the body of a memory record.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory append\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger memory append\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "append text to the body of a memory record.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory append\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger memory append\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory archive",
+          "text": "Archive a memory record (convenience wrapper for set-status archived).\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory archive\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n\nExample\n\nmemoryledger memory archive\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "archive a memory record (convenience wrapper for set-status archived).\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory archive\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n\nexample\n\nmemoryledger memory archive\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory create",
+          "text": "Create a new memory record.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory create\n\nArguments and options\n\n\n--kind — option; required; type text\n\n\n--title — option; required; type text\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n--evidence — option; optional; type text; default ``\n\n\n--scope — option; optional; type text; default global\n\n\n--scope-path — option; optional; type text; default ``\n\n\n--render-target — option; optional; type text; default root_agents\n\n\n--section — option; optional; type text; default ``\n\n\n\nExample\n\nmemoryledger memory create\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow…",
+          "lower": "create a new memory record.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory create\n\narguments and options\n\n\n--kind — option; required; type text\n\n\n--title — option; required; type text\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n--evidence — option; optional; type text; default ``\n\n\n--scope — option; optional; type text; default global\n\n\n--scope-path — option; optional; type text; default ``\n\n\n--render-target — option; optional; type text; default root_agents\n\n\n--section — option; optional; type text; default ``\n\n\n\nexample\n\nmemoryledger memory create\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow…"
+        },
+        {
+          "anchor": "",
+          "heading": "memory evidence add",
+          "text": "Add an evidence reference to a memory.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory evidence add\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--kind — option; required; type text\n\n\n--title — option; required; type text\n\n\n--uri — option; required; type text\n\n\n--reason — option; required; type text\n\n\n--excerpt — option; optional; type text; default ``\n\n\n--line-start — option; optional; type integer\n\n\n--line-end — option; optional; type integer\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger memory evidence add\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "add an evidence reference to a memory.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory evidence add\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--kind — option; required; type text\n\n\n--title — option; required; type text\n\n\n--uri — option; required; type text\n\n\n--reason — option; required; type text\n\n\n--excerpt — option; optional; type text; default ``\n\n\n--line-start — option; optional; type integer\n\n\n--line-end — option; optional; type integer\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger memory evidence add\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory evidence list",
+          "text": "List evidence references attached to a memory.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory evidence list\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger memory evidence list\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "list evidence references attached to a memory.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory evidence list\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger memory evidence list\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory list",
+          "text": "List memory records, optionally filtered.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory list\n\nArguments and options\n\n\n--kind — option; optional; type text\n\n\n--status — option; optional; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger memory list\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "list memory records, optionally filtered.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory list\n\narguments and options\n\n\n--kind — option; optional; type text\n\n\n--status — option; optional; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger memory list\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory set-status",
+          "text": "Change the lifecycle status of one memory.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory set-status\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\nstatus — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n\nExample\n\nmemoryledger memory set-status\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "change the lifecycle status of one memory.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory set-status\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\nstatus — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n\nexample\n\nmemoryledger memory set-status\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory show",
+          "text": "Show one memory record.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory show\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--content, --no-content — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger memory show\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "show one memory record.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory show\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--content, --no-content — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger memory show\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory update",
+          "text": "Replace the body of a memory record.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory update\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n--section — option; optional; type text\n\n\n\nExample\n\nmemoryledger memory update\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "replace the body of a memory record.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory update\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--reason — option; required; type text\n\n\n--text — option; optional; type text\n\n\n--file — option; optional; type path\n\n\n--stdin — option; optional; type boolean; flag\n\n\n--section — option; optional; type text\n\n\n\nexample\n\nmemoryledger memory update\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "memory validate",
+          "text": "Validate a memory record against all guardrails.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger memory validate\n\nArguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger memory validate\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "validate a memory record against all guardrails.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger memory validate\n\narguments and options\n\n\nmemory_id — argument; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger memory validate\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "migrate apply",
+          "text": "Apply a migration plan.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger migrate apply\n\nArguments and options\n\n\nmigration — argument; optional; type text\n\n\n--plan-file — option; optional; type path\n\n\n--dry-run — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger migrate apply\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "apply a migration plan.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger migrate apply\n\narguments and options\n\n\nmigration — argument; optional; type text\n\n\n--plan-file — option; optional; type path\n\n\n--dry-run — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger migrate apply\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "migrate cleanup",
+          "text": "Clean up legacy paths after successful migration.\n\n\nAudience: both\n\n\nStability: beta\n\n\nEffect: workspace-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger migrate cleanup\n\nArguments and options\n\n\nmigration — argument; optional; type text\n\n\n--dry-run — option; optional; type boolean; flag\n\n\n--yes — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger migrate cleanup\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "clean up legacy paths after successful migration.\n\n\naudience: both\n\n\nstability: beta\n\n\neffect: workspace-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger migrate cleanup\n\narguments and options\n\n\nmigration — argument; optional; type text\n\n\n--dry-run — option; optional; type boolean; flag\n\n\n--yes — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger migrate cleanup\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "migrate plan",
+          "text": "Generate a read-only migration plan.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger migrate plan\n\nArguments and options\n\n\nmigration — argument; optional; type text\n\n\n--output, -o — option; optional; type path\n\n\n\nExample\n\nmemoryledger migrate plan\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "generate a read-only migration plan.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger migrate plan\n\narguments and options\n\n\nmigration — argument; optional; type text\n\n\n--output, -o — option; optional; type path\n\n\n\nexample\n\nmemoryledger migrate plan\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "migrate recover",
+          "text": "Recover from a migration journal.\n\n\nAudience: both\n\n\nStability: beta\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger migrate recover\n\nArguments and options\n\n\n--journal — option; required; type path\n\n\n--policy — option; optional; type text; default auto\n\n\nmigration — argument; optional; type text\n\n\n\nExample\n\nmemoryledger migrate recover\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "recover from a migration journal.\n\n\naudience: both\n\n\nstability: beta\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger migrate recover\n\narguments and options\n\n\n--journal — option; required; type path\n\n\n--policy — option; optional; type text; default auto\n\n\nmigration — argument; optional; type text\n\n\n\nexample\n\nmemoryledger migrate recover\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "migrate status",
+          "text": "Show migration status for all registered migrations.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger migrate status\n\nArguments and options\n\n\nNone.\n\n\n\nExample\n\nmemoryledger migrate status\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "show migration status for all registered migrations.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger migrate status\n\narguments and options\n\n\nnone.\n\n\n\nexample\n\nmemoryledger migrate status\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "commands",
+          "text": "List all registered commands with metadata.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: False\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger commands\n\nArguments and options\n\n\nNone.\n\n\n\nExample\n\nmemoryledger commands\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "list all registered commands with metadata.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: false\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger commands\n\narguments and options\n\n\nnone.\n\n\n\nexample\n\nmemoryledger commands\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "doctor",
+          "text": "Run read-only diagnostics on project health.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger doctor\n\nArguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger doctor\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "run read-only diagnostics on project health.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger doctor\n\narguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger doctor\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "help",
+          "text": "Show nested help for a command path.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: False\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger help\n\nArguments and options\n\n\ncommand — argument; optional; type text\n\n\n\nExample\n\nmemoryledger help\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "show nested help for a command path.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: false\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger help\n\narguments and options\n\n\ncommand — argument; optional; type text\n\n\n\nexample\n\nmemoryledger help\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "info",
+          "text": "Show full read-only project inventory.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger info\n\nArguments and options\n\n\n--paths-only, --no-paths-only — option; optional; type boolean; flag\n\n\n--no-content, --no-no-content — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger info\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "show full read-only project inventory.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger info\n\narguments and options\n\n\n--paths-only, --no-paths-only — option; optional; type boolean; flag\n\n\n--no-content, --no-no-content — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger info\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "init",
+          "text": "Initialize a new Memoryledger project in the current directory.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: workspace-write\n\n\nWorkspace: False\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger init\n\nArguments and options\n\n\n--project-name — option; optional; type text\n\n\n--memoryledger-dir — option; optional; type text; default .memoryledger\n\n\n--hidden-config, --no-hidden-config — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger init\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "initialize a new memoryledger project in the current directory.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: workspace-write\n\n\nworkspace: false\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger init\n\narguments and options\n\n\n--project-name — option; optional; type text\n\n\n--memoryledger-dir — option; optional; type text; default .memoryledger\n\n\n--hidden-config, --no-hidden-config — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger init\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "next-action",
+          "text": "Return the recommended next workflow action.\n\n\nAudience: agent\n\n\nStability: beta\n\n\nEffect: read\n\n\nWorkspace: False\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger next-action\n\nArguments and options\n\n\nNone.\n\n\n\nExample\n\nmemoryledger next-action\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "return the recommended next workflow action.\n\n\naudience: agent\n\n\nstability: beta\n\n\neffect: read\n\n\nworkspace: false\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger next-action\n\narguments and options\n\n\nnone.\n\n\n\nexample\n\nmemoryledger next-action\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "status",
+          "text": "Show project status (initialized, memory counts, migration state).\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: False\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger status\n\nArguments and options\n\n\n--check, --no-check — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger status\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "show project status (initialized, memory counts, migration state).\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: false\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger status\n\narguments and options\n\n\n--check, --no-check — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger status\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "build",
+          "text": "Materialize deterministic derived artifacts in the artifacts mount.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: workspace-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger build\n\nArguments and options\n\n\n--output, -o — option; optional; type path\n\n\n\nExample\n\nmemoryledger build\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "materialize deterministic derived artifacts in the artifacts mount.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: workspace-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger build\n\narguments and options\n\n\n--output, -o — option; optional; type path\n\n\n\nexample\n\nmemoryledger build\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "export",
+          "text": "Write selected generated artifacts to user/workspace destinations.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: workspace-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger export\n\nArguments and options\n\n\n--out — option; optional; type path\n\n\n--json — option; optional; type boolean; flag\n\n\n--backup, --no-backup — option; optional; type boolean; flag\n\n\n--include-nested, --no-include-nested — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger export\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "write selected generated artifacts to user/workspace destinations.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: workspace-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger export\n\narguments and options\n\n\n--out — option; optional; type path\n\n\n--json — option; optional; type boolean; flag\n\n\n--backup, --no-backup — option; optional; type boolean; flag\n\n\n--include-nested, --no-include-nested — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger export\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "finalize",
+          "text": "Accept all candidates, build, and export in one orchestrated workflow.\n\n\nAudience: agent\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger finalize\n\nArguments and options\n\n\n--accept-all, --accept-candidates — option; optional; type boolean; flag\n\n\n--reason — option; optional; type text; default ``\n\n\n--render, --no-render — option; optional; type boolean; flag; default True\n\n\n--export, --no-export — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n--backup, --no-backup — option; optional; type boolean; flag\n\n\n--include-nested, --no-include-nested — option; optional; type boolean; flag\n\n\n--out — option; optional; type path\n\n\n\nExample\n\nmemoryledger finalize\n\n\n\n\nRelated commands\n\nSee the adjace…",
+          "lower": "accept all candidates, build, and export in one orchestrated workflow.\n\n\naudience: agent\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger finalize\n\narguments and options\n\n\n--accept-all, --accept-candidates — option; optional; type boolean; flag\n\n\n--reason — option; optional; type text; default ``\n\n\n--render, --no-render — option; optional; type boolean; flag; default true\n\n\n--export, --no-export — option; optional; type boolean; flag\n\n\n--json — option; optional; type boolean; flag\n\n\n--backup, --no-backup — option; optional; type boolean; flag\n\n\n--include-nested, --no-include-nested — option; optional; type boolean; flag\n\n\n--out — option; optional; type path\n\n\n\nexample\n\nmemoryledger finalize\n\n\n\n\nrelated commands\n\nsee the adjace…"
+        },
+        {
+          "anchor": "",
+          "heading": "preview",
+          "text": "Render without modifying authoritative or derived state.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger preview\n\nArguments and options\n\n\n--output, -o — option; optional; type text; default -\n\n\n\nExample\n\nmemoryledger preview\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "render without modifying authoritative or derived state.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger preview\n\narguments and options\n\n\n--output, -o — option; optional; type text; default -\n\n\n\nexample\n\nmemoryledger preview\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "review accept",
+          "text": "Accept one or all candidate memories.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger review accept\n\nArguments and options\n\n\nmemory_id — argument; optional; type text\n\n\n--all — option; optional; type boolean; flag\n\n\n--reason — option; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger review accept\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "accept one or all candidate memories.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger review accept\n\narguments and options\n\n\nmemory_id — argument; optional; type text\n\n\n--all — option; optional; type boolean; flag\n\n\n--reason — option; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger review accept\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "review list",
+          "text": "List candidate memories awaiting review.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: True\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger review list\n\nArguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger review list\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "list candidate memories awaiting review.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: true\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger review list\n\narguments and options\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger review list\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "review reject",
+          "text": "Reject one or all candidate memories.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: ledger-write\n\n\nWorkspace: True\n\n\nTarget: memory-ref\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger review reject\n\nArguments and options\n\n\nmemory_id — argument; optional; type text\n\n\n--all — option; optional; type boolean; flag\n\n\n--reason — option; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nExample\n\nmemoryledger review reject\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "reject one or all candidate memories.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: ledger-write\n\n\nworkspace: true\n\n\ntarget: memory-ref\n\n\njson: true\n\n\n\nusage\n\nmemoryledger review reject\n\narguments and options\n\n\nmemory_id — argument; optional; type text\n\n\n--all — option; optional; type boolean; flag\n\n\n--reason — option; required; type text\n\n\n--json — option; optional; type boolean; flag\n\n\n\nexample\n\nmemoryledger review reject\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        },
+        {
+          "anchor": "",
+          "heading": "schema list",
+          "text": "List available schema names.\n\n\nAudience: both\n\n\nStability: stable\n\n\nEffect: read\n\n\nWorkspace: False\n\n\nTarget: none\n\n\nJSON: True\n\n\n\nUsage\n\nmemoryledger schema list\n\nArguments and options\n\n\nNone.\n\n\n\nExample\n\nmemoryledger schema list\n\n\n\n\nRelated commands\n\nSee the adjacent command group and the workflow guide.",
+          "lower": "list available schema names.\n\n\naudience: both\n\n\nstability: stable\n\n\neffect: read\n\n\nworkspace: false\n\n\ntarget: none\n\n\njson: true\n\n\n\nusage\n\nmemoryledger schema list\n\narguments and options\n\n\nnone.\n\n\n\nexample\n\nmemoryledger schema list\n\n\n\n\nrelated commands\n\nsee the adjacent command group and the workflow guide."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/compatibility/",
+      "title": "memoryledger Compatibility",
+      "snippet": "Python: 3.10 or newer.\n\n\nLedgercore: >=0.6.0,<0.7.0.\n\n\nStorage: canonical schema 3, with read and migration support for recognized\nlegacy la …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Compatibility",
+          "text": "Python: 3.10 or newer.\n\n\nLedgercore: >=0.6.0,<0.7.0.\n\n\nStorage: canonical schema 3, with read and migration support for recognized\nlegacy layouts.\n\n\nPaths: repository-relative paths are confined to the project root; platform\npath separators are resolved by pathlib.\n\n\nSource-tree installs: if package metadata is unavailable, the version falls\nback safely for documentation, but runtime compatibility still depends on an\ninstalled Ledgercore package.\n\n\nWindows: use python -m sphinx and docs\\make.bat html; replace POSIX\nheredocs with a file or PowerShell equivalent when following CLI examples.\n\n\n\nThe shared Ledgercore manifest and binding markers are authoritative. A local\nmount override changes resolution for one machine and does not rewrite the\nproject’s canonical registration.",
+          "lower": "python: 3.10 or newer.\n\n\nledgercore: >=0.6.0,<0.7.0.\n\n\nstorage: canonical schema 3, with read and migration support for recognized\nlegacy layouts.\n\n\npaths: repository-relative paths are confined to the project root; platform\npath separators are resolved by pathlib.\n\n\nsource-tree installs: if package metadata is unavailable, the version falls\nback safely for documentation, but runtime compatibility still depends on an\ninstalled ledgercore package.\n\n\nwindows: use python -m sphinx and docs\\make.bat html; replace posix\nheredocs with a file or powershell equivalent when following cli examples.\n\n\n\nthe shared ledgercore manifest and binding markers are authoritative. a local\nmount override changes resolution for one machine and does not rewrite the\nproject’s canonical registration."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/configuration/",
+      "title": "memoryledger Configuration",
+      "snippet": "The canonical project configuration is .ledger/memoryledger/config.toml,\nversion 2. Global defaults are read from\n$XDG_CONFIG_HOME/ledger/me …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Configuration",
+          "text": "The canonical project configuration is .ledger/memoryledger/config.toml,\nversion 2. Global defaults are read from\n$XDG_CONFIG_HOME/ledger/memoryledger.toml or\n~/.config/ledger/memoryledger.toml. Project values override global values by\nsection. Unknown fields are rejected.",
+          "lower": "the canonical project configuration is .ledger/memoryledger/config.toml,\nversion 2. global defaults are read from\n$xdg_config_home/ledger/memoryledger.toml or\n~/.config/ledger/memoryledger.toml. project values override global values by\nsection. unknown fields are rejected."
+        },
+        {
+          "anchor": "",
+          "heading": "Top-level and section fields",
+          "text": "Section\n\nFields\n\n\n\n\n\ntop level\n\nconfig_version, ledger, render, intake, template_policy\n\n\n\n[ledger]\n\ncode, version\n\n\n\n[render]\n\nroot_agents_path, linked_docs_dir, nested_agents_enabled, linked_docs_enabled, size limits, inclusion flags, evidence_index_path, sort_order\n\n\n\n[intake]\n\nallow_run_html, allow_current_run, default_review_status\n\n\n\n[template_policy]\n\nenabled, ids, auto_accept\n\n\n\n\n\nThe rendered default is:\n\nconfig_version = 2\n\n[ledger]\ncode = \"ml\"\nversion = 0\n\n[render]\nroot_agents_path = \"AGENTS.md\"\nlinked_docs_dir = \"agent_docs\"\nnested_agents_enabled = false\nlinked_docs_enabled = true\nmax_root_agents_chars = 12000\nmax_linked_doc_chars = 50000\ninclude_local = false\ninclude_rejected = false\ninclude_evidence = false\nevidence_index_path = \"\"\nsort_order = [\"rule\", \"procedure\", \"semanti…",
+          "lower": "section\n\nfields\n\n\n\n\n\ntop level\n\nconfig_version, ledger, render, intake, template_policy\n\n\n\n[ledger]\n\ncode, version\n\n\n\n[render]\n\nroot_agents_path, linked_docs_dir, nested_agents_enabled, linked_docs_enabled, size limits, inclusion flags, evidence_index_path, sort_order\n\n\n\n[intake]\n\nallow_run_html, allow_current_run, default_review_status\n\n\n\n[template_policy]\n\nenabled, ids, auto_accept\n\n\n\n\n\nthe rendered default is:\n\nconfig_version = 2\n\n[ledger]\ncode = \"ml\"\nversion = 0\n\n[render]\nroot_agents_path = \"agents.md\"\nlinked_docs_dir = \"agent_docs\"\nnested_agents_enabled = false\nlinked_docs_enabled = true\nmax_root_agents_chars = 12000\nmax_linked_doc_chars = 50000\ninclude_local = false\ninclude_rejected = false\ninclude_evidence = false\nevidence_index_path = \"\"\nsort_order = [\"rule\", \"procedure\", \"semanti…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/deprecations/",
+      "title": "memoryledger Deprecations",
+      "snippet": "The canonical command names are documented in CLI reference. These\naliases remain for compatibility and are hidden from normal help:\n\n\n\nDepr …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Deprecations",
+          "text": "The canonical command names are documented in CLI reference. These\naliases remain for compatibility and are hidden from normal help:\n\n\n\nDeprecated command\n\nReplacement\n\n\n\n\n\nmemledger executable\n\nmemoryledger\n\n\n\nrender\n\nbuild\n\n\n\nagents render\n\nbuild\n\n\n\nagents export\n\nexport\n\n\n\ntemplates list/show/apply/sync/remove\n\ntemplate with the same subcommand\n\n\n\nmemory edit\n\nmemory update\n\n\n\nmemory status\n\nmemory set-status\n\n\n\nreview archive\n\nmemory archive\n\n\n\nstorage verify\n\nstorage validate\n\n\n\nmemory versions\n\nGit history / memory show\n\n\n\nmemory diff\n\nGit diff\n\n\n\nmigrate storage-v2\n\nmigrate plan/apply storage-v2\n\n\n\nmigrate linked-docs-dir\n\nmigrate plan/apply linked-docs-dir\n\n\n\nstorage migrate\n\nmigrate plan/apply storage-layout\n\n\n\nstorage recover\n\nmigrate recover storage-layout\n\n\n\nstorage cleanup-le…",
+          "lower": "the canonical command names are documented in cli reference. these\naliases remain for compatibility and are hidden from normal help:\n\n\n\ndeprecated command\n\nreplacement\n\n\n\n\n\nmemledger executable\n\nmemoryledger\n\n\n\nrender\n\nbuild\n\n\n\nagents render\n\nbuild\n\n\n\nagents export\n\nexport\n\n\n\ntemplates list/show/apply/sync/remove\n\ntemplate with the same subcommand\n\n\n\nmemory edit\n\nmemory update\n\n\n\nmemory status\n\nmemory set-status\n\n\n\nreview archive\n\nmemory archive\n\n\n\nstorage verify\n\nstorage validate\n\n\n\nmemory versions\n\ngit history / memory show\n\n\n\nmemory diff\n\ngit diff\n\n\n\nmigrate storage-v2\n\nmigrate plan/apply storage-v2\n\n\n\nmigrate linked-docs-dir\n\nmigrate plan/apply linked-docs-dir\n\n\n\nstorage migrate\n\nmigrate plan/apply storage-layout\n\n\n\nstorage recover\n\nmigrate recover storage-layout\n\n\n\nstorage cleanup-le…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/errors-and-exit-codes/",
+      "title": "memoryledger Errors and exit codes",
+      "snippet": "Domain errors are mapped to stable lowercase JSON codes and the Ledgercore CLI\nexit-code contract. Normal expected failures use the envelope …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Errors and exit codes",
+          "text": "Domain errors are mapped to stable lowercase JSON codes and the Ledgercore CLI\nexit-code contract. Normal expected failures use the envelope, not tracebacks.\n\n\n\nDomain family\n\nTypical JSON code\n\nCause and remediation\n\n\n\n\n\nconfiguration\n\nno-config, invalid-config, invalid-config-version\n\nInitialize or correct the versioned TOML config.\n\n\n\nstorage\n\ninvalid-ledger-layout, invalid-storage-binding, migration-required\n\nValidate the schema-3 manifest and use the migration workflow.\n\n\n\nrecords\n\nnot-found, invalid-status, invalid-kind, invalid-scope\n\nUse a known id and canonical enum value.\n\n\n\nguardrails\n\nsecret-like-content, invalid-evidence-path, manual-file\n\nRedact content, confine paths, or adopt a manual target.\n\n\n\nmigration\n\nmigration-conflict, migration-incomplete\n\nStop, inspect the plan/jo…",
+          "lower": "domain errors are mapped to stable lowercase json codes and the ledgercore cli\nexit-code contract. normal expected failures use the envelope, not tracebacks.\n\n\n\ndomain family\n\ntypical json code\n\ncause and remediation\n\n\n\n\n\nconfiguration\n\nno-config, invalid-config, invalid-config-version\n\ninitialize or correct the versioned toml config.\n\n\n\nstorage\n\ninvalid-ledger-layout, invalid-storage-binding, migration-required\n\nvalidate the schema-3 manifest and use the migration workflow.\n\n\n\nrecords\n\nnot-found, invalid-status, invalid-kind, invalid-scope\n\nuse a known id and canonical enum value.\n\n\n\nguardrails\n\nsecret-like-content, invalid-evidence-path, manual-file\n\nredact content, confine paths, or adopt a manual target.\n\n\n\nmigration\n\nmigration-conflict, migration-incomplete\n\nstop, inspect the plan/jo…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/file-formats/",
+      "title": "memoryledger File formats",
+      "snippet": "Memory files are Markdown with a YAML front matter block followed by the body.\nThe storage serializer writes durable metadata such as id, ki …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Memory records",
+          "text": "Memory files are Markdown with a YAML front matter block followed by the body.\nThe storage serializer writes durable metadata such as id, kind, title,\nstatus, priority, scope, render target, source, version numbers, tags,\norigin, section, and evidence references.",
+          "lower": "memory files are markdown with a yaml front matter block followed by the body.\nthe storage serializer writes durable metadata such as id, kind, title,\nstatus, priority, scope, render target, source, version numbers, tags,\norigin, section, and evidence references."
+        },
+        {
+          "anchor": "",
+          "heading": "Storage metadata and bindings",
+          "text": "storage.yaml records the storage metadata for the data mount. Binding markers\nidentify the owning Ledgercore project and tool. The exact keys are emitted by\nLedgercore and should be inspected with storage where, not hand-created.",
+          "lower": "storage.yaml records the storage metadata for the data mount. binding markers\nidentify the owning ledgercore project and tool. the exact keys are emitted by\nledgercore and should be inspected with storage where, not hand-created."
+        },
+        {
+          "anchor": "",
+          "heading": "Migration files",
+          "text": "Migration plans contain a deterministic migration id, source and destination\npaths, fingerprints, operation list, and activation information. Journals record\nprogress and support recovery. Plan files are input to migrate apply; journals\nmust be supplied to migrate recover.",
+          "lower": "migration plans contain a deterministic migration id, source and destination\npaths, fingerprints, operation list, and activation information. journals record\nprogress and support recovery. plan files are input to migrate apply; journals\nmust be supplied to migrate recover."
+        },
+        {
+          "anchor": "",
+          "heading": "Templates and generated Markdown",
+          "text": "Global template configuration is TOML with template ids, versions, content or a\ncontent_file, and rendering fields. Generated Markdown starts with:\n\n<!-- Generated by memoryledger. Do not edit directly. -->",
+          "lower": "global template configuration is toml with template ids, versions, content or a\ncontent_file, and rendering fields. generated markdown starts with:\n\n<!-- generated by memoryledger. do not edit directly. -->"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/",
+      "title": "memoryledger Reference",
+      "snippet": "The reference is generated or checked against current code wherever metadata\nexists. Canonical CLI commands are in cli.md; compatibility ali …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Reference",
+          "text": "The reference is generated or checked against current code wherever metadata\nexists. Canonical CLI commands are in cli.md; compatibility aliases are in\ndeprecations.md.\n\n\n\nCLI reference\n\nConfiguration\n\nSchemas and values\n\nFile formats\n\nStorage layout\n\nErrors and exit codes\n\nDeprecations\n\nCompatibility",
+          "lower": "the reference is generated or checked against current code wherever metadata\nexists. canonical cli commands are in cli.md; compatibility aliases are in\ndeprecations.md.\n\n\n\ncli reference\n\nconfiguration\n\nschemas and values\n\nfile formats\n\nstorage layout\n\nerrors and exit codes\n\ndeprecations\n\ncompatibility"
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/schemas/",
+      "title": "memoryledger Schemas and values",
+      "snippet": "Use the CLI to inspect the runtime schema inventory:\n\nmemoryledger schema list\nmemoryledger schema show memory\nmemoryledger schema values …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Schemas and values",
+          "text": "Use the CLI to inspect the runtime schema inventory:\n\nmemoryledger schema list\nmemoryledger schema show memory\nmemoryledger schema values\n\n\n\n\nMemory kinds are rule, learning, episode, procedure, semantic,\ndocument, and local. Statuses are candidate, accepted, rejected, and\narchived; scopes are global, repo, directory, file, command,\nworkflow, and local; render targets are root_agents, linked_doc,\nnested_agents, and none. Evidence kinds are file, config, run,\ncommand, user_approval, and external.\n\nAccepted input aliases include project -> repo and\npackage-workflow -> procedure (also accepted with an underscore). The CLI\nnormalizes aliases before validation and serializes canonical values.",
+          "lower": "use the cli to inspect the runtime schema inventory:\n\nmemoryledger schema list\nmemoryledger schema show memory\nmemoryledger schema values\n\n\n\n\nmemory kinds are rule, learning, episode, procedure, semantic,\ndocument, and local. statuses are candidate, accepted, rejected, and\narchived; scopes are global, repo, directory, file, command,\nworkflow, and local; render targets are root_agents, linked_doc,\nnested_agents, and none. evidence kinds are file, config, run,\ncommand, user_approval, and external.\n\naccepted input aliases include project -> repo and\npackage-workflow -> procedure (also accepted with an underscore). the cli\nnormalizes aliases before validation and serializes canonical values."
+        }
+      ]
+    },
+    {
+      "url": "/tools/memoryledger/main/reference/storage-layout/",
+      "title": "memoryledger Storage layout",
+      "snippet": ".ledger/\n├── ledger.toml\n├── ledger.local.toml                 # optional local override\n└── memoryledger/\n    ├── .ledger-project.toml …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Canonical layout",
+          "text": ".ledger/\n├── ledger.toml\n├── ledger.local.toml                 # optional local override\n└── memoryledger/\n    ├── .ledger-project.toml\n    ├── config.toml\n    └── data/\n        ├── .ledger-project.toml\n        ├── storage.yaml\n        ├── memories/\n        │   └── memory-NNNN.md\n        └── imports/\n\n\n\n\nThe resolved artifacts mount is in the Ledgercore cache, under the project UUID\nand checkout identity, rather than necessarily in the repository. Use\nmemoryledger storage where for the active paths. The registration uses\ndata=project and artifacts=cache.",
+          "lower": ".ledger/\n├── ledger.toml\n├── ledger.local.toml                 # optional local override\n└── memoryledger/\n    ├── .ledger-project.toml\n    ├── config.toml\n    └── data/\n        ├── .ledger-project.toml\n        ├── storage.yaml\n        ├── memories/\n        │   └── memory-nnnn.md\n        └── imports/\n\n\n\n\nthe resolved artifacts mount is in the ledgercore cache, under the project uuid\nand checkout identity, rather than necessarily in the repository. use\nmemoryledger storage where for the active paths. the registration uses\ndata=project and artifacts=cache."
+        },
+        {
+          "anchor": "",
+          "heading": "Legacy layout",
+          "text": "Legacy .memoryledger/ or equivalent data directories are migration sources,\nnot recommended setup. They may contain a config, storage.yaml, memories, and\nimports directly. Read-only discovery can identify them; migration must copy,\nvalidate, activate, journal, and only then permit cleanup. Do not use manual\ncopying to move between layouts.",
+          "lower": "legacy .memoryledger/ or equivalent data directories are migration sources,\nnot recommended setup. they may contain a config, storage.yaml, memories, and\nimports directly. read-only discovery can identify them; migration must copy,\nvalidate, activate, journal, and only then permit cleanup. do not use manual\ncopying to move between layouts."
+        }
+      ]
+    }
+  ]
+}

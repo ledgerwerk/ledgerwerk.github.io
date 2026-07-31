@@ -61,7 +61,7 @@ packages = [
 title = "ledgerwerk Tool Documentation"
 author = "ledgerwerk"
 language = "en"
-project_order = ["releaseledger", "taskledger", "archledger", "ledgercore", "documentledger", "repairledger", "wikimason"]
+project_order = ["releaseledger", "taskledger", "archledger", "ledgercore", "documentledger", "memoryledger", "repairledger", "wikimason"]
 
 [pdf]
 builder = "latexpdf"
@@ -126,6 +126,17 @@ docs_root = "../documentledger/docs"
 conf_dir = "../documentledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/documentledger"
+release_strategy = "git_tag"
+site_variants = ["release", "main"]
+version_refs = { main = "main" }
+
+[[projects]]
+name = "memoryledger"
+title = "memoryledger"
+docs_root = "../memoryledger/docs"
+conf_dir = "../memoryledger/docs"
+root_doc = "index"
+repo_url = "https://github.com/ledgerwerk/memoryledger"
 release_strategy = "git_tag"
 site_variants = ["release", "main"]
 version_refs = { main = "main" }

@@ -14,7 +14,7 @@ permalink: /tools/
   </div>
   <div class="hero-panel" aria-label="Toolkit summary">
     <div class="hero-panel-label">The toolkit</div>
-    <div class="hero-stat">7<span>focused tools</span></div>
+    <div class="hero-stat">8<span>focused tools</span></div>
     <p>File-based, reviewable state for each step of the pipeline.</p>
   </div>
 </section>
@@ -32,7 +32,7 @@ permalink: /tools/
       <h3>releaseledger</h3>
       <div class="card-links">
         <a href="/tools/releaseledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.0" rel="external noopener">Latest release: v0.4.0 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.1" rel="external noopener">Latest release: v0.4.1 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/releaseledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -41,7 +41,7 @@ permalink: /tools/
       <h3>taskledger</h3>
       <div class="card-links">
         <a href="/tools/taskledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.5.2" rel="external noopener">Latest release: v0.5.2 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.0" rel="external noopener">Latest release: v0.6.0 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/taskledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -70,6 +70,15 @@ permalink: /tools/
         <a href="/tools/documentledger/">Read docs <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.0" rel="external noopener">Latest release: v0.2.0 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/documentledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+    <article class="card tool-card">
+      <p class="card-label">Tool</p>
+      <h3>memoryledger</h3>
+      <div class="card-links">
+        <a href="/tools/memoryledger/">Read docs <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/memoryledger/releases/tag/v0.2.0" rel="external noopener">Latest release: v0.2.0 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/memoryledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
     <article class="card tool-card">
