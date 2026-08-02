@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.4.1"
-docs_commit: "5aaed8d10b0bf4bd0117ad611567bf7b418d1768"
+docs_ref: "v0.4.2"
+docs_commit: "89a73f96616d418d2a87e661229090f6e5ba61f9"
 search_enabled: true
 ---
 
@@ -553,9 +553,10 @@ state directory. It also renders reviewable changelog context and final
 <li class="toctree-l1"><a class="reference internal" href="quickstart/">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#install">Install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#initialize-a-project">Initialize a project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/#create-a-release-and-pin-the-git-snapshot">Create a release and pin the git snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/#prepare-a-release-and-pin-the-git-snapshot">Prepare a release and pin the git snapshot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#create-audit-evidence-and-scaffold-entries">Create audit evidence and scaffold entries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#run-the-final-gate-and-build-the-changelog">Run the final gate and build the changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/#correct-a-recorded-version-safely">Correct a recorded version safely</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#optional-taskledger-provenance">Optional: taskledger provenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#create-a-release">Create a release</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#add-entries">Add entries</a></li>
@@ -592,15 +593,16 @@ state directory. It also renders reviewable changelog context and final
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-2-2026-08-02">[v0.4.2] - 2026-08-02</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-1-2026-07-31">[v0.4.1] - 2026-07-31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id1">[0.4.0] - 2026-07-28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id4">[0.3.4] - 2026-07-14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id6">[0.3.3] - 2026-06-26</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id8">[0.3.2] - 2026-06-17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id11">[0.3.1] - 2026-06-16</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id14">[0.3.0] - 2026-06-15</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id17">[0.2.0] - 2026-06-14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id21">[0.1.0] - 2026-06-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id3">[0.4.0] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id6">[0.3.4] - 2026-07-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id8">[0.3.3] - 2026-06-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id11">[0.3.2] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id14">[0.3.1] - 2026-06-16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id17">[0.3.0] - 2026-06-15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id20">[0.2.0] - 2026-06-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id24">[0.1.0] - 2026-06-14</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="storage/">Storage and configuration</a><ul>

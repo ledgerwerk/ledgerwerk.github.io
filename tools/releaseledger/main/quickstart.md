@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "5aaed8d10b0bf4bd0117ad611567bf7b418d1768"
+docs_commit: "89a73f96616d418d2a87e661229090f6e5ba61f9"
 search_enabled: true
 ---
 
@@ -588,15 +588,14 @@ created by new projects:</p>
 <p>Releaseledger is git-first. The recommended workflow uses git commit ranges
 as the canonical evidence of shipped changes.</p>
 </section>
-<section id="create-a-release-and-pin-the-git-snapshot">
-<h2>Create a release and pin the git snapshot</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<section id="prepare-a-release-and-pin-the-git-snapshot">
+<h2>Prepare a release and pin the git snapshot</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>release<span class="w"> </span>prepare<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--previous<span class="w"> </span><span class="m">1</span>.1.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14
-
-releaseledger<span class="w"> </span>release<span class="w"> </span>update<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--git-base<span class="w"> </span>v1.1.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--git-head<span class="w"> </span>HEAD
+<span class="w">  </span>--git-head<span class="w"> </span>HEAD<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>.releaseledger/work/1.2.0
 </pre></div>
 </div>
 <p>After the snapshot is attached, omit <code class="docutils literal notranslate"><span class="pre">--head</span></code> unless you intentionally want to
@@ -605,8 +604,7 @@ refresh the stored snapshot to a newer commit.</p>
 <section id="create-audit-evidence-and-scaffold-entries">
 <h2>Create audit evidence and scaffold entries</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>git<span class="w"> </span>evidence<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--output-dir<span class="w"> </span>/tmp/1.2.0-evidence
-releaseledger<span class="w"> </span>audit<span class="w"> </span>init<span class="w"> </span><span class="m">1</span>.2.0
-releaseledger<span class="w"> </span>audit<span class="w"> </span>show<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--format<span class="w"> </span>yaml<span class="w"> </span>--output<span class="w"> </span>/tmp/1.2.0-audit.yaml
+releaseledger<span class="w"> </span>audit<span class="w"> </span>decisions<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--output<span class="w"> </span>/tmp/1.2.0-audit-decisions.yaml
 releaseledger<span class="w"> </span>git<span class="w"> </span>scaffold<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--output<span class="w"> </span>/tmp/1.2.0-entries.yaml
 </pre></div>
@@ -639,10 +637,40 @@ releaseledger<span class="w"> </span>audit<span class="w"> </span>validate<span 
 <section id="run-the-final-gate-and-build-the-changelog">
 <h2>Run the final gate and build the changelog</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>release<span class="w"> </span>check<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+releaseledger<span class="w"> </span>release<span class="w"> </span>check<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--phase<span class="w"> </span>finalize<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
 releaseledger<span class="w"> </span>release<span class="w"> </span>finalize<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14
 releaseledger<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
 </pre></div>
 </div>
+</section>
+<section id="correct-a-recorded-version-safely">
+<h2>Correct a recorded version safely</h2>
+<p>Preview and apply a planned-version correction as one explicit workflow. The
+dry-run verifies bundle, entry, audit, successor, and changelog actions; no
+manual edit to generated <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> content is needed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>release<span class="w"> </span>rename<span class="w"> </span><span class="m">0</span>.3.0<span class="w"> </span><span class="m">0</span>.2.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--previous<span class="w"> </span>v0.2.7<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-file<span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--rename-changelog-section<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dry-run
+releaseledger<span class="w"> </span>release<span class="w"> </span>rename<span class="w"> </span><span class="m">0</span>.3.0<span class="w"> </span><span class="m">0</span>.2.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--previous<span class="w"> </span>v0.2.7<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-file<span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--rename-changelog-section
+releaseledger<span class="w"> </span>release<span class="w"> </span>prepare<span class="w"> </span><span class="m">0</span>.2.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--previous<span class="w"> </span>v0.2.7<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-08-01<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--git-base<span class="w"> </span>v0.2.7<span class="w"> </span>--git-head<span class="w"> </span>HEAD<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>.releaseledger/work/0.2.8
+releaseledger<span class="w"> </span>audit<span class="w"> </span>decisions<span class="w"> </span><span class="m">0</span>.2.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>.releaseledger/work/0.2.8/audit-decisions.yaml
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">update</span> <span class="pre">--add-source-ref</span> <span class="pre">REF</span></code> for additive provenance. It preserves
+existing refs; <code class="docutils literal notranslate"><span class="pre">--source-ref</span></code> replaces the full list and <code class="docutils literal notranslate"><span class="pre">--clear-source-refs</span></code>
+clears it explicitly. Internal or rejected commits with complete audit evidence
+do not need unrelated public changelog entries.</p>
 <p>For a single release section update only, <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">VERSION</span></code> is the default and
 explicit version intent. Rebuild the whole file only when you really mean all
 history:</p>

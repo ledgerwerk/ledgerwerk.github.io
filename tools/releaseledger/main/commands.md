@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "5aaed8d10b0bf4bd0117ad611567bf7b418d1768"
+docs_commit: "89a73f96616d418d2a87e661229090f6e5ba61f9"
 search_enabled: true
 ---
 
@@ -557,317 +557,322 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">init</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">decisions</span></code></p></td>
+<td><p>external-write</p></td>
+<td><p>stable</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">init</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">record-validation</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">record-validation</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">refresh</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">refresh</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">show</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">show</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">sync</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">sync</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">update</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">update</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">validate</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span> <span class="pre">validate</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">merge</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">merge</span></code></p></td>
 <td><p>external-process</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">start</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">start</span></code></p></td>
 <td><p>external-process</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">status</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span> <span class="pre">status</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">build</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">build</span></code></p></td>
 <td><p>external-write</p></td>
 <td><p>stable</p></td>
 <td><p>build</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">preview</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">preview</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>changelog</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">section</span> <span class="pre">remove</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">section</span> <span class="pre">remove</span></code></p></td>
 <td><p>external-write</p></td>
 <td><p>stable</p></td>
 <td><p>changelog-section remove-section</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">section</span> <span class="pre">rename</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">changelog</span> <span class="pre">section</span> <span class="pre">rename</span></code></p></td>
 <td><p>external-write</p></td>
 <td><p>stable</p></td>
 <td><p>changelog-section rename-section</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">commands</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">commands</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">set</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">set</span></code></p></td>
 <td><p>read</p></td>
 <td><p>deprecated</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">show</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">show</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">validate</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">validate</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">add</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">apply</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">apply</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>entry add-many</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">delete</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">delete</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">import</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">import</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">lint</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">lint</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">list</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">list</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">prompt</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">prompt</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">set-status</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">set-status</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">show</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">show</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">update</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span> <span class="pre">update</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">evidence</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">evidence</span></code></p></td>
 <td><p>external-process</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">import</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">import</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">range</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">range</span></code></p></td>
 <td><p>external-process</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">scaffold</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">scaffold</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">help</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">help</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></td>
 <td><p>workspace-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span></code></p></td>
 <td><p>workspace-write</p></td>
 <td><p>stable</p></td>
 <td><p>storage migrate apply</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">cleanup</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">cleanup</span></code></p></td>
 <td><p>workspace-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>storage migrate plan</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">recover</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">recover</span></code></p></td>
 <td><p>workspace-write</p></td>
 <td><p>stable</p></td>
 <td><p>storage migrate recover</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>storage migrate, storage migrate status</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">cancel</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">cancel</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">chain</span> <span class="pre">check</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">chain</span> <span class="pre">check</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">chain</span> <span class="pre">repair</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">chain</span> <span class="pre">repair</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">check</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">check</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">create</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">create</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">finalize</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">finalize</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">import-tags</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">import-tags</span></code></p></td>
 <td><p>external-process</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">list</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">list</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">prepare</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">prepare</span></code></p></td>
 <td><p>external-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">reconcile</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">reconcile</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">review</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">review</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>review</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">set-status</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">set-status</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">show</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">show</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">tag</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">tag</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">update</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">update</span></code></p></td>
 <td><p>ledger-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">clear-override</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">clear-override</span></code></p></td>
 <td><p>workspace-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code></p></td>
 <td><p>workspace-write</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">validate</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">validate</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">where</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">where</span></code></p></td>
 <td><p>read</p></td>
 <td><p>stable</p></td>
 <td><p>—</p></td>

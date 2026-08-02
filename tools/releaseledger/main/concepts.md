@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "5aaed8d10b0bf4bd0117ad611567bf7b418d1768"
+docs_commit: "89a73f96616d418d2a87e661229090f6e5ba61f9"
 search_enabled: true
 ---
 
@@ -590,6 +590,10 @@ source boundary, source refs, and changelog file metadata.</p>
 previous-version inference and not built into public changelogs by default.
 Canceled releases may carry <code class="docutils literal notranslate"><span class="pre">cancel_reason</span></code> and <code class="docutils literal notranslate"><span class="pre">superseded_by</span></code> metadata
 and remain visible in <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">list</span></code> as an audit tombstone.</p>
+<p>Version correction is a domain operation across the release identity, bundle,
+entry ownership, predecessor links, audit sheet, changelog identity, and
+indexes. <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span> <span class="pre">--dry-run</span></code> previews those surfaces; changelog mutation
+remains explicit with <code class="docutils literal notranslate"><span class="pre">--rename-changelog-section</span></code>.</p>
 </section>
 <section id="entry">
 <h2>Entry</h2>
@@ -642,6 +646,32 @@ when requested, and the commit-subject summary guard.</p></li>
 </ul>
 <p>This concept keeps Git as the canonical source of shipped changes while making
 the human or agent review work durable and auditable.</p>
+<section id="coverage-and-audit-accounting">
+<h3>Coverage and audit accounting</h3>
+<p>Raw entry coverage records whether an entry directly carries a source ref. The
+release gate additionally accounts for the audit decision on Git commits:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">accepted</span></code> and <code class="docutils literal notranslate"><span class="pre">grouped</span></code> require an accepted public entry.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">internal</span></code> is satisfied by complete inspected audit evidence in public mode;
+with <code class="docutils literal notranslate"><span class="pre">--include-internal</span></code>, it requires an accepted internal entry.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rejected</span></code> is satisfied by complete inspected rejection evidence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">needs_review</span></code>, missing rows, and incomplete evidence are unresolved and block.</p></li>
+</ul>
+<p>This separation keeps internal commits from being attached to unrelated public
+notes merely to satisfy a counter. Coverage JSON retains the raw <code class="docutils literal notranslate"><span class="pre">status</span></code> and
+adds <code class="docutils literal notranslate"><span class="pre">audit_decision</span></code>, <code class="docutils literal notranslate"><span class="pre">coverage_requirement</span></code>, <code class="docutils literal notranslate"><span class="pre">gate_satisfied</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">accounted_as</span></code>.</p>
+</section>
+<section id="release-check-phases">
+<h3>Release-check phases</h3>
+<p><code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">check</span> <span class="pre">--phase</span> <span class="pre">current</span></code> evaluates persisted state with the compatible
+default behavior. <code class="docutils literal notranslate"><span class="pre">--phase</span> <span class="pre">finalize</span> <span class="pre">--released-at</span> <span class="pre">DATE</span></code> asks whether a planned,
+draft, or candidate release is ready to transition to released and does not
+require a tag. <code class="docutils literal notranslate"><span class="pre">--phase</span> <span class="pre">published</span></code> checks post-release consistency, including a
+release date, matching Git tag when Git is active, changelog presence, and clean
+reconciliation. Human output renders every gate included in the final result;
+JSON exposes stable <code class="docutils literal notranslate"><span class="pre">failed_checks</span></code> and actionable <code class="docutils literal notranslate"><span class="pre">next_actions</span></code>.</p>
+</section>
 </section>
 <section id="versioning">
 <h2>Versioning</h2>
