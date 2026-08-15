@@ -1,11 +1,11 @@
 ---
 layout: tool-doc
-title: "Taskledger architecture"
-permalink: /tools/taskledger/architecture_taskledger_split/
-nav_tool: taskledger
+title: "taskledger Release checklist"
+permalink: /tools/taskledger/main/release_checklist/
+nav_tool: taskledger-main
 docs_project: "taskledger"
-docs_variant: "release"
-docs_ref: "v0.6.1"
+docs_variant: "main"
+docs_ref: "main"
 docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
 search_enabled: true
 ---
@@ -540,75 +540,24 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="taskledger-architecture">
-<h1>Taskledger architecture</h1>
-<p><code class="docutils literal notranslate"><span class="pre">taskledger</span></code> is a task-first CLI and Python package for staged coding work.
-The canonical workflow is:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>task -&gt; plan -&gt; approval -&gt; implement -&gt; validate -&gt; done
+<section id="release-checklist">
+<h1>Release checklist</h1>
+<p>Build Taskledger from the intended release tag or commit in a clean
+environment. The artifact version must agree across package metadata, the
+imported module, and the CLI before publishing.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>build
+python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>check<span class="w"> </span>dist/*
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>dist/taskledger-0.6.1-*.whl
+taskledger<span class="w"> </span>--version
+python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import taskledger; print(taskledger.__version__)&#39;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from importlib.metadata import version; print(version(&quot;taskledger&quot;))&#39;</span>
 </pre></div>
 </div>
-<section id="owning-layers">
-<h2>Owning layers</h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/domain/</span></code> owns lifecycle enums, policies, record models, and the
-canonical <code class="docutils literal notranslate"><span class="pre">TASKLEDGER_STORAGE_LAYOUT_VERSION</span></code> constant.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/</span></code> owns persisted task bundles, locks, and the
-<code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index. Low-level atomic I/O, JSON I/O, YAML
-I/O, front matter parsing, and cross-ledger ref parsing are delegated to
-<code class="docutils literal notranslate"><span class="pre">ledgercore</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/</span></code> owns task lifecycle orchestration, including
-<code class="docutils literal notranslate"><span class="pre">plan_input.py</span></code>, <code class="docutils literal notranslate"><span class="pre">plan_lint.py</span></code>, <code class="docutils literal notranslate"><span class="pre">plan_review.py</span></code>, <code class="docutils literal notranslate"><span class="pre">planning_flow.py</span></code>,
-<code class="docutils literal notranslate"><span class="pre">implementation_flow.py</span></code>, <code class="docutils literal notranslate"><span class="pre">workspace_snapshot.py</span></code>, <code class="docutils literal notranslate"><span class="pre">validation_flow.py</span></code>,
-<code class="docutils literal notranslate"><span class="pre">handoff.py</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor.py</span></code>, and <code class="docutils literal notranslate"><span class="pre">navigation.py</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/api/*</span></code> exposes stable public wrappers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli*.py</span></code> wires Typer commands only.</p></li>
-</ul>
-</section>
-<section id="storage-model">
-<h2>Storage model</h2>
-<p>Markdown records are canonical. Task, plan, and run reads come from those
-records directly. The authoritative Taskledger data mount is
-<code class="docutils literal notranslate"><span class="pre">../ledger/taskledger/&lt;project-uuid&gt;</span></code> under the shared sibling base. The
-<code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index and other rebuildable indexes are
-checkout-scoped cache data. Action and event logging is enabled by default and
-appends immutable <code class="docutils literal notranslate"><span class="pre">TaskEvent</span></code> records to the ledger-level <code class="docutils literal notranslate"><span class="pre">events/</span></code>
-directory. Active stages require visible lock files, and stale locks are
-reported instead of being cleared silently.</p>
-</section>
-<section id="lifecycle-flow">
-<h2>Lifecycle flow</h2>
-<p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">start</span></code> opens planning. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">guidance</span></code> reports the active project
-planning profile. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">template</span></code> writes a fresh plan skeleton, and
-<code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">check</span> <span class="pre">--file</span> <span class="pre">plan.md</span></code> runs the preflight parser in
-<code class="docutils literal notranslate"><span class="pre">taskledger/services/plan_input.py</span></code> without mutating state. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">upsert</span></code>
-persists the plan; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">lint</span></code> surfaces blocking issues; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">review</span></code>
-produces the approval brief; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">accept</span> <span class="pre">--note</span> <span class="pre">&quot;...&quot;</span></code> records the
-user-only decision.</p>
-<p><code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">start</span></code> acquires a lock, starts a run, and captures a workspace
-snapshot through <code class="docutils literal notranslate"><span class="pre">taskledger/services/workspace_snapshot.py</span></code>. <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">start</span></code>
-blocks when the current workspace diverges; <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">snapshot</span> <span class="pre">refresh</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code> is the only sanctioned recovery path. Validation checks
-gate completion. Code-review records extend traceability as append-only
-evidence without creating a new lifecycle stage.</p>
-</section>
-<section id="command-surface">
-<h2>Command surface</h2>
-<p>The supported command groups are <code class="docutils literal notranslate"><span class="pre">task</span></code>, <code class="docutils literal notranslate"><span class="pre">plan</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span></code>,
-<code class="docutils literal notranslate"><span class="pre">validate</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">intro</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">link</span></code>, <code class="docutils literal notranslate"><span class="pre">require</span></code>, <code class="docutils literal notranslate"><span class="pre">release</span></code>, <code class="docutils literal notranslate"><span class="pre">lock</span></code>,
-<code class="docutils literal notranslate"><span class="pre">handoff</span></code>, <code class="docutils literal notranslate"><span class="pre">context</span></code>, <code class="docutils literal notranslate"><span class="pre">actor</span></code>, <code class="docutils literal notranslate"><span class="pre">harness</span></code>, <code class="docutils literal notranslate"><span class="pre">view</span></code>, <code class="docutils literal notranslate"><span class="pre">tree</span></code>, <code class="docutils literal notranslate"><span class="pre">next-action</span></code>,
-<code class="docutils literal notranslate"><span class="pre">can</span></code>, <code class="docutils literal notranslate"><span class="pre">search</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, <code class="docutils literal notranslate"><span class="pre">symbols</span></code>, <code class="docutils literal notranslate"><span class="pre">deps</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span></code>, <code class="docutils literal notranslate"><span class="pre">reindex</span></code>,
-<code class="docutils literal notranslate"><span class="pre">migrate</span></code>, <code class="docutils literal notranslate"><span class="pre">init</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">export</span></code>, <code class="docutils literal notranslate"><span class="pre">import</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span></code>,
-<code class="docutils literal notranslate"><span class="pre">sync</span></code>, <code class="docutils literal notranslate"><span class="pre">ledger</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>, <code class="docutils literal notranslate"><span class="pre">commands</span></code>, <code class="docutils literal notranslate"><span class="pre">review</span></code>, <code class="docutils literal notranslate"><span class="pre">monitor</span></code>, <code class="docutils literal notranslate"><span class="pre">usage</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">ref</span></code>. The authoritative source for the complete command surface and flags
-is <code class="docutils literal notranslate"><span class="pre">taskledger/command_inventory.py</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/command_contract.md</span></code>.</p>
-</section>
-<section id="architecture-records">
-<h2>Architecture records</h2>
-<p>Arc42 architecture records live under the Archledger direct sibling mount
-<code class="docutils literal notranslate"><span class="pre">../ledger/archledger/&lt;project-uuid&gt;/</span></code> and are the source of
-<code class="docutils literal notranslate"><span class="pre">ARCHITECTURE.md</span></code>. Skills (<code class="docutils literal notranslate"><span class="pre">skills/taskledger/SKILL.md</span></code>) and
-<code class="docutils literal notranslate"><span class="pre">docs/architecture_taskledger_split.md</span></code> live outside the Python package and
-outside the archledger build output.</p>
-</section>
+<p>The clean environment must contain Ledgercore 0.6.1, and all three version
+checks must report <code class="docutils literal notranslate"><span class="pre">0.6.1</span></code>. Confirm that the wheel contains <code class="docutils literal notranslate"><span class="pre">taskledger/py.typed</span></code>
+and required runtime package files. Run the full test, lint, type, Sphinx,
+Documentledger, and SpecMason gates before changing release metadata or
+publishing artifacts.</p>
 </section>
 </div>
 <script data-sphinxpress-script="search" defer>

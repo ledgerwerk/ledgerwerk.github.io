@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "94965d3bd7267421bb691aadc22ef167fb7b86a0"
+docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
 search_enabled: true
 ---
 
@@ -773,9 +773,10 @@ Taskledger does not provide changelog entry, changelog context, or
 <a class="reference internal" href="../changelog/"><span class="std std-doc">docs/changelog.md</span></a> build commands; those belong to the separate <code class="docutils literal notranslate"><span class="pre">releaseledger</span></code>
 tool. Load both skills when cross-ledger release notes need task context.</p>
 </section>
-<section id="ledger-commands">
-<h2>Ledger commands</h2>
-<p>Branch-scoped ledgers isolate ignored local task state by the checked-in
+<section id="legacy-branch-scoped-ledger-commands-migration-only">
+<h2>Legacy branch-scoped ledger commands (migration only)</h2>
+<p>In legacy projects without a canonical manifest, branch-scoped ledgers isolate
+ignored local task state by the checked-in
 <code class="docutils literal notranslate"><span class="pre">ledger_ref</span></code> stored in <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>ledger<span class="w"> </span>status
 taskledger<span class="w"> </span>ledger<span class="w"> </span>list
@@ -817,7 +818,7 @@ taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"
 <li><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">where</span></code> is read-only and reports the resolved workspace root,
 config path, <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code>, project identity, ledger ref, Git detection,
 and active lock count.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">move</span></code> updates <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> atomically after the target has
+<li><p>In legacy projects, <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">move</span></code> updates <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> atomically after the target has
 been copied or explicitly adopted.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">preflight</span></code> performs only local checks. It must not perform network
 push/pull operations.</p></li>

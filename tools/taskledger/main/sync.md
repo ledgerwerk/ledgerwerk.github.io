@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "94965d3bd7267421bb691aadc22ef167fb7b86a0"
+docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
 search_enabled: true
 ---
 
@@ -559,7 +559,8 @@ default mount is external storage at <code class="docutils literal notranslate">
 taskledger<span class="w"> </span>storage<span class="w"> </span>where
 taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>data
 taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>indexes
-taskledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>user-data<span class="w"> </span>--local<span class="w"> </span>--move
+taskledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>user-data<span class="w"> </span>--scope<span class="w"> </span><span class="nb">local</span>
+<span class="c1"># Use `taskledger migrate` for data relocation; `storage set` changes topology only.</span>
 </pre></div>
 </div>
 <p>The project UUID and Ledgercore binding keep shared projects isolated.</p>
@@ -583,7 +584,7 @@ git<span class="w"> </span>clone<span class="w"> </span>&lt;source-repo-url&gt;<
 git<span class="w"> </span>clone<span class="w"> </span>&lt;private-state-repo-url&gt;<span class="w"> </span>taskledger-state
 
 <span class="nb">cd</span><span class="w"> </span>project-a
-taskledger<span class="w"> </span>status<span class="w"> </span>--full
+taskledger<span class="w"> </span>info
 taskledger<span class="w"> </span>doctor
 taskledger<span class="w"> </span>task<span class="w"> </span>list
 </pre></div>

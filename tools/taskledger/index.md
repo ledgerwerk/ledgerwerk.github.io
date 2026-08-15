@@ -5,8 +5,8 @@ permalink: /tools/taskledger/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.0"
-docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
+docs_ref: "v0.6.1"
+docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
 search_enabled: true
 ---
 
@@ -553,7 +553,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#shell-completion">Shell completion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#initialize-state">Initialize state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#storage-migration-recovery">Storage migration recovery</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#branch-local-task-work">Branch-local task work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#legacy-branch-local-task-work-migration-only">Legacy branch-local task work (migration only)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#opaque-links-and-external-artifacts">Opaque links and external artifacts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#planning-guidance-profiles">Planning guidance profiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#optional-worker-pipelines">Optional worker pipelines</a></li>
@@ -639,7 +639,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#export-task-selection">Export task selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#positional-resource-refs">Positional Resource Refs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#release-commands">Release commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_contract/#ledger-commands">Ledger commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_contract/#legacy-branch-scoped-ledger-commands-migration-only">Legacy branch-scoped ledger commands (migration only)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#storage-and-sync-helper-commands">Storage and sync helper commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#config-commands">Config commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#next-action-result-contract"><code class="docutils literal notranslate"><span class="pre">next-action</span></code> result contract</a></li>
@@ -694,7 +694,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="documentation_freshness/#review-boundaries">Review boundaries</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-1-2026-08-14">[v0.6.1] - 2026-08-14</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-0-2026-07-28">[v0.6.0] - 2026-07-28</a></li>
 </ul>
 </li>

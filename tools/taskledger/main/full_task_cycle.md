@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "94965d3bd7267421bb691aadc22ef167fb7b86a0"
+docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
 search_enabled: true
 ---
 
@@ -555,7 +555,7 @@ is active, add <code class="docutils literal notranslate"><span class="pre">--ta
 <p>Run this once per workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>init
 taskledger<span class="w"> </span>doctor
-taskledger<span class="w"> </span>status<span class="w"> </span>--full
+taskledger<span class="w"> </span>info
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">init</span></code> writes a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> registration and
@@ -786,7 +786,7 @@ taskledger<span class="w"> </span>task<span class="w"> </span>close<span class="
 taskledger<span class="w"> </span>release<span class="w"> </span>tag<span class="w"> </span><span class="m">0</span>.4.2<span class="w"> </span>--at-task<span class="w"> </span>parser-fix<span class="w"> </span>--note<span class="w"> </span><span class="s2">&quot;0.4.2 released.&quot;</span>
 taskledger<span class="w"> </span>task<span class="w"> </span>show
 taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>parser-fix
-taskledger<span class="w"> </span>status<span class="w"> </span>--full
+taskledger<span class="w"> </span>info
 taskledger<span class="w"> </span>doctor
 </pre></div>
 </div>

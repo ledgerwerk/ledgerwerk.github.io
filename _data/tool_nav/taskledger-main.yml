@@ -5,16 +5,16 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 94965d3bd7267421bb691aadc22ef167fb7b86a0
+source_commit: 7491339c7fde9c5b1c1ae38e27394069e2fcf83a
 source_url: https://github.com/ledgerwerk/taskledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/taskledger
-release_tag: v0.6.0
-release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.0
+release_tag: v0.6.1
+release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.1
 versions:
 - name: release
   label: Latest release
-  ref: v0.6.0
+  ref: v0.6.1
   url: /tools/taskledger/
   current: false
 - name: main
@@ -59,6 +59,9 @@ entries:
 - slug: documentation_freshness
   title: taskledger Documentation freshness
   url: /tools/taskledger/main/documentation_freshness/
+- slug: release_checklist
+  title: taskledger Release checklist
+  url: /tools/taskledger/main/release_checklist/
 - slug: changelog
   title: taskledger Changelog
   url: /tools/taskledger/main/changelog/

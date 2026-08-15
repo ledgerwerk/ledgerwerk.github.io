@@ -5,8 +5,8 @@ permalink: /tools/taskledger/usage/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.0"
-docs_commit: "5911e83bc713afe533666157bcb2d6a8b246ad2d"
+docs_ref: "v0.6.1"
+docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
 search_enabled: true
 ---
 
@@ -601,8 +601,8 @@ registrations and the legacy source remain in place by default. Metadata-only ta
 are backed up and replaced atomically; authoritative split-brain targets are blocked.
 Do not create bindings or copy task directories manually.</p>
 </section>
-<section id="branch-local-task-work">
-<h2>Branch-local task work</h2>
+<section id="legacy-branch-local-task-work-migration-only">
+<h2>Legacy branch-local task work (migration only)</h2>
 <p>When creating a long-lived Git branch, fork the Taskledger ledger pointer so
 active task state, plans, todos, events, indexes, and releases stay isolated
 from the parent branch:</p>
@@ -648,10 +648,9 @@ taskledger<span class="w"> </span>validate<span class="w"> </span>check<span cla
 <h2>Planning guidance profiles</h2>
 <p>Taskledger always provides built-in planning guidance via <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">plan</span> <span class="pre">guidance</span></code>.
 Project-local advisory guidance can extend this with project-specific advice. Configure
-it in the active project config file discovered for your workspace. Newer
-projects usually use <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code>. Existing projects may still use
-<code class="docutils literal notranslate"><span class="pre">.taskledger.toml</span></code>; if both files exist, <code class="docutils literal notranslate"><span class="pre">.taskledger.toml</span></code> is discovered
-first.</p>
+it in <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code> for canonical projects. Legacy
+<code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">.taskledger.toml</span></code> files remain readable only during
+explicit migration.</p>
 <p>Configure <code class="docutils literal notranslate"><span class="pre">[prompt_profiles.planning]</span></code> in that active config:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[prompt_profiles.planning]</span>
 <span class="n">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;strict&quot;</span>
@@ -717,7 +716,8 @@ harness instructions.</p>
 </section>
 <section id="optional-worker-pipelines">
 <h2>Optional worker pipelines</h2>
-<p>Projects may optionally configure worker pipelines in <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> to
+<p>Projects may optionally configure worker pipelines in
+<code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code> to
 guide fresh-context handoffs without changing the underlying task lifecycle.
 Worker pipelines are advisory overlays on the existing planning,
 implementation, and validation lifecycle. They can be three steps, four steps,
@@ -993,7 +993,7 @@ record files from the taskledger bundle, and optional source-file snapshots.
 Use it when handing a completed task to an LLM or coding agent for review,
 documentation updates, or follow-up implementation work.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>task<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0030<span class="w"> </span>-o<span class="w"> </span>task-0030.llm.md
-taskledger<span class="w"> </span>task<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0030<span class="w"> </span>--no-source-files<span class="w"> </span>-o<span class="w"> </span>task-0030.records.md
+taskledger<span class="w"> </span>task<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0030<span class="w"> </span>-o<span class="w"> </span>task-0030.records.md
 taskledger<span class="w"> </span>task<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0030<span class="w"> </span>--source-file<span class="w"> </span>README.md<span class="w"> </span>-o<span class="w"> </span>task-0030.llm.md
 taskledger<span class="w"> </span>--json<span class="w"> </span>task<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0030<span class="w"> </span>-o<span class="w"> </span>task-0030.llm.md
 </pre></div>
@@ -1064,7 +1064,7 @@ taskledger<span class="w"> </span>implement<span class="w"> </span><span class="
 taskledger<span class="w"> </span>implement<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--allow-failure<span class="w"> </span>--<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;raise SystemExit(7)&quot;</span>
 </pre></div>
 </div>
-<p>When <code class="docutils literal notranslate"><span class="pre">[agent_logging].enabled</span> <span class="pre">=</span> <span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span></code>
+<p>When <code class="docutils literal notranslate"><span class="pre">[agent_logging].enabled</span> <span class="pre">=</span> <span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span></code>
 records CLI invocations and managed command outputs. Keep logging opt-in because
 stdout/stderr may contain sensitive data. Route task-relevant commands through
 <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">command</span></code> so their output is included in task
@@ -1109,7 +1109,7 @@ taskledger<span class="w"> </span>implement<span class="w"> </span>restart<span 
 </section>
 <section id="machine-readable-output">
 <h2>Machine-readable output</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>status<span class="w"> </span>--full
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>info
 taskledger<span class="w"> </span>--json<span class="w"> </span>task<span class="w"> </span>active
 taskledger<span class="w"> </span>--json<span class="w"> </span>task<span class="w"> </span>show
 taskledger<span class="w"> </span>--json<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>task-0001
@@ -1121,11 +1121,11 @@ taskledger<span class="w"> </span>--json<span class="w"> </span>review<span clas
 <span class="w">  </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;taskledger_status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;taskledger_info&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;workspace_root&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/workspace&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;config_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/workspace/taskledger.toml&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;taskledger_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/workspace/.taskledger&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;project_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/workspace/.taskledger&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;config_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/workspace/.ledger/taskledger/config.toml&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;taskledger_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/workspace/.ledger/taskledger&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;project_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/workspace/.ledger/taskledger&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;counts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;introductions&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
@@ -1150,7 +1150,8 @@ taskledger<span class="w"> </span>--json<span class="w"> </span>review<span clas
 taskledger<span class="w"> </span>storage<span class="w"> </span>where
 taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>data
 taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>indexes
-taskledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>user-data<span class="w"> </span>--local<span class="w"> </span>--move
+taskledger<span class="w"> </span>storage<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>user-data<span class="w"> </span>--scope<span class="w"> </span><span class="nb">local</span>
+<span class="c1"># Use `taskledger migrate` for data relocation; `storage set` changes topology only.</span>
 </pre></div>
 </div>
 <p>Default data is external at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; indexes are checkout-specific cache data.</p>
@@ -1197,7 +1198,7 @@ inside the resolved workspace root. Filenames are project-specific:</p>
 taskledger-task-{project_slug}-{ledger_ref}-{task_id}-{timestamp}.tar.gz
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">project_slug</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">project_name</span></code> in <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code>.
+<p><code class="docutils literal notranslate"><span class="pre">project_slug</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">project_name</span></code> in <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>.
 If unset, taskledger falls back to the workspace directory name.
 UUID safety checks still use <code class="docutils literal notranslate"><span class="pre">project_uuid</span></code> only.</p>
 <p>Export include flags are content-affecting:</p>

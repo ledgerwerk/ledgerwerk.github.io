@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "94965d3bd7267421bb691aadc22ef167fb7b86a0"
+docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
 search_enabled: true
 ---
 
@@ -664,7 +664,12 @@ to the trace service.</p></li>
 <section id="catch-all-exception-whitelist-except-exception">
 <h2>Catch-all exception whitelist (<code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">Exception</span></code>)</h2>
 <p>Current allowed sites are listed with reasons in
-<code class="docutils literal notranslate"><span class="pre">tests/test_service_boundaries.py</span></code> under <code class="docutils literal notranslate"><span class="pre">EXCEPT_EXCEPTION_WHITELIST</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">tests/test_service_boundaries.py</span></code> under <code class="docutils literal notranslate"><span class="pre">EXCEPT_EXCEPTION_WHITELIST</span></code>. Each
+catch-all key uses the stable form
+<code class="docutils literal notranslate"><span class="pre">path::qualified_function:except-N</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the ordinal of the
+catch-all handler within that function. It intentionally does not use source
+line numbers, so unrelated edits above an approved handler do not create
+policy churn.</p>
 <p>The reviewed resilience sites include storage validation, migration command
 and hook handling, and project-config parsing boundaries listed in the test
 constants.</p>
@@ -673,6 +678,8 @@ constants.</p>
 <li><p>Allow catch-all handling only in doctor/repair and resilience wrappers.</p></li>
 <li><p>Block new catch-all sites unless explicitly reviewed and justified.</p></li>
 <li><p>Require whitelist edits to be intentional and reasoned.</p></li>
+<li><p>Fail when a new handler is added, an approved handler disappears, or a
+function gains another catch-all handler.</p></li>
 </ul>
 </section>
 </section>
