@@ -77,7 +77,7 @@ permalink: /tools/
       <h3>memoryledger</h3>
       <div class="card-links">
         <a href="/tools/memoryledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/memoryledger/releases/tag/v0.3.0" rel="external noopener">Latest release: v0.3.0 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/memoryledger/releases/tag/v0.2.1" rel="external noopener">Latest release: v0.2.1 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/memoryledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>

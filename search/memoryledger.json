@@ -145,6 +145,18 @@
         },
         {
           "anchor": "",
+          "heading": "Changed",
+          "text": "Added Sphinx documentation site with API references, guides, CLI reference generation, and concepts sections\n\n\nChanged storage layout migration to use Ledgercore schema-3 with journaling, recovery, and UUID adoption\n\n\nChanged CLI to propagate workspace root through all commands and added structured JSON output with help text\n\n\nAdded tests for documentation structure, CLI reference generation, migration safety, and storage layout migration",
+          "lower": "added sphinx documentation site with api references, guides, cli reference generation, and concepts sections\n\n\nchanged storage layout migration to use ledgercore schema-3 with journaling, recovery, and uuid adoption\n\n\nchanged cli to propagate workspace root through all commands and added structured json output with help text\n\n\nadded tests for documentation structure, cli reference generation, migration safety, and storage layout migration"
+        },
+        {
+          "anchor": "",
+          "heading": "Fixed",
+          "text": "Fixed storage format handling in v2 migration and result path resolution\n\n\nAdded missing dependency and fixed pre-commit configuration",
+          "lower": "fixed storage format handling in v2 migration and result path resolution\n\n\nadded missing dependency and fixed pre-commit configuration"
+        },
+        {
+          "anchor": "",
           "heading": "Added",
           "text": "Configuration discovery module with project-level and user-level config resolution\n\n\nLegacy compatibility layer for backward-compatible storage format handling\n\n\nMigration framework with storage v2 and linked docs directory migration support\n\n\nProject locator and models modules for structured project metadata\n\n\nCommand catalog and command results modules for CLI command registry",
           "lower": "configuration discovery module with project-level and user-level config resolution\n\n\nlegacy compatibility layer for backward-compatible storage format handling\n\n\nmigration framework with storage v2 and linked docs directory migration support\n\n\nproject locator and models modules for structured project metadata\n\n\ncommand catalog and command results modules for cli command registry"
