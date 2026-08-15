@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a38403e0ec633bd37883fe7318b45b9fe2634863"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -572,7 +572,7 @@ that maps migration names to their implementations.</p>
 <dd class="field-even"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:rtype: :sphinx_autodoc_typehints_type:`\:py\:class\:\`\~collections.abc.Mapping\`\\ \\\[\:py\:class\:\`str\`\, \:py\:class\:\`object\`\]`
 </pre></div>
 </div>
-<p>.. py:method:: MigrationHandler.plan(root, *, output=None)
+<p>.. py:method:: MigrationHandler.plan(root, *, output=None, adopt_project_uuid=False)
 :module: memoryledger.migrations</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Generate a read-only migration plan.
 
@@ -580,11 +580,13 @@ that maps migration names to their implementations.</p>
 :param root:
 :type output: :sphinx_autodoc_typehints_type:`\:py\:class\:\`\~pathlib.Path\` \| \:py\:obj\:\`None\``
 :param output:
+:type adopt_project_uuid: :sphinx_autodoc_typehints_type:`\:py\:class\:\`bool\``
+:param adopt_project_uuid:
 
 :rtype: :sphinx_autodoc_typehints_type:`\:py\:class\:\`\~collections.abc.Mapping\`\\ \\\[\:py\:class\:\`str\`\, \:py\:class\:\`object\`\]`
 </pre></div>
 </div>
-<p>.. py:method:: MigrationHandler.apply(root, *, plan_file=None, dry_run=False)
+<p>.. py:method:: MigrationHandler.apply(root, *, plan_file=None, dry_run=False, adopt_project_uuid=False)
 :module: memoryledger.migrations</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Apply a migration plan.
 
@@ -594,11 +596,13 @@ that maps migration names to their implementations.</p>
 :param plan_file:
 :type dry_run: :sphinx_autodoc_typehints_type:`\:py\:class\:\`bool\``
 :param dry_run:
+:type adopt_project_uuid: :sphinx_autodoc_typehints_type:`\:py\:class\:\`bool\``
+:param adopt_project_uuid:
 
 :rtype: :sphinx_autodoc_typehints_type:`\:py\:class\:\`\~collections.abc.Mapping\`\\ \\\[\:py\:class\:\`str\`\, \:py\:class\:\`object\`\]`
 </pre></div>
 </div>
-<p>.. py:method:: MigrationHandler.recover(root, *, journal, policy=’auto’)
+<p>.. py:method:: MigrationHandler.recover(root, *, journal, policy=’auto’, dry_run=False)
 :module: memoryledger.migrations</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Recover from a migration journal.
 
@@ -608,6 +612,8 @@ that maps migration names to their implementations.</p>
 :param journal:
 :type policy: :sphinx_autodoc_typehints_type:`\:py\:class\:\`str\``
 :param policy:
+:type dry_run: :sphinx_autodoc_typehints_type:`\:py\:class\:\`bool\``
+:param dry_run:
 
 :rtype: :sphinx_autodoc_typehints_type:`\:py\:class\:\`\~collections.abc.Mapping\`\\ \\\[\:py\:class\:\`str\`\, \:py\:class\:\`object\`\]`
 </pre></div>
@@ -944,25 +950,6 @@ that maps migration names to their implementations.</p>
 </dd>
 <dt class="field-even">returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Validated plan dictionary</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p>.. py:module:: memoryledger.migrations.registry</p>
-<p>Migration registry setup.</p>
-<p>Register all migration handlers with the global registry.</p>
-<p>.. py:function:: register_all_migrations()</p>
-<dl class="myst field-list">
-<dt class="field-odd">module<span class="colon">:</span></dt>
-<dd class="field-odd"><p>memoryledger.migrations.registry</p>
-<p>Register all migration handlers.</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">rtype<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="myst field-list simple">
-<dt class="field-odd">sphinx_autodoc_typehints_type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">\:py\:obj\:\</span></code>None``</p>
-</dd>
-</dl>
 </dd>
 </dl>
 </dd>

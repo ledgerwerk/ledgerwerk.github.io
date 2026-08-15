@@ -4,17 +4,17 @@ nav_key: memoryledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.2.0
-source_commit: 2bc29620f6cd345dff59455d44300125e864d5ad
-source_url: https://github.com/ledgerwerk/memoryledger/releases/tag/v0.2.0
+source_ref: v0.3.0
+source_commit: 9615ada80b8d0d56367e2c2b0b8780455940f818
+source_url: https://github.com/ledgerwerk/memoryledger/releases/tag/v0.3.0
 is_default: true
 repo_url: https://github.com/ledgerwerk/memoryledger
-release_tag: v0.2.0
-release_url: https://github.com/ledgerwerk/memoryledger/releases/tag/v0.2.0
+release_tag: v0.3.0
+release_url: https://github.com/ledgerwerk/memoryledger/releases/tag/v0.3.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.2.0
+  ref: v0.3.0
   url: /tools/memoryledger/
   current: true
 - name: main
@@ -24,11 +24,126 @@ versions:
   current: false
 entries:
 - slug: index
-  title: "Welcome to memoryledger\u2019s documentation!"
+  title: Memoryledger
   url: /tools/memoryledger/
-- slug: changelog
-  title: memoryledger Changelog
-  url: /tools/memoryledger/changelog/
-- slug: api/memoryledger
-  title: memoryledger package
-  url: /tools/memoryledger/api/memoryledger/
+- slug: getting-started/installation
+  title: memoryledger Installation
+  url: /tools/memoryledger/getting-started/installation/
+- slug: getting-started/quickstart
+  title: memoryledger Quickstart
+  url: /tools/memoryledger/getting-started/quickstart/
+- slug: getting-started/first-project
+  title: memoryledger First project
+  url: /tools/memoryledger/getting-started/first-project/
+- slug: concepts/memory-model
+  title: memoryledger Memory model
+  url: /tools/memoryledger/concepts/memory-model/
+- slug: concepts/lifecycle
+  title: memoryledger Lifecycle
+  url: /tools/memoryledger/concepts/lifecycle/
+- slug: concepts/evidence
+  title: memoryledger Evidence
+  url: /tools/memoryledger/concepts/evidence/
+- slug: concepts/rendering
+  title: memoryledger Rendering
+  url: /tools/memoryledger/concepts/rendering/
+- slug: concepts/storage-model
+  title: memoryledger Storage model
+  url: /tools/memoryledger/concepts/storage-model/
+- slug: guides/memory-workflow
+  title: memoryledger Memory workflow
+  url: /tools/memoryledger/guides/memory-workflow/
+- slug: guides/agents-md
+  title: memoryledger Managing <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code>
+  url: /tools/memoryledger/guides/agents-md/
+- slug: guides/adopt-existing-agents
+  title: memoryledger Adopt existing <code class="docutils literal notranslate"><span
+    class="pre">AGENTS.md</span></code>
+  url: /tools/memoryledger/guides/adopt-existing-agents/
+- slug: guides/nested-agents
+  title: memoryledger Nested <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code>
+  url: /tools/memoryledger/guides/nested-agents/
+- slug: guides/linked-documents
+  title: memoryledger Linked documents
+  url: /tools/memoryledger/guides/linked-documents/
+- slug: guides/templates
+  title: memoryledger Templates
+  url: /tools/memoryledger/guides/templates/
+- slug: guides/evidence-scan
+  title: memoryledger Evidence scanning
+  url: /tools/memoryledger/guides/evidence-scan/
+- slug: guides/importing-memory
+  title: memoryledger Importing memory
+  url: /tools/memoryledger/guides/importing-memory/
+- slug: guides/migrations
+  title: memoryledger Migrations
+  url: /tools/memoryledger/guides/migrations/
+- slug: guides/json-automation
+  title: memoryledger JSON automation
+  url: /tools/memoryledger/guides/json-automation/
+- slug: guides/troubleshooting
+  title: memoryledger Troubleshooting
+  url: /tools/memoryledger/guides/troubleshooting/
+- slug: reference/cli
+  title: memoryledger CLI reference
+  url: /tools/memoryledger/reference/cli/
+- slug: reference/configuration
+  title: memoryledger Configuration
+  url: /tools/memoryledger/reference/configuration/
+- slug: reference/schemas
+  title: memoryledger Schemas and values
+  url: /tools/memoryledger/reference/schemas/
+- slug: reference/file-formats
+  title: memoryledger File formats
+  url: /tools/memoryledger/reference/file-formats/
+- slug: reference/storage-layout
+  title: memoryledger Storage layout
+  url: /tools/memoryledger/reference/storage-layout/
+- slug: reference/errors-and-exit-codes
+  title: memoryledger Errors and exit codes
+  url: /tools/memoryledger/reference/errors-and-exit-codes/
+- slug: reference/deprecations
+  title: memoryledger Deprecations
+  url: /tools/memoryledger/reference/deprecations/
+- slug: reference/compatibility
+  title: memoryledger Compatibility
+  url: /tools/memoryledger/reference/compatibility/
+- slug: api/models
+  title: memoryledger Models API
+  url: /tools/memoryledger/api/models/
+- slug: api/configuration
+  title: memoryledger Configuration API
+  url: /tools/memoryledger/api/configuration/
+- slug: api/project
+  title: memoryledger Project API
+  url: /tools/memoryledger/api/project/
+- slug: api/storage
+  title: memoryledger Storage API
+  url: /tools/memoryledger/api/storage/
+- slug: api/rendering
+  title: memoryledger Rendering API
+  url: /tools/memoryledger/api/rendering/
+- slug: api/workflows
+  title: memoryledger Workflow APIs
+  url: /tools/memoryledger/api/workflows/
+- slug: api/migrations
+  title: memoryledger Migration APIs
+  url: /tools/memoryledger/api/migrations/
+- slug: api/cli-contracts
+  title: memoryledger CLI contract APIs
+  url: /tools/memoryledger/api/cli-contracts/
+- slug: api/internals
+  title: memoryledger Internal modules
+  url: /tools/memoryledger/api/internals/
+- slug: development/contributing
+  title: memoryledger Contributing
+  url: /tools/memoryledger/development/contributing/
+- slug: development/testing
+  title: memoryledger Testing
+  url: /tools/memoryledger/development/testing/
+- slug: development/documentation
+  title: memoryledger Documentation maintenance
+  url: /tools/memoryledger/development/documentation/
+- slug: development/release
+  title: memoryledger Release documentation gates
+  url: /tools/memoryledger/development/release/

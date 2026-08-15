@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a38403e0ec633bd37883fe7318b45b9fe2634863"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -601,6 +601,9 @@ aliases remain for compatibility and are hidden from normal help:</p>
 </tr>
 </tbody>
 </table>
+<p>Command-local <code class="docutils literal notranslate"><span class="pre">--json</span></code> options are deprecated compatibility aliases. Use the
+global form, <code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">--json</span> <span class="pre">&lt;command&gt;</span></code>, which always emits the
+<code class="docutils literal notranslate"><span class="pre">ledgerwerk.cli.v1</span></code> envelope.</p>
 <p>Release records are the source for deprecation release dates; no removal date is
 promised here.</p>
 </section>

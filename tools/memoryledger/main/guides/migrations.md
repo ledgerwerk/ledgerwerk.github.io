@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a38403e0ec633bd37883fe7318b45b9fe2634863"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -546,12 +546,15 @@ html[data-theme="dark"] .sphinxpress-doc {
 destination, writes a deterministic plan and fingerprints, copies first,
 activates last, and records a journal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>migrate<span class="w"> </span>status
-memoryledger<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>storage-layout
-memoryledger<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>storage-layout<span class="w"> </span>--dry-run
-memoryledger<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>storage-layout<span class="w"> </span>--plan-file<span class="w"> </span>&lt;path&gt;
-memoryledger<span class="w"> </span>migrate<span class="w"> </span>recover<span class="w"> </span>storage-layout<span class="w"> </span>--journal<span class="w"> </span>&lt;path&gt;
-memoryledger<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--dry-run
-memoryledger<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--yes
+memoryledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>plan<span class="w"> </span>storage-layout<span class="w"> </span>--adopt-project-uuid<span class="w"> </span>--output<span class="w"> </span>.ledger/migrations/storage-layout.json
+memoryledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>apply<span class="w"> </span>storage-layout<span class="w"> </span>--plan-file<span class="w"> </span>.ledger/migrations/storage-layout.json<span class="w"> </span>--adopt-project-uuid
+memoryledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>recover<span class="w"> </span>storage-layout<span class="w"> </span>--journal<span class="w"> </span>&lt;path&gt;<span class="w"> </span>--policy<span class="w"> </span>auto
+memoryledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--dry-run
+memoryledger<span class="w"> </span>--json<span class="w"> </span>migrate<span class="w"> </span>cleanup<span class="w"> </span>storage-layout<span class="w"> </span>--yes
+
+For<span class="w"> </span>storage-v2<span class="w"> </span>and<span class="w"> </span>linked-docs-dir,<span class="w"> </span>apply<span class="w"> </span>the<span class="w"> </span>exact<span class="w"> </span>reviewed<span class="w"> </span>plan<span class="w"> </span>file.<span class="w"> </span>Storage-v2
+creates<span class="w"> </span>mandatory<span class="w"> </span>legacy<span class="w"> </span>backups<span class="w"> </span>automatically<span class="p">;</span><span class="w"> </span>canonical<span class="w"> </span><span class="sb">`</span>migrate<span class="w"> </span>apply<span class="sb">`</span><span class="w"> </span>has<span class="w"> </span>no
+<span class="sb">`</span>--backup<span class="sb">`</span><span class="w"> </span>option.
 </pre></div>
 </div>
 <p>Supported migration names include <code class="docutils literal notranslate"><span class="pre">storage-layout</span></code>, <code class="docutils literal notranslate"><span class="pre">storage-v2</span></code>, and

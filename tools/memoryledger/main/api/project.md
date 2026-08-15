@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a38403e0ec633bd37883fe7318b45b9fe2634863"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -646,7 +646,7 @@ resolution is confined by the project and Ledgercore bindings.</p>
 </dl>
 </dd>
 </dl>
-<p>.. py:function:: init_canonical_workspace(project_name=None)</p>
+<p>.. py:function:: init_canonical_workspace(project_name=None, root=None)</p>
 <dl class="myst field-list">
 <dt class="field-odd">module<span class="colon">:</span></dt>
 <dd class="field-odd"><p>memoryledger.project</p>
@@ -661,10 +661,19 @@ resolution is confined by the project and Ledgercore bindings.</p>
 </dd>
 <dt class="field-even">param project_name<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="myst field-list simple">
+<dt class="field-odd">type root<span class="colon">:</span></dt>
+<dd class="field-odd"><p>:sphinx_autodoc_typehints_type:<code class="docutils literal notranslate"><span class="pre">\:py\:class\:\</span></code>~pathlib.Path` | :py:obj:`None``</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">param root<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="myst field-list simple">
 <dt class="field-odd">rtype<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="myst field-list simple">
 <dt class="field-odd">sphinx_autodoc_typehints_type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">\:py\:class\:\</span></code>~memoryledger.models.Workspace``</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd>

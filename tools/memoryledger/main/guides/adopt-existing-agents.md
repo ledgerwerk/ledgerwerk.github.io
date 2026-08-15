@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a38403e0ec633bd37883fe7318b45b9fe2634863"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -544,13 +544,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>Adopt existing <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code></h1>
 <p>Adoption is a preview-first migration that preserves the source and extracts
 candidate memories:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>agents<span class="w"> </span>adopt<span class="w"> </span>AGENTS.md<span class="w"> </span>--json
-memoryledger<span class="w"> </span>agents<span class="w"> </span>adopt<span class="w"> </span>AGENTS.md<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>--json<span class="w"> </span>agents<span class="w"> </span>adopt<span class="w"> </span>AGENTS.md
+memoryledger<span class="w"> </span>--json<span class="w"> </span>agents<span class="w"> </span>adopt<span class="w"> </span>AGENTS.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--apply<span class="w"> </span>--backup<span class="w"> </span>--accept<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;User approved migration.&quot;</span>
-memoryledger<span class="w"> </span>agents<span class="w"> </span>verify-adoption<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--source<span class="w"> </span>AGENTS.md.memoryledger-adopt-1.bak
-memoryledger<span class="w"> </span>finalize<span class="w"> </span>--accept-all<span class="w"> </span><span class="se">\</span>
+memoryledger<span class="w"> </span>--json<span class="w"> </span>agents<span class="w"> </span>verify-adoption<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source<span class="w"> </span><span class="s2">&quot;&lt;exact result.backup path from apply&gt;&quot;</span>
+memoryledger<span class="w"> </span>--json<span class="w"> </span>finalize<span class="w"> </span>--accept-all<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;User approved migration.&quot;</span><span class="w"> </span>--export
 </pre></div>
 </div>

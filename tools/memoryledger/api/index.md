@@ -1,12 +1,12 @@
 ---
 layout: tool-doc
-title: "memoryledger API Reference"
+title: "memoryledger Python API"
 permalink: /tools/memoryledger/api/
 nav_tool: memoryledger
 docs_project: "memoryledger"
 docs_variant: "release"
-docs_ref: "v0.2.0"
-docs_commit: "2bc29620f6cd345dff59455d44300125e864d5ad"
+docs_ref: "v0.3.0"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -540,19 +540,22 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="api-reference">
-<h1>API Reference</h1>
+<section id="python-api">
+<h1>Python API</h1>
+<p>The CLI is Memoryledger’s primary stable interface. The pages below document
+supported or intentionally semi-public Python modules; implementation modules
+are labeled as internal and may change without a CLI compatibility promise.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="memoryledger/">memoryledger package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="memoryledger/#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memoryledger/#memoryledger-cli-module">memoryledger.cli module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memoryledger/#module-memoryledger.config">memoryledger.config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memoryledger/#module-memoryledger.errors">memoryledger.errors module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memoryledger/#module-memoryledger.models">memoryledger.models module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memoryledger/#module-memoryledger.storage">memoryledger.storage module</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="models/">Models API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration/">Configuration API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project/">Project API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage/">Storage API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering/">Rendering API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows/">Workflow APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations/">Migration APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli-contracts/">CLI contract APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/">Internal modules</a></li>
 </ul>
 </div>
 </section>

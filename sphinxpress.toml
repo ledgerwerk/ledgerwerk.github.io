@@ -5,6 +5,7 @@ tools_dir = "tools"
 nav_data_dir = "_data/tool_nav"
 layout = "tool-doc"
 title = "ledgerwerk Tool Docs"
+
 [site.versioning]
 enabled = true
 default = "release"
@@ -36,32 +37,41 @@ python = "python3"
 path = ".sphinxpress/venv"
 upgrade_pip = true
 packages = [
-  "sphinx>=7",
-  "myst-parser",
-  "sphinx-rtd-theme",
-  "pydantic>=2",
-  "tomli-w",
-  "typer>=0.12",
-  "PyYAML>=6",
-  "rich",
-  "beautifulsoup4",
-  "archledger",
-  "taskledger",
-  "releaseledger",
-  "ledgercore",
-  "documentledger",
-  "memoryledger",
-  "repairledger",
-  "wikimason",
-  "platformdirs",
-  "sphinxpress",
+    "sphinx>=7",
+    "myst-parser",
+    "sphinx-rtd-theme",
+    "pydantic>=2",
+    "tomli-w",
+    "typer>=0.12",
+    "PyYAML>=6",
+    "rich",
+    "beautifulsoup4",
+    "archledger",
+    "taskledger",
+    "releaseledger",
+    "ledgercore",
+    "documentledger",
+    "memoryledger",
+    "repairledger",
+    "wikimason",
+    "platformdirs",
+    "sphinxpress",
 ]
 
 [book]
 title = "ledgerwerk Tool Documentation"
 author = "ledgerwerk"
 language = "en"
-project_order = ["releaseledger", "taskledger", "archledger", "ledgercore", "documentledger", "memoryledger", "repairledger", "wikimason"]
+project_order = [
+    "releaseledger",
+    "taskledger",
+    "archledger",
+    "ledgercore",
+    "documentledger",
+    "memoryledger",
+    "repairledger",
+    "wikimason",
+]
 
 [pdf]
 builder = "latexpdf"
@@ -83,8 +93,13 @@ conf_dir = "../releaseledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/releaseledger"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"
 
 [[projects]]
 name = "taskledger"
@@ -94,8 +109,13 @@ conf_dir = "../taskledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/taskledger"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"
 
 [[projects]]
 name = "archledger"
@@ -105,8 +125,13 @@ conf_dir = "../archledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/archledger"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"
 
 [[projects]]
 name = "ledgercore"
@@ -116,8 +141,13 @@ conf_dir = "../ledgercore/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/ledgercore"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"
 
 [[projects]]
 name = "documentledger"
@@ -127,8 +157,13 @@ conf_dir = "../documentledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/documentledger"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"
 
 [[projects]]
 name = "memoryledger"
@@ -138,8 +173,14 @@ conf_dir = "../memoryledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/memoryledger"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+release_tag = "v0.3.0"
+
+[projects.version_refs]
+main = "main"
 
 [[projects]]
 name = "repairledger"
@@ -149,8 +190,13 @@ conf_dir = "../repairledger/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/repairledger"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"
 
 [[projects]]
 name = "wikimason"
@@ -160,5 +206,10 @@ conf_dir = "../wikimason/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/wikimason"
 release_strategy = "git_tag"
-site_variants = ["release", "main"]
-version_refs = { main = "main" }
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"

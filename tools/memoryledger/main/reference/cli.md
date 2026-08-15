@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a38403e0ec633bd37883fe7318b45b9fe2634863"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -571,7 +571,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">--backup</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--accept</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code>; default ``</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>agents<span class="w"> </span>adopt
@@ -595,7 +594,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">agents</span> <span class="pre">plan</span></code></p>
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
+<li><p>None.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>agents<span class="w"> </span>plan
@@ -620,7 +619,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--source</span></code> — option; required; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>agents<span class="w"> </span>verify-adoption
@@ -699,7 +697,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--apply-candidates</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>evidence<span class="w"> </span>scan
@@ -726,7 +723,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">import</span> <span class="pre">current-run</span></code></p>
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
+<li><p>None.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>import<span class="w"> </span>current-run
@@ -751,7 +748,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--file</span></code> — option; required; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>import<span class="w"> </span>run-html
@@ -778,7 +774,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">--text</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--file</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--stdin</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>import<span class="w"> </span>text
@@ -899,7 +894,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">--excerpt</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code>; default ``</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--line-start</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">integer</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--line-end</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">integer</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>memory<span class="w"> </span>evidence<span class="w"> </span>add
@@ -924,7 +918,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">memory_id</span></code> — argument; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>memory<span class="w"> </span>evidence<span class="w"> </span>list
@@ -950,7 +943,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--kind</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--status</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>memory<span class="w"> </span>list
@@ -1002,7 +994,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">memory_id</span></code> — argument; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--content,</span> <span class="pre">--no-content</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>memory<span class="w"> </span>show
@@ -1056,7 +1047,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">memory_id</span></code> — argument; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>memory<span class="w"> </span>validate
@@ -1086,6 +1076,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">migration</span></code> — argument; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--plan-file</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--adopt-project-uuid</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>migrate<span class="w"> </span>apply
@@ -1137,6 +1128,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">migration</span></code> — argument; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--output,</span> <span class="pre">-o</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--adopt-project-uuid</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>migrate<span class="w"> </span>plan
@@ -1162,6 +1154,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--journal</span></code> — option; required; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--policy</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code>; default <code class="docutils literal notranslate"><span class="pre">auto</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">migration</span></code> — argument; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 </ul>
 <p><strong>Example</strong></p>
@@ -1237,7 +1230,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">doctor</span></code></p>
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
+<li><p>None.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>doctor
@@ -1287,7 +1280,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--paths-only,</span> <span class="pre">--no-paths-only</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--no-content,</span> <span class="pre">--no-no-content</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>info
@@ -1312,8 +1304,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--project-name</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--memoryledger-dir</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code>; default <code class="docutils literal notranslate"><span class="pre">.memoryledger</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--hidden-config,</span> <span class="pre">--no-hidden-config</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>init
@@ -1362,7 +1352,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--check,</span> <span class="pre">--no-check</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>status
@@ -1414,7 +1403,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--out</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--backup,</span> <span class="pre">--no-backup</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--include-nested,</span> <span class="pre">--no-include-nested</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
@@ -1444,7 +1432,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code>; default ``</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--render,</span> <span class="pre">--no-render</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag; default <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--export,</span> <span class="pre">--no-export</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--backup,</span> <span class="pre">--no-backup</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--include-nested,</span> <span class="pre">--no-include-nested</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--out</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
@@ -1501,7 +1488,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">memory_id</span></code> — argument; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--all</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> — option; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>review<span class="w"> </span>accept
@@ -1525,7 +1511,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">review</span> <span class="pre">list</span></code></p>
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
+<li><p>None.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>review<span class="w"> </span>list
@@ -1552,7 +1538,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">memory_id</span></code> — argument; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--all</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> — option; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>review<span class="w"> </span>reject
@@ -1627,7 +1612,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">schema</span> <span class="pre">values</span></code></p>
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
+<li><p>None.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>schema<span class="w"> </span>values
@@ -1759,7 +1744,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">template_id</span></code> — argument; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--accept</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code>; default ``</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>template<span class="w"> </span>apply
@@ -1783,7 +1767,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">template</span> <span class="pre">list</span></code></p>
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
+<li><p>None.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>template<span class="w"> </span>list
@@ -1809,7 +1793,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">template_id</span></code> — argument; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> — option; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>template<span class="w"> </span>remove
@@ -1834,7 +1817,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Arguments and options</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">template_id</span></code> — argument; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>template<span class="w"> </span>show
@@ -1861,7 +1843,6 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">template_id</span></code> — argument; required; type <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--accept</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">text</span></code>; default ``</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> — option; optional; type <code class="docutils literal notranslate"><span class="pre">boolean</span></code>; flag</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>template<span class="w"> </span>sync

@@ -5,16 +5,16 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: a38403e0ec633bd37883fe7318b45b9fe2634863
+source_commit: 9615ada80b8d0d56367e2c2b0b8780455940f818
 source_url: https://github.com/ledgerwerk/memoryledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/memoryledger
-release_tag: v0.2.0
-release_url: https://github.com/ledgerwerk/memoryledger/releases/tag/v0.2.0
+release_tag: v0.3.0
+release_url: https://github.com/ledgerwerk/memoryledger/releases/tag/v0.3.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.2.0
+  ref: v0.3.0
   url: /tools/memoryledger/
   current: false
 - name: main

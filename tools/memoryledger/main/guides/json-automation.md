@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "a38403e0ec633bd37883fe7318b45b9fe2634863"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -573,6 +573,9 @@ the exit code, not parse human output.</p>
 </pre></div>
 </div>
 <p>Global options are <code class="docutils literal notranslate"><span class="pre">--root</span> <span class="pre">PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">--json</span></code>, and <code class="docutils literal notranslate"><span class="pre">--version</span></code>. Exit codes are:</p>
+<p>Always place <code class="docutils literal notranslate"><span class="pre">--json</span></code> before the command. Command-local <code class="docutils literal notranslate"><span class="pre">--json</span></code> flags remain
+hidden compatibility options for one transition release; they emit the same
+envelope and include a <code class="docutils literal notranslate"><span class="pre">deprecated_option</span></code> warning.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-right"><p>Code</p></th>

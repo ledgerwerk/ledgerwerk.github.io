@@ -1,12 +1,12 @@
 ---
 layout: tool-doc
-title: "Welcome to memoryledger\u2019s documentation!"
+title: "Memoryledger"
 permalink: /tools/memoryledger/
 nav_tool: memoryledger
 docs_project: "memoryledger"
 docs_variant: "release"
-docs_ref: "v0.2.0"
-docs_commit: "2bc29620f6cd345dff59455d44300125e864d5ad"
+docs_ref: "v0.3.0"
+docs_commit: "9615ada80b8d0d56367e2c2b0b8780455940f818"
 search_enabled: true
 ---
 
@@ -540,29 +540,124 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="welcome-to-memoryledger-s-documentation">
-<h1>Welcome to memoryledger’s documentation!</h1>
+<section id="memoryledger">
+<h1>Memoryledger</h1>
+<p>Memoryledger is an auditable long-term project-memory ledger and deterministic
+<code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> renderer. Durable canonical memory lives in Ledgercore-managed
+schema-3 storage; <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> and owned linked documents are derived output.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not edit generated <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> files or marker-owned linked documents
+directly. Update memory records, review them, build, and export instead.</p>
+</div>
+<section id="five-command-quick-start">
+<h2>Five-command quick start</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>memoryledger<span class="w"> </span>init
+memoryledger<span class="w"> </span>memory<span class="w"> </span>create<span class="w"> </span>--kind<span class="w"> </span>rule<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Use plans&quot;</span><span class="w"> </span>--stdin<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">Always create and review a plan before implementation.</span>
+<span class="s">EOF</span>
+memoryledger<span class="w"> </span>review<span class="w"> </span>accept<span class="w"> </span>memory-0001<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;User approved the project rule.&quot;</span>
+memoryledger<span class="w"> </span>build
+memoryledger<span class="w"> </span><span class="nb">export</span>
+</pre></div>
+</div>
+<p>Install from Python 3.10+ with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">memoryledger</span></code> or use an
+editable checkout as described in <a class="reference internal" href="getting-started/installation/"><span class="doc std std-doc">Installation</span></a>.
+The CLI is the primary supported interface. The Python API is useful for
+integrations, but its supported boundary is explicitly marked in the API
+reference. The project is active and its compatibility target is Ledgercore
+<code class="docutils literal notranslate"><span class="pre">&gt;=0.6.0,&lt;0.7.0</span></code>.</p>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-0-2026-07-28">[v0.2.0] - 2026-07-28</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/memoryledger/">memoryledger package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/installation/">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/quickstart/">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/first-project/">First project</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables</h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex/"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex/"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search/"><span class="std std-ref">Search Page</span></a></p></li>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts/">Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts/memory-model/">Memory model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/lifecycle/">Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/evidence/">Evidence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/rendering/">Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/storage-model/">Storage model</a></li>
 </ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guides/">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guides/memory-workflow/">Memory workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/agents-md/">Managing <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/adopt-existing-agents/">Adopt existing <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/nested-agents/">Nested <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/linked-documents/">Linked documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/templates/">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/evidence-scan/">Evidence scanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/importing-memory/">Importing memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/migrations/">Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/json-automation/">JSON automation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/troubleshooting/">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference/">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/cli/">CLI reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/configuration/">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/schemas/">Schemas and values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/file-formats/">File formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/storage-layout/">Storage layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/errors-and-exit-codes/">Errors and exit codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/deprecations/">Deprecations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/compatibility/">Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/models/">Models API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/configuration/">Configuration API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/project/">Project API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/storage/">Storage API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/rendering/">Rendering API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflows/">Workflow APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/migrations/">Migration APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/cli-contracts/">CLI contract APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/internals/">Internal modules</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development/">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development/contributing/">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/testing/">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/documentation/">Documentation maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/release/">Release documentation gates</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
 </section>
 </div>
 <script data-sphinxpress-script="search" defer>
