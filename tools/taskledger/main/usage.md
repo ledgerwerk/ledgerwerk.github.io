@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_commit: "f425af79dd94cc9ba056267c899ffbb97de28a96"
 search_enabled: true
 ---
 
@@ -1065,10 +1065,21 @@ taskledger<span class="w"> </span>implement<span class="w"> </span><span class="
 </pre></div>
 </div>
 <p>When <code class="docutils literal notranslate"><span class="pre">[agent_logging].enabled</span> <span class="pre">=</span> <span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span></code>
-records CLI invocations and managed command outputs. Keep logging opt-in because
-stdout/stderr may contain sensitive data. Route task-relevant commands through
-<code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">command</span></code> so their output is included in task
-transcripts and reports.</p>
+records CLI invocations and managed command outputs. Both managed wrappers execute
+the exact argv after <code class="docutils literal notranslate"><span class="pre">--</span></code> without a shell and from the CLI invocation directory, or
+the explicit <code class="docutils literal notranslate"><span class="pre">--root</span></code> directory. Taskledger may discover an ancestor workspace for
+ledger state, but that does not change the child’s cwd. Human mode displays captured
+stdout/stderr before the summary. JSON mode contains stdout/stderr and cwd only in
+the result object. Keep logging opt-in because stdout/stderr may contain sensitive
+data. Route task-relevant commands through <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">command</span></code>
+so their output is included in task transcripts and reports.</p>
+<p>Managed commands use a usable inherited Python virtualenv first, then a valid
+<code class="docutils literal notranslate"><span class="pre">.venv</span></code> or <code class="docutils literal notranslate"><span class="pre">venv</span></code> in the command directory or workspace, preferring the command
+directory. Taskledger adjusts only the child <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">VIRTUAL_ENV</span></code> (and removes
+child <code class="docutils literal notranslate"><span class="pre">PYTHONHOME</span></code> for auto-detected environments); it preserves argv, <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>,
+the child cwd, no-shell execution, and the parent environment. Use portable forms
+such as <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">ruff</span></code>, or <code class="docutils literal notranslate"><span class="pre">mypy</span></code> rather than hard-coding an
+absolute virtualenv interpreter path.</p>
 <blockquote>
 <div><p>taskledger context –for implementation –format markdown
 taskledger implement start
@@ -1243,7 +1254,7 @@ opaque link refs, source refs, evidence refs, changes, reviews, and handoffs.</p
 </section>
 <section id="canonical-project-layout">
 <h2>Canonical project layout</h2>
-<p>Taskledger uses a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> manifest and <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>. The default persistent <code class="docutils literal notranslate"><span class="pre">data</span></code> mount is external storage rooted at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>; <code class="docutils literal notranslate"><span class="pre">indexes</span></code> is cache storage. A machine-local <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code> may select <code class="docutils literal notranslate"><span class="pre">user-data</span></code> for <code class="docutils literal notranslate"><span class="pre">data</span></code>. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|indexes</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">set</span></code>, and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">clear-override</span></code> to inspect or change mounts.</p>
+<p>Taskledger uses a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> manifest and <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>. The canonical mounts are durable <code class="docutils literal notranslate"><span class="pre">data</span></code> (external storage rooted at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>), checkout-local <code class="docutils literal notranslate"><span class="pre">runtime</span></code> (user-data), diagnostic <code class="docutils literal notranslate"><span class="pre">logs</span></code> (user-data), and rebuildable <code class="docutils literal notranslate"><span class="pre">indexes</span></code> (cache). A machine-local <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code> may select <code class="docutils literal notranslate"><span class="pre">user-data</span></code> for <code class="docutils literal notranslate"><span class="pre">data</span></code>. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|runtime|logs|indexes</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">set</span></code>, and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">clear-override</span></code> to inspect or change mounts.</p>
 </section>
 </section>
 </div>

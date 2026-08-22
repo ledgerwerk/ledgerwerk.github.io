@@ -76,8 +76,8 @@
         {
           "anchor": "",
           "heading": "Handoff API",
-          "text": "render_handoff\n\n\ncreate_handoff\n\n\nlist_all_handoffs\n\n\nshow_handoff\n\n\nclaim_handoff_api\n\n\nclose_handoff_api\n\n\ncancel_handoff_api",
-          "lower": "render_handoff\n\n\ncreate_handoff\n\n\nlist_all_handoffs\n\n\nshow_handoff\n\n\nclaim_handoff_api\n\n\nclose_handoff_api\n\n\ncancel_handoff_api"
+          "text": "render_handoff\n\n\ncreate_handoff\n\n\nlist_all_handoffs\n\n\nshow_handoff\n\n\nclaim_handoff_api\n\n\nclose_handoff_api\n\n\ncancel_handoff_api\n\n\ncreate_review_handoff\n\n\nrelease_handoff_api\n\n\nretarget_handoff_api",
+          "lower": "render_handoff\n\n\ncreate_handoff\n\n\nlist_all_handoffs\n\n\nshow_handoff\n\n\nclaim_handoff_api\n\n\nclose_handoff_api\n\n\ncancel_handoff_api\n\n\ncreate_review_handoff\n\n\nrelease_handoff_api\n\n\nretarget_handoff_api"
         },
         {
           "anchor": "",
@@ -112,6 +112,271 @@
       ]
     },
     {
+      "url": "/tools/taskledger/main/architecture/",
+      "title": "taskledger Architecture Documentation",
+      "snippet": "Generated from archledger records. Do not edit this generated file directly.\nThe current canonical design uses the schema-3 Ledgercore proje …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Architecture Documentation",
+          "text": "Generated from archledger records. Do not edit this generated file directly.",
+          "lower": "generated from archledger records. do not edit this generated file directly."
+        },
+        {
+          "anchor": "",
+          "heading": "Current canonical storage boundary",
+          "text": "The current canonical design uses the schema-3 Ledgercore project at .ledger/ledger.toml with Taskledger configuration at .ledger/task/config.toml. Taskledger mounts are separated into authoritative durable data, checkout-local runtime, diagnostic logs, and rebuildable cache indexes. Canonical initialization never creates .taskledger/ or root taskledger.toml; those names are legacy migration inputs only.\n\nTaskledger operational state is resolved outside the application source repository by default. .ledger/ledger.local.toml is a machine-local override and .taskledger/ is ignored as legacy residue. The legacy .taskledger layout described in older sections remains compatibility and migration material, not the canonical storage design.\n\nTaskledger is a task-first durable state layer for stag…",
+          "lower": "the current canonical design uses the schema-3 ledgercore project at .ledger/ledger.toml with taskledger configuration at .ledger/task/config.toml. taskledger mounts are separated into authoritative durable data, checkout-local runtime, diagnostic logs, and rebuildable cache indexes. canonical initialization never creates .taskledger/ or root taskledger.toml; those names are legacy migration inputs only.\n\ntaskledger operational state is resolved outside the application source repository by default. .ledger/ledger.local.toml is a machine-local override and .taskledger/ is ignored as legacy residue. the legacy .taskledger layout described in older sections remains compatibility and migration material, not the canonical storage design.\n\ntaskledger is a task-first durable state layer for stag…"
+        },
+        {
+          "anchor": "",
+          "heading": "Requirements Overview",
+          "text": "Title\n\nPriority\n\nSource\n\nStakeholders\n\nQuality goals\n\n\n\n\n\nDurable task lifecycle state\n\nmust\n\n\n\n\n\n\n\n\n\nExplicit lifecycle gates with user approval\n\nmust\n\n\n\n\n\n\n\n\n\nFresh-context handoffs for agent continuation\n\nmust",
+          "lower": "title\n\npriority\n\nsource\n\nstakeholders\n\nquality goals\n\n\n\n\n\ndurable task lifecycle state\n\nmust\n\n\n\n\n\n\n\n\n\nexplicit lifecycle gates with user approval\n\nmust\n\n\n\n\n\n\n\n\n\nfresh-context handoffs for agent continuation\n\nmust"
+        },
+        {
+          "anchor": "",
+          "heading": "Stakeholders",
+          "text": "Title\n\nContact\n\nExpectations\n\n\n\n\n\nCoding agents\n\n\n\ndeterministic exit codes, stable json envelope, fresh context handoff continuation, task first workflow, human approval gate\n\n\n\nHuman developers\n\n\n\nhuman approval workflow, concise human rendering, plan review and acceptance, acceptance criterion waivers, monitor overview",
+          "lower": "title\n\ncontact\n\nexpectations\n\n\n\n\n\ncoding agents\n\n\n\ndeterministic exit codes, stable json envelope, fresh context handoff continuation, task first workflow, human approval gate\n\n\n\nhuman developers\n\n\n\nhuman approval workflow, concise human rendering, plan review and acceptance, acceptance criterion waivers, monitor overview"
+        },
+        {
+          "anchor": "",
+          "heading": "Architecture Constraints",
+          "text": "Taskledger operates under several fixed constraints that shape its architecture:\n\n\nPython 3.10+ with minimal dependencies: The runtime depends only on typer, click, PyYAML, tomli (Python <3.11), and ledgercore for atomic I/O, JSON I/O, YAML I/O, front matter parsing, and cross-ledger ref parsing. No database, no network server, no external service is required.\n\n\nFile-system canonical storage: All durable state lives in the project Ledgercore mounts configured by .ledger/ledger.toml, as Markdown files with YAML front matter. This makes state inspectable, diffable, and version-controllable alongside source code.\n\n\nCLI-first with machine-readable JSON output: The primary interface is the taskledger CLI command. Every command supports --json for structured output. The JSON envelope shape and…",
+          "lower": "taskledger operates under several fixed constraints that shape its architecture:\n\n\npython 3.10+ with minimal dependencies: the runtime depends only on typer, click, pyyaml, tomli (python <3.11), and ledgercore for atomic i/o, json i/o, yaml i/o, front matter parsing, and cross-ledger ref parsing. no database, no network server, no external service is required.\n\n\nfile-system canonical storage: all durable state lives in the project ledgercore mounts configured by .ledger/ledger.toml, as markdown files with yaml front matter. this makes state inspectable, diffable, and version-controllable alongside source code.\n\n\ncli-first with machine-readable json output: the primary interface is the taskledger cli command. every command supports --json for structured output. the json envelope shape and…"
+        },
+        {
+          "anchor": "",
+          "heading": "Context and Scope",
+          "text": "Taskledger operates as a self-contained tool within a software development project. It interacts with four categories of external actors:\n\n\nAgent harnesses (pi, codex, chatgpt, and similar) invoke taskledger CLI commands to create tasks, propose plans, log implementation changes, run validation checks, and manage handoffs. They consume --json output.\n\n\nHuman developers use the CLI directly in terminals for task creation, plan review, approval, lock management, and inspection (status, context, next-action, doctor, monitor).\n\n\nCI systems may invoke taskledger for status checks, validation, snapshot/export operations, and taskledger trace bundles.\n\n\nPython library consumers import from taskledger.api.* to programmatically manage tasks without the CLI subprocess.\n\n\n\nThe system boundary is the…",
+          "lower": "taskledger operates as a self-contained tool within a software development project. it interacts with four categories of external actors:\n\n\nagent harnesses (pi, codex, chatgpt, and similar) invoke taskledger cli commands to create tasks, propose plans, log implementation changes, run validation checks, and manage handoffs. they consume --json output.\n\n\nhuman developers use the cli directly in terminals for task creation, plan review, approval, lock management, and inspection (status, context, next-action, doctor, monitor).\n\n\nci systems may invoke taskledger for status checks, validation, snapshot/export operations, and taskledger trace bundles.\n\n\npython library consumers import from taskledger.api.* to programmatically manage tasks without the cli subprocess.\n\n\n\nthe system boundary is the…"
+        },
+        {
+          "anchor": "",
+          "heading": "Solution Strategy",
+          "text": "Taskledger uses a layered architecture with clear dependency direction: upper layers depend on lower layers, never the reverse.\n\n\nCLI Layer (taskledger/cli*.py) — Typer commands that parse arguments, resolve task references, call service functions, and render output (human text or JSON).\n\n\nAPI Layer (taskledger/api/*.py) — Stable public wrappers that mirror the CLI surface for programmatic use.\n\n\nServices Layer (taskledger/services/*.py) — Orchestration logic: lifecycle flows (planning, implementation, validation), handoff rendering, doctor checks, plan input validation, plan review, snapshot capture, dashboard assembly, and navigation.\n\n\nDomain Layer (taskledger/domain/*.py) — Pure data models, state enums, normalization, and policy decisions. No I/O, no file system access.\n\n\nStorage Lay…",
+          "lower": "taskledger uses a layered architecture with clear dependency direction: upper layers depend on lower layers, never the reverse.\n\n\ncli layer (taskledger/cli*.py) — typer commands that parse arguments, resolve task references, call service functions, and render output (human text or json).\n\n\napi layer (taskledger/api/*.py) — stable public wrappers that mirror the cli surface for programmatic use.\n\n\nservices layer (taskledger/services/*.py) — orchestration logic: lifecycle flows (planning, implementation, validation), handoff rendering, doctor checks, plan input validation, plan review, snapshot capture, dashboard assembly, and navigation.\n\n\ndomain layer (taskledger/domain/*.py) — pure data models, state enums, normalization, and policy decisions. no i/o, no file system access.\n\n\nstorage lay…"
+        },
+        {
+          "anchor": "",
+          "heading": "Maintenance",
+          "text": "docs/architecture.md is generated from Archledger source records. Do not edit it directly.\n\n\nEdit: .ledger/archledger/data/profiles/arc42/sections/*.md for section content and .ledger/archledger/data/records/**/*.md for individual records.\n\n\nRegenerate: Run archledger build to regenerate docs/architecture.md.\n\n\nVerify: Run archledger check and pytest -q tests/test_docs_and_skill.py tests/test_service_boundaries.py after changes.\n\n\nAuthoritative source: The Archledger records under .ledger/archledger/data are the single source of truth for architecture documentation. docs/architecture_taskledger_split.md is a concise human-maintained summary.",
+          "lower": "docs/architecture.md is generated from archledger source records. do not edit it directly.\n\n\nedit: .ledger/archledger/data/profiles/arc42/sections/*.md for section content and .ledger/archledger/data/records/**/*.md for individual records.\n\n\nregenerate: run archledger build to regenerate docs/architecture.md.\n\n\nverify: run archledger check and pytest -q tests/test_docs_and_skill.py tests/test_service_boundaries.py after changes.\n\n\nauthoritative source: the archledger records under .ledger/archledger/data are the single source of truth for architecture documentation. docs/architecture_taskledger_split.md is a concise human-maintained summary."
+        },
+        {
+          "anchor": "",
+          "heading": "Layered architecture: CLI → Services → Domain → Storage",
+          "text": "Drivers: decoupled layers, testable services, fast agent integration\nConstraints: no domain I/O, storage uses ledgercore primitives, bounded CLI filesystem use\nRelated ADRs: adr-0046, adr-0047, adr-0048, adr-0049, adr-0050, adr-0051",
+          "lower": "drivers: decoupled layers, testable services, fast agent integration\nconstraints: no domain i/o, storage uses ledgercore primitives, bounded cli filesystem use\nrelated adrs: adr-0046, adr-0047, adr-0048, adr-0049, adr-0050, adr-0051"
+        },
+        {
+          "anchor": "",
+          "heading": "Strategy",
+          "text": "The codebase is organized into five layers with target dependency direction: CLI (taskledger/cli*.py) -> API (taskledger/api/) -> Services (taskledger/services/) -> Domain (taskledger/domain/) + Storage (taskledger/storage/). The Domain layer has no I/O dependencies. Storage owns canonical taskledger persistence and atomic record I/O, delegating low-level primitives (atomic writes, JSON I/O, YAML I/O, front matter parsing, cross-ledger ref parsing) to ledgercore. Other layers may perform bounded filesystem operations for external inputs and outputs (reports, Git sync, search, CLI file arguments). CLI should prefer API wrappers for public workflows, but current sanctioned exceptions are tracked in tests/test_service_boundaries.py.",
+          "lower": "the codebase is organized into five layers with target dependency direction: cli (taskledger/cli*.py) -> api (taskledger/api/) -> services (taskledger/services/) -> domain (taskledger/domain/) + storage (taskledger/storage/). the domain layer has no i/o dependencies. storage owns canonical taskledger persistence and atomic record i/o, delegating low-level primitives (atomic writes, json i/o, yaml i/o, front matter parsing, cross-ledger ref parsing) to ledgercore. other layers may perform bounded filesystem operations for external inputs and outputs (reports, git sync, search, cli file arguments). cli should prefer api wrappers for public workflows, but current sanctioned exceptions are tracked in tests/test_service_boundaries.py."
+        },
+        {
+          "anchor": "",
+          "heading": "Trade-offs",
+          "text": "Clear separation of concerns enables focused testing per layer.\n\n\nService modules can grow large since they orchestrate across domain and storage.\n\n\nNo formal dependency injection; layer boundaries are enforced by convention and the test_service_boundaries.py test.",
+          "lower": "clear separation of concerns enables focused testing per layer.\n\n\nservice modules can grow large since they orchestrate across domain and storage.\n\n\nno formal dependency injection; layer boundaries are enforced by convention and the test_service_boundaries.py test."
+        },
+        {
+          "anchor": "",
+          "heading": "Markdown/YAML front matter as canonical records",
+          "text": "Drivers: human readable state, git diffable records, no database dependency\nConstraints: strict front matter validation, ledgercore front matter parsing, storage layout v3\nRelated ADRs: adr-0046, adr-0050",
+          "lower": "drivers: human readable state, git diffable records, no database dependency\nconstraints: strict front matter validation, ledgercore front matter parsing, storage layout v3\nrelated adrs: adr-0046, adr-0050"
+        },
+        {
+          "anchor": "",
+          "heading": "Strategy",
+          "text": "Each persistent record (task, plan, run, lock, handoff, event, etc.) is stored as a .md file with YAML front matter for structured metadata and a Markdown body for free-form content. This format is human-readable, Git-diffable, and editable without taskledger. The front matter serialization is handled by taskledger/storage/frontmatter.py.",
+          "lower": "each persistent record (task, plan, run, lock, handoff, event, etc.) is stored as a .md file with yaml front matter for structured metadata and a markdown body for free-form content. this format is human-readable, git-diffable, and editable without taskledger. the front matter serialization is handled by taskledger/storage/frontmatter.py."
+        },
+        {
+          "anchor": "",
+          "heading": "Trade-offs",
+          "text": "Slower to parse than JSON or SQLite for large datasets.\n\n\nState is transparent and version-controllable — a core design goal.\n\n\nSchema evolution requires careful front matter validation (_require_contract, _string_value, etc.).",
+          "lower": "slower to parse than json or sqlite for large datasets.\n\n\nstate is transparent and version-controllable — a core design goal.\n\n\nschema evolution requires careful front matter validation (_require_contract, _string_value, etc.)."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON indexes as rebuildable derived caches",
+          "text": "Drivers: fast list and query operations, canonical records remain source of truth\nConstraints: summary index rebuildable on miss, reindex after out of band changes\nRelated ADRs: adr-0047",
+          "lower": "drivers: fast list and query operations, canonical records remain source of truth\nconstraints: summary index rebuildable on miss, reindex after out of band changes\nrelated adrs: adr-0047"
+        },
+        {
+          "anchor": "",
+          "heading": "Strategy",
+          "text": "A task_sidecars.json summary index under .taskledger/ledgers/<ledger_ref>/ is a derived cache rebuilt from canonical Markdown records by taskledger reindex. Per-task sidecar writes call update_sidecar_summary in taskledger/storage/sidecar_index.py so the index stays current. The index speeds up list and query operations but is never authoritative. taskledger doctor indexes checks for staleness.",
+          "lower": "a task_sidecars.json summary index under .taskledger/ledgers/<ledger_ref>/ is a derived cache rebuilt from canonical markdown records by taskledger reindex. per-task sidecar writes call update_sidecar_summary in taskledger/storage/sidecar_index.py so the index stays current. the index speeds up list and query operations but is never authoritative. taskledger doctor indexes checks for staleness."
+        },
+        {
+          "anchor": "",
+          "heading": "Trade-offs",
+          "text": "Avoids the complexity of a query engine on front matter files.\n\n\nIndexes can become stale if writes bypass taskledger (for example manual edits). taskledger doctor and reindex address this.\n\n\nThe summary index is a JSON document with a schema version and an object_type field; it is rebuildable from canonical records.",
+          "lower": "avoids the complexity of a query engine on front matter files.\n\n\nindexes can become stale if writes bypass taskledger (for example manual edits). taskledger doctor and reindex address this.\n\n\nthe summary index is a json document with a schema version and an object_type field; it is rebuildable from canonical records."
+        },
+        {
+          "anchor": "",
+          "heading": "Policy-based lifecycle gate decisions",
+          "text": "Drivers: testable gate logic, user only actions enforced\nConstraints: PolicyContext is gathered explicitly, no I/O in policy functions\nRelated ADRs: adr-0048",
+          "lower": "drivers: testable gate logic, user only actions enforced\nconstraints: policycontext is gathered explicitly, no i/o in policy functions\nrelated adrs: adr-0048"
+        },
+        {
+          "anchor": "",
+          "heading": "Strategy",
+          "text": "All lifecycle transitions are validated through pure functions in taskledger/domain/policies.py that return Decision objects (allowed, code, message, exit_code). Policies have no I/O — they receive PolicyContext (task, lock, run) and return a decision. This makes gate logic fully testable without file system setup.",
+          "lower": "all lifecycle transitions are validated through pure functions in taskledger/domain/policies.py that return decision objects (allowed, code, message, exit_code). policies have no i/o — they receive policycontext (task, lock, run) and return a decision. this makes gate logic fully testable without file system setup."
+        },
+        {
+          "anchor": "",
+          "heading": "Trade-offs",
+          "text": "Policy functions must receive all context explicitly (no lazy loading from storage).\n\n\nVery testable: test_domain_policies.py and test_lifecycle_policies.py cover the full decision surface.\n\n\nServices must gather the right context before calling policies.",
+          "lower": "policy functions must receive all context explicitly (no lazy loading from storage).\n\n\nvery testable: test_domain_policies.py and test_lifecycle_policies.py cover the full decision surface.\n\n\nservices must gather the right context before calling policies."
+        },
+        {
+          "anchor": "",
+          "heading": "Atomic file writes for durability",
+          "text": "Drivers: durability of canonical records, no partial writes\nConstraints: ledgercore atomic primitives, fsync overhead, TASKLEDGER_TEST_FAST_IO escape hatch\nRelated ADRs: adr-0046",
+          "lower": "drivers: durability of canonical records, no partial writes\nconstraints: ledgercore atomic primitives, fsync overhead, taskledger_test_fast_io escape hatch\nrelated adrs: adr-0046"
+        },
+        {
+          "anchor": "",
+          "heading": "Strategy",
+          "text": "All file writes go through the ledgercore atomic primitives used by taskledger/storage/atomic.py: write to a temp file in the target directory, flush plus fsync, then os.replace for atomic rename. Directory fsync follows. Lock creation uses atomic_create_text with O_CREAT | O_EXCL for exclusive creation. These patterns prevent partial or corrupt writes on crash.",
+          "lower": "all file writes go through the ledgercore atomic primitives used by taskledger/storage/atomic.py: write to a temp file in the target directory, flush plus fsync, then os.replace for atomic rename. directory fsync follows. lock creation uses atomic_create_text with o_creat | o_excl for exclusive creation. these patterns prevent partial or corrupt writes on crash."
+        },
+        {
+          "anchor": "",
+          "heading": "Trade-offs",
+          "text": "Slightly slower than direct writes due to temp file plus fsync overhead.\n\n\nCan be disabled for testing via the TASKLEDGER_TEST_FAST_IO environment variable.\n\n\nGuarantees that readers always see complete, valid files.",
+          "lower": "slightly slower than direct writes due to temp file plus fsync overhead.\n\n\ncan be disabled for testing via the taskledger_test_fast_io environment variable.\n\n\nguarantees that readers always see complete, valid files."
+        },
+        {
+          "anchor": "",
+          "heading": "Building Block View",
+          "text": "The top-level building block is the taskledger system, decomposed into five black-box components:\n\n\nCLI Layer — Handles command parsing, task reference resolution, and output rendering. Command families cover the canonical lifecycle plus review, config, task archive operations, transfer and sync, diagnostics, the monitor observer, and the pipeline overlay.\n\n\nAPI Layer — Provides stable Python function wrappers around service operations.\n\n\nServices Layer — Orchestrates lifecycle flows, plan input validation, plan review, handoffs, snapshot capture, navigation, doctor checks, worker pipelines, archival, code-review evidence, event logging, exports, dashboard assembly, and ready-work inspection.\n\n\nDomain Layer — Defines models, state machines, and policy decisions.\n\n\nStorage Layer — Manages…",
+          "lower": "the top-level building block is the taskledger system, decomposed into five black-box components:\n\n\ncli layer — handles command parsing, task reference resolution, and output rendering. command families cover the canonical lifecycle plus review, config, task archive operations, transfer and sync, diagnostics, the monitor observer, and the pipeline overlay.\n\n\napi layer — provides stable python function wrappers around service operations.\n\n\nservices layer — orchestrates lifecycle flows, plan input validation, plan review, handoffs, snapshot capture, navigation, doctor checks, worker pipelines, archival, code-review evidence, event logging, exports, dashboard assembly, and ready-work inspection.\n\n\ndomain layer — defines models, state machines, and policy decisions.\n\n\nstorage layer — manages…"
+        },
+        {
+          "anchor": "",
+          "heading": "Motivation",
+          "text": "Taskledger decomposes into core layers with downward dependency flow. This isolates persistence, business rules, orchestration, and public interfaces. Low-level persistence primitives are delegated to ledgercore, but the layer boundary above it stays in taskledger/storage/.",
+          "lower": "taskledger decomposes into core layers with downward dependency flow. this isolates persistence, business rules, orchestration, and public interfaces. low-level persistence primitives are delegated to ledgercore, but the layer boundary above it stays in taskledger/storage/."
+        },
+        {
+          "anchor": "",
+          "heading": "Contained building blocks",
+          "text": "CLI Layer (block-0030) — Typer commands, argument parsing, output rendering\n\n\nAPI Layer (block-0031) — Stable Python function wrappers\n\n\nServices Layer (block-0032) — Lifecycle orchestration, handoffs, plan input, plan review, snapshots, inspection\n\n\nDomain Layer (block-0033) — Models, state machines, policies (no I/O)\n\n\nStorage Layer (block-0034) — File system persistence, atomic writes, sidecar index, layout",
+          "lower": "cli layer (block-0030) — typer commands, argument parsing, output rendering\n\n\napi layer (block-0031) — stable python function wrappers\n\n\nservices layer (block-0032) — lifecycle orchestration, handoffs, plan input, plan review, snapshots, inspection\n\n\ndomain layer (block-0033) — models, state machines, policies (no i/o)\n\n\nstorage layer (block-0034) — file system persistence, atomic writes, sidecar index, layout"
+        },
+        {
+          "anchor": "",
+          "heading": "Important interfaces",
+          "text": "CLI -> Services: function calls with workspace_root plus task references\n\n\nServices -> Domain: policy functions take PolicyContext, return Decision\n\n\nServices -> Storage: record CRUD operations through task_store.py functions and the sidecar index\n\n\nAPI -> Services: direct function calls mirroring CLI behavior\n\n\nStorage -> ledgercore: atomic I/O, JSON I/O, YAML I/O, front matter parsing, cross-ledger ref parsing",
+          "lower": "cli -> services: function calls with workspace_root plus task references\n\n\nservices -> domain: policy functions take policycontext, return decision\n\n\nservices -> storage: record crud operations through task_store.py functions and the sidecar index\n\n\napi -> services: direct function calls mirroring cli behavior\n\n\nstorage -> ledgercore: atomic i/o, json i/o, yaml i/o, front matter parsing, cross-ledger ref parsing"
+        },
+        {
+          "anchor": "",
+          "heading": "CLI Layer",
+          "text": "Parent: block-0029\nInterfaces:\nLocation:\n\nHandles command parsing via Typer, task reference resolution (--task option, active task default), and output rendering (human text or JSON envelope via cli_common.py). Command families include the canonical lifecycle plus review, config, task archive operations, transfer and sync, diagnostics, the monitor observer, the pipeline overlay, and ref cross-ledger helpers.\n\nSource refs: taskledger/cli.py, taskledger/cli_common.py, taskledger/command_inventory.py, and the focused taskledger/cli_*.py registration modules.",
+          "lower": "parent: block-0029\ninterfaces:\nlocation:\n\nhandles command parsing via typer, task reference resolution (--task option, active task default), and output rendering (human text or json envelope via cli_common.py). command families include the canonical lifecycle plus review, config, task archive operations, transfer and sync, diagnostics, the monitor observer, the pipeline overlay, and ref cross-ledger helpers.\n\nsource refs: taskledger/cli.py, taskledger/cli_common.py, taskledger/command_inventory.py, and the focused taskledger/cli_*.py registration modules."
+        },
+        {
+          "anchor": "",
+          "heading": "API Layer",
+          "text": "Parent: block-0029\nInterfaces:\nLocation:\n\nStable Python function wrappers under taskledger/api/ that mirror the CLI surface for programmatic use. Each module (tasks, plans, handoff, locks, task runs, sync, reviews, search, etc.) exposes functions that accept workspace paths and return dictionaries matching the JSON output shape. The API layer calls Services directly.",
+          "lower": "parent: block-0029\ninterfaces:\nlocation:\n\nstable python function wrappers under taskledger/api/ that mirror the cli surface for programmatic use. each module (tasks, plans, handoff, locks, task runs, sync, reviews, search, etc.) exposes functions that accept workspace paths and return dictionaries matching the json output shape. the api layer calls services directly."
+        },
+        {
+          "anchor": "",
+          "heading": "Services Layer",
+          "text": "Parent: block-0029\nInterfaces:\nLocation:\n\nOrchestrates lifecycle flows by coordinating Domain policies and records with Storage. Focused services own planning (planning_flow.py, plan_input.py, plan_review.py, plan_lint.py, plan_materialization.py), implementation (implementation_flow.py, workspace_snapshot.py), validation (validation_flow.py), handoffs (handoff.py, handoff_lifecycle.py, worker_context.py), doctor checks (doctor.py, doctor_checks/), navigation (navigation.py, next_action_model.py, next_action_payload.py, ready_work.py), worker pipelines (worker_pipeline.py, workflow_guidance.py), archival (task_archive.py, task_export.py, task_reports.py), code-review evidence (code_review.py), event logging (task_events.py, agent_transcripts.py, agent_logging.py, change_tracking.py, check…",
+          "lower": "parent: block-0029\ninterfaces:\nlocation:\n\norchestrates lifecycle flows by coordinating domain policies and records with storage. focused services own planning (planning_flow.py, plan_input.py, plan_review.py, plan_lint.py, plan_materialization.py), implementation (implementation_flow.py, workspace_snapshot.py), validation (validation_flow.py), handoffs (handoff.py, handoff_lifecycle.py, worker_context.py), doctor checks (doctor.py, doctor_checks/), navigation (navigation.py, next_action_model.py, next_action_payload.py, ready_work.py), worker pipelines (worker_pipeline.py, workflow_guidance.py), archival (task_archive.py, task_export.py, task_reports.py), code-review evidence (code_review.py), event logging (task_events.py, agent_transcripts.py, agent_logging.py, change_tracking.py, check…"
+        },
+        {
+          "anchor": "",
+          "heading": "Domain Layer",
+          "text": "Parent: block-0029\nInterfaces:\nLocation:\n\nData models, state enums, normalization, and policy decisions without storage I/O. Besides lifecycle and sidecar records, the domain defines append-only code-review records. State transitions remain in states.py; policy decisions in policies.py return structured Decision objects. The canonical storage layout version is TASKLEDGER_STORAGE_LAYOUT_VERSION in taskledger/domain/states.py.",
+          "lower": "parent: block-0029\ninterfaces:\nlocation:\n\ndata models, state enums, normalization, and policy decisions without storage i/o. besides lifecycle and sidecar records, the domain defines append-only code-review records. state transitions remain in states.py; policy decisions in policies.py return structured decision objects. the canonical storage layout version is taskledger_storage_layout_version in taskledger/domain/states.py."
+        },
+        {
+          "anchor": "",
+          "heading": "Storage Layer",
+          "text": "Parent: block-0029\nInterfaces:\nLocation:\n\nFile system persistence for canonical records. Storage layout keeps each task in .taskledger/ledgers/<ledger_ref>/tasks/<task-id>/, with independently addressable sidecars including plans, runs, locks, todos, questions, changes, checks, handoffs, links, and code reviews. Ledger-level collections hold events, introductions, releases, and rebuildable indexes. A task_sidecars.json summary index is maintained as a derived cache; per-task sidecar writes call update_sidecar_summary from taskledger/storage/sidecar_index.py so the read path does not need a full rescan. Atomic write primitives, YAML I/O, front matter parsing, and ref parsing are delegated to ledgercore. Action and event logging is enabled by default and can be disabled in project config. P…",
+          "lower": "parent: block-0029\ninterfaces:\nlocation:\n\nfile system persistence for canonical records. storage layout keeps each task in .taskledger/ledgers/<ledger_ref>/tasks/<task-id>/, with independently addressable sidecars including plans, runs, locks, todos, questions, changes, checks, handoffs, links, and code reviews. ledger-level collections hold events, introductions, releases, and rebuildable indexes. a task_sidecars.json summary index is maintained as a derived cache; per-task sidecar writes call update_sidecar_summary from taskledger/storage/sidecar_index.py so the read path does not need a full rescan. atomic write primitives, yaml i/o, front matter parsing, and ref parsing are delegated to ledgercore. action and event logging is enabled by default and can be disabled in project config. p…"
+        },
+        {
+          "anchor": "",
+          "heading": "Runtime View",
+          "text": "The runtime view traces the main operational scenarios through the system:\n\n\nTask lifecycle — A task is created in draft, moves to planning (lock acquired, run started), then plan_review after a plan is proposed. The user approves -> approved. Implementation starts -> implementing, finishes -> implemented. Validation starts -> validating, passes -> done.\n\n\nPlan input flow — taskledger plan start opens planning. plan guidance reports the active project planning profile. plan template writes a fresh plan skeleton; plan check --file plan.md runs the preflight parser in taskledger/services/plan_input.py without mutating state. plan upsert --file plan.md (or --from-answers) persists the plan; plan lint --version N surfaces blocking issues; plan review --version N produces the approval brief; p…",
+          "lower": "the runtime view traces the main operational scenarios through the system:\n\n\ntask lifecycle — a task is created in draft, moves to planning (lock acquired, run started), then plan_review after a plan is proposed. the user approves -> approved. implementation starts -> implementing, finishes -> implemented. validation starts -> validating, passes -> done.\n\n\nplan input flow — taskledger plan start opens planning. plan guidance reports the active project planning profile. plan template writes a fresh plan skeleton; plan check --file plan.md runs the preflight parser in taskledger/services/plan_input.py without mutating state. plan upsert --file plan.md (or --from-answers) persists the plan; plan lint --version n surfaces blocking issues; plan review --version n produces the approval brief; p…"
+        },
+        {
+          "anchor": "",
+          "heading": "Task lifecycle: create through done",
+          "text": "Trigger: User or agent runs taskledger task create.\n\nFlow:\n\n\ntask create → TaskRecord persisted in draft stage with task.created event\n\n\nplan start → Lock acquired, planning run started, stage → planning\n\n\nplan propose → PlanRecord persisted, todos materialized, stage → plan_review\n\n\nplan approve (user-only) → Stage → approved, lock released, run finished\n\n\nimplement start → Lock acquired, implementation run started, stage → implementing\n\n\nimplement log / implement finish → Changes logged, todos completed, stage → implemented\n\n\nvalidate start → Lock acquired, validation run started, stage → validating\n\n\nvalidate check / validate finish → Criteria checked, stage → done (or failed_validation)\n\n\n\nResult: Task reaches done with all todos complete and all mandatory criteria passed. Events trai…",
+          "lower": "trigger: user or agent runs taskledger task create.\n\nflow:\n\n\ntask create → taskrecord persisted in draft stage with task.created event\n\n\nplan start → lock acquired, planning run started, stage → planning\n\n\nplan propose → planrecord persisted, todos materialized, stage → plan_review\n\n\nplan approve (user-only) → stage → approved, lock released, run finished\n\n\nimplement start → lock acquired, implementation run started, stage → implementing\n\n\nimplement log / implement finish → changes logged, todos completed, stage → implemented\n\n\nvalidate start → lock acquired, validation run started, stage → validating\n\n\nvalidate check / validate finish → criteria checked, stage → done (or failed_validation)\n\n\n\nresult: task reaches done with all todos complete and all mandatory criteria passed. events trai…"
+        },
+        {
+          "anchor": "",
+          "heading": "Lock acquisition, heartbeat, and release",
+          "text": "Trigger: Service calls _start_run (e.g., plan start, implement start, validate start).\n\nFlow:\n\n\nCheck no existing active lock for the task\n\n\nCreate TaskLock record via atomic_create_text (exclusive file creation)\n\n\nCreate TaskRunRecord with status running\n\n\nAppend lock.acquired and run.started events\n\n\nUpdate task stage to active stage (planning/implementing/validating)\n\n\nHeartbeat updates last_heartbeat_at on the lock\n\n\nOn finish: run status → finished, lock removed, lock.released event appended\n\n\n\nStale lock handling:\n\n\nlock_is_expired checks lease expiry\n\n\nlock break requires explicit user action, records broken_at, broken_by, broken_reason\n\n\ndoctor detects lock/run mismatches\n\n\n\nKey source: taskledger/services/tasks.py (_start_run), taskledger/storage/locks.py, taskledger/domain/lock.…",
+          "lower": "trigger: service calls _start_run (e.g., plan start, implement start, validate start).\n\nflow:\n\n\ncheck no existing active lock for the task\n\n\ncreate tasklock record via atomic_create_text (exclusive file creation)\n\n\ncreate taskrunrecord with status running\n\n\nappend lock.acquired and run.started events\n\n\nupdate task stage to active stage (planning/implementing/validating)\n\n\nheartbeat updates last_heartbeat_at on the lock\n\n\non finish: run status → finished, lock removed, lock.released event appended\n\n\n\nstale lock handling:\n\n\nlock_is_expired checks lease expiry\n\n\nlock break requires explicit user action, records broken_at, broken_by, broken_reason\n\n\ndoctor detects lock/run mismatches\n\n\n\nkey source: taskledger/services/tasks.py (_start_run), taskledger/storage/locks.py, taskledger/domain/lock.…"
+        },
+        {
+          "anchor": "",
+          "heading": "Handoff creation and claiming",
+          "text": "Trigger: Worker runs taskledger handoff create.\n\nFlow:\n\n\nGenerate context body: task state, accepted plan, todos, questions, lock/run status, implementation summary, validation status\n\n\nCreate TaskHandoffRecord with mode (planning/implementation/validation/review/full), lock policy (none/retain/release/transfer), intended actor and harness\n\n\nPersist handoff record, append handoff.created event\n\n\nAnother worker runs handoff claim → status → claimed, optional lock transfer\n\n\nWorker completes work, runs handoff close → status → closed\n\n\n\nKey source: taskledger/services/handoff.py (context generation), taskledger/services/handoff_lifecycle.py (claim/close/transfer), taskledger/services/worker_context.py (context assembly).",
+          "lower": "trigger: worker runs taskledger handoff create.\n\nflow:\n\n\ngenerate context body: task state, accepted plan, todos, questions, lock/run status, implementation summary, validation status\n\n\ncreate taskhandoffrecord with mode (planning/implementation/validation/review/full), lock policy (none/retain/release/transfer), intended actor and harness\n\n\npersist handoff record, append handoff.created event\n\n\nanother worker runs handoff claim → status → claimed, optional lock transfer\n\n\nworker completes work, runs handoff close → status → closed\n\n\n\nkey source: taskledger/services/handoff.py (context generation), taskledger/services/handoff_lifecycle.py (claim/close/transfer), taskledger/services/worker_context.py (context assembly)."
+        },
+        {
+          "anchor": "",
+          "heading": "Editable plan input preflight",
+          "text": "Trigger: Agent or user edits a plan file and runs taskledger plan check and taskledger plan upsert.\n\nFlow:\n\n\nplan check --file plan.md -> Pure preflight parser in taskledger/services/plan_input.py returns a plan_input_check payload with passed, indexed issues, and parsed counts. No state mutation.\n\n\nWorker-pipeline configuration in taskledger.toml is consulted to validate worker_step todo tags when present.\n\n\nplan upsert --file plan.md (or --from-answers) runs the same parser, persists the plan as a PlanRecord, and materializes todos.\n\n\nplan lint --version N runs structural lint over the proposed plan body and front matter.\n\n\nplan review --version N renders the approval brief used by the user-only approval command.\n\n\n\nResult: Plan is persisted with no parse errors, no lint errors, and no…",
+          "lower": "trigger: agent or user edits a plan file and runs taskledger plan check and taskledger plan upsert.\n\nflow:\n\n\nplan check --file plan.md -> pure preflight parser in taskledger/services/plan_input.py returns a plan_input_check payload with passed, indexed issues, and parsed counts. no state mutation.\n\n\nworker-pipeline configuration in taskledger.toml is consulted to validate worker_step todo tags when present.\n\n\nplan upsert --file plan.md (or --from-answers) runs the same parser, persists the plan as a planrecord, and materializes todos.\n\n\nplan lint --version n runs structural lint over the proposed plan body and front matter.\n\n\nplan review --version n renders the approval brief used by the user-only approval command.\n\n\n\nresult: plan is persisted with no parse errors, no lint errors, and no…"
+        },
+        {
+          "anchor": "",
+          "heading": "Doctor integrity check",
+          "text": "Trigger: User runs taskledger doctor.\n\nFlow:\n\n\nResolve project paths and locator\n\n\nCheck storage layout version against current version\n\n\nScan all tasks: verify front matter validity, lock/run consistency, active task state\n\n\nCheck index staleness (comparing index contents against canonical records)\n\n\nCheck for stale locks (expired leases)\n\n\nCollect structured diagnostics with severity, code, message, and repair hints\n\n\nReport diagnostics to user (human text or JSON)\n\n\n\nKey source: taskledger/services/doctor.py, taskledger/services/doctor_checks/task_checks.py, taskledger/services/doctor_checks/project_scan.py, taskledger/services/doctor_checks/migration_checks.py.",
+          "lower": "trigger: user runs taskledger doctor.\n\nflow:\n\n\nresolve project paths and locator\n\n\ncheck storage layout version against current version\n\n\nscan all tasks: verify front matter validity, lock/run consistency, active task state\n\n\ncheck index staleness (comparing index contents against canonical records)\n\n\ncheck for stale locks (expired leases)\n\n\ncollect structured diagnostics with severity, code, message, and repair hints\n\n\nreport diagnostics to user (human text or json)\n\n\n\nkey source: taskledger/services/doctor.py, taskledger/services/doctor_checks/task_checks.py, taskledger/services/doctor_checks/project_scan.py, taskledger/services/doctor_checks/migration_checks.py."
+        },
+        {
+          "anchor": "",
+          "heading": "Branch-scoped ledger selection and fork",
+          "text": "Trigger: Developer creates a long-lived Git branch and runs taskledger ledger fork REF.\n\nFlow:\n\n\nledger fork feature-a → Creates a new ledger directory under .taskledger/ledgers/feature-a/\n\n\nCommits the updated taskledger.toml (with new ledger_ref) with the branch work\n\n\nDefault commands now read/write only the current ledger under .taskledger/ledgers/<ledger_ref>/\n\n\nTasks in different ledgers are isolated; duplicate logical task IDs are expected across ledgers\n\n\nledger adopt --from feature-a task-0030 copies a branch-local task into the current ledger when merging\n\n\n\nResult: Each long-lived branch has its own isolated task ledger. The active ledger is determined by ledger_ref in taskledger.toml.\n\nKey source: taskledger/cli_ledger.py, taskledger/storage/ledger_config.py, taskledger/storag…",
+          "lower": "trigger: developer creates a long-lived git branch and runs taskledger ledger fork ref.\n\nflow:\n\n\nledger fork feature-a → creates a new ledger directory under .taskledger/ledgers/feature-a/\n\n\ncommits the updated taskledger.toml (with new ledger_ref) with the branch work\n\n\ndefault commands now read/write only the current ledger under .taskledger/ledgers/<ledger_ref>/\n\n\ntasks in different ledgers are isolated; duplicate logical task ids are expected across ledgers\n\n\nledger adopt --from feature-a task-0030 copies a branch-local task into the current ledger when merging\n\n\n\nresult: each long-lived branch has its own isolated task ledger. the active ledger is determined by ledger_ref in taskledger.toml.\n\nkey source: taskledger/cli_ledger.py, taskledger/storage/ledger_config.py, taskledger/storag…"
+        },
+        {
+          "anchor": "",
+          "heading": "Implementation workspace snapshot lifecycle",
+          "text": "Trigger: taskledger implement start captures a workspace snapshot; taskledger validate start enforces it before validation runs.\n\nFlow:\n\n\nimplement start -> Acquires implementation lock, creates an implementation run, calls capture_workspace_content_snapshot in taskledger/services/workspace_snapshot.py, and persists snapshot metadata on the run.\n\n\nImplementation finishes via implement finish. The snapshot is the source of truth for what was implemented.\n\n\nvalidate start -> Calls compare_implementation_snapshot. If the current workspace diverges, validation is blocked with a reason_code such as content_snapshot_mismatch or legacy_snapshot_mismatch.\n\n\nvalidate start --refresh-implementation-snapshot --reason \"...\" -> refresh_implementation_snapshot records a new snapshot, appends an impleme…",
+          "lower": "trigger: taskledger implement start captures a workspace snapshot; taskledger validate start enforces it before validation runs.\n\nflow:\n\n\nimplement start -> acquires implementation lock, creates an implementation run, calls capture_workspace_content_snapshot in taskledger/services/workspace_snapshot.py, and persists snapshot metadata on the run.\n\n\nimplementation finishes via implement finish. the snapshot is the source of truth for what was implemented.\n\n\nvalidate start -> calls compare_implementation_snapshot. if the current workspace diverges, validation is blocked with a reason_code such as content_snapshot_mismatch or legacy_snapshot_mismatch.\n\n\nvalidate start --refresh-implementation-snapshot --reason \"...\" -> refresh_implementation_snapshot records a new snapshot, appends an impleme…"
+        },
+        {
+          "anchor": "",
+          "heading": "Git sync workflow for shared state",
+          "text": "Trigger: Developer runs taskledger sync git init to set up an external sync repo.\n\nFlow:\n\n\nsync git init → Moves or copies .taskledger/ content into a dedicated Git repository, updates taskledger.toml with external_dir\n\n\nsync preflight → Checks that no active locks would conflict with a sync operation\n\n\nsync git commit --message \"...\" → Commits current state to the sync repo\n\n\nsync git export-local / sync git import-local → Exchanges state between the sync repo and the project\n\n\nsync git status → Shows working tree status of the sync repo\n\n\nsync git paths → Shows resolved paths for the sync repo and project\n\n\ncd \"$(taskledger sync git cd)\" → Opens a shell in the sync repo directory for manual Git operations\n\n\n\nResult: Taskledger state is stored in a separate Git repository that can be ver…",
+          "lower": "trigger: developer runs taskledger sync git init to set up an external sync repo.\n\nflow:\n\n\nsync git init → moves or copies .taskledger/ content into a dedicated git repository, updates taskledger.toml with external_dir\n\n\nsync preflight → checks that no active locks would conflict with a sync operation\n\n\nsync git commit --message \"...\" → commits current state to the sync repo\n\n\nsync git export-local / sync git import-local → exchanges state between the sync repo and the project\n\n\nsync git status → shows working tree status of the sync repo\n\n\nsync git paths → shows resolved paths for the sync repo and project\n\n\ncd \"$(taskledger sync git cd)\" → opens a shell in the sync repo directory for manual git operations\n\n\n\nresult: taskledger state is stored in a separate git repository that can be ver…"
+        },
+        {
+          "anchor": "",
+          "heading": "Migration, reindex, and doctor interaction",
+          "text": "Trigger: Developer upgrades taskledger and runs taskledger doctor, which reports a storage version mismatch.\n\nFlow:\n\n\ndoctor → Scans project config, storage layout version, task records, indexes, locks, and runs\n\n\nDetects that storage layout version (e.g., v2) is behind current version (v3)\n\n\nReports diagnostic with severity, code, and repair hint\n\n\nmigrate → Applies storage layout migrations to upgrade records to current schema\n\n\nMigration code in taskledger/storage/migrations.py handles version-to-version upgrades\n\n\nreindex → Rebuilds JSON index caches from migrated canonical records\n\n\ndoctor → Re-run confirms all checks pass\n\n\n\nResult: Storage layout is upgraded to the current version. Indexes are rebuilt. Doctor passes cleanly.\n\nKey source: taskledger/storage/migrations.py, taskledger…",
+          "lower": "trigger: developer upgrades taskledger and runs taskledger doctor, which reports a storage version mismatch.\n\nflow:\n\n\ndoctor → scans project config, storage layout version, task records, indexes, locks, and runs\n\n\ndetects that storage layout version (e.g., v2) is behind current version (v3)\n\n\nreports diagnostic with severity, code, and repair hint\n\n\nmigrate → applies storage layout migrations to upgrade records to current schema\n\n\nmigration code in taskledger/storage/migrations.py handles version-to-version upgrades\n\n\nreindex → rebuilds json index caches from migrated canonical records\n\n\ndoctor → re-run confirms all checks pass\n\n\n\nresult: storage layout is upgraded to the current version. indexes are rebuilt. doctor passes cleanly.\n\nkey source: taskledger/storage/migrations.py, taskledger…"
+        },
+        {
+          "anchor": "",
+          "heading": "Worker pipeline guided handoff",
+          "text": "Trigger: Agent runs taskledger next-action and receives worker_pipeline.next_step in the response.\n\nFlow:\n\n\nnext-action → Returns worker_pipeline.next_step with step_id, context_command, and handoff_command hints\n\n\npipeline show → Displays the configured worker pipeline steps and their mapping to lifecycle stages\n\n\ncontext --worker spec-reviewer → Renders a worker-specific context for the spec reviewer step\n\n\nhandoff create --worker code-reviewer → Creates a handoff with mode and context derived from the worker step configuration\n\n\nPlan todos may be tagged with worker_step to associate implementation steps with specific pipeline workers\n\n\nplan template --with-worker-pipeline → Generates plan template with worker-tagged todo sections\n\n\n\nResult: Worker pipeline provides an advisory overlay…",
+          "lower": "trigger: agent runs taskledger next-action and receives worker_pipeline.next_step in the response.\n\nflow:\n\n\nnext-action → returns worker_pipeline.next_step with step_id, context_command, and handoff_command hints\n\n\npipeline show → displays the configured worker pipeline steps and their mapping to lifecycle stages\n\n\ncontext --worker spec-reviewer → renders a worker-specific context for the spec reviewer step\n\n\nhandoff create --worker code-reviewer → creates a handoff with mode and context derived from the worker step configuration\n\n\nplan todos may be tagged with worker_step to associate implementation steps with specific pipeline workers\n\n\nplan template --with-worker-pipeline → generates plan template with worker-tagged todo sections\n\n\n\nresult: worker pipeline provides an advisory overlay…"
+        }
+      ]
+    },
+    {
       "url": "/tools/taskledger/main/architecture_taskledger_split/",
       "title": "Taskledger architecture",
       "snippet": "taskledger is a task-first CLI and Python package for staged coding work.\nThe canonical workflow is:\n\ntask -> plan -> approval -> implement …",
@@ -131,8 +396,8 @@
         {
           "anchor": "",
           "heading": "Storage model",
-          "text": "Markdown records are canonical. Task, plan, and run reads come from those\nrecords directly. The authoritative Taskledger data mount is\n../ledger/taskledger/<project-uuid> under the shared sibling base. The\ntask_sidecars.json summary index and other rebuildable indexes are\ncheckout-scoped cache data. Action and event logging is enabled by default and\nappends immutable TaskEvent records to the ledger-level events/\ndirectory. Active stages require visible lock files, and stale locks are\nreported instead of being cleared silently.",
-          "lower": "markdown records are canonical. task, plan, and run reads come from those\nrecords directly. the authoritative taskledger data mount is\n../ledger/taskledger/<project-uuid> under the shared sibling base. the\ntask_sidecars.json summary index and other rebuildable indexes are\ncheckout-scoped cache data. action and event logging is enabled by default and\nappends immutable taskevent records to the ledger-level events/\ndirectory. active stages require visible lock files, and stale locks are\nreported instead of being cleared silently."
+          "text": "Markdown records are canonical. Task, plan, and run reads come from those\nrecords directly. Canonical Taskledger uses four Ledgercore mounts: durable\ndata, checkout-local runtime, diagnostic logs, and rebuildable cache\nindexes. The default data mount is external sibling storage; runtime and logs\nuse user-data and indexes use cache. Local machine overrides live in\n.ledger/ledger.local.toml.\n\nActive/session state and workspace snapshot manifests are runtime data. Raw event\nand agent-command logs are diagnostic logs. Small semantic run summaries and\ntask records remain in data. Indexes are always derived from data and may be\ndeleted and rebuilt without task-history loss. The historical .taskledger/\nlayout and root taskledger.toml are compatibility and migration inputs only.",
+          "lower": "markdown records are canonical. task, plan, and run reads come from those\nrecords directly. canonical taskledger uses four ledgercore mounts: durable\ndata, checkout-local runtime, diagnostic logs, and rebuildable cache\nindexes. the default data mount is external sibling storage; runtime and logs\nuse user-data and indexes use cache. local machine overrides live in\n.ledger/ledger.local.toml.\n\nactive/session state and workspace snapshot manifests are runtime data. raw event\nand agent-command logs are diagnostic logs. small semantic run summaries and\ntask records remain in data. indexes are always derived from data and may be\ndeleted and rebuilt without task-history loss. the historical .taskledger/\nlayout and root taskledger.toml are compatibility and migration inputs only."
         },
         {
           "anchor": "",
@@ -149,21 +414,81 @@
         {
           "anchor": "",
           "heading": "Architecture records",
-          "text": "Arc42 architecture records live under the Archledger direct sibling mount\n../ledger/archledger/<project-uuid>/ and are the source of\nARCHITECTURE.md. Skills (skills/taskledger/SKILL.md) and\ndocs/architecture_taskledger_split.md live outside the Python package and\noutside the archledger build output.",
-          "lower": "arc42 architecture records live under the archledger direct sibling mount\n../ledger/archledger/<project-uuid>/ and are the source of\narchitecture.md. skills (skills/taskledger/skill.md) and\ndocs/architecture_taskledger_split.md live outside the python package and\noutside the archledger build output."
+          "text": "Arc42 architecture records live under the canonical Archledger data mount\n.ledger/archledger/data/ and are the source of docs/architecture.md. Skills\n(skills/taskledger/SKILL.md) and docs/architecture_taskledger_split.md live\noutside the Python package and outside the Archledger build output.",
+          "lower": "arc42 architecture records live under the canonical archledger data mount\n.ledger/archledger/data/ and are the source of docs/architecture.md. skills\n(skills/taskledger/skill.md) and docs/architecture_taskledger_split.md live\noutside the python package and outside the archledger build output."
         }
       ]
     },
     {
       "url": "/tools/taskledger/main/changelog/",
       "title": "taskledger Changelog",
-      "snippet": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\nAtomic index update …",
+      "snippet": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\nAdded run-scoped re …",
       "sections": [
         {
           "anchor": "",
           "heading": "Changelog",
           "text": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.",
           "lower": "generated by releaseledger. manual edits may be overwritten. update releaseledger entries and rebuild this file instead."
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Added run-scoped read-only review handoffs with cross-harness claims, durable evidence, and snapshot-drift detection",
+          "lower": "added run-scoped read-only review handoffs with cross-harness claims, durable evidence, and snapshot-drift detection"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Changed workspace snapshot validation to track added and deleted project files and reject unstable snapshot baselines",
+          "lower": "changed workspace snapshot validation to track added and deleted project files and reject unstable snapshot baselines"
+        },
+        {
+          "anchor": "",
+          "heading": "Quality",
+          "text": "Improved regression coverage for review-handoff identity, claims, command registration, and service boundaries",
+          "lower": "improved regression coverage for review-handoff identity, claims, command registration, and service boundaries"
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Added separate runtime and log storage mounts and closed uninitialized projects against legacy storage creation",
+          "lower": "added separate runtime and log storage mounts and closed uninitialized projects against legacy storage creation"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Improved managed command virtualenv selection for planning and implementation",
+          "lower": "improved managed command virtualenv selection for planning and implementation"
+        },
+        {
+          "anchor": "",
+          "heading": "Documentation",
+          "text": "Documented the architecture source and generated output under docs/architecture.md",
+          "lower": "documented the architecture source and generated output under docs/architecture.md"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Improved managed commands to preserve child arguments, working directories, output, and execution context",
+          "lower": "improved managed commands to preserve child arguments, working directories, output, and execution context"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Automatic indexes cache bootstrapping before canonical mutations with quarantine-based recovery for unbound caches\n\n\nIndexes mount is fixed to cache storage; storage set indexes cache is now an idempotent topology request and non-cache indexes storage is rejected directly",
+          "lower": "automatic indexes cache bootstrapping before canonical mutations with quarantine-based recovery for unbound caches\n\n\nindexes mount is fixed to cache storage; storage set indexes cache is now an idempotent topology request and non-cache indexes storage is rejected directly"
+        },
+        {
+          "anchor": "",
+          "heading": "Fixed",
+          "text": "reindex command now reports cache recovery results and surfaces structured errors for recovery failures",
+          "lower": "reindex command now reports cache recovery results and surfaces structured errors for recovery failures"
+        },
+        {
+          "anchor": "",
+          "heading": "Documentation",
+          "text": "Documented indexes cache recovery behavior and multi-machine sync workflow",
+          "lower": "documented indexes cache recovery behavior and multi-machine sync workflow"
         },
         {
           "anchor": "",
@@ -325,8 +650,8 @@
         {
           "anchor": "",
           "heading": "Managed command wrappers",
-          "text": "plan command and implement command mirror the inner command exit code by\ndefault.\n\nUse --allow-failure when you intentionally want to record a non-zero inner\nexit code while returning wrapper exit code 0:\n\ntaskledger plan command -- pytest tests/ -q\ntaskledger plan command --allow-failure -- pytest tests/ -q\ntaskledger implement command -- ruff check --config=.ruff.toml .\ntaskledger implement command --allow-failure -- python -c \"raise SystemExit(7)\"",
-          "lower": "plan command and implement command mirror the inner command exit code by\ndefault.\n\nuse --allow-failure when you intentionally want to record a non-zero inner\nexit code while returning wrapper exit code 0:\n\ntaskledger plan command -- pytest tests/ -q\ntaskledger plan command --allow-failure -- pytest tests/ -q\ntaskledger implement command -- ruff check --config=.ruff.toml .\ntaskledger implement command --allow-failure -- python -c \"raise systemexit(7)\""
+          "text": "plan command and implement command mirror the inner command exit code by\ndefault. Both wrappers pass the argument vector after -- to the child without a\nshell. They execute the child from the CLI invocation directory, or the explicit\n--root directory, even when Taskledger discovers an ancestor workspace root for\nledger state, artifacts, and logs.\n\nManaged commands preserve the caller environment, but resolve child executable lookup\ndeterministically. A usable inherited VIRTUAL_ENV takes precedence. Otherwise\nTaskledger checks <command-cwd>/.venv, <command-cwd>/venv, then the workspace\nroot’s .venv and venv, in that order. A candidate must contain pyvenv.cfg and\na platform-appropriate Python executable. For an auto-detected environment, only\nthe child environment is changed: its scripts di…",
+          "lower": "plan command and implement command mirror the inner command exit code by\ndefault. both wrappers pass the argument vector after -- to the child without a\nshell. they execute the child from the cli invocation directory, or the explicit\n--root directory, even when taskledger discovers an ancestor workspace root for\nledger state, artifacts, and logs.\n\nmanaged commands preserve the caller environment, but resolve child executable lookup\ndeterministically. a usable inherited virtual_env takes precedence. otherwise\ntaskledger checks <command-cwd>/.venv, <command-cwd>/venv, then the workspace\nroot’s .venv and venv, in that order. a candidate must contain pyvenv.cfg and\na platform-appropriate python executable. for an auto-detected environment, only\nthe child environment is changed: its scripts di…"
         },
         {
           "anchor": "",
@@ -385,8 +710,8 @@
         {
           "anchor": "",
           "heading": "Layout and migration commands",
-          "text": "taskledger config path reports the project-located Taskledger configuration.\ntaskledger storage path data|indexes reports named resolved mounts.\nUse storage validate, storage set, and storage clear-override for schema-3\nstorage selection. Legacy layout conversion remains explicit through\nmigrate status, migrate plan, and migrate apply.\n\nMigration inspection and apply share these options:\n\n--sibling-ledger-root PATH\n--source-data-root PATH\n--source-checkout-id ID\n--project-uuid UUID\n\n\n\n\nThe canonical project UUID is selected when a legacy Taskledger UUID differs. The\nlegacy UUID is retained as source metadata. --source-data-root is the recovery\noverride for a specific data root. --source-checkout-id accepts an identifier,\nnot a filesystem path. Backups are automatic. Other ledger registrat…",
-          "lower": "taskledger config path reports the project-located taskledger configuration.\ntaskledger storage path data|indexes reports named resolved mounts.\nuse storage validate, storage set, and storage clear-override for schema-3\nstorage selection. legacy layout conversion remains explicit through\nmigrate status, migrate plan, and migrate apply.\n\nmigration inspection and apply share these options:\n\n--sibling-ledger-root path\n--source-data-root path\n--source-checkout-id id\n--project-uuid uuid\n\n\n\n\nthe canonical project uuid is selected when a legacy taskledger uuid differs. the\nlegacy uuid is retained as source metadata. --source-data-root is the recovery\noverride for a specific data root. --source-checkout-id accepts an identifier,\nnot a filesystem path. backups are automatic. other ledger registrat…"
+          "text": "taskledger config path reports the project-located Taskledger configuration.\ntaskledger storage path data|runtime|logs|indexes reports named resolved mounts.\nUse storage validate, storage set, and storage clear-override for schema-3\nstorage selection. storage set changes topology only; use the explicit\nmigration commands for data relocation. Legacy layout conversion remains explicit\nthrough migrate status, migrate plan, and migrate apply.\n\nMigration inspection and apply share these options:\n\n--sibling-ledger-root PATH\n--source-data-root PATH\n--source-checkout-id ID\n--project-uuid UUID\n\n\n\n\nThe canonical project UUID is selected when a legacy Taskledger UUID differs. The\nlegacy UUID is retained as source metadata. --source-data-root is the recovery\noverride for a specific data root. --sourc…",
+          "lower": "taskledger config path reports the project-located taskledger configuration.\ntaskledger storage path data|runtime|logs|indexes reports named resolved mounts.\nuse storage validate, storage set, and storage clear-override for schema-3\nstorage selection. storage set changes topology only; use the explicit\nmigration commands for data relocation. legacy layout conversion remains explicit\nthrough migrate status, migrate plan, and migrate apply.\n\nmigration inspection and apply share these options:\n\n--sibling-ledger-root path\n--source-data-root path\n--source-checkout-id id\n--project-uuid uuid\n\n\n\n\nthe canonical project uuid is selected when a legacy taskledger uuid differs. the\nlegacy uuid is retained as source metadata. --source-data-root is the recovery\noverride for a specific data root. --sourc…"
         }
       ]
     },
@@ -704,8 +1029,8 @@
         {
           "anchor": "",
           "heading": "Function line budget whitelist (>250 lines)",
-          "text": "taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases\n\n\nCurrent reason: Sub-phases of scan_task_integrity with per-task lock, run, and validation checks.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\nCurrent reason: Sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_apply_migration_phases\n\n\nCurrent reason: Migration apply logic covers file moves, UUID resolution, and config rewriting.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_inspect_migration_phases\n\n\nCurrent reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.",
-          "lower": "taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases\n\n\ncurrent reason: sub-phases of scan_task_integrity with per-task lock, run, and validation checks.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\ncurrent reason: sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_apply_migration_phases\n\n\ncurrent reason: migration apply logic covers file moves, uuid resolution, and config rewriting.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_inspect_migration_phases\n\n\ncurrent reason: migration inspect logic covers candidate discovery, config analysis, and issue assembly."
+          "text": "taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases\n\n\nCurrent reason: Sub-phases of scan_task_integrity with per-task lock, run, and validation checks.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\nCurrent reason: Sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_apply_migration_phases\n\n\nCurrent reason: Migration apply logic covers file moves, UUID resolution, and config rewriting.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_inspect_migration_phases\n\n\nCurrent reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.\n\n\n\n\n\ntaskledger/cli_misc.py::register_handoff_v2_commands\n\n\nCurrent reason: Handoff v2 command r…",
+          "lower": "taskledger/services/doctor_checks/task_checks.py::_scan_task_integrity_phases\n\n\ncurrent reason: sub-phases of scan_task_integrity with per-task lock, run, and validation checks.\n\n\n\n\n\ntaskledger/cli_sync.py::register_sync_commands\n\n\ncurrent reason: sync command registration currently co-locates legacy\nsync, archive alias, git sync, and hook command wiring.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_apply_migration_phases\n\n\ncurrent reason: migration apply logic covers file moves, uuid resolution, and config rewriting.\n\n\n\n\n\ntaskledger/storage/layout_migration.py::_inspect_migration_phases\n\n\ncurrent reason: migration inspect logic covers candidate discovery, config analysis, and issue assembly.\n\n\n\n\n\ntaskledger/cli_misc.py::register_handoff_v2_commands\n\n\ncurrent reason: handoff v2 command r…"
         },
         {
           "anchor": "",
@@ -747,8 +1072,8 @@
         {
           "anchor": "",
           "heading": "Second PC bootstrap",
-          "text": "Clone both repositories as siblings:\n\ncd ~/src\ngit clone <source-repo-url> project-a\ngit clone <private-state-repo-url> taskledger-state\n\ncd project-a\ntaskledger info\ntaskledger doctor\ntaskledger task list",
-          "lower": "clone both repositories as siblings:\n\ncd ~/src\ngit clone <source-repo-url> project-a\ngit clone <private-state-repo-url> taskledger-state\n\ncd project-a\ntaskledger info\ntaskledger doctor\ntaskledger task list"
+          "text": "Indexes are checkout-local derived state and are not synchronized between PCs.\nAfter opening a project on a new machine, deleting the local cache, or allowing\nthe cache to be evicted, read-only commands continue to use canonical records.\nThe first mutating command creates the local Ledgercore cache binding and\nrebuilds the indexes automatically; no second taskledger init is required.\nIf a non-empty unbound cache is found, Taskledger preserves it as an\nindexes.quarantine-* sibling before rebuilding. Use taskledger repair index\nfor explicit cache health repair.\n\nClone both repositories as siblings:\n\ncd ~/src\ngit clone <source-repo-url> project-a\ngit clone <private-state-repo-url> taskledger-state\n\ncd project-a\ntaskledger info\ntaskledger doctor\ntaskledger task list",
+          "lower": "indexes are checkout-local derived state and are not synchronized between pcs.\nafter opening a project on a new machine, deleting the local cache, or allowing\nthe cache to be evicted, read-only commands continue to use canonical records.\nthe first mutating command creates the local ledgercore cache binding and\nrebuilds the indexes automatically; no second taskledger init is required.\nif a non-empty unbound cache is found, taskledger preserves it as an\nindexes.quarantine-* sibling before rebuilding. use taskledger repair index\nfor explicit cache health repair.\n\nclone both repositories as siblings:\n\ncd ~/src\ngit clone <source-repo-url> project-a\ngit clone <private-state-repo-url> taskledger-state\n\ncd project-a\ntaskledger info\ntaskledger doctor\ntaskledger task list"
         },
         {
           "anchor": "",
@@ -783,8 +1108,8 @@
         {
           "anchor": "",
           "heading": "Canonical mounts",
-          "text": "Canonical sync includes the durable data mount and optional logs mount. Cache indexes are excluded and can be deleted and rebuilt. Workspace and cache family roots are resolved by Ledgercore and are not changed by taskledger storage move.",
-          "lower": "canonical sync includes the durable data mount and optional logs mount. cache indexes are excluded and can be deleted and rebuilt. workspace and cache family roots are resolved by ledgercore and are not changed by taskledger storage move."
+          "text": "Canonical state sync includes the durable data mount by default. runtime, logs, and cache indexes are excluded from application-source sync; indexes can be deleted and rebuilt from data. An explicit audit policy may include selected logs. Workspace, user-data, and cache roots are resolved by Ledgercore and are not changed by taskledger storage move.",
+          "lower": "canonical state sync includes the durable data mount by default. runtime, logs, and cache indexes are excluded from application-source sync; indexes can be deleted and rebuilt from data. an explicit audit policy may include selected logs. workspace, user-data, and cache roots are resolved by ledgercore and are not changed by taskledger storage move."
         }
       ]
     },
@@ -977,8 +1302,8 @@
         {
           "anchor": "",
           "heading": "Canonical project layout",
-          "text": "Taskledger uses a schema-3 .ledger/ledger.toml manifest and .ledger/taskledger/config.toml. The default persistent data mount is external storage rooted at ../ledger; indexes is cache storage. A machine-local .ledger/ledger.local.toml may select user-data for data. Use taskledger storage where, taskledger storage path data|indexes, taskledger storage set, and taskledger storage clear-override to inspect or change mounts.",
-          "lower": "taskledger uses a schema-3 .ledger/ledger.toml manifest and .ledger/taskledger/config.toml. the default persistent data mount is external storage rooted at ../ledger; indexes is cache storage. a machine-local .ledger/ledger.local.toml may select user-data for data. use taskledger storage where, taskledger storage path data|indexes, taskledger storage set, and taskledger storage clear-override to inspect or change mounts."
+          "text": "Taskledger uses a schema-3 .ledger/ledger.toml manifest and .ledger/taskledger/config.toml. The canonical mounts are durable data (external storage rooted at ../ledger), checkout-local runtime (user-data), diagnostic logs (user-data), and rebuildable indexes (cache). A machine-local .ledger/ledger.local.toml may select user-data for data. Use taskledger storage where, taskledger storage path data|runtime|logs|indexes, taskledger storage set, and taskledger storage clear-override to inspect or change mounts.",
+          "lower": "taskledger uses a schema-3 .ledger/ledger.toml manifest and .ledger/taskledger/config.toml. the canonical mounts are durable data (external storage rooted at ../ledger), checkout-local runtime (user-data), diagnostic logs (user-data), and rebuildable indexes (cache). a machine-local .ledger/ledger.local.toml may select user-data for data. use taskledger storage where, taskledger storage path data|runtime|logs|indexes, taskledger storage set, and taskledger storage clear-override to inspect or change mounts."
         }
       ]
     }

@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -568,7 +568,7 @@ documentledger<span class="w"> </span>--json<span class="w"> </span>next-action
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>--json<span class="w"> </span>scan
 </pre></div>
 </div>
-<p>The first scan is a clean baseline. Later scans compare deterministic SHA-256 file and source-unit hashes and report changed/deleted sources, affected sections, unlinked changed sources, and unmapped changed units. An unchanged scan reuses its version and does not rewrite state.</p>
+<p>The first scan is a clean baseline. Later scans compare deterministic SHA-256 file and source-unit hashes and report changed/deleted sources, affected sections, unlinked changed sources, and unmapped changed units. An unchanged scan reuses its version and does not rewrite scan state. Every scan also reconciles existing document records with the live Markdown index: new sections are added, surviving metadata is refreshed, and removed sections with no links are pruned. A removed linked section is retained as an actionable orphan.</p>
 <!-- docledger-section: inspect-document-and-source-inventory -->
 </section>
 <section id="inspect-documents-and-source-units">
@@ -582,8 +582,8 @@ documentledger<span class="w"> </span><span class="nb">source</span><span class=
 <p>Use stable section ids and source-unit ids for precise links. Cursor, selector, and path validation failures are reported before state changes.</p>
 <!-- docledger-section: link-documentation-to-sources -->
 </section>
-<section id="add-broad-and-precise-links-link-documentation-to-sources">
-<h2>Add broad and precise links {#link-documentation-to-sources}</h2>
+<section id="add-broad-and-precise-links">
+<h2>Add broad and precise links</h2>
 <p>Prefer section-to-source-unit edges:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>add-section<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span><span class="se">\</span>
@@ -611,9 +611,10 @@ documentledger<span class="w"> </span>--json<span class="w"> </span>coverage
 <section id="build-context-update-and-validate">
 <h2>Build context, update, and validate</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>affected
-documentledger<span class="w"> </span>document<span class="w"> </span>build-context<span class="w"> </span>--affected<span class="w"> </span>--out<span class="w"> </span>/tmp/documentledger-context.md
+documentledger<span class="w"> </span>document<span class="w"> </span>build-context<span class="w"> </span>--affected<span class="w"> </span>--out<span class="w"> </span>-
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">--out</span> <span class="pre">-</span></code> streams raw Markdown directly to stdout without creating the default artifact or a file named <code class="docutils literal notranslate"><span class="pre">-</span></code>. Use <code class="docutils literal notranslate"><span class="pre">--out</span> <span class="pre">PATH</span></code> for an atomically written file. Do not combine raw streaming or <code class="docutils literal notranslate"><span class="pre">--print</span></code> with <code class="docutils literal notranslate"><span class="pre">--json</span></code>, because JSON mode emits exactly one machine-readable envelope.</p>
 <p>Edit affected sections, run configured validation commands, and inspect the resulting links and errors. Context is bounded by source lines, section lines, and total bytes and includes a truncation manifest when limits apply.</p>
 <!-- docledger-section: mark-documentation-fresh -->
 </section>
@@ -626,6 +627,7 @@ documentledger<span class="w"> </span>document<span class="w"> </span>build-cont
 </pre></div>
 </div>
 <p>Mark fresh only after validation. Section-level marking updates the live affected projection without requiring another scan. Unlinked documents are rejected unless <code class="docutils literal notranslate"><span class="pre">--allow-unlinked</span></code> is explicitly appropriate.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--all</span></code> selects all configured documents; <code class="docutils literal notranslate"><span class="pre">--affected</span></code> selects only currently affected documents. For bootstrap, use <code class="docutils literal notranslate"><span class="pre">--all</span> <span class="pre">--allow-unlinked</span></code> only after reviewing coverage and explicitly accepting any remaining unlinked documents.</p>
 <!-- docledger-section: json-and-human-output -->
 </section>
 <section id="json-human-and-profile-output">
@@ -647,6 +649,7 @@ documentledger<span class="w"> </span>document<span class="w"> </span>build-cont
 <section id="validate-ledger-state">
 <h2>Validate ledger state</h2>
 <p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">link</span> <span class="pre">audit</span></code>, and <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">check</span></code> before committing documentation updates.</p>
+<p><code class="docutils literal notranslate"><span class="pre">doctor</span></code> and <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">audit</span></code> are read-only. If audit reports a linked missing section, move its links to a current section or remove them with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">link</span> <span class="pre">remove-section</span> <span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">--section</span> <span class="pre">SECTION_ID</span> <span class="pre">--source-unit</span> <span class="pre">SOURCE_ID</span></code>; after the final obsolete link is removed, the orphan record is pruned. Unlinked structural churn is repaired by the next <code class="docutils literal notranslate"><span class="pre">scan</span></code>.</p>
 <!-- docledger-section: bootstrapping-a-new-repository -->
 </section>
 <section id="bootstrapping-a-new-repository">

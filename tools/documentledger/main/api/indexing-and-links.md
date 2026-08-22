@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 

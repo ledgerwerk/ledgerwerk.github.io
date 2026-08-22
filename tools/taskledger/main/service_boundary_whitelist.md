@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_commit: "f425af79dd94cc9ba056267c899ffbb97de28a96"
 search_enabled: true
 ---
 
@@ -595,6 +595,11 @@ sync, archive alias, git sync, and hook command wiring.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/layout_migration.py::_inspect_migration_phases</span></code></p>
 <ul>
 <li><p>Current reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py::register_handoff_v2_commands</span></code></p>
+<ul>
+<li><p>Current reason: Handoff v2 command registration covers create, claim, release, retarget, review, show, list, close, and cancel command wiring.</p></li>
 </ul>
 </li>
 </ul>

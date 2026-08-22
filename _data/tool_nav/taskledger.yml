@@ -4,17 +4,17 @@ nav_key: taskledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.6.1
-source_commit: 7491339c7fde9c5b1c1ae38e27394069e2fcf83a
-source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.1
+source_ref: v0.6.4
+source_commit: 475e19e50ccb4e55564bedb67b29eee86361c179
+source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.4
 is_default: true
 repo_url: https://github.com/ledgerwerk/taskledger
-release_tag: v0.6.1
-release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.1
+release_tag: v0.6.4
+release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.4
 versions:
 - name: release
   label: Latest release
-  ref: v0.6.1
+  ref: v0.6.4
   url: /tools/taskledger/
   current: true
 - name: main
@@ -32,6 +32,9 @@ entries:
 - slug: full_task_cycle
   title: taskledger Full Task Cycle
   url: /tools/taskledger/full_task_cycle/
+- slug: architecture
+  title: taskledger Architecture Documentation
+  url: /tools/taskledger/architecture/
 - slug: architecture_taskledger_split
   title: Taskledger architecture
   url: /tools/taskledger/architecture_taskledger_split/

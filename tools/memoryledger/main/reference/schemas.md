@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "ad0a6a6ecd6f39d9c1e6619af2af57f2b9d3ec29"
+docs_commit: "e2ee78a1dd69faca9708fc220c8b028b5efe3824"
 search_enabled: true
 ---
 

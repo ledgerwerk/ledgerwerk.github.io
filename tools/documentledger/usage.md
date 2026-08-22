@@ -5,8 +5,8 @@ permalink: /tools/documentledger/usage/
 nav_tool: documentledger
 docs_project: "documentledger"
 docs_variant: "release"
-docs_ref: "v0.2.0"
-docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
+docs_ref: "v0.2.1"
+docs_commit: "9b64a669deec648259b86052992068e658e14fff"
 search_enabled: true
 ---
 
@@ -542,163 +542,127 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="usage">
 <h1>Usage</h1>
-<!-- docledger-section: usage-initialize-workspace -->
-<section id="initialize-a-workspace">
-<h2>Initialize a workspace</h2>
-<p>Run initialization from the repository root:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
+<p>This page is the task-oriented workflow. See <a class="reference internal" href="../cli/"><span class="std std-doc">CLI reference</span></a> for every option and result shape.</p>
+<!-- docledger-section: initialize-a-workspace -->
+<section id="initialize">
+<h2>Initialize</h2>
+<p>From the repository root, initialize the shared ledger layout:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>init<span class="w"> </span>--project-name<span class="w"> </span>example
 </pre></div>
 </div>
-<p>By default this creates the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> layout: <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, the Documentledger tool configuration, and its project data mount. Use <code class="docutils literal notranslate"><span class="pre">--project-name</span></code> to set the project name. Legacy storage-path and hidden-config options are migration-only.</p>
-<!-- docledger-section: usage-check-workspace-status -->
+<p>Initialization creates <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, the Documentledger tool config, the project <code class="docutils literal notranslate"><span class="pre">data</span></code> mount, and the cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> mount.</p>
+<!-- docledger-section: check-workspace-status -->
 </section>
-<section id="check-workspace-status">
-<h2>Check workspace status</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>--json<span class="w"> </span>status
+<section id="inspect-status-and-next-action">
+<h2>Inspect status and next action</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>--json<span class="w"> </span>status
+documentledger<span class="w"> </span>--json<span class="w"> </span>doctor
+documentledger<span class="w"> </span>--json<span class="w"> </span>next-action
 </pre></div>
 </div>
-<p>Status reports the workspace <code class="docutils literal notranslate"><span class="pre">state</span></code>:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">uninitialized</span></code>: no <code class="docutils literal notranslate"><span class="pre">documentledger.toml</span></code> was found.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">bootstrap_required</span></code>: there is no baseline scan yet, or there is a baseline but no usable doc links.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">incremental_clean</span></code>: the latest scan has no affected linked sections.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">incremental_affected</span></code>: the latest scan has affected linked sections that should be reviewed.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mapping_incomplete</span></code>: changed source files are not yet fully linked to documentation.</p></li>
-</ul>
-<p>The result also reports <code class="docutils literal notranslate"><span class="pre">recommended_command</span></code>, <code class="docutils literal notranslate"><span class="pre">recommended_reason</span></code>, compact latest-scan counts, and any root-layout diagnostics that should be fixed before trusting a baseline.</p>
-<!-- docledger-section: usage-run-scan -->
+<p><code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> means no resolvable canonical project or its required metadata, not simply that a legacy root TOML file is absent. Diagnostics distinguish missing bindings, missing data, invalid configuration, and link/index problems.</p>
+<!-- docledger-section: scan-source-and-documentation-files -->
 </section>
-<section id="scan-source-and-documentation-files">
-<h2>Scan source and documentation files</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>--json<span class="w"> </span>scan
+<section id="scan">
+<h2>Scan</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>--json<span class="w"> </span>scan
 </pre></div>
 </div>
-<p>A scan collects files from the configured source and documentation roots, hashes them, indexes Python source units, and compares the current state to the previous scan. The first scan establishes a baseline and does not report changed, deleted, stale, or unlinked sources.</p>
-<p>Later scans report:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">unchanged</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code> when the source and documentation hashes match the previous scan exactly. No scan state is rewritten, no source files are re-indexed, and the previous scan version is reused; the human output prints <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">tracked</span> <span class="pre">file</span> <span class="pre">changes</span> <span class="pre">since</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">&lt;version&gt;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Recorded</span> <span class="pre">scan</span> <span class="pre">version</span> <span class="pre">&lt;version&gt;</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">changed_sources</span></code>, source files whose hash changed or that are new since the previous scan.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">changed_units</span></code>, source units whose tracked semantic hashes changed. For Python this is usually the changed function, method, class, or module contract rather than the whole file.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">deleted_sources</span></code>, source files that were present in the previous scan and are now gone.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">affected_sections</span></code>, the documentation sections currently impacted by changed or deleted linked source units.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stale_docs</span></code>, a compatibility projection of the docs that still contain affected sections.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">unlinked_changed_sources</span></code>, changed source files that do not have documentation links.</p></li>
-</ul>
-<!-- docledger-section: usage-link-documentation-to-sources -->
+<p>The first scan is a clean baseline. Later scans compare deterministic SHA-256 file and source-unit hashes and report changed/deleted sources, affected sections, unlinked changed sources, and unmapped changed units. An unchanged scan reuses its version and does not rewrite scan state. Every scan also reconciles existing document records with the live Markdown index: new sections are added, surviving metadata is refreshed, and removed sections with no links are pruned. A removed linked section is retained as an actionable orphan.</p>
+<!-- docledger-section: inspect-document-and-source-inventory -->
 </section>
-<section id="link-documentation-to-sources">
-<h2>Link documentation to sources</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>add<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--source<span class="w"> </span>documentledger/cli.py<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Documents CLI workflow.&quot;</span>
+<section id="inspect-documents-and-source-units">
+<h2>Inspect documents and source units</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>list
+documentledger<span class="w"> </span>document<span class="w"> </span>sections<span class="w"> </span>--all<span class="w"> </span>--outline
+documentledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>list<span class="w"> </span>--ids-only<span class="w"> </span>--path-prefix<span class="w"> </span>documentledger
+documentledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>show<span class="w"> </span>SOURCE_ID
 </pre></div>
 </div>
-<p>Whole-file links remain available as a broad fallback, but precise section links are the default:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>add-section<span class="w"> </span><span class="se">\</span>
+<p>Use stable section ids and source-unit ids for precise links. Cursor, selector, and path validation failures are reported before state changes.</p>
+<!-- docledger-section: link-documentation-to-sources -->
+</section>
+<section id="add-broad-and-precise-links">
+<h2>Add broad and precise links</h2>
+<p>Prefer section-to-source-unit edges:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>add-section<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--section<span class="w"> </span>usage-validate-ledger-state<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--source-unit<span class="w"> </span>py:function:documentledger/commands/root.py::doctor<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--section<span class="w"> </span>usage-scan<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-unit<span class="w"> </span>py:function:documentledger/commands/root.py::scan<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--coverage<span class="w"> </span>cli-command<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--impact<span class="w"> </span>behavior<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Documents the doctor command.&quot;</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Documents scan behavior.&quot;</span>
 </pre></div>
 </div>
-<p>Links use repository-relative POSIX paths. Document paths must have configured documentation extensions, source paths and source units must exist, and coverage and impact values are validated. Keep links precise: section-level links let small command changes affect only the doc sections that actually describe them.</p>
-<p>List and remove links with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>list
-docledger<span class="w"> </span>links<span class="w"> </span>remove<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--source<span class="w"> </span>documentledger/cli.py
-docledger<span class="w"> </span>links<span class="w"> </span>remove-section<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--section<span class="w"> </span>usage-validate-ledger-state<span class="w"> </span>--source-unit<span class="w"> </span>py:function:documentledger/commands/root.py::doctor
-docledger<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--file<span class="w"> </span>/tmp/documentledger-map.yaml<span class="w"> </span>--validate
-docledger<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/documentledger-maps<span class="w"> </span>--check-and-apply
-</pre></div>
-</div>
-<!-- docledger-section: usage-find-and-update-stale-documentation -->
+<p>Use <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">link</span> <span class="pre">add</span> <span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">--source</span> <span class="pre">SOURCE</span></code> only when a whole-file edge is intentionally broad. Review links with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">link</span> <span class="pre">list</span></code> and remove them with the matching remove command.</p>
+<!-- docledger-section: propose-import-and-audit-links -->
 </section>
-<section id="find-and-update-stale-documentation">
-<h2>Find and update stale documentation</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>--json<span class="w"> </span>docs<span class="w"> </span>affected
-docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--affected<span class="w"> </span>--out<span class="w"> </span>/tmp/docledger-context.md
+<section id="propose-import-and-audit-links">
+<h2>Propose, import, and audit links</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>propose<span class="w"> </span>--all-docs<span class="w"> </span>--out-dir<span class="w"> </span>/tmp/documentledger-maps
+documentledger<span class="w"> </span>--json<span class="w"> </span>link<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/documentledger-maps<span class="w"> </span>--check-and-apply
+documentledger<span class="w"> </span>--json<span class="w"> </span>link<span class="w"> </span>audit
+documentledger<span class="w"> </span>--json<span class="w"> </span>coverage
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">affected</span></code> reports the live affected sections for the latest scan. After a section is updated and marked fresh, it disappears from <code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">affected</span></code> immediately; a follow-up scan is optional confirmation, not the only way to clear affectedness.</p>
-<p>The rendered context contains only the affected doc sections, their linked changed source units, the current relevant source snippets, unlinked changed sources, and configured validation commands. Inspect the affected sections and linked changed source units first. Expand to whole files only when the changed unit cannot be understood in isolation.</p>
-<!-- docledger-section: usage-bootstrapping-a-new-repository -->
+<p>Proposal files are deterministic suggestions. Review them before applying a batch; <code class="docutils literal notranslate"><span class="pre">--check-and-apply</span></code> validates the complete batch before one logical write.</p>
+<!-- docledger-section: find-and-update-stale-documentation -->
 </section>
-<section id="bootstrapping-a-new-repository">
-<h2>Bootstrapping a new repository</h2>
-<p>A fresh repository has no links yet, so the first scan reports no stale docs. To drive an initial documentation pass, use the explicit bootstrap flow:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
-docledger<span class="w"> </span>scan
-docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--bootstrap<span class="w"> </span>--out<span class="w"> </span>/tmp/docledger-bootstrap.md
-docledger<span class="w"> </span>links<span class="w"> </span>propose<span class="w"> </span>--all-docs<span class="w"> </span>--out-dir<span class="w"> </span>/tmp/docledger-maps
-docledger<span class="w"> </span>--json<span class="w"> </span>links<span class="w"> </span>import-map<span class="w"> </span>--directory<span class="w"> </span>/tmp/docledger-maps<span class="w"> </span>--check-and-apply
+<section id="build-context-update-and-validate">
+<h2>Build context, update, and validate</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>affected
+documentledger<span class="w"> </span>document<span class="w"> </span>build-context<span class="w"> </span>--affected<span class="w"> </span>--out<span class="w"> </span>-
 </pre></div>
 </div>
-<p>The bootstrap context and proposal flow give agents a deterministic first-pass link graph without applying anything until the full batch validates. See <a class="reference internal" href="../bootstrap/"><span class="std std-doc">Bootstrap</span></a> for the full setup sequence.</p>
-<!-- docledger-section: usage-mark-documentation-fresh -->
+<p><code class="docutils literal notranslate"><span class="pre">--out</span> <span class="pre">-</span></code> streams raw Markdown directly to stdout without creating the default artifact or a file named <code class="docutils literal notranslate"><span class="pre">-</span></code>. Use <code class="docutils literal notranslate"><span class="pre">--out</span> <span class="pre">PATH</span></code> for an atomically written file. Do not combine raw streaming or <code class="docutils literal notranslate"><span class="pre">--print</span></code> with <code class="docutils literal notranslate"><span class="pre">--json</span></code>, because JSON mode emits exactly one machine-readable envelope.</p>
+<p>Edit affected sections, run configured validation commands, and inspect the resulting links and errors. Context is bounded by source lines, section lines, and total bytes and includes a truncation manifest when limits apply.</p>
+<!-- docledger-section: mark-documentation-fresh -->
 </section>
-<section id="mark-documentation-fresh">
-<h2>Mark documentation fresh</h2>
-<p>After updating and validating an affected section, mark it fresh:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--section<span class="w"> </span>usage-validate-ledger-state<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Docs updated after scan version 2.&quot;</span>
+<section id="mark-fresh">
+<h2>Mark fresh</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>mark-fresh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--section<span class="w"> </span>usage-scan<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Updated after scan version VERSION.&quot;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> records the latest scan version, the current document hash, the current section hash, and the tracked source-unit hashes for the selected links. It requires a non-empty reason. Use <code class="docutils literal notranslate"><span class="pre">--all</span></code> to mark every currently affected section from the latest scan, or <code class="docutils literal notranslate"><span class="pre">--doc</span></code> without <code class="docutils literal notranslate"><span class="pre">--section</span></code> to update all affected sections in one doc explicitly.</p>
-<p>Unlinked docs are rejected by default:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span class="w"> </span>docs/index.md<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Navigation page.&quot;</span><span class="w">        </span><span class="c1"># rejected: unlinked_doc</span>
-docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span class="w"> </span>docs/index.md<span class="w"> </span>--allow-unlinked<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Navigation page.&quot;</span>
-</pre></div>
-</div>
-<p>This prevents silently tracking a doc that can never become stale from source changes. Pass <code class="docutils literal notranslate"><span class="pre">--allow-unlinked</span></code> only for intentionally unlinked docs; the record stores the reason with an <code class="docutils literal notranslate"><span class="pre">(intentionally</span> <span class="pre">unlinked)</span></code> marker.</p>
-<!-- docledger-section: usage-validate-ledger-state -->
+<p>Mark fresh only after validation. Section-level marking updates the live affected projection without requiring another scan. Unlinked documents are rejected unless <code class="docutils literal notranslate"><span class="pre">--allow-unlinked</span></code> is explicitly appropriate.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--all</span></code> selects all configured documents; <code class="docutils literal notranslate"><span class="pre">--affected</span></code> selects only currently affected documents. For bootstrap, use <code class="docutils literal notranslate"><span class="pre">--all</span> <span class="pre">--allow-unlinked</span></code> only after reviewing coverage and explicitly accepting any remaining unlinked documents.</p>
+<!-- docledger-section: json-and-human-output -->
 </section>
-<section id="validate-ledger-state">
-<h2>Validate ledger state</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>doctor
-</pre></div>
-</div>
-<p>Doctor checks storage schema metadata, document record paths, suspicious root configuration, missing documentation files, missing source files, duplicate edges, missing source-unit ids, and missing section ids.</p>
-<!-- docledger-section: usage-json-and-human-output -->
-</section>
-<section id="json-and-human-output">
-<h2>JSON and human output</h2>
-<p>Pass <code class="docutils literal notranslate"><span class="pre">--json</span></code> before the command to emit a stable JSON envelope:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="nt">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Errors also use a JSON envelope when <code class="docutils literal notranslate"><span class="pre">--json</span></code> is set, and the envelope preserves the real command name:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scan&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;workspace_not_found&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;remediation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Without <code class="docutils literal notranslate"><span class="pre">--json</span></code>, commands print human-readable output and errors print concise <code class="docutils literal notranslate"><span class="pre">Error:</span></code> messages with remediation hints.</p>
-<!-- docledger-section: usage-ledger-state-and-commit-policy -->
+<section id="json-human-and-profile-output">
+<h2>JSON, human, and profile output</h2>
+<p>Put <code class="docutils literal notranslate"><span class="pre">--json</span></code> before a command for the stable machine envelope. Omit it for concise human output. <code class="docutils literal notranslate"><span class="pre">--profile</span></code> adds deterministic operation events and durations to JSON output for diagnosis. <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--version</span></code>, <code class="docutils literal notranslate"><span class="pre">commands</span></code>, and <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">COMMAND_PATH...</span></code> work without a workspace.</p>
+<p>Commit canonical project metadata and durable <code class="docutils literal notranslate"><span class="pre">data</span></code> records according to the repository policy. Cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> output is derived and normally ignored. Do not edit ledger records manually.</p>
+<!-- docledger-section: ledger-state-and-commit-policy -->
 </section>
 <section id="ledger-state-and-commit-policy">
 <h2>Ledger state and commit policy</h2>
-<p>Documentledger stores its durable state under <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/</span></code>; rendered and proposal artifacts use the resolved cache mount. The recommended commit policy for a documentation freshness ledger is:</p>
-<ul class="simple">
-<li><p>Commit <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/config.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/storage.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/scan.yaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/docs/*.yaml</span></code>. These are the source of truth for project identity, the current scan baseline, section-level links, tracked hash state, and freshness markers.</p></li>
-<li><p>Ignore the resolved cache artifacts directory. Rendered context is regenerated on demand by <code class="docutils literal notranslate"><span class="pre">docs</span> <span class="pre">build-context</span></code>.</p></li>
-</ul>
-<p>Do not edit <code class="docutils literal notranslate"><span class="pre">.ledger/</span></code> files directly; use the <code class="docutils literal notranslate"><span class="pre">docledger</span></code> commands so the records stay consistent. Existing <code class="docutils literal notranslate"><span class="pre">.documentledger/</span></code> layouts are compatibility input for explicit migration only.</p>
+<p>Commit <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code>, the tool configuration, and durable <code class="docutils literal notranslate"><span class="pre">data</span></code> records according to repository policy. Cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> output is derived. Historical scan state is supplied by Git history, not a persisted scans directory.</p>
+<!-- docledger-section: storage-commands -->
 </section>
 <section id="storage-commands">
 <h2>Storage commands</h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">storage</span> <span class="pre">where</span></code> to inspect the active layout. Migrate a legacy workspace with a reviewed dry-run plan, then verify before any cleanup:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>storage<span class="w"> </span>migrate<span class="w"> </span>--dry-run<span class="w"> </span>--plan-file<span class="w"> </span>migration.json
-docledger<span class="w"> </span>storage<span class="w"> </span>migrate<span class="w"> </span>--plan-file<span class="w"> </span>migration.json<span class="w"> </span>--adopt-project-uuid
-docledger<span class="w"> </span>storage<span class="w"> </span>verify<span class="w"> </span>--strict
-docledger<span class="w"> </span>storage<span class="w"> </span>cleanup-legacy<span class="w"> </span>--dry-run
-</pre></div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">storage</span> <span class="pre">where</span></code> to inspect resolved mounts and <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">storage</span> <span class="pre">validate</span> <span class="pre">--strict</span></code> to validate canonical bindings. Migration is explicit and is documented separately.</p>
+<!-- docledger-section: validate-ledger-state -->
+</section>
+<section id="validate-ledger-state">
+<h2>Validate ledger state</h2>
+<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">link</span> <span class="pre">audit</span></code>, and <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">check</span></code> before committing documentation updates.</p>
+<p><code class="docutils literal notranslate"><span class="pre">doctor</span></code> and <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">audit</span></code> are read-only. If audit reports a linked missing section, move its links to a current section or remove them with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">link</span> <span class="pre">remove-section</span> <span class="pre">--doc</span> <span class="pre">DOC</span> <span class="pre">--section</span> <span class="pre">SECTION_ID</span> <span class="pre">--source-unit</span> <span class="pre">SOURCE_ID</span></code>; after the final obsolete link is removed, the orphan record is pruned. Unlinked structural churn is repaired by the next <code class="docutils literal notranslate"><span class="pre">scan</span></code>.</p>
+<!-- docledger-section: bootstrapping-a-new-repository -->
+</section>
+<section id="bootstrapping-a-new-repository">
+<h2>Bootstrapping a new repository</h2>
+<p>For a new project, run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">init</span></code>, create the first baseline with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code>, and follow the dedicated <a class="reference internal" href="../bootstrap/"><span class="std std-doc">bootstrap workflow</span></a>.</p>
+<!-- docledger-section: usage-limitations -->
+</section>
+<section id="limitations">
+<h2>Limitations</h2>
+<p>Freshness is routed through explicit links and hash dimensions; an unlinked source change cannot identify a section. Git history replaces persisted historical scan files. The configured roots and extensions are intentionally static.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.6: </span><code class="docutils literal notranslate"><span class="pre">docledger</span></code>, the plural command groups, root <code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code>, and legacy storage migration wrappers are compatibility-only. New automation must use <code class="docutils literal notranslate"><span class="pre">documentledger</span></code> and canonical singular command paths.</p>
 </div>
-<p>Routine commands never migrate automatically and read-only commands do not initialize cache directories or repair bindings.</p>
 </section>
 </section>
 </div>

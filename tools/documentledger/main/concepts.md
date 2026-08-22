@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -556,6 +556,14 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="link-edges-coverage-and-impact">
 <h2>Link edges, coverage, and impact</h2>
 <p>A link edge connects a document section to a source unit with coverage, impact, reason, and tracked hashes. Coverage describes how much of the source contract is represented; impact classifies whether changes affect behavior, API, configuration, or another documented concern. Broad file links are a fallback, not the preferred precision model.</p>
+</section>
+<section id="live-sections-and-durable-records">
+<h2>Live sections and durable records</h2>
+<p>The live Markdown index owns section existence and structural metadata. Durable document
+records own explicit link edges and freshness decisions. During <code class="docutils literal notranslate"><span class="pre">scan</span></code>, a newly added section
+is recorded with empty links, surviving section metadata is refreshed without changing its
+edges, and a removed unlinked section is disposable bookkeeping that may be pruned. A removed
+linked section is retained as an orphan until its links are moved or explicitly removed.</p>
 <!-- docledger-section: concepts-freshness -->
 </section>
 <section id="freshness-and-affectedness">

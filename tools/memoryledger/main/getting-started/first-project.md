@@ -6,7 +6,7 @@ nav_tool: memoryledger-main
 docs_project: "memoryledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "ad0a6a6ecd6f39d9c1e6619af2af57f2b9d3ec29"
+docs_commit: "e2ee78a1dd69faca9708fc220c8b028b5efe3824"
 search_enabled: true
 ---
 
@@ -544,6 +544,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>First project</h1>
 <p><code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">init</span></code> discovers or creates the canonical Ledgercore project and
 registers Memoryledger. The relevant project-local files are:</p>
+<p>If a valid shared <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> already exists for other Ledger tools,
+<code class="docutils literal notranslate"><span class="pre">memoryledger</span> <span class="pre">init</span></code> preserves that project identity and existing registrations
+and adds the Memoryledger registration to the shared manifest.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.ledger/
 ├── ledger.toml
 └── memoryledger/

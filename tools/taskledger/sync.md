@@ -5,8 +5,8 @@ permalink: /tools/taskledger/sync/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.1"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_ref: "v0.6.4"
+docs_commit: "475e19e50ccb4e55564bedb67b29eee86361c179"
 search_enabled: true
 ---
 
@@ -578,6 +578,14 @@ taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"
 </section>
 <section id="second-pc-bootstrap">
 <h2>Second PC bootstrap</h2>
+<p>Indexes are checkout-local derived state and are not synchronized between PCs.
+After opening a project on a new machine, deleting the local cache, or allowing
+the cache to be evicted, read-only commands continue to use canonical records.
+The first mutating command creates the local Ledgercore cache binding and
+rebuilds the indexes automatically; no second <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> is required.
+If a non-empty unbound cache is found, Taskledger preserves it as an
+<code class="docutils literal notranslate"><span class="pre">indexes.quarantine-*</span></code> sibling before rebuilding. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code>
+for explicit cache health repair.</p>
 <p>Clone both repositories as siblings:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/src
 git<span class="w"> </span>clone<span class="w"> </span>&lt;source-repo-url&gt;<span class="w"> </span>project-a
@@ -689,7 +697,7 @@ opaque link refs, source refs, evidence refs, changes, reviews, and handoffs.</p
 </section>
 <section id="canonical-mounts">
 <h2>Canonical mounts</h2>
-<p>Canonical sync includes the durable data mount and optional logs mount. Cache indexes are excluded and can be deleted and rebuilt. Workspace and cache family roots are resolved by Ledgercore and are not changed by <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">move</span></code>.</p>
+<p>Canonical state sync includes the durable <code class="docutils literal notranslate"><span class="pre">data</span></code> mount by default. <code class="docutils literal notranslate"><span class="pre">runtime</span></code>, <code class="docutils literal notranslate"><span class="pre">logs</span></code>, and cache <code class="docutils literal notranslate"><span class="pre">indexes</span></code> are excluded from application-source sync; indexes can be deleted and rebuilt from data. An explicit audit policy may include selected logs. Workspace, user-data, and cache roots are resolved by Ledgercore and are not changed by <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">move</span></code>.</p>
 </section>
 </section>
 </div>

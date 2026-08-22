@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -573,15 +573,22 @@ documentledger<span class="w"> </span>--json<span class="w"> </span>link<span cl
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">--validate</span></code> checks the complete batch without writing. Review and correct proposal files, then use <code class="docutils literal notranslate"><span class="pre">--check-and-apply</span></code> for an atomic application.</p>
+<p>An empty top-level <code class="docutils literal notranslate"><span class="pre">sections:</span> <span class="pre">[]</span></code> file is a valid reviewed no-op for a document. Empty <code class="docutils literal notranslate"><span class="pre">links:</span> <span class="pre">[]</span></code> inside a named section remains invalid unless an explicit clearing operation is requested.</p>
 <!-- docledger-section: setup-sequence -->
 </section>
-<section id="coverage-and-final-gates-setup-sequence">
-<h2>Coverage and final gates {#setup-sequence}</h2>
+<section id="coverage-and-final-gates">
+<h2>Coverage and final gates</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>--json<span class="w"> </span>link<span class="w"> </span>audit
 documentledger<span class="w"> </span>--json<span class="w"> </span>coverage
 </pre></div>
 </div>
-<p>Run configured tests and documentation validation before freshness marking. Finish with:</p>
+<p>Review coverage before freshness marking: every configured document must be linked or explicitly accepted as intentionally unlinked, while internal and test source units may remain intentionally omitted. Run configured tests and documentation validation before freshness marking. For a reviewed bootstrap batch, finish with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>mark-fresh<span class="w"> </span>--all<span class="w"> </span>--allow-unlinked<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Bootstrap documentation completed after scan version VERSION.&quot;</span>
+</pre></div>
+</div>
+<p>Do not weaken lint, Sphinx, type-check, or documentation validation settings solely to make this gate pass.</p>
+<p>Then run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>--json<span class="w"> </span>doctor
 documentledger<span class="w"> </span>--json<span class="w"> </span>check
 documentledger<span class="w"> </span>--json<span class="w"> </span>status

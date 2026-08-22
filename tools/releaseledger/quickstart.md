@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/quickstart/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.4.2"
-docs_commit: "89a73f96616d418d2a87e661229090f6e5ba61f9"
+docs_ref: "v0.4.3"
+docs_commit: "ffff48d532acfdd222f3c4e4fa103e737cb983e0"
 search_enabled: true
 ---
 
@@ -648,7 +648,9 @@ releaseledger<span class="w"> </span>build<span class="w"> </span><span class="m
 <h2>Correct a recorded version safely</h2>
 <p>Preview and apply a planned-version correction as one explicit workflow. The
 dry-run verifies bundle, entry, audit, successor, and changelog actions; no
-manual edit to generated <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> content is needed.</p>
+manual edit to generated <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> content is needed. Stored <code class="docutils literal notranslate"><span class="pre">vX.Y.Z</span></code>
+and <code class="docutils literal notranslate"><span class="pre">X.Y.Z</span></code> records share one external identity, while exact storage names
+remain unchanged.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>release<span class="w"> </span>rename<span class="w"> </span><span class="m">0</span>.3.0<span class="w"> </span><span class="m">0</span>.2.8<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--previous<span class="w"> </span>v0.2.7<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target-file<span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="se">\</span>
@@ -735,6 +737,29 @@ releaseledger<span class="w"> </span>build<span class="w"> </span><span class="m
 <span class="w">  </span>--target-file<span class="w"> </span>CHANGELOG.md
 </pre></div>
 </div>
+</section>
+<section id="recover-a-canceled-release-that-shipped">
+<h2>Recover a canceled release that shipped</h2>
+<p>If a canceled release has a real Git tag, reconcile first, then use the explicit restore and bundle replacement workflows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>release<span class="w"> </span>reconcile<span class="w"> </span>--strict
+releaseledger<span class="w"> </span>release<span class="w"> </span>rename<span class="w"> </span>v0.1.0<span class="w"> </span><span class="m">0</span>.1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--replace-canceled-target<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Consolidate duplicate canceled bundles.&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dry-run
+releaseledger<span class="w"> </span>release<span class="w"> </span>rename<span class="w"> </span>v0.1.0<span class="w"> </span><span class="m">0</span>.1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--replace-canceled-target<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Consolidate duplicate canceled bundles.&quot;</span>
+releaseledger<span class="w"> </span>release<span class="w"> </span>restore<span class="w"> </span><span class="m">0</span>.1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-tag<span class="w"> </span>v0.1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--git-base<span class="w"> </span>:root<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;The tagged release was actually shipped.&quot;</span>
+releaseledger<span class="w"> </span>release<span class="w"> </span>chain<span class="w"> </span>repair<span class="w"> </span>--apply
+releaseledger<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>--strict<span class="w"> </span>--no-preserve-unreleased<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+releaseledger<span class="w"> </span>release<span class="w"> </span>reconcile<span class="w"> </span>--strict
+releaseledger<span class="w"> </span>release<span class="w"> </span>chain<span class="w"> </span>check<span class="w"> </span>--strict
+</pre></div>
+</div>
+<p>Never use generic <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">update</span> <span class="pre">--status</span></code> to reopen a canceled or released record, and do not repair release ownership by renaming a changelog section manually.</p>
 </section>
 </section>
 </div>

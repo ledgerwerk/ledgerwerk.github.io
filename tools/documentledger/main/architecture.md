@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -553,8 +553,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>Typer command modules register the canonical singular <code class="docutils literal notranslate"><span class="pre">document</span></code>, <code class="docutils literal notranslate"><span class="pre">source</span></code>, and <code class="docutils literal notranslate"><span class="pre">link</span></code> groups plus configuration, schema, storage, and migration groups. <code class="docutils literal notranslate"><span class="pre">COMMAND_INVENTORY</span></code> supplies stable summaries, effects, audience, workspace requirements, targeting, and aliases. The CLI reference generator traverses Click objects directly and checks catalog drift.</p>
 <!-- docledger-section: cli-structure-and-errors -->
 </section>
-<section id="cli-state-and-result-envelopes-cli-structure-and-errors">
-<h2>CLI state and result envelopes {#cli-structure-and-errors}</h2>
+<section id="cli-state-and-result-envelopes">
+<h2>CLI state and result envelopes</h2>
 <p>Global options create a command state containing root, JSON, profile, and warnings. A centralized error wrapper preserves the real command path and renders either human output or a stable JSON envelope with <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, <code class="docutils literal notranslate"><span class="pre">result</span></code> or <code class="docutils literal notranslate"><span class="pre">error</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>.</p>
 <!-- docledger-section: architecture-configuration -->
 </section>
@@ -563,13 +563,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><code class="docutils literal notranslate"><span class="pre">documentledger.config</span></code> validates the exact version-2 TOML shape, rejects unknown fields, normalizes arrays of strings, and produces typed <code class="docutils literal notranslate"><span class="pre">ToolConfig</span></code> values. Project identity, UUID, and mounts remain ledgercore concerns.</p>
 <!-- docledger-section: storage-model -->
 </section>
-<section id="storage-and-atomic-state-transitions-storage-model">
-<h2>Storage and atomic state transitions {#storage-model}</h2>
+<section id="storage-and-atomic-state-transitions">
+<h2>Storage and atomic state transitions</h2>
 <p>Storage writers validate schema constants, strip timestamp keys, increment integer state versions, and use atomic writes. Durable data includes <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">scan.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">source-index.json</span></code>, and document records under <code class="docutils literal notranslate"><span class="pre">docs/*.yaml</span></code>. Rendered context and proposals use the resolved cache <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> mount. Read-only commands validate state without repairing or rewriting it.</p>
 <!-- docledger-section: scanning-algorithm -->
 </section>
-<section id="scanning-and-source-unit-identity-scanning-algorithm">
-<h2>Scanning and source-unit identity {#scanning-algorithm}</h2>
+<section id="scanning-and-source-unit-identity">
+<h2>Scanning and source-unit identity</h2>
 <p>The scanner collects configured roots, filters excluded directories and extensions, hashes files, and indexes Python modules, functions, classes, methods, and fallback units. Source-unit identity is semantic and repository-relative; hash dimensions distinguish exact content, signatures, decorators, bodies, docstrings, and public contract.</p>
 <!-- docledger-section: path-identity -->
 </section>

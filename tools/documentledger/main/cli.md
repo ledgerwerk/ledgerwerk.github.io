@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -608,12 +608,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--project-name</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--documentledger-dir</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">'.ledger'</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--hidden-config</span></code></p></td>
 <td><p>no</p></td>
@@ -928,7 +928,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">command_path</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1073,7 +1073,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1119,7 +1119,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1198,7 +1198,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--all</span></code></p></td>
 <td><p>no</p></td>
@@ -1259,7 +1259,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1338,12 +1338,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--section</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--all</span></code></p></td>
 <td><p>no</p></td>
@@ -1368,7 +1368,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--out</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--print</span></code></p></td>
 <td><p>no</p></td>
@@ -1378,17 +1378,17 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--max-source-lines</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">40</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--max-section-lines</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">80</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--max-bytes</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">250000</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1434,27 +1434,32 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--section</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--all</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--allow-unlinked</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--affected</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--allow-unlinked</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1500,27 +1505,27 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--kind</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--path</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--path-prefix</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--qualname</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--query</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ids-only</span></code></p></td>
 <td><p>no</p></td>
@@ -1535,12 +1540,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--limit</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">100</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--cursor</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1586,7 +1591,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source_id</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1665,17 +1670,17 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--source</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1721,12 +1726,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--source</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1772,32 +1777,32 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--section</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--source-unit</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--coverage</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--impact</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1843,17 +1848,17 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--doc</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--section</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--source-unit</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1899,12 +1904,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--file</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--directory</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--validate</span></code></p></td>
 <td><p>no</p></td>
@@ -2005,10 +2010,15 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--out-dir</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--out-dir,</span> <span class="pre">--out</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--include-tests</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2166,12 +2176,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migration_name</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">'storage-layout'</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--output</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--adopt-project-uuid</span></code></p></td>
 <td><p>no</p></td>
@@ -2237,12 +2247,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migration_name</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">'storage-layout'</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--plan-file</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code></p></td>
 <td><p>no</p></td>
@@ -2303,12 +2313,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--journal</span></code></p></td>
 <td><p>yes</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--policy</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">'auto'</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2354,12 +2364,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">migration_name</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">'storage-layout'</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--journal</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code></p></td>
 <td><p>no</p></td>

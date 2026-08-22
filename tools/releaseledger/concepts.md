@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/concepts/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.4.2"
-docs_commit: "89a73f96616d418d2a87e661229090f6e5ba61f9"
+docs_ref: "v0.4.3"
+docs_commit: "ffff48d532acfdd222f3c4e4fa103e737cb983e0"
 search_enabled: true
 ---
 
@@ -590,9 +590,16 @@ source boundary, source refs, and changelog file metadata.</p>
 previous-version inference and not built into public changelogs by default.
 Canceled releases may carry <code class="docutils literal notranslate"><span class="pre">cancel_reason</span></code> and <code class="docutils literal notranslate"><span class="pre">superseded_by</span></code> metadata
 and remain visible in <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">list</span></code> as an audit tombstone.</p>
+<p>Release identity compares <code class="docutils literal notranslate"><span class="pre">v1.2.3</span></code> and <code class="docutils literal notranslate"><span class="pre">1.2.3</span></code> as one external release while
+preserving exact stored version paths and concrete predecessor references.
+Unique aliases resolve at the service boundary; conflicting aliases are
+reported explicitly.</p>
 <p>Version correction is a domain operation across the release identity, bundle,
 entry ownership, predecessor links, audit sheet, changelog identity, and
-indexes. <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span> <span class="pre">--dry-run</span></code> previews those surfaces; changelog mutation
+indexes. <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span> <span class="pre">--dry-run</span></code> previews those surfaces. Use
+<code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">restore</span> <span class="pre">--from-tag</span></code> when a canceled release was later shipped, and
+use <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">rename</span> <span class="pre">--replace-canceled-target</span> <span class="pre">--reason</span> <span class="pre">TEXT</span></code> when a correct
+canceled bundle must displace an obsolete canceled alias. Changelog mutation
 remains explicit with <code class="docutils literal notranslate"><span class="pre">--rename-changelog-section</span></code>.</p>
 </section>
 <section id="entry">

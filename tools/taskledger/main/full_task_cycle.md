@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_commit: "f425af79dd94cc9ba056267c899ffbb97de28a96"
 search_enabled: true
 ---
 
@@ -638,10 +638,16 @@ inspection), preserve their output with <code class="docutils literal notranslat
 taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>compileall<span class="w"> </span>taskledger
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code> records command exit code and output in planning diagnostics.
-With transcript logging enabled, the same output is also captured in the
-ledger-level command transcript. Use it to build evidence into the plan before
-proposal.</p>
+<p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code> records command exit code, stdout, stderr, and actual child cwd in
+planning diagnostics. It passes the inner argv without a shell and runs from the CLI
+invocation directory. Workspace discovery may use an ancestor for Taskledger state,
+but it must not change the managed child’s cwd. With transcript logging enabled, the
+same output is also captured in the ledger-level command transcript. Use it to build
+evidence into the plan before proposal.</p>
+<p>Managed planning commands use a usable inherited Python virtualenv when present,
+then inspect <code class="docutils literal notranslate"><span class="pre">.venv</span></code> and <code class="docutils literal notranslate"><span class="pre">venv</span></code> beside the command cwd and at the workspace root.
+This affects only child executable lookup, so the portable examples above retain
+their exact argv, direct no-shell execution, and documented child cwd.</p>
 </section>
 <section id="materialize-todos-and-approve">
 <h2>6. Materialize Todos And Approve</h2>
@@ -699,9 +705,15 @@ taskledger<span class="w"> </span>implement<span class="w"> </span>status
 </pre></div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">command</span></code> when you want taskledger to record a command run as
-part of implementation. With transcript logging enabled, it also records managed
+part of implementation. It preserves the inner argv, runs from the CLI invocation
+directory, and records the child cwd, exit code, stdout, and stderr. In human mode,
+captured child output is shown before the command summary. In JSON mode, streams stay
+inside the result envelope. With transcript logging enabled, it also records managed
 stdout/stderr in the task transcript. Use <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">deviation</span></code> when the
 implementation differs from the approved plan.</p>
+<p>Managed implementation commands use the same inherited-then-local virtualenv
+precedence as <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code>. Taskledger changes only the child environment, not
+the recorded argv, parent environment, or direct subprocess semantics.</p>
 <section id="fresh-worker-implementation">
 <h3>Fresh-worker implementation</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>handoff<span class="w"> </span>create<span class="w"> </span>--mode<span class="w"> </span>implementation<span class="w"> </span>--todo<span class="w"> </span>todo-0003

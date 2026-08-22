@@ -5,16 +5,16 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 484e1109219b289c70053352c3fe8001c3244e35
+source_commit: 73cbd79efa9f63d4b2c083699ae3b3677963d03c
 source_url: https://github.com/ledgerwerk/documentledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/documentledger
-release_tag: v0.2.0
-release_url: https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.0
+release_tag: v0.2.1
+release_url: https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.1
 versions:
 - name: release
   label: Latest release
-  ref: v0.2.0
+  ref: v0.2.1
   url: /tools/documentledger/
   current: false
 - name: main

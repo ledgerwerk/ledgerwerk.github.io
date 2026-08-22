@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_commit: "f425af79dd94cc9ba056267c899ffbb97de28a96"
 search_enabled: true
 ---
 
@@ -736,6 +736,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">claim_handoff_api</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">close_handoff_api</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cancel_handoff_api</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_review_handoff</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release_handoff_api</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">retarget_handoff_api</span></code></p></li>
 </ul>
 </section>
 <section id="release-api">

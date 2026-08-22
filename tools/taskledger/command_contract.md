@@ -5,8 +5,8 @@ permalink: /tools/taskledger/command_contract/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.1"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_ref: "v0.6.4"
+docs_commit: "475e19e50ccb4e55564bedb67b29eee86361c179"
 search_enabled: true
 ---
 
@@ -946,7 +946,26 @@ finished implementation run-0001  task task-0001 -&gt; implemented
 <section id="managed-command-wrappers">
 <h2>Managed command wrappers</h2>
 <p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">command</span></code> mirror the inner command exit code by
-default.</p>
+default. Both wrappers pass the argument vector after <code class="docutils literal notranslate"><span class="pre">--</span></code> to the child without a
+shell. They execute the child from the CLI invocation directory, or the explicit
+<code class="docutils literal notranslate"><span class="pre">--root</span></code> directory, even when Taskledger discovers an ancestor workspace root for
+ledger state, artifacts, and logs.</p>
+<p>Managed commands preserve the caller environment, but resolve child executable lookup
+deterministically. A usable inherited <code class="docutils literal notranslate"><span class="pre">VIRTUAL_ENV</span></code> takes precedence. Otherwise
+Taskledger checks <code class="docutils literal notranslate"><span class="pre">&lt;command-cwd&gt;/.venv</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;command-cwd&gt;/venv</span></code>, then the workspace
+root’s <code class="docutils literal notranslate"><span class="pre">.venv</span></code> and <code class="docutils literal notranslate"><span class="pre">venv</span></code>, in that order. A candidate must contain <code class="docutils literal notranslate"><span class="pre">pyvenv.cfg</span></code> and
+a platform-appropriate Python executable. For an auto-detected environment, only
+the child environment is changed: its scripts directory is prepended to <code class="docutils literal notranslate"><span class="pre">PATH</span></code>,
+<code class="docutils literal notranslate"><span class="pre">VIRTUAL_ENV</span></code> is set, and inherited <code class="docutils literal notranslate"><span class="pre">PYTHONHOME</span></code> is removed. If no candidate is
+valid, the inherited environment is used unchanged. <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> is preserved.
+This does not rewrite argv, invoke a shell, change the parent environment, or
+activate project environments for Taskledger’s internal subprocesses. Portable
+commands such as <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">ruff</span></code>, and <code class="docutils literal notranslate"><span class="pre">mypy</span></code> remain valid.</p>
+<p>Captured stdout and stderr are included in the command result. Human mode emits
+those streams before the recorded-command summary, while JSON mode keeps them only
+inside the single JSON result envelope. The result and managed-shell log also record
+the child cwd. <code class="docutils literal notranslate"><span class="pre">--allow-failure</span></code> changes only the wrapper exit code; the recorded
+child exit code and failed check remain unchanged.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">--allow-failure</span></code> when you intentionally want to record a non-zero inner
 exit code while returning wrapper exit code <code class="docutils literal notranslate"><span class="pre">0</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-q
@@ -1152,13 +1171,21 @@ taskledger<span class="w"> </span>ledger<span class="w"> </span>doctor
 </pre></div>
 </div>
 <p>Checkout-scoped indexes under the resolved cache mount are optional derived
-caches or registries. Task, plan, and run commands must continue to work from
-canonical Markdown/YAML records even when cache files are absent. The remaining
-derived caches may be plain JSON arrays with no version metadata and can be
-rebuilt with:</p>
+caches or registries. Read-only commands continue to work from canonical
+Markdown/YAML records and do not initialize a missing cache. Before a canonical
+mutation, Taskledger initializes a missing or empty cache binding and rebuilds
+the derived indexes. A non-empty cache without its binding marker is atomically
+quarantined beside the cache and rebuilt from canonical records. Conflicting or
+invalid markers, symlinks, and non-directory cache paths are not adopted
+automatically. The remaining derived caches may be plain JSON arrays with no
+version metadata and can be rebuilt explicitly with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>reindex
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code> uses the same recovery path and reports any quarantine
+location. The <code class="docutils literal notranslate"><span class="pre">indexes</span></code> mount is fixed to cache storage, so
+<code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">set</span> <span class="pre">indexes</span> <span class="pre">cache</span></code> is an idempotent topology request;
+non-cache indexes storage is rejected directly.</p>
 <p>A newer storage version than the installed taskledger supports is rejected with
 a clear error.</p>
 </section>
@@ -1195,10 +1222,11 @@ from local process checks; inspect handoffs or ask the user before repairing.</p
 <section id="layout-and-migration-commands">
 <h2>Layout and migration commands</h2>
 <p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">config</span> <span class="pre">path</span></code> reports the project-located Taskledger configuration.
-<code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|indexes</span></code> reports named resolved mounts.
+<code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|runtime|logs|indexes</span></code> reports named resolved mounts.
 Use <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">validate</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code>, and <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">clear-override</span></code> for schema-3
-storage selection. Legacy layout conversion remains explicit through
-<code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code>, and <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span></code>.</p>
+storage selection. <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">set</span></code> changes topology only; use the explicit
+migration commands for data relocation. Legacy layout conversion remains explicit
+through <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">plan</span></code>, and <code class="docutils literal notranslate"><span class="pre">migrate</span> <span class="pre">apply</span></code>.</p>
 <p>Migration inspection and apply share these options:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--sibling-ledger-root PATH
 --source-data-root PATH

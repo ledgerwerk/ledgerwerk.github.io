@@ -5,8 +5,8 @@ permalink: /tools/taskledger/public_surface/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.1"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_ref: "v0.6.4"
+docs_commit: "475e19e50ccb4e55564bedb67b29eee86361c179"
 search_enabled: true
 ---
 

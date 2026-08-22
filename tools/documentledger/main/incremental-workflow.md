@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -551,7 +551,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">doctor</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">document</span> <span class="pre">affected</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--out</span> <span class="pre">/tmp/documentledger-context.md</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--out</span> <span class="pre">-</span></code></p></li>
 <li><p>Inspect source-unit evidence and section links.</p></li>
 <li><p>Edit affected sections unless consistency requires a broader update.</p></li>
 <li><p>Run configured validation commands.</p></li>
@@ -560,6 +560,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">check</span></code>.</p></li>
 <li><p>Finish with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">status</span></code>.</p></li>
 </ol>
+<p><code class="docutils literal notranslate"><span class="pre">scan</span></code> reconciles each existing durable document record with the current Markdown section
+index before deciding that the scan is unchanged. It adds new headings, refreshes structural
+metadata for surviving sections, prunes removed sections with empty <code class="docutils literal notranslate"><span class="pre">links</span></code>, and retains
+removed linked sections as actionable orphans. The reconciliation counters are included in
+the scan result. <code class="docutils literal notranslate"><span class="pre">doctor</span></code> and <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">audit</span></code> remain read-only.</p>
 <!-- docledger-section: incremental-freshness-projection -->
 </section>
 <section id="live-freshness-projection">

@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -561,6 +561,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="concepts/#project-tool-data-and-artifacts">Project, tool, data, and artifacts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#source-units-and-document-sections">Source units and document sections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#link-edges-coverage-and-impact">Link edges, coverage, and impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/#live-sections-and-durable-records">Live sections and durable records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#freshness-and-affectedness">Freshness and affectedness</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#deterministic-persistence">Deterministic persistence</a></li>
 </ul>
@@ -575,7 +576,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#inspect-status-and-next-action">Inspect status and next action</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#scan">Scan</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#inspect-documents-and-source-units">Inspect documents and source units</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/#add-broad-and-precise-links-link-documentation-to-sources">Add broad and precise links {#link-documentation-to-sources}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#add-broad-and-precise-links">Add broad and precise links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#propose-import-and-audit-links">Propose, import, and audit links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#build-context-update-and-validate">Build context, update, and validate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#mark-fresh">Mark fresh</a></li>
@@ -592,7 +593,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="bootstrap/#first-scan-baseline">First scan baseline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bootstrap/#build-bootstrap-context">Build bootstrap context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bootstrap/#review-deterministic-proposals">Review deterministic proposals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bootstrap/#coverage-and-final-gates-setup-sequence">Coverage and final gates {#setup-sequence}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap/#coverage-and-final-gates">Coverage and final gates</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="incremental-workflow/">Incremental workflow</a><ul>
@@ -708,10 +709,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l1"><a class="reference internal" href="architecture/">Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#canonical-project-resolution">Canonical project resolution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#command-registration-and-metadata">Command registration and metadata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#cli-state-and-result-envelopes-cli-structure-and-errors">CLI state and result envelopes {#cli-structure-and-errors}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#cli-state-and-result-envelopes">CLI state and result envelopes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#configuration-parsing">Configuration parsing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#storage-and-atomic-state-transitions-storage-model">Storage and atomic state transitions {#storage-model}</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#scanning-and-source-unit-identity-scanning-algorithm">Scanning and source-unit identity {#scanning-algorithm}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#storage-and-atomic-state-transitions">Storage and atomic state transitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#scanning-and-source-unit-identity">Scanning and source-unit identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#markdown-sections-and-markers">Markdown sections and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#link-graph-and-tracked-hashes">Link graph and tracked hashes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#affectedness-and-context">Affectedness and context</a></li>
@@ -734,7 +735,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#canonical-storage-binding-is-invalid">Canonical storage binding is invalid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#configuration-validation-fails">Configuration validation fails</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#there-is-no-baseline-or-no-links">There is no baseline or no links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#build-context-writes-an-unexpected-file">Build context writes an unexpected file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#check-reports-stale-sections">Check reports stale sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/#audit-reports-a-missing-section">Audit reports a missing section</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#source-index-is-missing-or-corrupt">Source index is missing or corrupt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#cursor-or-selector-errors-occur">Cursor or selector errors occur</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting/#mapping-batch-validation-fails">Mapping batch validation fails</a></li>
@@ -751,6 +754,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-1-2026-08-20">[v0.2.1] - 2026-08-20</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-0-2026-07-28">[v0.2.0] - 2026-07-28</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-1-1-2026-07-11">[v0.1.1] - 2026-07-11</a></li>
 </ul>

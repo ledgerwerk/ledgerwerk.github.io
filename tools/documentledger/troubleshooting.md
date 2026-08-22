@@ -5,8 +5,8 @@ permalink: /tools/documentledger/troubleshooting/
 nav_tool: documentledger
 docs_project: "documentledger"
 docs_variant: "release"
-docs_ref: "v0.2.0"
-docs_commit: "6962cc7b28a003ec8c95c563805d858ecc38e52d"
+docs_ref: "v0.2.1"
+docs_commit: "9b64a669deec648259b86052992068e658e14fff"
 search_enabled: true
 ---
 
@@ -542,65 +542,109 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="troubleshooting">
 <h1>Troubleshooting</h1>
+<p>Use JSON output when an automated workflow needs stable error codes and remediation details.</p>
+<!-- docledger-section: troubleshooting-executable -->
+<section id="the-executable-is-not-found">
+<h2>The executable is not found</h2>
+<p>Install the package into the active environment with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>, then verify <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--version</span></code>. In a source checkout, prefer <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span></code> so the installer matches the selected interpreter.</p>
+<!-- docledger-section: troubleshooting-deprecation -->
+</section>
+<section id="a-deprecation-warning-appears">
+<h2>A deprecation warning appears</h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">docledger</span></code> executable and plural/legacy command paths are compatibility wrappers. Replace them with <code class="docutils literal notranslate"><span class="pre">documentledger</span></code>, <code class="docutils literal notranslate"><span class="pre">document</span></code>, <code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">link</span></code>, and the <code class="docutils literal notranslate"><span class="pre">migrate</span></code> command group.</p>
+<!-- docledger-section: troubleshooting-binding -->
+</section>
+<section id="canonical-storage-binding-is-invalid">
+<h2>Canonical storage binding is invalid</h2>
+<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>, <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">storage</span> <span class="pre">validate</span> <span class="pre">--strict</span></code>, and <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">doctor</span></code>. Read-only commands do not repair bindings. Review the shared schema-3 manifest and its <code class="docutils literal notranslate"><span class="pre">data</span></code> project and <code class="docutils literal notranslate"><span class="pre">artifacts</span></code> cache mounts before applying an explicit migration or repair.</p>
+<!-- docledger-section: troubleshooting-config -->
+</section>
+<section id="configuration-validation-fails">
+<h2>Configuration validation fails</h2>
+<p>Inspect the effective config with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">config</span> <span class="pre">show</span></code> and validate it with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">config</span> <span class="pre">validate</span></code>. The canonical tool file is <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/config.toml</span></code>, version 2. Unknown fields, wrong types, unsupported extensions, or a missing version require a config edit or explicit migration.</p>
+<!-- docledger-section: troubleshooting-baseline -->
+</section>
+<section id="there-is-no-baseline-or-no-links">
+<h2>There is no baseline or no links</h2>
+<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> once to create a baseline. A clean first scan is expected. Then use <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">build-context</span> <span class="pre">--bootstrap</span></code>, review <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">propose</span></code> output, apply reviewed maps, and audit links.</p>
+</section>
+<section id="build-context-writes-an-unexpected-file">
+<h2>Build context writes an unexpected file</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--out</span> <span class="pre">-</span></code> for raw stdout. Do not use <code class="docutils literal notranslate"><span class="pre">/dev/stdout</span></code> or <code class="docutils literal notranslate"><span class="pre">/dev/fd/1</span></code>: context files use Ledgercore’s atomic regular-file writer, so special stream paths are rejected. Use <code class="docutils literal notranslate"><span class="pre">--out</span> <span class="pre">PATH</span></code> for an atomically written file. Raw stdout cannot be combined with <code class="docutils literal notranslate"><span class="pre">--json</span></code> or <code class="docutils literal notranslate"><span class="pre">--print</span></code> because those modes must emit one valid JSON document.</p>
+<!-- docledger-section: troubleshooting-stale -->
+</section>
+<section id="check-reports-stale-sections">
+<h2>Check reports stale sections</h2>
+<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">affected</span></code>, inspect bounded context, update the affected sections, run validation, and use section-level <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">mark-fresh</span></code>. <code class="docutils literal notranslate"><span class="pre">--all</span></code> means all configured documents; use <code class="docutils literal notranslate"><span class="pre">--affected</span></code> for only affected documents. Do not mark fresh before validation or weaken validation settings merely to pass.</p>
+</section>
+<section id="audit-reports-a-missing-section">
+<h2>Audit reports a missing section</h2>
+<p>After a <code class="docutils literal notranslate"><span class="pre">scan</span></code>, a missing section with no links is obsolete bookkeeping and is pruned automatically. A missing section with links is a retained linked orphan. Move those links to a current section with <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">add-section</span></code>, or remove an obsolete edge with <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">remove-section</span> <span class="pre">--section</span> <span class="pre">SECTION_ID</span> <span class="pre">--source-unit</span> <span class="pre">SOURCE_ID</span></code>; rerun <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">link</span> <span class="pre">audit</span></code> afterward. <code class="docutils literal notranslate"><span class="pre">doctor</span></code> and <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">audit</span></code> report this state without mutating records.</p>
+<!-- docledger-section: troubleshooting-index -->
+</section>
+<section id="source-index-is-missing-or-corrupt">
+<h2>Source index is missing or corrupt</h2>
+<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">doctor</span></code> and <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">source</span> <span class="pre">list</span></code>. The source index is deterministic committed baseline state; repair is allowed only when exact reconstruction matches the recorded hash. Do not delete it or hand-edit it.</p>
+<!-- docledger-section: troubleshooting-selectors -->
+</section>
+<section id="cursor-or-selector-errors-occur">
+<h2>Cursor or selector errors occur</h2>
+<p>Use a cursor returned by the immediately preceding paginated <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">list</span></code> call. <code class="docutils literal notranslate"><span class="pre">document</span> <span class="pre">build-context</span></code> requires exactly one of <code class="docutils literal notranslate"><span class="pre">--affected</span></code>, <code class="docutils literal notranslate"><span class="pre">--doc</span></code>, <code class="docutils literal notranslate"><span class="pre">--all</span></code>, or <code class="docutils literal notranslate"><span class="pre">--bootstrap</span></code>; <code class="docutils literal notranslate"><span class="pre">--section</span></code> requires <code class="docutils literal notranslate"><span class="pre">--doc</span></code>.</p>
+<!-- docledger-section: troubleshooting-maps -->
+</section>
+<section id="mapping-batch-validation-fails">
+<h2>Mapping batch validation fails</h2>
+<p>Run <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">import-map</span></code> in validate-only mode, correct every invalid doc path, section id, source unit, coverage, impact, or duplicate edge, and rerun before check-and-apply.</p>
+<!-- docledger-section: troubleshooting-migration -->
+</section>
+<section id="migration-conflicts-or-is-interrupted">
+<h2>Migration conflicts or is interrupted</h2>
+<p>Regenerate and review <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">migrate</span> <span class="pre">plan</span> <span class="pre">storage-layout</span> <span class="pre">--output</span> <span class="pre">migration.json</span></code>. Apply only a matching digest with <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">migrate</span> <span class="pre">apply</span> <span class="pre">storage-layout</span> <span class="pre">--plan-file</span> <span class="pre">migration.json</span></code>. For an interrupted operation, use <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">migrate</span> <span class="pre">recover</span> <span class="pre">--journal</span> <span class="pre">JOURNAL</span> <span class="pre">--policy</span> <span class="pre">auto</span></code>, then inspect status before cleanup.</p>
+<!-- docledger-section: troubleshooting-sphinx -->
+</section>
+<section id="sphinx-fails-with-warnings-or-autodoc-import-errors">
+<h2>Sphinx fails with warnings or autodoc import errors</h2>
+<p>Install the package and exact docs extra, then run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">sphinx</span> <span class="pre">-W</span> <span class="pre">--keep-going</span> <span class="pre">-b</span> <span class="pre">html</span> <span class="pre">docs</span> <span class="pre">docs/_build/html</span></code>. Fix unresolved references, malformed MyST, duplicate labels, or import errors; do not silence broad warning classes. API targets must import in the docs environment.</p>
+<!-- docledger-section: status-reports-uninitialized -->
+</section>
 <section id="status-reports-uninitialized">
-<h2><code class="docutils literal notranslate"><span class="pre">status</span></code> reports <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code></h2>
-<p>An <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> result can mean there is no config yet, or that the canonical <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> exists but <code class="docutils literal notranslate"><span class="pre">.ledger/documentledger/data/storage.yaml</span></code> is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>init
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">init</span></code> refuses to run when a config already exists; remove the stale config first only if you intend to start over.</p>
+<h2>Status reports uninitialized</h2>
+<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>, then <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">init</span></code> when no canonical project can be resolved.</p>
+<!-- docledger-section: scan-fails-with-storage-missing -->
 </section>
 <section id="scan-fails-with-storage-missing">
-<h2><code class="docutils literal notranslate"><span class="pre">scan</span></code> fails with <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code></h2>
-<p>A command that requires an initialized workspace raises <code class="docutils literal notranslate"><span class="pre">storage_missing</span></code> when the config exists but storage metadata is absent. Resolve it the same way as the missing-storage <code class="docutils literal notranslate"><span class="pre">uninitialized</span></code> case: run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">init</span></code>.</p>
-</section>
-<section id="mark-fresh-fails-with-unlinked-doc">
-<h2><code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> fails with <code class="docutils literal notranslate"><span class="pre">unlinked_doc</span></code></h2>
-<p><code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code> rejects documents that have no linked sources by default, because an unlinked document can never become stale from source changes and would silently drift. Either add links first:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>add<span class="w"> </span>--doc<span class="w"> </span>docs/index.md<span class="w"> </span>--source<span class="w"> </span>documentledger/cli.py<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Navigation page maps to the CLI.&quot;</span>
-</pre></div>
-</div>
-<p>or explicitly record the document as intentionally unlinked:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>mark-fresh<span class="w"> </span>--doc<span class="w"> </span>docs/index.md<span class="w"> </span>--allow-unlinked<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Navigation page; intentionally unlinked.&quot;</span>
-</pre></div>
-</div>
-</section>
-<section id="every-change-makes-too-many-docs-stale">
-<h2>Every change makes too many docs stale</h2>
-<p>If a small source change marks many docs stale, the link graph is too broad. Each document should be linked only to the source files it actually describes. Narrow the links:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>links<span class="w"> </span>remove<span class="w"> </span>--doc<span class="w"> </span>docs/usage.md<span class="w"> </span>--source<span class="w"> </span>documentledger/models.py
-</pre></div>
-</div>
-<p>Broad links (for example linking every doc to every module) defeat the selective-update model. Keep links precise.</p>
+<h2>Scan fails with storage missing</h2>
+<p>Inspect <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">doctor</span></code> and repair or migrate canonical bindings explicitly before scanning.</p>
+<!-- docledger-section: a-changed-source-is-reported-as-unlinked -->
 </section>
 <section id="a-changed-source-is-reported-as-unlinked">
 <h2>A changed source is reported as unlinked</h2>
-<p><code class="docutils literal notranslate"><span class="pre">unlinked_changed_sources</span></code> lists source files that changed since the last scan but have no doc record link. Decide for each one whether it needs documentation, then either add a link or leave it untracked. Use the bootstrap flag to surface all unlinked sources, not just changed ones:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docledger<span class="w"> </span>docs<span class="w"> </span>build-context<span class="w"> </span>--bootstrap<span class="w"> </span>--out<span class="w"> </span>/tmp/docledger-bootstrap.md
-</pre></div>
-</div>
+<p>Review source-unit evidence and add a deliberate section-level link; do not create an edge solely to remove the warning.</p>
+<!-- docledger-section: every-change-makes-too-many-docs-stale -->
+</section>
+<section id="every-change-makes-too-many-docs-stale">
+<h2>Every change makes too many docs stale</h2>
+<p>Replace broad file links with precise section-to-source-unit links and choose the appropriate tracked hash coverage.</p>
+<!-- docledger-section: mark-fresh-fails-with-unlinked-doc -->
+</section>
+<section id="mark-fresh-fails-with-unlinked-doc">
+<h2>Mark fresh fails with unlinked doc</h2>
+<p>Add a real link or use <code class="docutils literal notranslate"><span class="pre">--allow-unlinked</span></code> only when the document is intentionally unlinked.</p>
+<!-- docledger-section: sphinx-build-is-not-found -->
+</section>
+<section id="sphinx-build-is-not-found">
+<h2>Sphinx build is not found</h2>
+<p>Install <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">&quot;.[docs]&quot;</span></code> in the active environment and invoke <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">sphinx</span></code>.</p>
+<!-- docledger-section: the-sphinx-build-warns-about-files-inside-the-virtual-environment -->
 </section>
 <section id="the-sphinx-build-warns-about-files-inside-the-virtual-environment">
 <h2>The Sphinx build warns about files inside the virtual environment</h2>
-<p>The documentation build creates a virtual environment under <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code>. <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> excludes <code class="docutils literal notranslate"><span class="pre">_build</span></code>, <code class="docutils literal notranslate"><span class="pre">venv</span></code>, and <code class="docutils literal notranslate"><span class="pre">.ledger</span></code> from the Sphinx source scan. If you still see warnings from virtual-environment files, confirm <code class="docutils literal notranslate"><span class="pre">exclude_patterns</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> includes <code class="docutils literal notranslate"><span class="pre">venv</span></code> and <code class="docutils literal notranslate"><span class="pre">venv/**</span></code>, and remove any stale <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> before rebuilding:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>docs/venv<span class="w"> </span>docs/_build
-bash<span class="w"> </span>docs/build.sh
-</pre></div>
-</div>
-</section>
-<section id="sphinx-build-is-not-found">
-<h2><code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> is not found</h2>
-<p><code class="docutils literal notranslate"><span class="pre">docs/build.sh</span></code> creates and activates <code class="docutils literal notranslate"><span class="pre">docs/venv/</span></code> and installs <code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code>, which provides <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code>. If the build cannot find <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code>, ensure the script reaches the <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">&quot;$VENV_DIR/bin/activate&quot;</span></code> step and that <code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code> installs successfully (it requires network access on first run).</p>
+<p>The configuration excludes <code class="docutils literal notranslate"><span class="pre">docs/venv</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/_build</span></code>; use the strict build from the repository root.</p>
+<!-- docledger-section: storage-migration-errors -->
 </section>
 <section id="storage-migration-errors">
 <h2>Storage migration errors</h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">storage_migration_required</span></code>: run <code class="docutils literal notranslate"><span class="pre">docledger</span> <span class="pre">storage</span> <span class="pre">migrate</span> <span class="pre">--dry-run</span></code> and review the plan.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">project_uuid_mismatch</span></code>: compare the legacy and shared manifest identities; pass <code class="docutils literal notranslate"><span class="pre">--adopt-project-uuid</span></code> only after review.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">source_index_missing</span></code> or <code class="docutils literal notranslate"><span class="pre">source_index_repair_failed</span></code>: restore the committed <code class="docutils literal notranslate"><span class="pre">source-index.json</span></code>, or use explicit repair only when the reconstructed SHA-256 exactly matches <code class="docutils literal notranslate"><span class="pre">scan.yaml</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">storage_binding_invalid</span></code>: repair the canonical binding through an explicit initialization/recovery command; status and verification never repair it silently.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">legacy_cleanup_unsafe</span></code>: verify the completed migration journal, unchanged legacy inventory, and provisional proposal disposition before using <code class="docutils literal notranslate"><span class="pre">--yes</span></code>.</p></li>
-</ul>
+<p>Regenerate a migration plan, verify its digest, and use the journal recovery policy before attempting cleanup.</p>
 </section>
 </section>
 </div>

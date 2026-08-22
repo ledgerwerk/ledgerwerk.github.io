@@ -3,107 +3,227 @@
   "tool": "documentledger",
   "entries": [
     {
+      "url": "/tools/documentledger/api/cli-internals/",
+      "title": "documentledger CLI internals",
+      "snippet": "These modules are implementation reference, not a promise that every callback or helper is a stable Python integration surface.\nThe document …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "CLI internals",
+          "text": "These modules are implementation reference, not a promise that every callback or helper is a stable Python integration surface.",
+          "lower": "these modules are implementation reference, not a promise that every callback or helper is a stable python integration surface."
+        },
+        {
+          "anchor": "",
+          "heading": "Command and launcher modules",
+          "text": "The documentledger.commands.* modules contain registration callbacks and compatibility routing. The generated CLI reference is authoritative for command behavior.",
+          "lower": "the documentledger.commands.* modules contain registration callbacks and compatibility routing. the generated cli reference is authoritative for command behavior."
+        }
+      ]
+    },
+    {
       "url": "/tools/documentledger/api/",
       "title": "documentledger API reference",
-      "snippet": "This reference is generated from the public Documentledger modules, including the CLI, storage and scan layers, section/source indexing, imp …",
+      "snippet": "The stable user interface is the canonical CLI and persisted schemas. Python integration is supported only for the documented, typed modules …",
       "sections": [
         {
           "anchor": "",
           "heading": "API reference",
-          "text": "This reference is generated from the public Documentledger modules, including the CLI, storage and scan layers, section/source indexing, impact resolution, context rendering, and link management.\n\n\n\n\ndocumentledger.source_index.file_unit_id(path: str) → str[source]\n\n\n\n\ndocumentledger.source_index.module_unit_id(path: str) → str[source]\n\n\n\n\ndocumentledger.source_index.qualified_unit_id(path: str, kind: str, qualname: str) → str[source]\n\n\n\n\ndocumentledger.source_index.hash_text(value: str) → str[source]\n\n\n\n\ndocumentledger.source_index.semantic_dump(node: AST | Sequence[AST]) → str[source]\n\n\n\n\ndocumentledger.source_index.line_span(node: AST, total_lines: int) → tuple[int, int][source]\n\n\n\n\ndocumentledger.source_index.slice_source(lines: list[str], span: tuple[int, int]) → str[source]…",
-          "lower": "this reference is generated from the public documentledger modules, including the cli, storage and scan layers, section/source indexing, impact resolution, context rendering, and link management.\n\n\n\n\ndocumentledger.source_index.file_unit_id(path: str) → str[source]\n\n\n\n\ndocumentledger.source_index.module_unit_id(path: str) → str[source]\n\n\n\n\ndocumentledger.source_index.qualified_unit_id(path: str, kind: str, qualname: str) → str[source]\n\n\n\n\ndocumentledger.source_index.hash_text(value: str) → str[source]\n\n\n\n\ndocumentledger.source_index.semantic_dump(node: ast | sequence[ast]) → str[source]\n\n\n\n\ndocumentledger.source_index.line_span(node: ast, total_lines: int) → tuple[int, int][source]\n\n\n\n\ndocumentledger.source_index.slice_source(lines: list[str], span: tuple[int, int]) → str[source]…"
+          "text": "The stable user interface is the canonical CLI and persisted schemas. Python integration is supported only for the documented, typed modules below; command registration modules and other implementation details are internal unless explicitly labeled. Autodoc does not expose every undocumented symbol as public API.\n\n\n\nProject and configuration API\nModules\n\n\n\n\nStorage and scanning API\nModules\n\n\n\n\nIndexing and links API\nModules\n\n\n\n\nRendering and impact API\nModules\n\n\n\n\nMigration and errors API\nModules\n\n\n\n\nCLI internals\nCommand and launcher modules",
+          "lower": "the stable user interface is the canonical cli and persisted schemas. python integration is supported only for the documented, typed modules below; command registration modules and other implementation details are internal unless explicitly labeled. autodoc does not expose every undocumented symbol as public api.\n\n\n\nproject and configuration api\nmodules\n\n\n\n\nstorage and scanning api\nmodules\n\n\n\n\nindexing and links api\nmodules\n\n\n\n\nrendering and impact api\nmodules\n\n\n\n\nmigration and errors api\nmodules\n\n\n\n\ncli internals\ncommand and launcher modules"
+        },
+        {
+          "anchor": "",
+          "heading": "Support policy",
+          "text": "Supported Python interfaces have useful docstrings, typed parameters and returns, documented exceptions, stable semantics, and tests. Internal pages explain implementation boundaries without promising compatibility.",
+          "lower": "supported python interfaces have useful docstrings, typed parameters and returns, documented exceptions, stable semantics, and tests. internal pages explain implementation boundaries without promising compatibility."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/api/indexing-and-links/",
+      "title": "documentledger Indexing and links API",
+      "snippet": "The document index parses stable Markdown sections. The source index provides source-unit records. Link operations validate broad and sectio …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Modules",
+          "text": "The document index parses stable Markdown sections. The source index provides source-unit records. Link operations validate broad and section-level graph edges.",
+          "lower": "the document index parses stable markdown sections. the source index provides source-unit records. link operations validate broad and section-level graph edges."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/api/migration-and-errors/",
+      "title": "documentledger Migration and errors API",
+      "snippet": "Migration plans, journals, recovery, and cleanup are explicit operations. Error types and exit categories provide stable remediation informa …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Modules",
+          "text": "Migration plans, journals, recovery, and cleanup are explicit operations. Error types and exit categories provide stable remediation information.",
+          "lower": "migration plans, journals, recovery, and cleanup are explicit operations. error types and exit categories provide stable remediation information."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/api/project-and-config/",
+      "title": "documentledger Project and configuration API",
+      "snippet": "documentledger.project resolves canonical ledgercore projects. documentledger.config parses version-2 tool configuration. documentledger.mod …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Modules",
+          "text": "documentledger.project resolves canonical ledgercore projects. documentledger.config parses version-2 tool configuration. documentledger.models defines the typed records exchanged by these layers.\n\n\n\nclass documentledger.models.Config[source]\nBases: object\n\nConfig(root: ‘Path’, path: ‘Path’, project_name: ‘str’, project_uuid: ‘str’, storage_dir: ‘Path’, source_roots: ‘list[str]’, doc_roots: ‘list[str]’, source_extensions: ‘list[str]’, doc_extensions: ‘list[str]’, validation_commands: ‘list[str]’, require_doc_frontmatter: ‘bool’ = False)\n\n\nParameters:\n\nroot (Path)\n\n\npath (Path)\n\n\nproject_name (str)\n\n\nproject_uuid (str)\n\n\nstorage_dir (Path)\n\n\nsource_roots (list[str])\n\n\ndoc_roots (list[str])\n\n\nsource_extensions (list[str])\n\n\ndoc_extensions (list[str])\n\n\nvalidation_commands (list[str])\n\n\nreq…",
+          "lower": "documentledger.project resolves canonical ledgercore projects. documentledger.config parses version-2 tool configuration. documentledger.models defines the typed records exchanged by these layers.\n\n\n\nclass documentledger.models.config[source]\nbases: object\n\nconfig(root: ‘path’, path: ‘path’, project_name: ‘str’, project_uuid: ‘str’, storage_dir: ‘path’, source_roots: ‘list[str]’, doc_roots: ‘list[str]’, source_extensions: ‘list[str]’, doc_extensions: ‘list[str]’, validation_commands: ‘list[str]’, require_doc_frontmatter: ‘bool’ = false)\n\n\nparameters:\n\nroot (path)\n\n\npath (path)\n\n\nproject_name (str)\n\n\nproject_uuid (str)\n\n\nstorage_dir (path)\n\n\nsource_roots (list[str])\n\n\ndoc_roots (list[str])\n\n\nsource_extensions (list[str])\n\n\ndoc_extensions (list[str])\n\n\nvalidation_commands (list[str])\n\n\nreq…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/api/rendering-and-impact/",
+      "title": "documentledger Rendering and impact API",
+      "snippet": "documentledger.identity normalizes repository-relative identities. documentledger.impact resolves changed units to affected sections. docume …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Modules",
+          "text": "documentledger.identity normalizes repository-relative identities. documentledger.impact resolves changed units to affected sections. documentledger.render builds bounded context output.",
+          "lower": "documentledger.identity normalizes repository-relative identities. documentledger.impact resolves changed units to affected sections. documentledger.render builds bounded context output."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/api/storage-and-scanning/",
+      "title": "documentledger Storage and scanning API",
+      "snippet": "The storage API owns schema validation and atomic durable records. The scanner collects configured files, hashes them, and builds source-uni …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Modules",
+          "text": "The storage API owns schema validation and atomic durable records. The scanner collects configured files, hashes them, and builds source-unit indexes.",
+          "lower": "the storage api owns schema validation and atomic durable records. the scanner collects configured files, hashes them, and builds source-unit indexes."
         }
       ]
     },
     {
       "url": "/tools/documentledger/architecture/",
       "title": "documentledger Architecture",
-      "snippet": "Documentledger discovers documentledger.toml or .documentledger.toml by walking upward from the current directory. The loaded configuration …",
+      "snippet": "Documentledger resolves the repository through ledgercore’s schema-3 .ledger/ledger.toml manifest. The manifest registers the tool and suppl …",
       "sections": [
         {
           "anchor": "",
-          "heading": "Configuration and workspace loading",
-          "text": "Documentledger discovers documentledger.toml or .documentledger.toml by walking upward from the current directory. The loaded configuration defines the project metadata, storage directory, scan roots, allowed file extensions, validation commands, and policy flags.\n\nA workspace combines the loaded configuration with storage metadata from the canonical .ledger/documentledger/data/storage.yaml. Commands that require an initialized workspace fail with a structured workspace_not_found error when no config is found, or a storage_missing error when the config exists but storage metadata is absent. status classifies the workspace operationally (uninitialized, bootstrap_required, incremental_clean, incremental_affected, or mapping_incomplete) and reports a recommended next command.\n\nWorkspace load…",
-          "lower": "documentledger discovers documentledger.toml or .documentledger.toml by walking upward from the current directory. the loaded configuration defines the project metadata, storage directory, scan roots, allowed file extensions, validation commands, and policy flags.\n\na workspace combines the loaded configuration with storage metadata from the canonical .ledger/documentledger/data/storage.yaml. commands that require an initialized workspace fail with a structured workspace_not_found error when no config is found, or a storage_missing error when the config exists but storage metadata is absent. status classifies the workspace operationally (uninitialized, bootstrap_required, incremental_clean, incremental_affected, or mapping_incomplete) and reports a recommended next command.\n\nworkspace load…"
+          "heading": "Canonical project resolution",
+          "text": "Documentledger resolves the repository through ledgercore’s schema-3 .ledger/ledger.toml manifest. The manifest registers the tool and supplies project identity and mount routing. .ledger/documentledger/config.toml contains only tool-owned configuration version 2. Legacy root TOML files are migration inputs, not normal discovery.",
+          "lower": "documentledger resolves the repository through ledgercore’s schema-3 .ledger/ledger.toml manifest. the manifest registers the tool and supplies project identity and mount routing. .ledger/documentledger/config.toml contains only tool-owned configuration version 2. legacy root toml files are migration inputs, not normal discovery."
         },
         {
           "anchor": "",
-          "heading": "Storage model",
-          "text": "The storage layer writes YAML files only through the Documentledger APIs:\n\n\n.ledger/documentledger/data/storage.yaml stores schema metadata, project UUID, the current state_version, and compact latest-scan counts used by status.\n\n\n.ledger/documentledger/data/scan.yaml stores the current source hashes, document hashes, source-index metadata, unit deltas, affected-section snapshots, stale-doc projections, unlinked changed sources, unmapped changed units, and the monotonic current scan version.\n\n\n.ledger/documentledger/data/source-index.json stores the current source-unit inventory as deterministic compact JSON.\n\n\n.ledger/documentledger/data/docs/*.yaml stores document records with sections[].links[], derived linked_sources, section hashes, tracked source-unit hashes, freshness metadata incl…",
-          "lower": "the storage layer writes yaml files only through the documentledger apis:\n\n\n.ledger/documentledger/data/storage.yaml stores schema metadata, project uuid, the current state_version, and compact latest-scan counts used by status.\n\n\n.ledger/documentledger/data/scan.yaml stores the current source hashes, document hashes, source-index metadata, unit deltas, affected-section snapshots, stale-doc projections, unlinked changed sources, unmapped changed units, and the monotonic current scan version.\n\n\n.ledger/documentledger/data/source-index.json stores the current source-unit inventory as deterministic compact json.\n\n\n.ledger/documentledger/data/docs/*.yaml stores document records with sections[].links[], derived linked_sources, section hashes, tracked source-unit hashes, freshness metadata incl…"
+          "heading": "Command registration and metadata",
+          "text": "Typer command modules register the canonical singular document, source, and link groups plus configuration, schema, storage, and migration groups. COMMAND_INVENTORY supplies stable summaries, effects, audience, workspace requirements, targeting, and aliases. The CLI reference generator traverses Click objects directly and checks catalog drift.",
+          "lower": "typer command modules register the canonical singular document, source, and link groups plus configuration, schema, storage, and migration groups. command_inventory supplies stable summaries, effects, audience, workspace requirements, targeting, and aliases. the cli reference generator traverses click objects directly and checks catalog drift."
         },
         {
           "anchor": "",
-          "heading": "Path identity",
-          "text": "All user supplied doc and source paths are normalized as repository-relative POSIX paths. Absolute paths, backslash paths, empty paths, . paths, and paths containing .. are rejected. Document record filenames are derived from the documentation path slug plus a short SHA-256 digest, so records remain filesystem-safe while preserving unique document identities.\n\nSource units and doc sections use stable semantic ids rather than line-number identities. For Python, ids look like py:function:documentledger/commands/root.py::doctor. For Markdown, ids look like md:section:docs/usage.md::usage-validate-ledger-state.",
-          "lower": "all user supplied doc and source paths are normalized as repository-relative posix paths. absolute paths, backslash paths, empty paths, . paths, and paths containing .. are rejected. document record filenames are derived from the documentation path slug plus a short sha-256 digest, so records remain filesystem-safe while preserving unique document identities.\n\nsource units and doc sections use stable semantic ids rather than line-number identities. for python, ids look like py:function:documentledger/commands/root.py::doctor. for markdown, ids look like md:section:docs/usage.md::usage-validate-ledger-state."
+          "heading": "CLI state and result envelopes",
+          "text": "Global options create a command state containing root, JSON, profile, and warnings. A centralized error wrapper preserves the real command path and renders either human output or a stable JSON envelope with ok, command, result or error, and events.",
+          "lower": "global options create a command state containing root, json, profile, and warnings. a centralized error wrapper preserves the real command path and renders either human output or a stable json envelope with ok, command, result or error, and events."
         },
         {
           "anchor": "",
-          "heading": "Scanning algorithm",
-          "text": "The scanner collects files under the configured source roots and documentation roots. It skips storage files, excluded directories such as .git, __pycache__, build, dist, virtual environments, and files whose extensions are not configured. Documentation files are parsed into stable sections from Markdown headings and optional docledger-section markers; files without headings still receive a whole-document section id.\n\nEach collected file is hashed with SHA-256. Python source files are also parsed into source units: a file fallback unit, a module unit, and any top-level functions, classes, and methods. Each source unit carries separate hashes for signatures, decorators, bodies, docstrings, public contract, and exact content. Public contract hashes include semantic details such as exported…",
-          "lower": "the scanner collects files under the configured source roots and documentation roots. it skips storage files, excluded directories such as .git, __pycache__, build, dist, virtual environments, and files whose extensions are not configured. documentation files are parsed into stable sections from markdown headings and optional docledger-section markers; files without headings still receive a whole-document section id.\n\neach collected file is hashed with sha-256. python source files are also parsed into source units: a file fallback unit, a module unit, and any top-level functions, classes, and methods. each source unit carries separate hashes for signatures, decorators, bodies, docstrings, public contract, and exact content. public contract hashes include semantic details such as exported…"
+          "heading": "Configuration parsing",
+          "text": "documentledger.config validates the exact version-2 TOML shape, rejects unknown fields, normalizes arrays of strings, and produces typed ToolConfig values. Project identity, UUID, and mounts remain ledgercore concerns.",
+          "lower": "documentledger.config validates the exact version-2 toml shape, rejects unknown fields, normalizes arrays of strings, and produces typed toolconfig values. project identity, uuid, and mounts remain ledgercore concerns."
         },
         {
           "anchor": "",
-          "heading": "Link management",
-          "text": "A document link is usually a section edge: one documentation section linked to one source unit plus a coverage type, impact type, reason, and tracked hash set. links add-section validates the doc, section, and source unit, then records tracked hashes based on the coverage defaults. links import-map validates full multi-file batches before writing and applies them as one logical operation so section replacement and versioning stay coherent.\n\nlinks audit checks stored section links for missing sections, missing source units, and duplicate edges. links add and links remove remain as broad-file fallback commands. They store whole-doc fallback links that track the file fallback unit, which is still useful for unparseable sources or intentionally coarse docs.",
-          "lower": "a document link is usually a section edge: one documentation section linked to one source unit plus a coverage type, impact type, reason, and tracked hash set. links add-section validates the doc, section, and source unit, then records tracked hashes based on the coverage defaults. links import-map validates full multi-file batches before writing and applies them as one logical operation so section replacement and versioning stay coherent.\n\nlinks audit checks stored section links for missing sections, missing source units, and duplicate edges. links add and links remove remain as broad-file fallback commands. they store whole-doc fallback links that track the file fallback unit, which is still useful for unparseable sources or intentionally coarse docs."
+          "heading": "Storage and atomic state transitions",
+          "text": "Storage writers validate schema constants, strip timestamp keys, increment integer state versions, and use atomic writes. Durable data includes storage.yaml, scan.yaml, source-index.json, and document records under docs/*.yaml. Rendered context and proposals use the resolved cache artifacts mount. Read-only commands validate state without repairing or rewriting it.",
+          "lower": "storage writers validate schema constants, strip timestamp keys, increment integer state versions, and use atomic writes. durable data includes storage.yaml, scan.yaml, source-index.json, and document records under docs/*.yaml. rendered context and proposals use the resolved cache artifacts mount. read-only commands validate state without repairing or rewriting it."
         },
         {
           "anchor": "",
-          "heading": "Context rendering",
-          "text": "docs affected computes a live affected-section projection from the latest scan and the current doc records. This means section-level mark-fresh can clear affectedness without requiring a follow-up scan.\n\ndocs build-context renders a Markdown context document for distinct selector modes: --affected, --all, --doc DOC [--section SECTION], or --bootstrap. The context is always written to a file; printing is explicit. Bounded output options limit source lines, section lines, and total bytes while surfacing a truncation manifest instead of silently dropping content.\n\nThe --include-unlinked flag adds the full unlinked source inventory to non-bootstrap context modes. The bootstrap mode is intended for first-time documentation passes in repositories that do not yet have a link graph.",
-          "lower": "docs affected computes a live affected-section projection from the latest scan and the current doc records. this means section-level mark-fresh can clear affectedness without requiring a follow-up scan.\n\ndocs build-context renders a markdown context document for distinct selector modes: --affected, --all, --doc doc [--section section], or --bootstrap. the context is always written to a file; printing is explicit. bounded output options limit source lines, section lines, and total bytes while surfacing a truncation manifest instead of silently dropping content.\n\nthe --include-unlinked flag adds the full unlinked source inventory to non-bootstrap context modes. the bootstrap mode is intended for first-time documentation passes in repositories that do not yet have a link graph."
+          "heading": "Scanning and source-unit identity",
+          "text": "The scanner collects configured roots, filters excluded directories and extensions, hashes files, and indexes Python modules, functions, classes, methods, and fallback units. Source-unit identity is semantic and repository-relative; hash dimensions distinguish exact content, signatures, decorators, bodies, docstrings, and public contract.",
+          "lower": "the scanner collects configured roots, filters excluded directories and extensions, hashes files, and indexes python modules, functions, classes, methods, and fallback units. source-unit identity is semantic and repository-relative; hash dimensions distinguish exact content, signatures, decorators, bodies, docstrings, and public contract."
         },
         {
           "anchor": "",
-          "heading": "Freshness marking",
-          "text": "mark-fresh requires a latest scan and a non-empty reason. It can update one selected section, one selected doc, or all currently affected docs. For each selected section it stores the current section hash, refreshes the tracked source-unit hashes for that section’s links, updates the latest scan version and document hash, and records the reason in the document record.\n\nBy default mark-fresh rejects documents that have no linked sources with an unlinked_doc error. This prevents tracking a document that can never become stale from source changes. The --allow-unlinked option overrides the check for intentionally unlinked documents and records the reason with an (intentionally unlinked) marker.",
-          "lower": "mark-fresh requires a latest scan and a non-empty reason. it can update one selected section, one selected doc, or all currently affected docs. for each selected section it stores the current section hash, refreshes the tracked source-unit hashes for that section’s links, updates the latest scan version and document hash, and records the reason in the document record.\n\nby default mark-fresh rejects documents that have no linked sources with an unlinked_doc error. this prevents tracking a document that can never become stale from source changes. the --allow-unlinked option overrides the check for intentionally unlinked documents and records the reason with an (intentionally unlinked) marker."
+          "heading": "Markdown sections and markers",
+          "text": "The document index parses Markdown headings outside fenced code blocks and creates stable section ids, heading paths, line spans, summaries, and hashes. Explicit docledger-section markers provide semantic ids that survive wording and line-number changes.",
+          "lower": "the document index parses markdown headings outside fenced code blocks and creates stable section ids, heading paths, line spans, summaries, and hashes. explicit docledger-section markers provide semantic ids that survive wording and line-number changes."
         },
         {
           "anchor": "",
-          "heading": "CLI structure and errors",
-          "text": "The Typer CLI exposes top-level commands for initialization, status, doctor checks, scans, and freshness marking. Nested command groups handle links, docs, and source-unit inspection.\n\nError handling is centralized through a per-command error decorator. Each command callback is wrapped so that a DocumentledgerError is rendered with the real command name. With --json, the CLI emits a stable envelope with ok, command, error (code, message, remediation), and events. Without --json, it prints a concise human-readable Error: message and remediation hints. DocumentledgerError is a plain exception rather than a Click exception, which keeps command names accurate and lets the CLI choose the output format.",
-          "lower": "the typer cli exposes top-level commands for initialization, status, doctor checks, scans, and freshness marking. nested command groups handle links, docs, and source-unit inspection.\n\nerror handling is centralized through a per-command error decorator. each command callback is wrapped so that a documentledgererror is rendered with the real command name. with --json, the cli emits a stable envelope with ok, command, error (code, message, remediation), and events. without --json, it prints a concise human-readable error: message and remediation hints. documentledgererror is a plain exception rather than a click exception, which keeps command names accurate and lets the cli choose the output format."
+          "heading": "Link graph and tracked hashes",
+          "text": "Section links connect document sections to source units with coverage, impact, reason, and tracked hash sets. Broad document-to-file edges remain a fallback. Audits detect missing sections, missing units, duplicate edges, and invalid records.",
+          "lower": "section links connect document sections to source units with coverage, impact, reason, and tracked hash sets. broad document-to-file edges remain a fallback. audits detect missing sections, missing units, duplicate edges, and invalid records."
+        },
+        {
+          "anchor": "",
+          "heading": "Affectedness and context",
+          "text": "Incremental scans compare the current source index to the prior baseline. Changed or deleted linked units resolve to affected sections; unlinked changed sources and unmapped units are reported separately. Context rendering selects bootstrap, affected, all, or doc/section modes and emits truncation metadata when bounds apply.",
+          "lower": "incremental scans compare the current source index to the prior baseline. changed or deleted linked units resolve to affected sections; unlinked changed sources and unmapped units are reported separately. context rendering selects bootstrap, affected, all, or doc/section modes and emits truncation metadata when bounds apply."
+        },
+        {
+          "anchor": "",
+          "heading": "Migration boundary",
+          "text": "Migration plans inspect legacy state, copy and verify files, validate plan digests, optionally adopt project identity, and activate the shared manifest last. Journals support recovery. Cleanup is a separate explicit operation.",
+          "lower": "migration plans inspect legacy state, copy and verify files, validate plan digests, optionally adopt project identity, and activate the shared manifest last. journals support recovery. cleanup is a separate explicit operation."
+        },
+        {
+          "anchor": "",
+          "heading": "Persistence and testing boundaries",
+          "text": "All persisted state is deterministic, versioned, atomic, and timestamp-free. Unit tests cover parsing, storage, scanning, links, rendering, migration, CLI envelopes, and read-only invariants. Documentation tests cover requirements, generated CLI drift, page reachability, markers, links, API imports, and changelog ownership.",
+          "lower": "all persisted state is deterministic, versioned, atomic, and timestamp-free. unit tests cover parsing, storage, scanning, links, rendering, migration, cli envelopes, and read-only invariants. documentation tests cover requirements, generated cli drift, page reachability, markers, links, api imports, and changelog ownership."
         },
         {
           "anchor": "",
           "heading": "ledgercore integration",
-          "text": "ledgercore>=0.2 is an active dependency. Documentledger uses ledgercore for YAML storage, atomic writes, config discovery, path validation, doc-record identity helpers, and SHA-256 hashing.",
-          "lower": "ledgercore>=0.2 is an active dependency. documentledger uses ledgercore for yaml storage, atomic writes, config discovery, path validation, doc-record identity helpers, and sha-256 hashing."
-        },
-        {
-          "anchor": "",
-          "heading": "Canonical storage",
-          "text": "Documentledger uses ledgercore 0.5 schema 3 as the shared project authority. The committed manifest is .ledger/ledger.toml; the tool config is derived at .ledger/documentledger/config.toml; durable scan, source-index, and document-record state is in the data project mount; and rendered/proposal output is in the resolved cache artifacts mount. Ledgercore owns manifest TOML writing and schema-3 .ledger-project.toml binding markers.\n\nLegacy .documentledger layouts remain compatibility input only. Migration is explicit, copy-first, SHA-256 verified, and activates the shared manifest last. source-index.json is part of the committed baseline and may only be repaired when exact reconstruction matches the recorded hash.",
-          "lower": "documentledger uses ledgercore 0.5 schema 3 as the shared project authority. the committed manifest is .ledger/ledger.toml; the tool config is derived at .ledger/documentledger/config.toml; durable scan, source-index, and document-record state is in the data project mount; and rendered/proposal output is in the resolved cache artifacts mount. ledgercore owns manifest toml writing and schema-3 .ledger-project.toml binding markers.\n\nlegacy .documentledger layouts remain compatibility input only. migration is explicit, copy-first, sha-256 verified, and activates the shared manifest last. source-index.json is part of the committed baseline and may only be repaired when exact reconstruction matches the recorded hash."
+          "text": "Documentledger requires ledgercore>=0.6.0,<0.7.0 for shared schema-3 project authority, storage bindings, path handling, atomic writes, and hashing. The application owns its tool config and domain records while ledgercore owns shared project identity and mount resolution.",
+          "lower": "documentledger requires ledgercore>=0.6.0,<0.7.0 for shared schema-3 project authority, storage bindings, path handling, atomic writes, and hashing. the application owns its tool config and domain records while ledgercore owns shared project identity and mount resolution."
         }
       ]
     },
     {
       "url": "/tools/documentledger/bootstrap/",
       "title": "documentledger Bootstrapping a new repository",
-      "snippet": "Documentledger computes staleness from explicit doc-to-source links. A freshly initialized repository has no links yet, so the first scan re …",
+      "snippet": "Bootstrap is the first documentation pass in a newly initialized project.\nCreate the canonical project, establish a baseline, and build boun …",
       "sections": [
         {
           "anchor": "",
           "heading": "Bootstrapping a new repository",
-          "text": "Documentledger computes staleness from explicit doc-to-source links. A freshly initialized repository has no links yet, so the first scan reports no stale docs even though no documentation exists. This page describes the recommended setup sequence for first-time documentation work.",
-          "lower": "documentledger computes staleness from explicit doc-to-source links. a freshly initialized repository has no links yet, so the first scan reports no stale docs even though no documentation exists. this page describes the recommended setup sequence for first-time documentation work."
+          "text": "Bootstrap is the first documentation pass in a newly initialized project.",
+          "lower": "bootstrap is the first documentation pass in a newly initialized project."
         },
         {
           "anchor": "",
-          "heading": "Why the first scan is a baseline",
-          "text": "The first docledger scan hashes every configured source and documentation file and stores them as the baseline. Because there is no previous scan to compare against, it reports no changed, deleted, stale, or unlinked sources. Staleness and unlinked-source reporting only begin from the second scan onward.",
-          "lower": "the first docledger scan hashes every configured source and documentation file and stores them as the baseline. because there is no previous scan to compare against, it reports no changed, deleted, stale, or unlinked sources. staleness and unlinked-source reporting only begin from the second scan onward."
+          "heading": "Bootstrapping a new repository",
+          "text": "Create the canonical project, establish a baseline, and build bounded context before adding or reviewing links.",
+          "lower": "create the canonical project, establish a baseline, and build bounded context before adding or reviewing links."
         },
         {
           "anchor": "",
-          "heading": "Setup sequence",
-          "text": "Initialize the workspace and record a baseline scan:\n\ndocledger init\ndocledger --json scan\n\n\n\n\n\n\nRender a bootstrap context that includes the unlinked source inventory and current doc inventory:\n\ndocledger docs build-context --bootstrap\n\n\n\n\nThe bootstrap context file lists every source file that has no doc record link. These are the sources that need documentation or explicit omission.\n\n\n\nCreate documentation files for those sources under a configured documentation root (for example docs/).\n\n\nGenerate deterministic proposal files and review them before applying:\n\ndocledger links propose --all-docs\ndocledger --json links import-map --directory <reviewed-proposals> --check-and-apply\n\n\n\n\n\n\nRun a link audit and coverage review:\n\ndocledger --json links audit\ndocledger --json coverage\n\n\n\n\n\n\nVal…",
-          "lower": "initialize the workspace and record a baseline scan:\n\ndocledger init\ndocledger --json scan\n\n\n\n\n\n\nrender a bootstrap context that includes the unlinked source inventory and current doc inventory:\n\ndocledger docs build-context --bootstrap\n\n\n\n\nthe bootstrap context file lists every source file that has no doc record link. these are the sources that need documentation or explicit omission.\n\n\n\ncreate documentation files for those sources under a configured documentation root (for example docs/).\n\n\ngenerate deterministic proposal files and review them before applying:\n\ndocledger links propose --all-docs\ndocledger --json links import-map --directory <reviewed-proposals> --check-and-apply\n\n\n\n\n\n\nrun a link audit and coverage review:\n\ndocledger --json links audit\ndocledger --json coverage\n\n\n\n\n\n\nval…"
+          "heading": "First scan baseline",
+          "text": "documentledger init --project-name example\ndocumentledger --json scan\n\n\n\n\nThe first scan hashes configured sources and docs but has no prior version for comparison. It therefore reports no deltas. Later scans can report affected sections and unlinked changed sources.",
+          "lower": "documentledger init --project-name example\ndocumentledger --json scan\n\n\n\n\nthe first scan hashes configured sources and docs but has no prior version for comparison. it therefore reports no deltas. later scans can report affected sections and unlinked changed sources."
+        },
+        {
+          "anchor": "",
+          "heading": "Build bootstrap context",
+          "text": "documentledger document build-context --bootstrap --out /tmp/documentledger-bootstrap.md\n\n\n\n\nThe output contains the current inventory and unlinked source evidence. Use it to decide what documentation should exist before adding links.",
+          "lower": "documentledger document build-context --bootstrap --out /tmp/documentledger-bootstrap.md\n\n\n\n\nthe output contains the current inventory and unlinked source evidence. use it to decide what documentation should exist before adding links."
+        },
+        {
+          "anchor": "",
+          "heading": "Review deterministic proposals",
+          "text": "documentledger link propose --all-docs --out-dir /tmp/documentledger-maps\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --validate\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --check-and-apply\n\n\n\n\n--validate checks the complete batch without writing. Review and correct proposal files, then use --check-and-apply for an atomic application.\n\nAn empty top-level sections: [] file is a valid reviewed no-op for a document. Empty links: [] inside a named section remains invalid unless an explicit clearing operation is requested.",
+          "lower": "documentledger link propose --all-docs --out-dir /tmp/documentledger-maps\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --validate\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --check-and-apply\n\n\n\n\n--validate checks the complete batch without writing. review and correct proposal files, then use --check-and-apply for an atomic application.\n\nan empty top-level sections: [] file is a valid reviewed no-op for a document. empty links: [] inside a named section remains invalid unless an explicit clearing operation is requested."
+        },
+        {
+          "anchor": "",
+          "heading": "Coverage and final gates",
+          "text": "documentledger --json link audit\ndocumentledger --json coverage\n\n\n\n\nReview coverage before freshness marking: every configured document must be linked or explicitly accepted as intentionally unlinked, while internal and test source units may remain intentionally omitted. Run configured tests and documentation validation before freshness marking. For a reviewed bootstrap batch, finish with:\n\ndocumentledger document mark-fresh --all --allow-unlinked \\\n  --reason \"Bootstrap documentation completed after scan version VERSION.\"\n\n\n\n\nDo not weaken lint, Sphinx, type-check, or documentation validation settings solely to make this gate pass.\n\nThen run:\n\ndocumentledger --json doctor\ndocumentledger --json check\ndocumentledger --json status\n\n\n\n\nMark fresh only after validation and only for intentiona…",
+          "lower": "documentledger --json link audit\ndocumentledger --json coverage\n\n\n\n\nreview coverage before freshness marking: every configured document must be linked or explicitly accepted as intentionally unlinked, while internal and test source units may remain intentionally omitted. run configured tests and documentation validation before freshness marking. for a reviewed bootstrap batch, finish with:\n\ndocumentledger document mark-fresh --all --allow-unlinked \\\n  --reason \"bootstrap documentation completed after scan version version.\"\n\n\n\n\ndo not weaken lint, sphinx, type-check, or documentation validation settings solely to make this gate pass.\n\nthen run:\n\ndocumentledger --json doctor\ndocumentledger --json check\ndocumentledger --json status\n\n\n\n\nmark fresh only after validation and only for intentiona…"
         }
       ]
     },
@@ -117,6 +237,18 @@
           "heading": "Changelog",
           "text": "Generated by releaseledger. Manual edits may be overwritten. Update releaseledger entries and rebuild this file instead.\n\n\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on Keep a Changelog, and this project adheres to Semantic Versioning.",
           "lower": "generated by releaseledger. manual edits may be overwritten. update releaseledger entries and rebuild this file instead.\n\n\n\nall notable changes to this project will be documented in this file.\n\nthe format is based on keep a changelog, and this project adheres to semantic versioning."
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Documentation generation script for automated CLI reference\n\n\nFreshness tracking module for document staleness detection",
+          "lower": "documentation generation script for automated cli reference\n\n\nfreshness tracking module for document staleness detection"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Simplified CLI entry point with delegated command routing\n\n\nImproved render module with additional formatting and impact analysis\n\n\nAdded test suites for bootstrap workflow, documentation contract, links batch, render, and status\n\n\nEnhanced link resolution with expanded batch processing and import-map support\n\n\nCLI reference, API docs, configuration guides, quickstart, and troubleshooting documentation\n\n\nAdded Click as an explicit runtime dependency for reliable CLI installation\n\n\nImproved durable document record reconciliation with live sections and linked orphan repair",
+          "lower": "simplified cli entry point with delegated command routing\n\n\nimproved render module with additional formatting and impact analysis\n\n\nadded test suites for bootstrap workflow, documentation contract, links batch, render, and status\n\n\nenhanced link resolution with expanded batch processing and import-map support\n\n\ncli reference, api docs, configuration guides, quickstart, and troubleshooting documentation\n\n\nadded click as an explicit runtime dependency for reliable cli installation\n\n\nimproved durable document record reconciliation with live sections and linked orphan repair"
         },
         {
           "anchor": "",
@@ -145,6 +277,505 @@
       ]
     },
     {
+      "url": "/tools/documentledger/ci/",
+      "title": "documentledger Continuous integration",
+      "snippet": "Run the following from the repository root:\n\ndocumentledger --json check\npython -m pytest -q\npython -m compileall -q documentledger tests\npy …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Deterministic gate",
+          "text": "Run the following from the repository root:\n\ndocumentledger --json check\npython -m pytest -q\npython -m compileall -q documentledger tests\npython -m sphinx -W --keep-going -b html docs docs/_build/html\n\n\n\n\ncheck returns non-zero for stale documentation, invalid storage schema or bindings, source-index integrity failures, invalid links, and configured validation failures. The Sphinx build treats warnings as errors and keeps going long enough to report the complete warning set.",
+          "lower": "run the following from the repository root:\n\ndocumentledger --json check\npython -m pytest -q\npython -m compileall -q documentledger tests\npython -m sphinx -w --keep-going -b html docs docs/_build/html\n\n\n\n\ncheck returns non-zero for stale documentation, invalid storage schema or bindings, source-index integrity failures, invalid links, and configured validation failures. the sphinx build treats warnings as errors and keeps going long enough to report the complete warning set."
+        },
+        {
+          "anchor": "",
+          "heading": "CI environment",
+          "text": "Run the strict docs build in an Ubuntu/Python 3.13 job with python -m pip install -e \".[docs]\". Keep the normal unit-test matrix across the supported operating systems and Python versions. CLI reference generation is checked with python scripts/generate_cli_reference.py --check.",
+          "lower": "run the strict docs build in an ubuntu/python 3.13 job with python -m pip install -e \".[docs]\". keep the normal unit-test matrix across the supported operating systems and python versions. cli reference generation is checked with python scripts/generate_cli_reference.py --check."
+        },
+        {
+          "anchor": "",
+          "heading": "Network policy",
+          "text": "The HTML build is local and does not use intersphinx or download dependencies. Run external link checking separately or make it non-blocking when network reliability is outside the repository’s control; internal references and Sphinx warnings remain blocking.",
+          "lower": "the html build is local and does not use intersphinx or download dependencies. run external link checking separately or make it non-blocking when network reliability is outside the repository’s control; internal references and sphinx warnings remain blocking."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/cli/",
+      "title": "documentledger CLI reference",
+      "snippet": "This is the authoritative canonical command reference. It is generated from COMMAND_INVENTORY and the registered Click command tree; run the …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "CLI reference",
+          "text": "This is the authoritative canonical command reference. It is generated from COMMAND_INVENTORY and the registered Click command tree; run the generator check in CI after command changes.",
+          "lower": "this is the authoritative canonical command reference. it is generated from command_inventory and the registered click command tree; run the generator check in ci after command changes."
+        },
+        {
+          "anchor": "",
+          "heading": "Global options",
+          "text": "Global options may appear before the command path:\n\n\n\nOption\n\nEffect\n\n\n\n\n\n--root PATH\n\nResolve the project from PATH instead of the current directory.\n\n\n\n--json\n\nEmit the stable JSON envelope.\n\n\n\n--profile\n\nInclude diagnostic operation events in JSON output.\n\n\n\n--version\n\nShow the installed version.\n\n\n\n--install-completion\n\nInstall shell completion.\n\n\n\n--show-completion\n\nPrint shell completion.",
+          "lower": "global options may appear before the command path:\n\n\n\noption\n\neffect\n\n\n\n\n\n--root path\n\nresolve the project from path instead of the current directory.\n\n\n\n--json\n\nemit the stable json envelope.\n\n\n\n--profile\n\ninclude diagnostic operation events in json output.\n\n\n\n--version\n\nshow the installed version.\n\n\n\n--install-completion\n\ninstall shell completion.\n\n\n\n--show-completion\n\nprint shell completion."
+        },
+        {
+          "anchor": "",
+          "heading": "init",
+          "text": "Initialize Documentledger storage for a project.\n\n\nEffect: workspace-write\n\n\nAudience: agent\n\n\nWorkspace required: no\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "initialize documentledger storage for a project.\n\n\neffect: workspace-write\n\n\naudience: agent\n\n\nworkspace required: no\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger init",
+          "lower": "documentledger init"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "Parameter\n\nRequired\n\nDefault\n\nType\n\n\n\n\n\n--project-name\n\nno\n\n``\n\nstr\n\n\n\n--documentledger-dir\n\nno\n\n'.ledger'\n\nstr\n\n\n\n--hidden-config\n\nno\n\n``\n\nboolean",
+          "lower": "parameter\n\nrequired\n\ndefault\n\ntype\n\n\n\n\n\n--project-name\n\nno\n\n``\n\nstr\n\n\n\n--documentledger-dir\n\nno\n\n'.ledger'\n\nstr\n\n\n\n--hidden-config\n\nno\n\n``\n\nboolean"
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger init",
+          "lower": "documentledger init"
+        },
+        {
+          "anchor": "",
+          "heading": "status",
+          "text": "Show concise Documentledger status.\n\n\nEffect: read\n\n\nAudience: both\n\n\nWorkspace required: no\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "show concise documentledger status.\n\n\neffect: read\n\n\naudience: both\n\n\nworkspace required: no\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger status",
+          "lower": "documentledger status"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger status",
+          "lower": "documentledger status"
+        },
+        {
+          "anchor": "",
+          "heading": "info",
+          "text": "Show full Documentledger storage and configuration inventory.\n\n\nEffect: read\n\n\nAudience: both\n\n\nWorkspace required: yes\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "show full documentledger storage and configuration inventory.\n\n\neffect: read\n\n\naudience: both\n\n\nworkspace required: yes\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger info",
+          "lower": "documentledger info"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger info",
+          "lower": "documentledger info"
+        },
+        {
+          "anchor": "",
+          "heading": "doctor",
+          "text": "Run detailed read-only diagnostics.\n\n\nEffect: read\n\n\nAudience: both\n\n\nWorkspace required: yes\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "run detailed read-only diagnostics.\n\n\neffect: read\n\n\naudience: both\n\n\nworkspace required: yes\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger doctor",
+          "lower": "documentledger doctor"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger doctor",
+          "lower": "documentledger doctor"
+        },
+        {
+          "anchor": "",
+          "heading": "check",
+          "text": "Run deterministic CI validation gate.\n\n\nEffect: read\n\n\nAudience: agent\n\n\nWorkspace required: yes\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "run deterministic ci validation gate.\n\n\neffect: read\n\n\naudience: agent\n\n\nworkspace required: yes\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger check",
+          "lower": "documentledger check"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger check",
+          "lower": "documentledger check"
+        },
+        {
+          "anchor": "",
+          "heading": "next-action",
+          "text": "Show the single recommended next command.\n\n\nEffect: read\n\n\nAudience: agent\n\n\nWorkspace required: no\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "show the single recommended next command.\n\n\neffect: read\n\n\naudience: agent\n\n\nworkspace required: no\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger next-action",
+          "lower": "documentledger next-action"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger next-action",
+          "lower": "documentledger next-action"
+        },
+        {
+          "anchor": "",
+          "heading": "scan",
+          "text": "Run an incremental source scan.\n\n\nEffect: workspace-write\n\n\nAudience: agent\n\n\nWorkspace required: yes\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "run an incremental source scan.\n\n\neffect: workspace-write\n\n\naudience: agent\n\n\nworkspace required: yes\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger scan",
+          "lower": "documentledger scan"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger scan",
+          "lower": "documentledger scan"
+        },
+        {
+          "anchor": "",
+          "heading": "coverage",
+          "text": "Compute documentation coverage metrics.\n\n\nEffect: read\n\n\nAudience: both\n\n\nWorkspace required: yes\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "compute documentation coverage metrics.\n\n\neffect: read\n\n\naudience: both\n\n\nworkspace required: yes\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger coverage",
+          "lower": "documentledger coverage"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger coverage",
+          "lower": "documentledger coverage"
+        },
+        {
+          "anchor": "",
+          "heading": "commands",
+          "text": "List all registered commands.\n\n\nEffect: read\n\n\nAudience: both\n\n\nWorkspace required: no\n\n\nTargeting: none\n\n\nCompatibility aliases: None",
+          "lower": "list all registered commands.\n\n\neffect: read\n\n\naudience: both\n\n\nworkspace required: no\n\n\ntargeting: none\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger commands",
+          "lower": "documentledger commands"
+        },
+        {
+          "anchor": "",
+          "heading": "Arguments and options",
+          "text": "None.",
+          "lower": "none."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON result and errors",
+          "text": "With --json, the command returns ok, command, a command-specific result, and events. Failures return the normalized error object with code, message, remediation, and details.domain_code. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.",
+          "lower": "with --json, the command returns ok, command, a command-specific result, and events. failures return the normalized error object with code, message, remediation, and details.domain_code. invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "documentledger commands",
+          "lower": "documentledger commands"
+        },
+        {
+          "anchor": "",
+          "heading": "help",
+          "text": "Show help for a command path.\n\n\nEffect: read\n\n\nAudience: both\n\n\nWorkspace required: no\n\n\nTargeting: command-path\n\n\nCompatibility aliases: None",
+          "lower": "show help for a command path.\n\n\neffect: read\n\n\naudience: both\n\n\nworkspace required: no\n\n\ntargeting: command-path\n\n\ncompatibility aliases: none"
+        },
+        {
+          "anchor": "",
+          "heading": "Syntax",
+          "text": "documentledger help",
+          "lower": "documentledger help"
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/concepts/",
+      "title": "documentledger Concepts",
+      "snippet": "The project is the repository resolved through the shared .ledger/ledger.toml manifest. Documentledger owns the registered tool configuratio …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Project, tool, data, and artifacts",
+          "text": "The project is the repository resolved through the shared .ledger/ledger.toml manifest. Documentledger owns the registered tool configuration at .ledger/documentledger/config.toml. The durable data mount contains committed ledger state; the derived artifacts mount contains cache output such as rendered context and proposals.",
+          "lower": "the project is the repository resolved through the shared .ledger/ledger.toml manifest. documentledger owns the registered tool configuration at .ledger/documentledger/config.toml. the durable data mount contains committed ledger state; the derived artifacts mount contains cache output such as rendered context and proposals."
+        },
+        {
+          "anchor": "",
+          "heading": "Source units and document sections",
+          "text": "A source file is a configured file such as a Python module. A source unit is a stable semantic item inside it: file fallback, module, function, class, or method, with line span, signature, and hash dimensions. A document file is a Markdown file; a document section is a heading-delimited region with a stable section id or marker.",
+          "lower": "a source file is a configured file such as a python module. a source unit is a stable semantic item inside it: file fallback, module, function, class, or method, with line span, signature, and hash dimensions. a document file is a markdown file; a document section is a heading-delimited region with a stable section id or marker."
+        },
+        {
+          "anchor": "",
+          "heading": "Link edges, coverage, and impact",
+          "text": "A link edge connects a document section to a source unit with coverage, impact, reason, and tracked hashes. Coverage describes how much of the source contract is represented; impact classifies whether changes affect behavior, API, configuration, or another documented concern. Broad file links are a fallback, not the preferred precision model.",
+          "lower": "a link edge connects a document section to a source unit with coverage, impact, reason, and tracked hashes. coverage describes how much of the source contract is represented; impact classifies whether changes affect behavior, api, configuration, or another documented concern. broad file links are a fallback, not the preferred precision model."
+        },
+        {
+          "anchor": "",
+          "heading": "Live sections and durable records",
+          "text": "The live Markdown index owns section existence and structural metadata. Durable document\nrecords own explicit link edges and freshness decisions. During scan, a newly added section\nis recorded with empty links, surviving section metadata is refreshed without changing its\nedges, and a removed unlinked section is disposable bookkeeping that may be pruned. A removed\nlinked section is retained as an orphan until its links are moved or explicitly removed.",
+          "lower": "the live markdown index owns section existence and structural metadata. durable document\nrecords own explicit link edges and freshness decisions. during scan, a newly added section\nis recorded with empty links, surviving section metadata is refreshed without changing its\nedges, and a removed unlinked section is disposable bookkeeping that may be pruned. a removed\nlinked section is retained as an orphan until its links are moved or explicitly removed."
+        },
+        {
+          "anchor": "",
+          "heading": "Freshness and affectedness",
+          "text": "Tracked hash sets record exact content plus semantic dimensions such as signatures, public contract, bodies, decorators, and docstrings. A scan version identifies a comparison baseline; a storage state version identifies a durable write sequence. A baseline is the first scan. Affectedness is the live projection of changed linked units; staleness is the document-level compatibility view. Freshness is recorded only after validation.\n\nAn unlinked changed source has no document edge at all. An unmapped changed unit belongs to a linked source file but has no matching section edge. These are separate remediation queues.",
+          "lower": "tracked hash sets record exact content plus semantic dimensions such as signatures, public contract, bodies, decorators, and docstrings. a scan version identifies a comparison baseline; a storage state version identifies a durable write sequence. a baseline is the first scan. affectedness is the live projection of changed linked units; staleness is the document-level compatibility view. freshness is recorded only after validation.\n\nan unlinked changed source has no document edge at all. an unmapped changed unit belongs to a linked source file but has no matching section edge. these are separate remediation queues."
+        },
+        {
+          "anchor": "",
+          "heading": "Deterministic persistence",
+          "text": "Persistence is hash- and version-based and intentionally timestamp-free. Atomic writes prevent partial state transitions. Git history provides historical baselines instead of persisted scan archives, so generated cache output can be ignored safely.",
+          "lower": "persistence is hash- and version-based and intentionally timestamp-free. atomic writes prevent partial state transitions. git history provides historical baselines instead of persisted scan archives, so generated cache output can be ignored safely."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/configuration/",
+      "title": "documentledger Configuration reference",
+      "snippet": "The canonical tool configuration is .ledger/documentledger/config.toml, version 2. Project identity and mount routing belong to .ledger/ledg …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Configuration reference",
+          "text": "The canonical tool configuration is .ledger/documentledger/config.toml, version 2. Project identity and mount routing belong to .ledger/ledger.toml and ledgercore, not this file.",
+          "lower": "the canonical tool configuration is .ledger/documentledger/config.toml, version 2. project identity and mount routing belong to .ledger/ledger.toml and ledgercore, not this file."
+        },
+        {
+          "anchor": "",
+          "heading": "Example",
+          "text": "config_version = 2\n\n[ledger]\ncode = \"dl\"\n\n[scan]\nsource_roots = [\"documentledger\", \"tests\"]\ndoc_roots = [\"docs\", \"README.md\"]\nsource_extensions = [\".py\"]\ndoc_extensions = [\".md\"]\n\n[validation]\ncommands = [\n  \"python -m pytest -q\",\n  \"python -m compileall -q documentledger tests\",\n  \"bash docs/build.sh\",\n]\n\n[policy]\nrequire_doc_frontmatter = false",
+          "lower": "config_version = 2\n\n[ledger]\ncode = \"dl\"\n\n[scan]\nsource_roots = [\"documentledger\", \"tests\"]\ndoc_roots = [\"docs\", \"readme.md\"]\nsource_extensions = [\".py\"]\ndoc_extensions = [\".md\"]\n\n[validation]\ncommands = [\n  \"python -m pytest -q\",\n  \"python -m compileall -q documentledger tests\",\n  \"bash docs/build.sh\",\n]\n\n[policy]\nrequire_doc_frontmatter = false"
+        },
+        {
+          "anchor": "",
+          "heading": "Fields",
+          "text": "Field\n\nType and default\n\nNormalization and validation\n\nEffect\n\n\n\n\n\nconfig_version\n\ninteger, required, 2\n\nMust be exactly 2; unknown versions fail\n\nSelects the tool schema.\n\n\n\nledger.code\n\nnon-empty string, default dl\n\nMust be a string\n\nPrefix used by project-local ledger conventions.\n\n\n\nscan.source_roots\n\narray of strings, default empty\n\nPaths are interpreted relative to project root\n\nFiles collected for source indexing.\n\n\n\nscan.doc_roots\n\narray of strings, default empty\n\nPaths are interpreted relative to project root\n\nFiles collected and parsed as documentation.\n\n\n\nscan.source_extensions\n\narray of strings, default empty\n\nExtension filters are explicit\n\nLimits source collection.\n\n\n\nscan.doc_extensions\n\narray of strings, default empty\n\nExtension filters are explicit\n\nLimits documentation c…",
+          "lower": "field\n\ntype and default\n\nnormalization and validation\n\neffect\n\n\n\n\n\nconfig_version\n\ninteger, required, 2\n\nmust be exactly 2; unknown versions fail\n\nselects the tool schema.\n\n\n\nledger.code\n\nnon-empty string, default dl\n\nmust be a string\n\nprefix used by project-local ledger conventions.\n\n\n\nscan.source_roots\n\narray of strings, default empty\n\npaths are interpreted relative to project root\n\nfiles collected for source indexing.\n\n\n\nscan.doc_roots\n\narray of strings, default empty\n\npaths are interpreted relative to project root\n\nfiles collected and parsed as documentation.\n\n\n\nscan.source_extensions\n\narray of strings, default empty\n\nextension filters are explicit\n\nlimits source collection.\n\n\n\nscan.doc_extensions\n\narray of strings, default empty\n\nextension filters are explicit\n\nlimits documentation c…"
+        },
+        {
+          "anchor": "",
+          "heading": "Inspect and validate",
+          "text": "documentledger config show\ndocumentledger config validate\n\n\n\n\nBoth commands read the effective canonical configuration. Validation is read-only and does not rewrite malformed files. Legacy root configuration files are migration inputs only, not the normal configuration model.",
+          "lower": "documentledger config show\ndocumentledger config validate\n\n\n\n\nboth commands read the effective canonical configuration. validation is read-only and does not rewrite malformed files. legacy root configuration files are migration inputs only, not the normal configuration model."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/development/",
+      "title": "documentledger Development",
+      "snippet": "python -m pip install -e \".[test,docs,dev]\"\npython -m pytest -q\npython -m compileall -q documentledger tests\npython scripts/generate_cli_ref …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Environment and checks",
+          "text": "python -m pip install -e \".[test,docs,dev]\"\npython -m pytest -q\npython -m compileall -q documentledger tests\npython scripts/generate_cli_reference.py --check\npython -m sphinx -W --keep-going -b html docs docs/_build/html\n\n\n\n\nRun configured linters and type checks when available. Documentation changes must preserve stable section markers and pass the strict build.",
+          "lower": "python -m pip install -e \".[test,docs,dev]\"\npython -m pytest -q\npython -m compileall -q documentledger tests\npython scripts/generate_cli_reference.py --check\npython -m sphinx -w --keep-going -b html docs docs/_build/html\n\n\n\n\nrun configured linters and type checks when available. documentation changes must preserve stable section markers and pass the strict build."
+        },
+        {
+          "anchor": "",
+          "heading": "Add a command",
+          "text": "Register the command in its command module, add canonical metadata to COMMAND_INVENTORY, update the generated CLI reference, and add command behavior tests. Compatibility wrappers must remain separately labeled.",
+          "lower": "register the command in its command module, add canonical metadata to command_inventory, update the generated cli reference, and add command behavior tests. compatibility wrappers must remain separately labeled."
+        },
+        {
+          "anchor": "",
+          "heading": "Change a persisted schema",
+          "text": "Update the storage/model reader and writer together, verify exact schema constants and unknown-field policy, add migration or compatibility handling, update schemas.md, and add tests for valid, invalid, and timestamp-free payloads.",
+          "lower": "update the storage/model reader and writer together, verify exact schema constants and unknown-field policy, add migration or compatibility handling, update schemas.md, and add tests for valid, invalid, and timestamp-free payloads."
+        },
+        {
+          "anchor": "",
+          "heading": "Maintain links and markers",
+          "text": "Use repository-unique lowercase kebab-case docledger-section markers immediately before stable H2 headings. Run the documentation contract tests and Documentledger link audit after adding pages or changing command behavior.",
+          "lower": "use repository-unique lowercase kebab-case docledger-section markers immediately before stable h2 headings. run the documentation contract tests and documentledger link audit after adding pages or changing command behavior."
+        },
+        {
+          "anchor": "",
+          "heading": "Releases and self-maintenance",
+          "text": "The changelog is generated by Releaseledger. Update release records rather than editing docs/changelog.md manually. After source/docs changes, run the scan, affected-context, proposal review, link audit, coverage, strict build, and final documentledger --json check workflow before marking documentation fresh.",
+          "lower": "the changelog is generated by releaseledger. update release records rather than editing docs/changelog.md manually. after source/docs changes, run the scan, affected-context, proposal review, link audit, coverage, strict build, and final documentledger --json check workflow before marking documentation fresh."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/errors/",
+      "title": "documentledger Errors",
+      "snippet": "Documentledger normalizes domain errors into a stable CLI result. The source of truth is documentledger.errors.\nCategory\n\nMeaning\n\nTypical r …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Errors",
+          "text": "Documentledger normalizes domain errors into a stable CLI result. The source of truth is documentledger.errors.",
+          "lower": "documentledger normalizes domain errors into a stable cli result. the source of truth is documentledger.errors."
+        },
+        {
+          "anchor": "",
+          "heading": "Categories and remediation",
+          "text": "Category\n\nMeaning\n\nTypical remediation\n\n\n\n\n\nUsage\n\nInvalid command, option, selector, cursor, or argument\n\nRead command help and correct the invocation.\n\n\n\nUnavailable\n\nWorkspace, config, storage, or source index is missing\n\nInitialize or inspect canonical bindings.\n\n\n\nConflict\n\nState, plan digest, UUID, or duplicate edge conflicts\n\nRe-read current state and regenerate the reviewed input.\n\n\n\nExternal failure\n\nFilesystem, parser, or dependency operation failed\n\nInspect the underlying diagnostic and environment.\n\n\n\nDomain failure\n\nA valid operation violates a Documentledger invariant\n\nFollow the error remediation and repair explicitly.",
+          "lower": "category\n\nmeaning\n\ntypical remediation\n\n\n\n\n\nusage\n\ninvalid command, option, selector, cursor, or argument\n\nread command help and correct the invocation.\n\n\n\nunavailable\n\nworkspace, config, storage, or source index is missing\n\ninitialize or inspect canonical bindings.\n\n\n\nconflict\n\nstate, plan digest, uuid, or duplicate edge conflicts\n\nre-read current state and regenerate the reviewed input.\n\n\n\nexternal failure\n\nfilesystem, parser, or dependency operation failed\n\ninspect the underlying diagnostic and environment.\n\n\n\ndomain failure\n\na valid operation violates a documentledger invariant\n\nfollow the error remediation and repair explicitly."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON error envelope",
+          "text": "{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace-not-found\",\n    \"message\": \"...\",\n    \"remediation\": [],\n    \"details\": { \"domain_code\": \"workspace_not_found\" }\n  },\n  \"events\": []\n}\n\n\n\n\nThe normalized CLI code is suitable for automation; details.domain_code preserves the domain error. Exit codes distinguish usage, unavailable, conflict, external, and domain failure categories. Human output contains a concise error and remediation.",
+          "lower": "{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace-not-found\",\n    \"message\": \"...\",\n    \"remediation\": [],\n    \"details\": { \"domain_code\": \"workspace_not_found\" }\n  },\n  \"events\": []\n}\n\n\n\n\nthe normalized cli code is suitable for automation; details.domain_code preserves the domain error. exit codes distinguish usage, unavailable, conflict, external, and domain failure categories. human output contains a concise error and remediation."
+        },
+        {
+          "anchor": "",
+          "heading": "Common codes",
+          "text": "workspace_not_found, storage_missing, invalid_storage_binding, invalid_tool_config, unsupported_tool_config_version, schema_mismatch, invalid_cursor, invalid_selector, section_not_found, unlinked_doc, and storage_migration_conflict identify common remediation paths. Run documentledger --json doctor for the complete current diagnostic context.",
+          "lower": "workspace_not_found, storage_missing, invalid_storage_binding, invalid_tool_config, unsupported_tool_config_version, schema_mismatch, invalid_cursor, invalid_selector, section_not_found, unlinked_doc, and storage_migration_conflict identify common remediation paths. run documentledger --json doctor for the complete current diagnostic context."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/incremental-workflow/",
+      "title": "documentledger Incremental workflow",
+      "snippet": "This is the normal agent operation after bootstrap.\ndocumentledger --json status\n\n\ndocumentledger --json doctor\n\n\ndocumentledger --json scan …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Incremental workflow",
+          "text": "This is the normal agent operation after bootstrap.",
+          "lower": "this is the normal agent operation after bootstrap."
+        },
+        {
+          "anchor": "",
+          "heading": "Sequence",
+          "text": "documentledger --json status\n\n\ndocumentledger --json doctor\n\n\ndocumentledger --json scan\n\n\ndocumentledger --json document affected\n\n\ndocumentledger document build-context --affected --out -\n\n\nInspect source-unit evidence and section links.\n\n\nEdit affected sections unless consistency requires a broader update.\n\n\nRun configured validation commands.\n\n\nMark updated sections fresh.\n\n\nRun documentledger --json link audit.\n\n\nRun documentledger --json check.\n\n\nFinish with documentledger --json status.\n\n\n\nscan reconciles each existing durable document record with the current Markdown section\nindex before deciding that the scan is unchanged. It adds new headings, refreshes structural\nmetadata for surviving sections, prunes removed sections with empty links, and retains\nremoved linked sections as ac…",
+          "lower": "documentledger --json status\n\n\ndocumentledger --json doctor\n\n\ndocumentledger --json scan\n\n\ndocumentledger --json document affected\n\n\ndocumentledger document build-context --affected --out -\n\n\ninspect source-unit evidence and section links.\n\n\nedit affected sections unless consistency requires a broader update.\n\n\nrun configured validation commands.\n\n\nmark updated sections fresh.\n\n\nrun documentledger --json link audit.\n\n\nrun documentledger --json check.\n\n\nfinish with documentledger --json status.\n\n\n\nscan reconciles each existing durable document record with the current markdown section\nindex before deciding that the scan is unchanged. it adds new headings, refreshes structural\nmetadata for surviving sections, prunes removed sections with empty links, and retains\nremoved linked sections as ac…"
+        },
+        {
+          "anchor": "",
+          "heading": "Live freshness projection",
+          "text": "Section-level documentledger document mark-fresh updates affectedness from the current scan without another scan. It refreshes section hashes and the tracked source-unit hash set at the latest scan version. A reason is required so the state transition remains reviewable.",
+          "lower": "section-level documentledger document mark-fresh updates affectedness from the current scan without another scan. it refreshes section hashes and the tracked source-unit hash set at the latest scan version. a reason is required so the state transition remains reviewable."
+        },
+        {
+          "anchor": "",
+          "heading": "Scope discipline",
+          "text": "Use the rendered context and source-unit ids to keep edits bounded. Update linked sections when their tracked dimensions changed, link newly documented source units deliberately, and leave unrelated docs alone. Never invent links solely to improve a coverage percentage.",
+          "lower": "use the rendered context and source-unit ids to keep edits bounded. update linked sections when their tracked dimensions changed, link newly documented source units deliberately, and leave unrelated docs alone. never invent links solely to improve a coverage percentage."
+        }
+      ]
+    },
+    {
       "url": "/tools/documentledger/",
       "title": "Documentledger",
       "snippet": "Documentledger is a documentation freshness ledger for coding-agent workflows. It records repository scans, maps documentation files to sour …",
@@ -152,142 +783,411 @@
         {
           "anchor": "",
           "heading": "Documentledger",
-          "text": "Documentledger is a documentation freshness ledger for coding-agent workflows. It records repository scans, maps documentation files to source files, reports stale documentation when linked source files change or disappear, and renders update context for agents.\n\n\n\nUsage\nInitialize a workspace\n\nCheck workspace status\n\nScan source and documentation files\n\nLink documentation to sources\n\nFind and update stale documentation\n\nBootstrapping a new repository\n\nMark documentation fresh\n\nValidate ledger state\n\nJSON and human output\n\nLedger state and commit policy\n\nStorage commands\n\n\n\n\nArchitecture\nConfiguration and workspace loading\n\nStorage model\n\nPath identity\n\nScanning algorithm\n\nLink management\n\nContext rendering\n\nFreshness marking\n\nCLI structure and errors\n\nledgercore integration\n\nCanonical st…",
-          "lower": "documentledger is a documentation freshness ledger for coding-agent workflows. it records repository scans, maps documentation files to source files, reports stale documentation when linked source files change or disappear, and renders update context for agents.\n\n\n\nusage\ninitialize a workspace\n\ncheck workspace status\n\nscan source and documentation files\n\nlink documentation to sources\n\nfind and update stale documentation\n\nbootstrapping a new repository\n\nmark documentation fresh\n\nvalidate ledger state\n\njson and human output\n\nledger state and commit policy\n\nstorage commands\n\n\n\n\narchitecture\nconfiguration and workspace loading\n\nstorage model\n\npath identity\n\nscanning algorithm\n\nlink management\n\ncontext rendering\n\nfreshness marking\n\ncli structure and errors\n\nledgercore integration\n\ncanonical st…"
+          "text": "Documentledger is a documentation freshness ledger for coding-agent workflows. It records repository scans, maps documentation files to source units, reports stale documentation when linked implementation changes, and renders bounded update context for agents.\n\n\nStart here\n\n\nInstallation\nInstall the package\n\nInstall documentation dependencies\n\nConsole scripts and completion\n\n\n\n\nQuickstart\nCanonical path\n\nIncremental path\n\n\n\n\nConcepts\nProject, tool, data, and artifacts\n\nSource units and document sections\n\nLink edges, coverage, and impact\n\nLive sections and durable records\n\nFreshness and affectedness\n\nDeterministic persistence\n\n\n\n\n\n\n\n\nWorkflows\n\n\nUsage\nInitialize\n\nInspect status and next action\n\nScan\n\nInspect documents and source units\n\nAdd broad and precise links\n\nPropose, import, and audi…",
+          "lower": "documentledger is a documentation freshness ledger for coding-agent workflows. it records repository scans, maps documentation files to source units, reports stale documentation when linked implementation changes, and renders bounded update context for agents.\n\n\nstart here\n\n\ninstallation\ninstall the package\n\ninstall documentation dependencies\n\nconsole scripts and completion\n\n\n\n\nquickstart\ncanonical path\n\nincremental path\n\n\n\n\nconcepts\nproject, tool, data, and artifacts\n\nsource units and document sections\n\nlink edges, coverage, and impact\n\nlive sections and durable records\n\nfreshness and affectedness\n\ndeterministic persistence\n\n\n\n\n\n\n\n\nworkflows\n\n\nusage\ninitialize\n\ninspect status and next action\n\nscan\n\ninspect documents and source units\n\nadd broad and precise links\n\npropose, import, and audi…"
         },
         {
           "anchor": "",
           "heading": "Documentation freshness workflow",
-          "text": "The supported workflow is:\n\n\nRun docledger --json status to confirm that the workspace is initialized.\n\n\nRun docledger --json scan to rewrite .ledger/documentledger/data/scan.yaml when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.\n\n\nRun docledger --json docs affected to find the documentation sections whose linked source units changed.\n\n\nRun docledger docs build-context --affected --print to render update context for affected sections and unlinked changed sources.\n\n\nInspect the affected sections and linked changed source units before editing documentation.\n\n\nUpdate only the affected sections by default, run configured validation commands, then mark the updated section or doc fresh with docledger mark-fresh --do…",
-          "lower": "the supported workflow is:\n\n\nrun docledger --json status to confirm that the workspace is initialized.\n\n\nrun docledger --json scan to rewrite .ledger/documentledger/data/scan.yaml when current source hashes, documentation hashes, source-unit inventory, or changed source units differ from the latest baseline.\n\n\nrun docledger --json docs affected to find the documentation sections whose linked source units changed.\n\n\nrun docledger docs build-context --affected --print to render update context for affected sections and unlinked changed sources.\n\n\ninspect the affected sections and linked changed source units before editing documentation.\n\n\nupdate only the affected sections by default, run configured validation commands, then mark the updated section or doc fresh with docledger mark-fresh --do…"
+          "text": "The supported workflow is:\n\n\nRun documentledger --json status to inspect the canonical workspace.\n\n\nRun documentledger --json scan to compare current source and documentation hashes with the latest baseline.\n\n\nRun documentledger --json document affected to find sections affected by linked source-unit changes.\n\n\nRun documentledger document build-context --affected --out /tmp/documentledger-context.md to render bounded update context.\n\n\nInspect the affected sections and linked source evidence before editing.\n\n\nUpdate the affected sections, run configured validation commands, then mark them fresh with documentledger document mark-fresh --doc DOC --section SECTION --reason \"Docs updated after scan version VERSION.\".\n\n\n\nDocumentledger stores durable state in the resolved data mount under .ledg…",
+          "lower": "the supported workflow is:\n\n\nrun documentledger --json status to inspect the canonical workspace.\n\n\nrun documentledger --json scan to compare current source and documentation hashes with the latest baseline.\n\n\nrun documentledger --json document affected to find sections affected by linked source-unit changes.\n\n\nrun documentledger document build-context --affected --out /tmp/documentledger-context.md to render bounded update context.\n\n\ninspect the affected sections and linked source evidence before editing.\n\n\nupdate the affected sections, run configured validation commands, then mark them fresh with documentledger document mark-fresh --doc doc --section section --reason \"docs updated after scan version version.\".\n\n\n\ndocumentledger stores durable state in the resolved data mount under .ledg…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/installation/",
+      "title": "documentledger Installation",
+      "snippet": "Documentledger supports Python 3.10 through 3.13.\npython -m pip install documentledger\ndocumentledger --version\ndocumentledger --help\n\n\n\n\nTh …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Installation",
+          "text": "Documentledger supports Python 3.10 through 3.13.",
+          "lower": "documentledger supports python 3.10 through 3.13."
+        },
+        {
+          "anchor": "",
+          "heading": "Install the package",
+          "text": "python -m pip install documentledger\ndocumentledger --version\ndocumentledger --help\n\n\n\n\nThis page does not promise a particular published PyPI version. For a source checkout use:\n\npython -m pip install -e \".[test,docs,dev]\"",
+          "lower": "python -m pip install documentledger\ndocumentledger --version\ndocumentledger --help\n\n\n\n\nthis page does not promise a particular published pypi version. for a source checkout use:\n\npython -m pip install -e \".[test,docs,dev]\""
+        },
+        {
+          "anchor": "",
+          "heading": "Install documentation dependencies",
+          "text": "The docs extra and docs/requirements.txt contain the same four requirements: Sphinx, the Read the Docs theme, autodoc type hints, and MyST parser. The default build assumes they are already installed; it does not install packages or require network access.",
+          "lower": "the docs extra and docs/requirements.txt contain the same four requirements: sphinx, the read the docs theme, autodoc type hints, and myst parser. the default build assumes they are already installed; it does not install packages or require network access."
+        },
+        {
+          "anchor": "",
+          "heading": "Console scripts and completion",
+          "text": "documentledger is the canonical console script. docledger remains a deprecated compatibility entry point and should not appear in new automation.\n\ndocumentledger --install-completion\ndocumentledger --show-completion\n\n\n\n\nUse python -m pip with the interpreter that will run the command to avoid environment mismatches.",
+          "lower": "documentledger is the canonical console script. docledger remains a deprecated compatibility entry point and should not appear in new automation.\n\ndocumentledger --install-completion\ndocumentledger --show-completion\n\n\n\n\nuse python -m pip with the interpreter that will run the command to avoid environment mismatches."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/migration/",
+      "title": "documentledger Migration",
+      "snippet": "Legacy layouts are explicit inputs only. Migration is copy-first, digest-validated, and never implicit.\ndocumentledger migrate status\ndocume …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Migration",
+          "text": "Legacy layouts are explicit inputs only. Migration is copy-first, digest-validated, and never implicit.",
+          "lower": "legacy layouts are explicit inputs only. migration is copy-first, digest-validated, and never implicit."
+        },
+        {
+          "anchor": "",
+          "heading": "Plan, apply, validate, clean up",
+          "text": "documentledger migrate status\ndocumentledger migrate plan storage-layout --output migration.json\ndocumentledger migrate apply storage-layout --plan-file migration.json\ndocumentledger storage validate --strict\ndocumentledger migrate cleanup storage-layout --dry-run\n\n\n\n\nReview the plan before applying. Cleanup requires a completed migration and explicit confirmation; dry-run is safe for review.",
+          "lower": "documentledger migrate status\ndocumentledger migrate plan storage-layout --output migration.json\ndocumentledger migrate apply storage-layout --plan-file migration.json\ndocumentledger storage validate --strict\ndocumentledger migrate cleanup storage-layout --dry-run\n\n\n\n\nreview the plan before applying. cleanup requires a completed migration and explicit confirmation; dry-run is safe for review."
+        },
+        {
+          "anchor": "",
+          "heading": "Safety rules",
+          "text": "The plan records source identity and a SHA-256 digest. Apply rejects a stale plan. Project UUID adoption is explicit. Missing source-index.json can be repaired only when exact reconstruction matches the recorded hash. The shared manifest is activated last, and legacy files remain until cleanup is separately approved.",
+          "lower": "the plan records source identity and a sha-256 digest. apply rejects a stale plan. project uuid adoption is explicit. missing source-index.json can be repaired only when exact reconstruction matches the recorded hash. the shared manifest is activated last, and legacy files remain until cleanup is separately approved."
+        },
+        {
+          "anchor": "",
+          "heading": "Recovery and journals",
+          "text": "Interrupted writes leave a journal. Recover with:\n\ndocumentledger migrate recover --journal JOURNAL --policy auto\n\n\n\n\nInspect migrate status and validate storage after recovery. Recovery policies are explicit and do not silently delete legacy input.",
+          "lower": "interrupted writes leave a journal. recover with:\n\ndocumentledger migrate recover --journal journal --policy auto\n\n\n\n\ninspect migrate status and validate storage after recovery. recovery policies are explicit and do not silently delete legacy input."
+        },
+        {
+          "anchor": "",
+          "heading": "Compatibility mapping",
+          "text": "The deprecated storage migrate, storage recover, storage cleanup-legacy, and storage verify wrappers map to migrate plan/apply, migrate recover, migrate cleanup, and storage validate. New automation must use the canonical paths.",
+          "lower": "the deprecated storage migrate, storage recover, storage cleanup-legacy, and storage verify wrappers map to migrate plan/apply, migrate recover, migrate cleanup, and storage validate. new automation must use the canonical paths."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/quickstart/",
+      "title": "documentledger Quickstart",
+      "snippet": "documentledger init --project-name example\ndocumentledger --json status\ndocumentledger --json scan\ndocumentledger document build-context --b …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Canonical path",
+          "text": "documentledger init --project-name example\ndocumentledger --json status\ndocumentledger --json scan\ndocumentledger document build-context --bootstrap --out /tmp/documentledger-bootstrap.md\ndocumentledger link propose --all-docs --out-dir /tmp/documentledger-maps\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --check-and-apply\ndocumentledger --json link audit\ndocumentledger --json coverage\n\n\n\n\nReview generated proposals before applying them. The first scan creates a baseline and therefore reports no deltas.",
+          "lower": "documentledger init --project-name example\ndocumentledger --json status\ndocumentledger --json scan\ndocumentledger document build-context --bootstrap --out /tmp/documentledger-bootstrap.md\ndocumentledger link propose --all-docs --out-dir /tmp/documentledger-maps\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --check-and-apply\ndocumentledger --json link audit\ndocumentledger --json coverage\n\n\n\n\nreview generated proposals before applying them. the first scan creates a baseline and therefore reports no deltas."
+        },
+        {
+          "anchor": "",
+          "heading": "Incremental path",
+          "text": "documentledger --json scan\ndocumentledger --json document affected\ndocumentledger document build-context --affected --out /tmp/documentledger-context.md\n# edit and validate documentation\ndocumentledger document mark-fresh \\\n  --doc docs/usage.md \\\n  --section usage-scan \\\n  --reason \"Updated after scan version VERSION.\"\ndocumentledger --json check\n\n\n\n\nThe section-level freshness operation updates the live affected projection and records the current tracked hashes.",
+          "lower": "documentledger --json scan\ndocumentledger --json document affected\ndocumentledger document build-context --affected --out /tmp/documentledger-context.md\n# edit and validate documentation\ndocumentledger document mark-fresh \\\n  --doc docs/usage.md \\\n  --section usage-scan \\\n  --reason \"updated after scan version version.\"\ndocumentledger --json check\n\n\n\n\nthe section-level freshness operation updates the live affected projection and records the current tracked hashes."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/schemas/",
+      "title": "documentledger Schemas",
+      "snippet": "Schema names and versions below are read from the current storage implementation.\nOwner: Documentledger durable data mount. Committed source …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Schemas",
+          "text": "Schema names and versions below are read from the current storage implementation.",
+          "lower": "schema names and versions below are read from the current storage implementation."
+        },
+        {
+          "anchor": "",
+          "heading": "storage.yaml — schema version 5",
+          "text": "Owner: Documentledger durable data mount. Committed source of truth. Required keys include schema_version, project_uuid, positive state_version, latest scan version/counts, source-index filename, and source-index hash. Timestamp keys are stripped and not part of the contract. Unknown fields are normalized conservatively; incompatible versions fail.",
+          "lower": "owner: documentledger durable data mount. committed source of truth. required keys include schema_version, project_uuid, positive state_version, latest scan version/counts, source-index filename, and source-index hash. timestamp keys are stripped and not part of the contract. unknown fields are normalized conservatively; incompatible versions fail."
+        },
+        {
+          "anchor": "",
+          "heading": "Scan and source index",
+          "text": "scan.yaml uses documentledger.scan.v5; source-index.json uses the current documentledger.source_index.v1 constant. Both are deterministic baselines stored in the data mount and validated against their integer version and hash metadata. Scan records include source/doc hashes, unit deltas, affected sections, stale-doc compatibility projections, and unmapped units.",
+          "lower": "scan.yaml uses documentledger.scan.v5; source-index.json uses the current documentledger.source_index.v1 constant. both are deterministic baselines stored in the data mount and validated against their integer version and hash metadata. scan records include source/doc hashes, unit deltas, affected sections, stale-doc compatibility projections, and unmapped units."
+        },
+        {
+          "anchor": "",
+          "heading": "Document records and section links",
+          "text": "Document records use documentledger.doc_record.v4. A record contains doc_path, section records, section hashes, linked_sources, last_fresh_scan_version, last_fresh_hash, notes, and integer version. Section links identify a source unit and carry coverage, impact, reason, and tracked hash dimensions. Missing sections or source units fail link audits.",
+          "lower": "document records use documentledger.doc_record.v4. a record contains doc_path, section records, section hashes, linked_sources, last_fresh_scan_version, last_fresh_hash, notes, and integer version. section links identify a source unit and carry coverage, impact, reason, and tracked hash dimensions. missing sections or source units fail link audits."
+        },
+        {
+          "anchor": "",
+          "heading": "Mapping and migration payloads",
+          "text": "Mapping batches use documentledger.mapping_proposal.v1 and are validated as a complete batch before replacement or application. Migration plan and journal payloads carry plan identifiers and SHA-256 digests; apply rejects a stale plan. The migration boundary is copy-first and activates the shared manifest last.",
+          "lower": "mapping batches use documentledger.mapping_proposal.v1 and are validated as a complete batch before replacement or application. migration plan and journal payloads carry plan identifiers and sha-256 digests; apply rejects a stale plan. the migration boundary is copy-first and activates the shared manifest last."
+        },
+        {
+          "anchor": "",
+          "heading": "CLI envelope",
+          "text": "Successful JSON commands return an ok: true envelope with a command and result. Errors use:\n\n{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace-not-found\",\n    \"message\": \"...\",\n    \"remediation\": [],\n    \"details\": { \"domain_code\": \"workspace_not_found\" }\n  },\n  \"events\": []\n}\n\n\n\n\nSchema commands provide discoverable names and known values: documentledger schema list, schema show NAME, and schema values [NAME].",
+          "lower": "successful json commands return an ok: true envelope with a command and result. errors use:\n\n{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace-not-found\",\n    \"message\": \"...\",\n    \"remediation\": [],\n    \"details\": { \"domain_code\": \"workspace_not_found\" }\n  },\n  \"events\": []\n}\n\n\n\n\nschema commands provide discoverable names and known values: documentledger schema list, schema show name, and schema values [name]."
+        }
+      ]
+    },
+    {
+      "url": "/tools/documentledger/storage/",
+      "title": "documentledger Storage",
+      "snippet": "The shared .ledger/ledger.toml uses schema version 3. Its Documentledger registration binds .ledger/documentledger/ to a project data mount …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Canonical authority and mounts",
+          "text": "The shared .ledger/ledger.toml uses schema version 3. Its Documentledger registration binds .ledger/documentledger/ to a project data mount and a cache artifacts mount. The tool configuration binding is .ledger/documentledger/.ledger-project.toml; the tool config is .ledger/documentledger/config.toml; the data binding is .ledger/documentledger/data/.ledger-project.toml.",
+          "lower": "the shared .ledger/ledger.toml uses schema version 3. its documentledger registration binds .ledger/documentledger/ to a project data mount and a cache artifacts mount. the tool configuration binding is .ledger/documentledger/.ledger-project.toml; the tool config is .ledger/documentledger/config.toml; the data binding is .ledger/documentledger/data/.ledger-project.toml."
+        },
+        {
+          "anchor": "",
+          "heading": "Durable and derived files",
+          "text": "storage.yaml stores schema metadata, project UUID, state version, and compact scan counts.\n\n\nscan.yaml stores the current documentledger.scan.v5 baseline and deltas.\n\n\nsource-index.json stores the deterministic source-unit inventory.\n\n\ndocs/*.yaml stores documentledger.doc_record.v4 records and section links.\n\n\nartifacts stores rendered context and link proposals as derived cache output.",
+          "lower": "storage.yaml stores schema metadata, project uuid, state version, and compact scan counts.\n\n\nscan.yaml stores the current documentledger.scan.v5 baseline and deltas.\n\n\nsource-index.json stores the deterministic source-unit inventory.\n\n\ndocs/*.yaml stores documentledger.doc_record.v4 records and section links.\n\n\nartifacts stores rendered context and link proposals as derived cache output."
+        },
+        {
+          "anchor": "",
+          "heading": "Ownership and invariants",
+          "text": "Manifest and binding ownership belongs to ledgercore; tool config, scan, source index, and document records belong to Documentledger. Project UUIDs must agree across manifest and storage metadata. Read-only commands validate but do not repair bindings or rewrite records. Writers use atomic transitions, monotonically incremented integer versions, and no persisted timestamps. Git history is sufficient for older baselines.",
+          "lower": "manifest and binding ownership belongs to ledgercore; tool config, scan, source index, and document records belong to documentledger. project uuids must agree across manifest and storage metadata. read-only commands validate but do not repair bindings or rewrite records. writers use atomic transitions, monotonically incremented integer versions, and no persisted timestamps. git history is sufficient for older baselines."
+        },
+        {
+          "anchor": "",
+          "heading": "Inspect storage",
+          "text": "documentledger storage where\ndocumentledger storage validate --strict\n\n\n\n\nUse migration commands for legacy layouts. Do not hand-edit .ledger/ data and do not make a documentation build perform migration or repair.",
+          "lower": "documentledger storage where\ndocumentledger storage validate --strict\n\n\n\n\nuse migration commands for legacy layouts. do not hand-edit .ledger/ data and do not make a documentation build perform migration or repair."
         }
       ]
     },
     {
       "url": "/tools/documentledger/troubleshooting/",
       "title": "documentledger Troubleshooting",
-      "snippet": "An uninitialized result can mean there is no config yet, or that the canonical .ledger/ledger.toml exists but .ledger/documentledger/data/st …",
+      "snippet": "Use JSON output when an automated workflow needs stable error codes and remediation details.\nInstall the package into the active environment …",
       "sections": [
         {
           "anchor": "",
-          "heading": "status reports uninitialized",
-          "text": "An uninitialized result can mean there is no config yet, or that the canonical .ledger/ledger.toml exists but .ledger/documentledger/data/storage.yaml is missing. This happens when the storage directory was removed or never created. Re-run initialization from the project root:\n\ndocledger init\n\n\n\n\ninit refuses to run when a config already exists; remove the stale config first only if you intend to start over.",
-          "lower": "an uninitialized result can mean there is no config yet, or that the canonical .ledger/ledger.toml exists but .ledger/documentledger/data/storage.yaml is missing. this happens when the storage directory was removed or never created. re-run initialization from the project root:\n\ndocledger init\n\n\n\n\ninit refuses to run when a config already exists; remove the stale config first only if you intend to start over."
+          "heading": "Troubleshooting",
+          "text": "Use JSON output when an automated workflow needs stable error codes and remediation details.",
+          "lower": "use json output when an automated workflow needs stable error codes and remediation details."
         },
         {
           "anchor": "",
-          "heading": "scan fails with storage_missing",
-          "text": "A command that requires an initialized workspace raises storage_missing when the config exists but storage metadata is absent. Resolve it the same way as the missing-storage uninitialized case: run docledger init.",
-          "lower": "a command that requires an initialized workspace raises storage_missing when the config exists but storage metadata is absent. resolve it the same way as the missing-storage uninitialized case: run docledger init."
+          "heading": "The executable is not found",
+          "text": "Install the package into the active environment with python -m pip install -e ., then verify documentledger --version. In a source checkout, prefer python -m pip so the installer matches the selected interpreter.",
+          "lower": "install the package into the active environment with python -m pip install -e ., then verify documentledger --version. in a source checkout, prefer python -m pip so the installer matches the selected interpreter."
         },
         {
           "anchor": "",
-          "heading": "mark-fresh fails with unlinked_doc",
-          "text": "mark-fresh rejects documents that have no linked sources by default, because an unlinked document can never become stale from source changes and would silently drift. Either add links first:\n\ndocledger links add --doc docs/index.md --source documentledger/cli.py --reason \"Navigation page maps to the CLI.\"\n\n\n\n\nor explicitly record the document as intentionally unlinked:\n\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"Navigation page; intentionally unlinked.\"",
-          "lower": "mark-fresh rejects documents that have no linked sources by default, because an unlinked document can never become stale from source changes and would silently drift. either add links first:\n\ndocledger links add --doc docs/index.md --source documentledger/cli.py --reason \"navigation page maps to the cli.\"\n\n\n\n\nor explicitly record the document as intentionally unlinked:\n\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"navigation page; intentionally unlinked.\""
+          "heading": "A deprecation warning appears",
+          "text": "The docledger executable and plural/legacy command paths are compatibility wrappers. Replace them with documentledger, document, source, link, and the migrate command group.",
+          "lower": "the docledger executable and plural/legacy command paths are compatibility wrappers. replace them with documentledger, document, source, link, and the migrate command group."
         },
         {
           "anchor": "",
-          "heading": "Every change makes too many docs stale",
-          "text": "If a small source change marks many docs stale, the link graph is too broad. Each document should be linked only to the source files it actually describes. Narrow the links:\n\ndocledger links remove --doc docs/usage.md --source documentledger/models.py\n\n\n\n\nBroad links (for example linking every doc to every module) defeat the selective-update model. Keep links precise.",
-          "lower": "if a small source change marks many docs stale, the link graph is too broad. each document should be linked only to the source files it actually describes. narrow the links:\n\ndocledger links remove --doc docs/usage.md --source documentledger/models.py\n\n\n\n\nbroad links (for example linking every doc to every module) defeat the selective-update model. keep links precise."
+          "heading": "Canonical storage binding is invalid",
+          "text": "Run documentledger storage where, documentledger storage validate --strict, and documentledger --json doctor. Read-only commands do not repair bindings. Review the shared schema-3 manifest and its data project and artifacts cache mounts before applying an explicit migration or repair.",
+          "lower": "run documentledger storage where, documentledger storage validate --strict, and documentledger --json doctor. read-only commands do not repair bindings. review the shared schema-3 manifest and its data project and artifacts cache mounts before applying an explicit migration or repair."
+        },
+        {
+          "anchor": "",
+          "heading": "Configuration validation fails",
+          "text": "Inspect the effective config with documentledger config show and validate it with documentledger config validate. The canonical tool file is .ledger/documentledger/config.toml, version 2. Unknown fields, wrong types, unsupported extensions, or a missing version require a config edit or explicit migration.",
+          "lower": "inspect the effective config with documentledger config show and validate it with documentledger config validate. the canonical tool file is .ledger/documentledger/config.toml, version 2. unknown fields, wrong types, unsupported extensions, or a missing version require a config edit or explicit migration."
+        },
+        {
+          "anchor": "",
+          "heading": "There is no baseline or no links",
+          "text": "Run documentledger --json scan once to create a baseline. A clean first scan is expected. Then use documentledger document build-context --bootstrap, review link propose output, apply reviewed maps, and audit links.",
+          "lower": "run documentledger --json scan once to create a baseline. a clean first scan is expected. then use documentledger document build-context --bootstrap, review link propose output, apply reviewed maps, and audit links."
+        },
+        {
+          "anchor": "",
+          "heading": "Build context writes an unexpected file",
+          "text": "Use documentledger document build-context --affected --out - for raw stdout. Do not use /dev/stdout or /dev/fd/1: context files use Ledgercore’s atomic regular-file writer, so special stream paths are rejected. Use --out PATH for an atomically written file. Raw stdout cannot be combined with --json or --print because those modes must emit one valid JSON document.",
+          "lower": "use documentledger document build-context --affected --out - for raw stdout. do not use /dev/stdout or /dev/fd/1: context files use ledgercore’s atomic regular-file writer, so special stream paths are rejected. use --out path for an atomically written file. raw stdout cannot be combined with --json or --print because those modes must emit one valid json document."
+        },
+        {
+          "anchor": "",
+          "heading": "Check reports stale sections",
+          "text": "Run documentledger document affected, inspect bounded context, update the affected sections, run validation, and use section-level documentledger document mark-fresh. --all means all configured documents; use --affected for only affected documents. Do not mark fresh before validation or weaken validation settings merely to pass.",
+          "lower": "run documentledger document affected, inspect bounded context, update the affected sections, run validation, and use section-level documentledger document mark-fresh. --all means all configured documents; use --affected for only affected documents. do not mark fresh before validation or weaken validation settings merely to pass."
+        },
+        {
+          "anchor": "",
+          "heading": "Audit reports a missing section",
+          "text": "After a scan, a missing section with no links is obsolete bookkeeping and is pruned automatically. A missing section with links is a retained linked orphan. Move those links to a current section with link add-section, or remove an obsolete edge with link remove-section --section SECTION_ID --source-unit SOURCE_ID; rerun documentledger --json link audit afterward. doctor and link audit report this state without mutating records.",
+          "lower": "after a scan, a missing section with no links is obsolete bookkeeping and is pruned automatically. a missing section with links is a retained linked orphan. move those links to a current section with link add-section, or remove an obsolete edge with link remove-section --section section_id --source-unit source_id; rerun documentledger --json link audit afterward. doctor and link audit report this state without mutating records."
+        },
+        {
+          "anchor": "",
+          "heading": "Source index is missing or corrupt",
+          "text": "Run documentledger --json doctor and documentledger source list. The source index is deterministic committed baseline state; repair is allowed only when exact reconstruction matches the recorded hash. Do not delete it or hand-edit it.",
+          "lower": "run documentledger --json doctor and documentledger source list. the source index is deterministic committed baseline state; repair is allowed only when exact reconstruction matches the recorded hash. do not delete it or hand-edit it."
+        },
+        {
+          "anchor": "",
+          "heading": "Cursor or selector errors occur",
+          "text": "Use a cursor returned by the immediately preceding paginated source list call. document build-context requires exactly one of --affected, --doc, --all, or --bootstrap; --section requires --doc.",
+          "lower": "use a cursor returned by the immediately preceding paginated source list call. document build-context requires exactly one of --affected, --doc, --all, or --bootstrap; --section requires --doc."
+        },
+        {
+          "anchor": "",
+          "heading": "Mapping batch validation fails",
+          "text": "Run link import-map in validate-only mode, correct every invalid doc path, section id, source unit, coverage, impact, or duplicate edge, and rerun before check-and-apply.",
+          "lower": "run link import-map in validate-only mode, correct every invalid doc path, section id, source unit, coverage, impact, or duplicate edge, and rerun before check-and-apply."
+        },
+        {
+          "anchor": "",
+          "heading": "Migration conflicts or is interrupted",
+          "text": "Regenerate and review documentledger migrate plan storage-layout --output migration.json. Apply only a matching digest with documentledger migrate apply storage-layout --plan-file migration.json. For an interrupted operation, use documentledger migrate recover --journal JOURNAL --policy auto, then inspect status before cleanup.",
+          "lower": "regenerate and review documentledger migrate plan storage-layout --output migration.json. apply only a matching digest with documentledger migrate apply storage-layout --plan-file migration.json. for an interrupted operation, use documentledger migrate recover --journal journal --policy auto, then inspect status before cleanup."
+        },
+        {
+          "anchor": "",
+          "heading": "Sphinx fails with warnings or autodoc import errors",
+          "text": "Install the package and exact docs extra, then run python -m sphinx -W --keep-going -b html docs docs/_build/html. Fix unresolved references, malformed MyST, duplicate labels, or import errors; do not silence broad warning classes. API targets must import in the docs environment.",
+          "lower": "install the package and exact docs extra, then run python -m sphinx -w --keep-going -b html docs docs/_build/html. fix unresolved references, malformed myst, duplicate labels, or import errors; do not silence broad warning classes. api targets must import in the docs environment."
+        },
+        {
+          "anchor": "",
+          "heading": "Status reports uninitialized",
+          "text": "Run documentledger storage where, then documentledger init when no canonical project can be resolved.",
+          "lower": "run documentledger storage where, then documentledger init when no canonical project can be resolved."
+        },
+        {
+          "anchor": "",
+          "heading": "Scan fails with storage missing",
+          "text": "Inspect documentledger --json doctor and repair or migrate canonical bindings explicitly before scanning.",
+          "lower": "inspect documentledger --json doctor and repair or migrate canonical bindings explicitly before scanning."
         },
         {
           "anchor": "",
           "heading": "A changed source is reported as unlinked",
-          "text": "unlinked_changed_sources lists source files that changed since the last scan but have no doc record link. Decide for each one whether it needs documentation, then either add a link or leave it untracked. Use the bootstrap flag to surface all unlinked sources, not just changed ones:\n\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md",
-          "lower": "unlinked_changed_sources lists source files that changed since the last scan but have no doc record link. decide for each one whether it needs documentation, then either add a link or leave it untracked. use the bootstrap flag to surface all unlinked sources, not just changed ones:\n\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md"
+          "text": "Review source-unit evidence and add a deliberate section-level link; do not create an edge solely to remove the warning.",
+          "lower": "review source-unit evidence and add a deliberate section-level link; do not create an edge solely to remove the warning."
+        },
+        {
+          "anchor": "",
+          "heading": "Every change makes too many docs stale",
+          "text": "Replace broad file links with precise section-to-source-unit links and choose the appropriate tracked hash coverage.",
+          "lower": "replace broad file links with precise section-to-source-unit links and choose the appropriate tracked hash coverage."
+        },
+        {
+          "anchor": "",
+          "heading": "Mark fresh fails with unlinked doc",
+          "text": "Add a real link or use --allow-unlinked only when the document is intentionally unlinked.",
+          "lower": "add a real link or use --allow-unlinked only when the document is intentionally unlinked."
+        },
+        {
+          "anchor": "",
+          "heading": "Sphinx build is not found",
+          "text": "Install python -m pip install -e \".[docs]\" in the active environment and invoke python -m sphinx.",
+          "lower": "install python -m pip install -e \".[docs]\" in the active environment and invoke python -m sphinx."
         },
         {
           "anchor": "",
           "heading": "The Sphinx build warns about files inside the virtual environment",
-          "text": "The documentation build creates a virtual environment under docs/venv/. docs/conf.py excludes _build, venv, and .ledger from the Sphinx source scan. If you still see warnings from virtual-environment files, confirm exclude_patterns in docs/conf.py includes venv and venv/**, and remove any stale docs/venv/ before rebuilding:\n\nrm -rf docs/venv docs/_build\nbash docs/build.sh",
-          "lower": "the documentation build creates a virtual environment under docs/venv/. docs/conf.py excludes _build, venv, and .ledger from the sphinx source scan. if you still see warnings from virtual-environment files, confirm exclude_patterns in docs/conf.py includes venv and venv/**, and remove any stale docs/venv/ before rebuilding:\n\nrm -rf docs/venv docs/_build\nbash docs/build.sh"
-        },
-        {
-          "anchor": "",
-          "heading": "sphinx-build is not found",
-          "text": "docs/build.sh creates and activates docs/venv/ and installs docs/requirements.txt, which provides sphinx-build. If the build cannot find sphinx-build, ensure the script reaches the source \"$VENV_DIR/bin/activate\" step and that docs/requirements.txt installs successfully (it requires network access on first run).",
-          "lower": "docs/build.sh creates and activates docs/venv/ and installs docs/requirements.txt, which provides sphinx-build. if the build cannot find sphinx-build, ensure the script reaches the source \"$venv_dir/bin/activate\" step and that docs/requirements.txt installs successfully (it requires network access on first run)."
+          "text": "The configuration excludes docs/venv and docs/_build; use the strict build from the repository root.",
+          "lower": "the configuration excludes docs/venv and docs/_build; use the strict build from the repository root."
         },
         {
           "anchor": "",
           "heading": "Storage migration errors",
-          "text": "storage_migration_required: run docledger storage migrate --dry-run and review the plan.\n\n\nproject_uuid_mismatch: compare the legacy and shared manifest identities; pass --adopt-project-uuid only after review.\n\n\nsource_index_missing or source_index_repair_failed: restore the committed source-index.json, or use explicit repair only when the reconstructed SHA-256 exactly matches scan.yaml.\n\n\nstorage_binding_invalid: repair the canonical binding through an explicit initialization/recovery command; status and verification never repair it silently.\n\n\nlegacy_cleanup_unsafe: verify the completed migration journal, unchanged legacy inventory, and provisional proposal disposition before using --yes.",
-          "lower": "storage_migration_required: run docledger storage migrate --dry-run and review the plan.\n\n\nproject_uuid_mismatch: compare the legacy and shared manifest identities; pass --adopt-project-uuid only after review.\n\n\nsource_index_missing or source_index_repair_failed: restore the committed source-index.json, or use explicit repair only when the reconstructed sha-256 exactly matches scan.yaml.\n\n\nstorage_binding_invalid: repair the canonical binding through an explicit initialization/recovery command; status and verification never repair it silently.\n\n\nlegacy_cleanup_unsafe: verify the completed migration journal, unchanged legacy inventory, and provisional proposal disposition before using --yes."
+          "text": "Regenerate a migration plan, verify its digest, and use the journal recovery policy before attempting cleanup.",
+          "lower": "regenerate a migration plan, verify its digest, and use the journal recovery policy before attempting cleanup."
         }
       ]
     },
     {
       "url": "/tools/documentledger/usage/",
       "title": "documentledger Usage",
-      "snippet": "Run initialization from the repository root:\n\ndocledger init\n\n\n\n\nBy default this creates the canonical .ledger/ layout: .ledger/ledger.toml, …",
+      "snippet": "This page is the task-oriented workflow. See CLI reference for every option and result shape.\nFrom the repository root, initialize the share …",
       "sections": [
         {
           "anchor": "",
-          "heading": "Initialize a workspace",
-          "text": "Run initialization from the repository root:\n\ndocledger init\n\n\n\n\nBy default this creates the canonical .ledger/ layout: .ledger/ledger.toml, the Documentledger tool configuration, and its project data mount. Use --project-name to set the project name. Legacy storage-path and hidden-config options are migration-only.",
-          "lower": "run initialization from the repository root:\n\ndocledger init\n\n\n\n\nby default this creates the canonical .ledger/ layout: .ledger/ledger.toml, the documentledger tool configuration, and its project data mount. use --project-name to set the project name. legacy storage-path and hidden-config options are migration-only."
+          "heading": "Usage",
+          "text": "This page is the task-oriented workflow. See CLI reference for every option and result shape.",
+          "lower": "this page is the task-oriented workflow. see cli reference for every option and result shape."
         },
         {
           "anchor": "",
-          "heading": "Check workspace status",
-          "text": "docledger --json status\n\n\n\n\nStatus reports the workspace state:\n\n\nuninitialized: no documentledger.toml was found.\n\n\nbootstrap_required: there is no baseline scan yet, or there is a baseline but no usable doc links.\n\n\nincremental_clean: the latest scan has no affected linked sections.\n\n\nincremental_affected: the latest scan has affected linked sections that should be reviewed.\n\n\nmapping_incomplete: changed source files are not yet fully linked to documentation.\n\n\n\nThe result also reports recommended_command, recommended_reason, compact latest-scan counts, and any root-layout diagnostics that should be fixed before trusting a baseline.",
-          "lower": "docledger --json status\n\n\n\n\nstatus reports the workspace state:\n\n\nuninitialized: no documentledger.toml was found.\n\n\nbootstrap_required: there is no baseline scan yet, or there is a baseline but no usable doc links.\n\n\nincremental_clean: the latest scan has no affected linked sections.\n\n\nincremental_affected: the latest scan has affected linked sections that should be reviewed.\n\n\nmapping_incomplete: changed source files are not yet fully linked to documentation.\n\n\n\nthe result also reports recommended_command, recommended_reason, compact latest-scan counts, and any root-layout diagnostics that should be fixed before trusting a baseline."
+          "heading": "Initialize",
+          "text": "From the repository root, initialize the shared ledger layout:\n\ndocumentledger init --project-name example\n\n\n\n\nInitialization creates .ledger/ledger.toml, the Documentledger tool config, the project data mount, and the cache artifacts mount.",
+          "lower": "from the repository root, initialize the shared ledger layout:\n\ndocumentledger init --project-name example\n\n\n\n\ninitialization creates .ledger/ledger.toml, the documentledger tool config, the project data mount, and the cache artifacts mount."
         },
         {
           "anchor": "",
-          "heading": "Scan source and documentation files",
-          "text": "docledger --json scan\n\n\n\n\nA scan collects files from the configured source and documentation roots, hashes them, indexes Python source units, and compares the current state to the previous scan. The first scan establishes a baseline and does not report changed, deleted, stale, or unlinked sources.\n\nLater scans report:\n\n\nunchanged, true when the source and documentation hashes match the previous scan exactly. No scan state is rewritten, no source files are re-indexed, and the previous scan version is reused; the human output prints No tracked file changes since scan version <version> instead of Recorded scan version <version>.\n\n\nchanged_sources, source files whose hash changed or that are new since the previous scan.\n\n\nchanged_units, source units whose tracked semantic hashes changed. For…",
-          "lower": "docledger --json scan\n\n\n\n\na scan collects files from the configured source and documentation roots, hashes them, indexes python source units, and compares the current state to the previous scan. the first scan establishes a baseline and does not report changed, deleted, stale, or unlinked sources.\n\nlater scans report:\n\n\nunchanged, true when the source and documentation hashes match the previous scan exactly. no scan state is rewritten, no source files are re-indexed, and the previous scan version is reused; the human output prints no tracked file changes since scan version <version> instead of recorded scan version <version>.\n\n\nchanged_sources, source files whose hash changed or that are new since the previous scan.\n\n\nchanged_units, source units whose tracked semantic hashes changed. for…"
+          "heading": "Inspect status and next action",
+          "text": "documentledger --json status\ndocumentledger --json doctor\ndocumentledger --json next-action\n\n\n\n\nuninitialized means no resolvable canonical project or its required metadata, not simply that a legacy root TOML file is absent. Diagnostics distinguish missing bindings, missing data, invalid configuration, and link/index problems.",
+          "lower": "documentledger --json status\ndocumentledger --json doctor\ndocumentledger --json next-action\n\n\n\n\nuninitialized means no resolvable canonical project or its required metadata, not simply that a legacy root toml file is absent. diagnostics distinguish missing bindings, missing data, invalid configuration, and link/index problems."
         },
         {
           "anchor": "",
-          "heading": "Link documentation to sources",
-          "text": "docledger links add --doc docs/usage.md --source documentledger/cli.py --reason \"Documents CLI workflow.\"\n\n\n\n\nWhole-file links remain available as a broad fallback, but precise section links are the default:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section usage-validate-ledger-state \\\n  --source-unit py:function:documentledger/commands/root.py::doctor \\\n  --coverage cli-command \\\n  --impact behavior \\\n  --reason \"Documents the doctor command.\"\n\n\n\n\nLinks use repository-relative POSIX paths. Document paths must have configured documentation extensions, source paths and source units must exist, and coverage and impact values are validated. Keep links precise: section-level links let small command changes affect only the doc sections that actually describe them.\n\nList and r…",
-          "lower": "docledger links add --doc docs/usage.md --source documentledger/cli.py --reason \"documents cli workflow.\"\n\n\n\n\nwhole-file links remain available as a broad fallback, but precise section links are the default:\n\ndocledger links add-section \\\n  --doc docs/usage.md \\\n  --section usage-validate-ledger-state \\\n  --source-unit py:function:documentledger/commands/root.py::doctor \\\n  --coverage cli-command \\\n  --impact behavior \\\n  --reason \"documents the doctor command.\"\n\n\n\n\nlinks use repository-relative posix paths. document paths must have configured documentation extensions, source paths and source units must exist, and coverage and impact values are validated. keep links precise: section-level links let small command changes affect only the doc sections that actually describe them.\n\nlist and r…"
+          "heading": "Scan",
+          "text": "documentledger --json scan\n\n\n\n\nThe first scan is a clean baseline. Later scans compare deterministic SHA-256 file and source-unit hashes and report changed/deleted sources, affected sections, unlinked changed sources, and unmapped changed units. An unchanged scan reuses its version and does not rewrite scan state. Every scan also reconciles existing document records with the live Markdown index: new sections are added, surviving metadata is refreshed, and removed sections with no links are pruned. A removed linked section is retained as an actionable orphan.",
+          "lower": "documentledger --json scan\n\n\n\n\nthe first scan is a clean baseline. later scans compare deterministic sha-256 file and source-unit hashes and report changed/deleted sources, affected sections, unlinked changed sources, and unmapped changed units. an unchanged scan reuses its version and does not rewrite scan state. every scan also reconciles existing document records with the live markdown index: new sections are added, surviving metadata is refreshed, and removed sections with no links are pruned. a removed linked section is retained as an actionable orphan."
         },
         {
           "anchor": "",
-          "heading": "Find and update stale documentation",
-          "text": "docledger --json docs affected\ndocledger docs build-context --affected --out /tmp/docledger-context.md\n\n\n\n\ndocs affected reports the live affected sections for the latest scan. After a section is updated and marked fresh, it disappears from docs affected immediately; a follow-up scan is optional confirmation, not the only way to clear affectedness.\n\nThe rendered context contains only the affected doc sections, their linked changed source units, the current relevant source snippets, unlinked changed sources, and configured validation commands. Inspect the affected sections and linked changed source units first. Expand to whole files only when the changed unit cannot be understood in isolation.",
-          "lower": "docledger --json docs affected\ndocledger docs build-context --affected --out /tmp/docledger-context.md\n\n\n\n\ndocs affected reports the live affected sections for the latest scan. after a section is updated and marked fresh, it disappears from docs affected immediately; a follow-up scan is optional confirmation, not the only way to clear affectedness.\n\nthe rendered context contains only the affected doc sections, their linked changed source units, the current relevant source snippets, unlinked changed sources, and configured validation commands. inspect the affected sections and linked changed source units first. expand to whole files only when the changed unit cannot be understood in isolation."
+          "heading": "Inspect documents and source units",
+          "text": "documentledger document list\ndocumentledger document sections --all --outline\ndocumentledger source list --ids-only --path-prefix documentledger\ndocumentledger source show SOURCE_ID\n\n\n\n\nUse stable section ids and source-unit ids for precise links. Cursor, selector, and path validation failures are reported before state changes.",
+          "lower": "documentledger document list\ndocumentledger document sections --all --outline\ndocumentledger source list --ids-only --path-prefix documentledger\ndocumentledger source show source_id\n\n\n\n\nuse stable section ids and source-unit ids for precise links. cursor, selector, and path validation failures are reported before state changes."
         },
         {
           "anchor": "",
-          "heading": "Bootstrapping a new repository",
-          "text": "A fresh repository has no links yet, so the first scan reports no stale docs. To drive an initial documentation pass, use the explicit bootstrap flow:\n\ndocledger init\ndocledger scan\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md\ndocledger links propose --all-docs --out-dir /tmp/docledger-maps\ndocledger --json links import-map --directory /tmp/docledger-maps --check-and-apply\n\n\n\n\nThe bootstrap context and proposal flow give agents a deterministic first-pass link graph without applying anything until the full batch validates. See Bootstrap for the full setup sequence.",
-          "lower": "a fresh repository has no links yet, so the first scan reports no stale docs. to drive an initial documentation pass, use the explicit bootstrap flow:\n\ndocledger init\ndocledger scan\ndocledger docs build-context --bootstrap --out /tmp/docledger-bootstrap.md\ndocledger links propose --all-docs --out-dir /tmp/docledger-maps\ndocledger --json links import-map --directory /tmp/docledger-maps --check-and-apply\n\n\n\n\nthe bootstrap context and proposal flow give agents a deterministic first-pass link graph without applying anything until the full batch validates. see bootstrap for the full setup sequence."
+          "heading": "Add broad and precise links",
+          "text": "Prefer section-to-source-unit edges:\n\ndocumentledger link add-section \\\n  --doc docs/usage.md \\\n  --section usage-scan \\\n  --source-unit py:function:documentledger/commands/root.py::scan \\\n  --coverage cli-command \\\n  --impact behavior \\\n  --reason \"Documents scan behavior.\"\n\n\n\n\nUse documentledger link add --doc DOC --source SOURCE only when a whole-file edge is intentionally broad. Review links with documentledger link list and remove them with the matching remove command.",
+          "lower": "prefer section-to-source-unit edges:\n\ndocumentledger link add-section \\\n  --doc docs/usage.md \\\n  --section usage-scan \\\n  --source-unit py:function:documentledger/commands/root.py::scan \\\n  --coverage cli-command \\\n  --impact behavior \\\n  --reason \"documents scan behavior.\"\n\n\n\n\nuse documentledger link add --doc doc --source source only when a whole-file edge is intentionally broad. review links with documentledger link list and remove them with the matching remove command."
         },
         {
           "anchor": "",
-          "heading": "Mark documentation fresh",
-          "text": "After updating and validating an affected section, mark it fresh:\n\ndocledger mark-fresh --doc docs/usage.md --section usage-validate-ledger-state --reason \"Docs updated after scan version 2.\"\n\n\n\n\nmark-fresh records the latest scan version, the current document hash, the current section hash, and the tracked source-unit hashes for the selected links. It requires a non-empty reason. Use --all to mark every currently affected section from the latest scan, or --doc without --section to update all affected sections in one doc explicitly.\n\nUnlinked docs are rejected by default:\n\ndocledger mark-fresh --doc docs/index.md --reason \"Navigation page.\"        # rejected: unlinked_doc\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"Navigation page.\"\n\n\n\n\nThis prevents silently track…",
-          "lower": "after updating and validating an affected section, mark it fresh:\n\ndocledger mark-fresh --doc docs/usage.md --section usage-validate-ledger-state --reason \"docs updated after scan version 2.\"\n\n\n\n\nmark-fresh records the latest scan version, the current document hash, the current section hash, and the tracked source-unit hashes for the selected links. it requires a non-empty reason. use --all to mark every currently affected section from the latest scan, or --doc without --section to update all affected sections in one doc explicitly.\n\nunlinked docs are rejected by default:\n\ndocledger mark-fresh --doc docs/index.md --reason \"navigation page.\"        # rejected: unlinked_doc\ndocledger mark-fresh --doc docs/index.md --allow-unlinked --reason \"navigation page.\"\n\n\n\n\nthis prevents silently track…"
+          "heading": "Propose, import, and audit links",
+          "text": "documentledger link propose --all-docs --out-dir /tmp/documentledger-maps\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --check-and-apply\ndocumentledger --json link audit\ndocumentledger --json coverage\n\n\n\n\nProposal files are deterministic suggestions. Review them before applying a batch; --check-and-apply validates the complete batch before one logical write.",
+          "lower": "documentledger link propose --all-docs --out-dir /tmp/documentledger-maps\ndocumentledger --json link import-map --directory /tmp/documentledger-maps --check-and-apply\ndocumentledger --json link audit\ndocumentledger --json coverage\n\n\n\n\nproposal files are deterministic suggestions. review them before applying a batch; --check-and-apply validates the complete batch before one logical write."
         },
         {
           "anchor": "",
-          "heading": "Validate ledger state",
-          "text": "docledger doctor\n\n\n\n\nDoctor checks storage schema metadata, document record paths, suspicious root configuration, missing documentation files, missing source files, duplicate edges, missing source-unit ids, and missing section ids.",
-          "lower": "docledger doctor\n\n\n\n\ndoctor checks storage schema metadata, document record paths, suspicious root configuration, missing documentation files, missing source files, duplicate edges, missing source-unit ids, and missing section ids."
+          "heading": "Build context, update, and validate",
+          "text": "documentledger document affected\ndocumentledger document build-context --affected --out -\n\n\n\n\n--out - streams raw Markdown directly to stdout without creating the default artifact or a file named -. Use --out PATH for an atomically written file. Do not combine raw streaming or --print with --json, because JSON mode emits exactly one machine-readable envelope.\n\nEdit affected sections, run configured validation commands, and inspect the resulting links and errors. Context is bounded by source lines, section lines, and total bytes and includes a truncation manifest when limits apply.",
+          "lower": "documentledger document affected\ndocumentledger document build-context --affected --out -\n\n\n\n\n--out - streams raw markdown directly to stdout without creating the default artifact or a file named -. use --out path for an atomically written file. do not combine raw streaming or --print with --json, because json mode emits exactly one machine-readable envelope.\n\nedit affected sections, run configured validation commands, and inspect the resulting links and errors. context is bounded by source lines, section lines, and total bytes and includes a truncation manifest when limits apply."
         },
         {
           "anchor": "",
-          "heading": "JSON and human output",
-          "text": "Pass --json before the command to emit a stable JSON envelope:\n\n{ \"ok\": true, \"command\": \"status\", \"result\": {}, \"events\": [] }\n\n\n\n\nErrors also use a JSON envelope when --json is set, and the envelope preserves the real command name:\n\n{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace_not_found\",\n    \"message\": \"...\",\n    \"remediation\": []\n  },\n  \"events\": []\n}\n\n\n\n\nWithout --json, commands print human-readable output and errors print concise Error: messages with remediation hints.",
-          "lower": "pass --json before the command to emit a stable json envelope:\n\n{ \"ok\": true, \"command\": \"status\", \"result\": {}, \"events\": [] }\n\n\n\n\nerrors also use a json envelope when --json is set, and the envelope preserves the real command name:\n\n{\n  \"ok\": false,\n  \"command\": \"scan\",\n  \"error\": {\n    \"code\": \"workspace_not_found\",\n    \"message\": \"...\",\n    \"remediation\": []\n  },\n  \"events\": []\n}\n\n\n\n\nwithout --json, commands print human-readable output and errors print concise error: messages with remediation hints."
+          "heading": "Mark fresh",
+          "text": "documentledger document mark-fresh \\\n  --doc docs/usage.md \\\n  --section usage-scan \\\n  --reason \"Updated after scan version VERSION.\"\n\n\n\n\nMark fresh only after validation. Section-level marking updates the live affected projection without requiring another scan. Unlinked documents are rejected unless --allow-unlinked is explicitly appropriate.\n\n--all selects all configured documents; --affected selects only currently affected documents. For bootstrap, use --all --allow-unlinked only after reviewing coverage and explicitly accepting any remaining unlinked documents.",
+          "lower": "documentledger document mark-fresh \\\n  --doc docs/usage.md \\\n  --section usage-scan \\\n  --reason \"updated after scan version version.\"\n\n\n\n\nmark fresh only after validation. section-level marking updates the live affected projection without requiring another scan. unlinked documents are rejected unless --allow-unlinked is explicitly appropriate.\n\n--all selects all configured documents; --affected selects only currently affected documents. for bootstrap, use --all --allow-unlinked only after reviewing coverage and explicitly accepting any remaining unlinked documents."
+        },
+        {
+          "anchor": "",
+          "heading": "JSON, human, and profile output",
+          "text": "Put --json before a command for the stable machine envelope. Omit it for concise human output. --profile adds deterministic operation events and durations to JSON output for diagnosis. documentledger --version, commands, and help COMMAND_PATH... work without a workspace.\n\nCommit canonical project metadata and durable data records according to the repository policy. Cache artifacts output is derived and normally ignored. Do not edit ledger records manually.",
+          "lower": "put --json before a command for the stable machine envelope. omit it for concise human output. --profile adds deterministic operation events and durations to json output for diagnosis. documentledger --version, commands, and help command_path... work without a workspace.\n\ncommit canonical project metadata and durable data records according to the repository policy. cache artifacts output is derived and normally ignored. do not edit ledger records manually."
         },
         {
           "anchor": "",
           "heading": "Ledger state and commit policy",
-          "text": "Documentledger stores its durable state under .ledger/documentledger/data/; rendered and proposal artifacts use the resolved cache mount. The recommended commit policy for a documentation freshness ledger is:\n\n\nCommit .ledger/ledger.toml, .ledger/documentledger/config.toml, .ledger/documentledger/data/storage.yaml, .ledger/documentledger/data/scan.yaml, and .ledger/documentledger/data/docs/*.yaml. These are the source of truth for project identity, the current scan baseline, section-level links, tracked hash state, and freshness markers.\n\n\nIgnore the resolved cache artifacts directory. Rendered context is regenerated on demand by docs build-context.\n\n\n\nDo not edit .ledger/ files directly; use the docledger commands so the records stay consistent. Existing .documentledger/ layouts are comp…",
-          "lower": "documentledger stores its durable state under .ledger/documentledger/data/; rendered and proposal artifacts use the resolved cache mount. the recommended commit policy for a documentation freshness ledger is:\n\n\ncommit .ledger/ledger.toml, .ledger/documentledger/config.toml, .ledger/documentledger/data/storage.yaml, .ledger/documentledger/data/scan.yaml, and .ledger/documentledger/data/docs/*.yaml. these are the source of truth for project identity, the current scan baseline, section-level links, tracked hash state, and freshness markers.\n\n\nignore the resolved cache artifacts directory. rendered context is regenerated on demand by docs build-context.\n\n\n\ndo not edit .ledger/ files directly; use the docledger commands so the records stay consistent. existing .documentledger/ layouts are comp…"
+          "text": "Commit .ledger/ledger.toml, the tool configuration, and durable data records according to repository policy. Cache artifacts output is derived. Historical scan state is supplied by Git history, not a persisted scans directory.",
+          "lower": "commit .ledger/ledger.toml, the tool configuration, and durable data records according to repository policy. cache artifacts output is derived. historical scan state is supplied by git history, not a persisted scans directory."
         },
         {
           "anchor": "",
           "heading": "Storage commands",
-          "text": "Use docledger storage where to inspect the active layout. Migrate a legacy workspace with a reviewed dry-run plan, then verify before any cleanup:\n\ndocledger storage migrate --dry-run --plan-file migration.json\ndocledger storage migrate --plan-file migration.json --adopt-project-uuid\ndocledger storage verify --strict\ndocledger storage cleanup-legacy --dry-run\n\n\n\n\nRoutine commands never migrate automatically and read-only commands do not initialize cache directories or repair bindings.",
-          "lower": "use docledger storage where to inspect the active layout. migrate a legacy workspace with a reviewed dry-run plan, then verify before any cleanup:\n\ndocledger storage migrate --dry-run --plan-file migration.json\ndocledger storage migrate --plan-file migration.json --adopt-project-uuid\ndocledger storage verify --strict\ndocledger storage cleanup-legacy --dry-run\n\n\n\n\nroutine commands never migrate automatically and read-only commands do not initialize cache directories or repair bindings."
+          "text": "Use documentledger storage where to inspect resolved mounts and documentledger storage validate --strict to validate canonical bindings. Migration is explicit and is documented separately.",
+          "lower": "use documentledger storage where to inspect resolved mounts and documentledger storage validate --strict to validate canonical bindings. migration is explicit and is documented separately."
+        },
+        {
+          "anchor": "",
+          "heading": "Validate ledger state",
+          "text": "Run documentledger --json doctor, documentledger --json link audit, and documentledger --json check before committing documentation updates.\n\ndoctor and link audit are read-only. If audit reports a linked missing section, move its links to a current section or remove them with documentledger link remove-section --doc DOC --section SECTION_ID --source-unit SOURCE_ID; after the final obsolete link is removed, the orphan record is pruned. Unlinked structural churn is repaired by the next scan.",
+          "lower": "run documentledger --json doctor, documentledger --json link audit, and documentledger --json check before committing documentation updates.\n\ndoctor and link audit are read-only. if audit reports a linked missing section, move its links to a current section or remove them with documentledger link remove-section --doc doc --section section_id --source-unit source_id; after the final obsolete link is removed, the orphan record is pruned. unlinked structural churn is repaired by the next scan."
+        },
+        {
+          "anchor": "",
+          "heading": "Bootstrapping a new repository",
+          "text": "For a new project, run documentledger init, create the first baseline with documentledger --json scan, and follow the dedicated bootstrap workflow.",
+          "lower": "for a new project, run documentledger init, create the first baseline with documentledger --json scan, and follow the dedicated bootstrap workflow."
+        },
+        {
+          "anchor": "",
+          "heading": "Limitations",
+          "text": "Freshness is routed through explicit links and hash dimensions; an unlinked source change cannot identify a section. Git history replaces persisted historical scan files. The configured roots and extensions are intentionally static.\n\n\nDeprecated since version 0.6: docledger, the plural command groups, root mark-fresh, and legacy storage migration wrappers are compatibility-only. New automation must use documentledger and canonical singular command paths.",
+          "lower": "freshness is routed through explicit links and hash dimensions; an unlinked source change cannot identify a section. git history replaces persisted historical scan files. the configured roots and extensions are intentionally static.\n\n\ndeprecated since version 0.6: docledger, the plural command groups, root mark-fresh, and legacy storage migration wrappers are compatibility-only. new automation must use documentledger and canonical singular command paths."
         }
       ]
     }

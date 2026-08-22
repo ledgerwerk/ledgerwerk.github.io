@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "484e1109219b289c70053352c3fe8001c3244e35"
+docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
 search_enabled: true
 ---
 
@@ -567,11 +567,19 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="there-is-no-baseline-or-no-links">
 <h2>There is no baseline or no links</h2>
 <p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">scan</span></code> once to create a baseline. A clean first scan is expected. Then use <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">build-context</span> <span class="pre">--bootstrap</span></code>, review <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">propose</span></code> output, apply reviewed maps, and audit links.</p>
+</section>
+<section id="build-context-writes-an-unexpected-file">
+<h2>Build context writes an unexpected file</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">build-context</span> <span class="pre">--affected</span> <span class="pre">--out</span> <span class="pre">-</span></code> for raw stdout. Do not use <code class="docutils literal notranslate"><span class="pre">/dev/stdout</span></code> or <code class="docutils literal notranslate"><span class="pre">/dev/fd/1</span></code>: context files use Ledgercore’s atomic regular-file writer, so special stream paths are rejected. Use <code class="docutils literal notranslate"><span class="pre">--out</span> <span class="pre">PATH</span></code> for an atomically written file. Raw stdout cannot be combined with <code class="docutils literal notranslate"><span class="pre">--json</span></code> or <code class="docutils literal notranslate"><span class="pre">--print</span></code> because those modes must emit one valid JSON document.</p>
 <!-- docledger-section: troubleshooting-stale -->
 </section>
 <section id="check-reports-stale-sections">
 <h2>Check reports stale sections</h2>
-<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">affected</span></code>, inspect bounded context, update the affected sections, run validation, and use section-level <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">mark-fresh</span></code>. Do not mark fresh before validation.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">affected</span></code>, inspect bounded context, update the affected sections, run validation, and use section-level <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">document</span> <span class="pre">mark-fresh</span></code>. <code class="docutils literal notranslate"><span class="pre">--all</span></code> means all configured documents; use <code class="docutils literal notranslate"><span class="pre">--affected</span></code> for only affected documents. Do not mark fresh before validation or weaken validation settings merely to pass.</p>
+</section>
+<section id="audit-reports-a-missing-section">
+<h2>Audit reports a missing section</h2>
+<p>After a <code class="docutils literal notranslate"><span class="pre">scan</span></code>, a missing section with no links is obsolete bookkeeping and is pruned automatically. A missing section with links is a retained linked orphan. Move those links to a current section with <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">add-section</span></code>, or remove an obsolete edge with <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">remove-section</span> <span class="pre">--section</span> <span class="pre">SECTION_ID</span> <span class="pre">--source-unit</span> <span class="pre">SOURCE_ID</span></code>; rerun <code class="docutils literal notranslate"><span class="pre">documentledger</span> <span class="pre">--json</span> <span class="pre">link</span> <span class="pre">audit</span></code> afterward. <code class="docutils literal notranslate"><span class="pre">doctor</span></code> and <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">audit</span></code> report this state without mutating records.</p>
 <!-- docledger-section: troubleshooting-index -->
 </section>
 <section id="source-index-is-missing-or-corrupt">

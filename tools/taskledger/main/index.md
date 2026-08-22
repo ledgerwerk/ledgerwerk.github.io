@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_commit: "f425af79dd94cc9ba056267c899ffbb97de28a96"
 search_enabled: true
 ---
 
@@ -588,6 +588,119 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="full_task_cycle/#task-centered-traceability">Task-centered traceability</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/">Architecture Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#introduction-and-goals">Introduction and Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#current-canonical-storage-boundary">Current canonical storage boundary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#requirements-overview">Requirements Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#quality-goals">Quality Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#stakeholders">Stakeholders</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#architecture-constraints">Architecture Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#context-and-scope">Context and Scope</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#business-context">Business Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#technical-context">Technical Context</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#solution-strategy">Solution Strategy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#maintenance">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#strategy-items">Strategy Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#layered-architecture-cli-services-domain-storage">Layered architecture: CLI → Services → Domain → Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#strategy">Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#trade-offs">Trade-offs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#markdown-yaml-front-matter-as-canonical-records">Markdown/YAML front matter as canonical records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id1">Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id2">Trade-offs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#json-indexes-as-rebuildable-derived-caches">JSON indexes as rebuildable derived caches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id3">Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id4">Trade-offs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#policy-based-lifecycle-gate-decisions">Policy-based lifecycle gate decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id5">Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id6">Trade-offs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#atomic-file-writes-for-durability">Atomic file writes for durability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id7">Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id8">Trade-offs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#building-block-view">Building Block View</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#whitebox-taskledger-system">Whitebox taskledger system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#contained-building-blocks">Contained building blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#important-interfaces">Important interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#runtime-view">Runtime View</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#task-lifecycle-create-through-done">Task lifecycle: create through done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#lock-acquisition-heartbeat-and-release">Lock acquisition, heartbeat, and release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#handoff-creation-and-claiming">Handoff creation and claiming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#editable-plan-input-preflight">Editable plan input preflight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#doctor-integrity-check">Doctor integrity check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#branch-scoped-ledger-selection-and-fork">Branch-scoped ledger selection and fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#implementation-workspace-snapshot-lifecycle">Implementation workspace snapshot lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#git-sync-workflow-for-shared-state">Git sync workflow for shared state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#migration-reindex-and-doctor-interaction">Migration, reindex, and doctor interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#worker-pipeline-guided-handoff">Worker pipeline guided handoff</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#deployment-view">Deployment View</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#local-development-deployment">Local development deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#cross-cutting-concepts">Cross-cutting Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#actor-metadata-and-role-semantics">Actor metadata and role semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#json-output-envelope-contract">JSON output envelope contract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#yaml-front-matter-serialization">YAML front matter serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#atomic-file-writes">Atomic file writes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#append-only-event-log">Append-only event log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#exit-code-taxonomy">Exit code taxonomy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id9">Editable plan input preflight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#implementation-workspace-snapshot">Implementation workspace snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#durable-code-review-evidence">Durable code-review evidence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#architecture-decisions">Architecture Decisions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#markdown-yaml-front-matter-as-canonical-format">Markdown/YAML front matter as canonical format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#context">Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#decision">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#consequences">Consequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#alternatives-considered">Alternatives considered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#sidecar-summary-index-as-derived-rebuildable-cache">Sidecar summary index as derived rebuildable cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id10">Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id11">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id12">Consequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id13">Alternatives considered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#explicit-lifecycle-gates-with-policy-decisions">Explicit lifecycle gates with policy decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id14">Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id15">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id16">Consequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id17">Alternatives considered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#typer-cli-framework">Typer CLI framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id18">Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id19">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id20">Consequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id21">Alternatives considered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#task-bundle-directory-layout">Task bundle directory layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id22">Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id23">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id24">Consequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id25">Alternatives considered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#external-skill-packaging">External skill packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id26">Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id27">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id28">Consequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#id29">Alternatives considered</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#quality-requirements">Quality Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#quality-requirements-overview">Quality Requirements Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#quality-scenarios">Quality Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#risks-and-technical-debt">Risks and Technical Debt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#risk-overview">Risk Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/#glossary">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture_taskledger_split/">Taskledger architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#owning-layers">Owning layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture_taskledger_split/#storage-model">Storage model</a></li>
@@ -696,6 +809,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-5-2026-08-22">[v0.6.5] - 2026-08-22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-4-2026-08-21">[v0.6.4] - 2026-08-21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-3-2026-08-19">[v0.6.3] - 2026-08-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-2-2026-08-15">[v0.6.2] - 2026-08-15</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-1-2026-08-14">[v0.6.1] - 2026-08-14</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-0-2026-07-28">[v0.6.0] - 2026-07-28</a></li>
 </ul>

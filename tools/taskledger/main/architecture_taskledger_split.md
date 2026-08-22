@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "7491339c7fde9c5b1c1ae38e27394069e2fcf83a"
+docs_commit: "f425af79dd94cc9ba056267c899ffbb97de28a96"
 search_enabled: true
 ---
 
@@ -567,13 +567,16 @@ I/O, front matter parsing, and cross-ledger ref parsing are delegated to
 <section id="storage-model">
 <h2>Storage model</h2>
 <p>Markdown records are canonical. Task, plan, and run reads come from those
-records directly. The authoritative Taskledger data mount is
-<code class="docutils literal notranslate"><span class="pre">../ledger/taskledger/&lt;project-uuid&gt;</span></code> under the shared sibling base. The
-<code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index and other rebuildable indexes are
-checkout-scoped cache data. Action and event logging is enabled by default and
-appends immutable <code class="docutils literal notranslate"><span class="pre">TaskEvent</span></code> records to the ledger-level <code class="docutils literal notranslate"><span class="pre">events/</span></code>
-directory. Active stages require visible lock files, and stale locks are
-reported instead of being cleared silently.</p>
+records directly. Canonical Taskledger uses four Ledgercore mounts: durable
+<code class="docutils literal notranslate"><span class="pre">data</span></code>, checkout-local <code class="docutils literal notranslate"><span class="pre">runtime</span></code>, diagnostic <code class="docutils literal notranslate"><span class="pre">logs</span></code>, and rebuildable cache
+<code class="docutils literal notranslate"><span class="pre">indexes</span></code>. The default data mount is external sibling storage; runtime and logs
+use user-data and indexes use cache. Local machine overrides live in
+<code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code>.</p>
+<p>Active/session state and workspace snapshot manifests are runtime data. Raw event
+and agent-command logs are diagnostic logs. Small semantic run summaries and
+task records remain in data. Indexes are always derived from data and may be
+deleted and rebuilt without task-history loss. The historical <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code>
+layout and root <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> are compatibility and migration inputs only.</p>
 </section>
 <section id="lifecycle-flow">
 <h2>Lifecycle flow</h2>
@@ -603,11 +606,10 @@ is <code class="docutils literal notranslate"><span class="pre">taskledger/comma
 </section>
 <section id="architecture-records">
 <h2>Architecture records</h2>
-<p>Arc42 architecture records live under the Archledger direct sibling mount
-<code class="docutils literal notranslate"><span class="pre">../ledger/archledger/&lt;project-uuid&gt;/</span></code> and are the source of
-<code class="docutils literal notranslate"><span class="pre">ARCHITECTURE.md</span></code>. Skills (<code class="docutils literal notranslate"><span class="pre">skills/taskledger/SKILL.md</span></code>) and
-<code class="docutils literal notranslate"><span class="pre">docs/architecture_taskledger_split.md</span></code> live outside the Python package and
-outside the archledger build output.</p>
+<p>Arc42 architecture records live under the canonical Archledger data mount
+<code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/</span></code> and are the source of <code class="docutils literal notranslate"><span class="pre">docs/architecture.md</span></code>. Skills
+(<code class="docutils literal notranslate"><span class="pre">skills/taskledger/SKILL.md</span></code>) and <code class="docutils literal notranslate"><span class="pre">docs/architecture_taskledger_split.md</span></code> live
+outside the Python package and outside the Archledger build output.</p>
 </section>
 </section>
 </div>
