@@ -5,8 +5,8 @@ permalink: /tools/taskledger/service_boundary_whitelist/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.4"
-docs_commit: "475e19e50ccb4e55564bedb67b29eee86361c179"
+docs_ref: "v0.6.5"
+docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
 search_enabled: true
 ---
 
@@ -595,6 +595,11 @@ sync, archive alias, git sync, and hook command wiring.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/layout_migration.py::_inspect_migration_phases</span></code></p>
 <ul>
 <li><p>Current reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py::register_handoff_v2_commands</span></code></p>
+<ul>
+<li><p>Current reason: Handoff v2 command registration covers create, claim, release, retarget, review, show, list, close, and cancel command wiring.</p></li>
 </ul>
 </li>
 </ul>

@@ -5,8 +5,8 @@ permalink: /tools/taskledger/api/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.4"
-docs_commit: "475e19e50ccb4e55564bedb67b29eee86361c179"
+docs_ref: "v0.6.5"
+docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
 search_enabled: true
 ---
 
@@ -736,6 +736,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">claim_handoff_api</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">close_handoff_api</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cancel_handoff_api</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_review_handoff</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release_handoff_api</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">retarget_handoff_api</span></code></p></li>
 </ul>
 </section>
 <section id="release-api">

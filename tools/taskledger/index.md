@@ -5,8 +5,8 @@ permalink: /tools/taskledger/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.4"
-docs_commit: "475e19e50ccb4e55564bedb67b29eee86361c179"
+docs_ref: "v0.6.5"
+docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
 search_enabled: true
 ---
 
@@ -809,6 +809,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-5-2026-08-22">[v0.6.5] - 2026-08-22</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-4-2026-08-21">[v0.6.4] - 2026-08-21</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-3-2026-08-19">[v0.6.3] - 2026-08-19</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-2-2026-08-15">[v0.6.2] - 2026-08-15</a></li>

@@ -41,7 +41,7 @@ permalink: /tools/
       <h3>taskledger</h3>
       <div class="card-links">
         <a href="/tools/taskledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.4" rel="external noopener">Latest release: v0.6.4 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.5" rel="external noopener">Latest release: v0.6.5 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/taskledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
