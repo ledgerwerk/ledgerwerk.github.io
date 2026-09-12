@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -630,6 +630,8 @@ emits recorder task/payload/error notes.</p></li>
 resolves actor/harness context for event metadata.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_implement.py:taskledger.services.agent_logging</span></code> —
 Implement command wrapper records managed-shell command failures.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_validate.py:taskledger.services.agent_logging</span></code> — Validation
+command wrapper records managed-shell command failures.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py:taskledger.services.doctor</span></code> — Doctor commands
 still consume doctor service inspectors directly.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_pipeline.py:taskledger.services.handoff</span></code> — Pipeline

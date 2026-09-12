@@ -6,7 +6,7 @@ nav_tool: wikimason-main
 docs_project: "wikimason"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "746b23bc8364931701e960ae760861c304925257"
+docs_commit: "78a7df5d4a33bc02995bd8be1c8fb17669c806b0"
 search_enabled: true
 ---
 
@@ -551,7 +551,8 @@ precedence order:</p>
 <li><p>Default env <code class="docutils literal notranslate"><span class="pre">~/.config/wikimason/default.toml</span></code></p></li>
 <li><p>Built-in defaults</p></li>
 </ol>
-<p>If both a local config and <code class="docutils literal notranslate"><span class="pre">--env</span></code> are present, the local config wins (it is
+<p><code class="docutils literal notranslate"><span class="pre">wikimason.toml</span></code> remains the WikiMason configuration format. Ledgercore’s <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> project-layout API is not used for WikiMason vault configuration in this release.
+If both a local config and <code class="docutils literal notranslate"><span class="pre">--env</span></code> are present, the local config wins (it is
 more specific to the project). A diagnostic is emitted when a local config
 causes <code class="docutils literal notranslate"><span class="pre">--env</span></code> to be ignored.</p>
 <section id="example">

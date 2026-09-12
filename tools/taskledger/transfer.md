@@ -5,8 +5,8 @@ permalink: /tools/taskledger/transfer/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.5"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_ref: "v0.6.8"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -555,6 +555,11 @@ machines and harnesses.</p>
 - <code class="docutils literal notranslate"><span class="pre">project.ledger_ref</span></code> (exported ledger)</p></li>
 <li><p>Optional run artifacts under <code class="docutils literal notranslate"><span class="pre">artifacts/</span></code> when <code class="docutils literal notranslate"><span class="pre">--include-run-artifacts</span></code> is set.</p></li>
 </ul>
+</section>
+<section id="artifact-file-size-policy">
+<h2>Artifact file-size policy</h2>
+<p>Taskledger-owned artifact files default to a 20,000,000-byte hard ceiling. Projects may lower this with <code class="docutils literal notranslate"><span class="pre">artifact_max_bytes</span></code>, but cannot configure an unlimited or larger value. Oversized command output is stored as a UTF-8-safe head/tail excerpt with an explicit byte-count marker; the managed command’s output and exit code are unchanged.</p>
+<p>Import/export enforce the same limit. Run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span></code> to find existing oversized files; <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">sync</span> <span class="pre">git</span> <span class="pre">push</span></code> refuses them before creating a commit. This does not rewrite existing Git history or use Git LFS.</p>
 </section>
 <section id="filename-policy">
 <h2>Filename policy</h2>

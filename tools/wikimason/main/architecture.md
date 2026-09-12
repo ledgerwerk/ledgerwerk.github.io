@@ -6,7 +6,7 @@ nav_tool: wikimason-main
 docs_project: "wikimason"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "746b23bc8364931701e960ae760861c304925257"
+docs_commit: "78a7df5d4a33bc02995bd8be1c8fb17669c806b0"
 search_enabled: true
 ---
 

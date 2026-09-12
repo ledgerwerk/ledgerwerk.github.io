@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/quickstart/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.4.3"
-docs_commit: "ffff48d532acfdd222f3c4e4fa103e737cb983e0"
+docs_ref: "v0.4.5"
+docs_commit: "84bf0b47d02d346940e7496a560b7589b26f5428"
 search_enabled: true
 ---
 
@@ -594,8 +594,8 @@ as the canonical evidence of shipped changes.</p>
 <span class="w">  </span>--previous<span class="w"> </span><span class="m">1</span>.1.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--git-base<span class="w"> </span>v1.1.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--git-head<span class="w"> </span>HEAD<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>.releaseledger/work/1.2.0
+<span class="w">  </span>--git-head<span class="w"> </span>HEAD
+<span class="nv">work</span><span class="o">=</span>.ledger/releaseledger/work/1.2.0
 </pre></div>
 </div>
 <p>After the snapshot is attached, omit <code class="docutils literal notranslate"><span class="pre">--head</span></code> unless you intentionally want to
@@ -603,30 +603,31 @@ refresh the stored snapshot to a newer commit.</p>
 </section>
 <section id="create-audit-evidence-and-scaffold-entries">
 <h2>Create audit evidence and scaffold entries</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>git<span class="w"> </span>evidence<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--output-dir<span class="w"> </span>/tmp/1.2.0-evidence
-releaseledger<span class="w"> </span>audit<span class="w"> </span>decisions<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--output<span class="w"> </span>/tmp/1.2.0-audit-decisions.yaml
-releaseledger<span class="w"> </span>git<span class="w"> </span>scaffold<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output<span class="w"> </span>/tmp/1.2.0-entries.yaml
-</pre></div>
-</div>
-<p>Curate the audit annotations, then validate the evidence phase:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>audit<span class="w"> </span>apply<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--file<span class="w"> </span>/tmp/1.2.0-audit-decisions.yaml<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># release prepare already emitted evidence/, audit.yaml, audit-decisions.yaml, and entries.yaml.</span>
+ls<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">&quot;</span>
+ls<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">/evidence&quot;</span>
+
+Curate<span class="w"> </span>the<span class="w"> </span>audit<span class="w"> </span>annotations,<span class="w"> </span><span class="k">then</span><span class="w"> </span>validate<span class="w"> </span>the<span class="w"> </span>evidence<span class="w"> </span>phase:
+
+<span class="sb">```</span>bash
+releaseledger<span class="w"> </span>audit<span class="w"> </span>apply<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">/audit-decisions.yaml&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--dry-run
 releaseledger<span class="w"> </span>audit<span class="w"> </span>apply<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--file<span class="w"> </span>/tmp/1.2.0-audit-decisions.yaml
+<span class="w">  </span>--file<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">/audit-decisions.yaml&quot;</span>
 releaseledger<span class="w"> </span>audit<span class="w"> </span>validate<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--phase<span class="w"> </span>evidence<span class="w"> </span>--strict
 </pre></div>
 </div>
 <p>Edit the entry scaffold to write user-facing summaries from reviewed behavior,
-then validate and write entries atomically:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>entry<span class="w"> </span>add-many<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--file<span class="w"> </span>/tmp/1.2.0-entries.yaml<span class="w"> </span><span class="se">\</span>
+then validate and write entries atomically:
+One commit may map to zero, one, or multiple entries. Keep one <code class="docutils literal notranslate"><span class="pre">source_refs</span></code> coverage owner for each commit and use supporting <code class="docutils literal notranslate"><span class="pre">sources</span></code> on additional behavior-specific entries; write every summary from the reviewed diff, not the commit subject.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>entry<span class="w"> </span>apply<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">/entries.yaml&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--dry-run<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--strict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--guard-commit-subjects
-releaseledger<span class="w"> </span>entry<span class="w"> </span>add-many<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--file<span class="w"> </span>/tmp/1.2.0-entries.yaml<span class="w"> </span><span class="se">\</span>
+releaseledger<span class="w"> </span>entry<span class="w"> </span>apply<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">/entries.yaml&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--strict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--guard-commit-subjects<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--sync-audit
@@ -640,7 +641,7 @@ releaseledger<span class="w"> </span>audit<span class="w"> </span>validate<span 
 releaseledger<span class="w"> </span>release<span class="w"> </span>check<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--phase<span class="w"> </span>finalize<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
 releaseledger<span class="w"> </span>release<span class="w"> </span>finalize<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14
-releaseledger<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
 </pre></div>
 </div>
 </section>
@@ -676,7 +677,7 @@ do not need unrelated public changelog entries.</p>
 <p>For a single release section update only, <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">VERSION</span></code> is the default and
 explicit version intent. Rebuild the whole file only when you really mean all
 history:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>build<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
 </pre></div>
 </div>
 </section>
@@ -726,12 +727,12 @@ primary source of truth:</p>
 </pre></div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">VERSION</span></code> to render and insert a final section:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--dry-run<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--strict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target-file<span class="w"> </span>CHANGELOG.md
 
-releaseledger<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
+releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--release-date<span class="w"> </span><span class="m">2026</span>-06-13<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--strict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target-file<span class="w"> </span>CHANGELOG.md
@@ -754,7 +755,7 @@ releaseledger<span class="w"> </span>release<span class="w"> </span>restore<span
 <span class="w">  </span>--git-base<span class="w"> </span>:root<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;The tagged release was actually shipped.&quot;</span>
 releaseledger<span class="w"> </span>release<span class="w"> </span>chain<span class="w"> </span>repair<span class="w"> </span>--apply
-releaseledger<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>--strict<span class="w"> </span>--no-preserve-unreleased<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>--strict<span class="w"> </span>--no-preserve-unreleased<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
 releaseledger<span class="w"> </span>release<span class="w"> </span>reconcile<span class="w"> </span>--strict
 releaseledger<span class="w"> </span>release<span class="w"> </span>chain<span class="w"> </span>check<span class="w"> </span>--strict
 </pre></div>

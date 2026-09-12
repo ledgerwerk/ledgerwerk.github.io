@@ -5,8 +5,8 @@ permalink: /tools/taskledger/command_contract/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.5"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_ref: "v0.6.8"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -699,6 +699,10 @@ taskledger<span class="w"> </span>validate<span class="w"> </span>check<span cla
 <ul class="simple">
 <li><p>Links are opaque. Taskledger does not parse or interpret linked files.</p></li>
 <li><p>Validation evidence is recorded through generic <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">check</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">command</span> <span class="pre">--</span> <span class="pre">...</span></code> records managed validation command evidence during an active validation run.</p></li>
+<li><p>A non-zero validation command does not create a <code class="docutils literal notranslate"><span class="pre">ValidationCheck</span></code>; explicitly classify and record criteria with <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">check</span></code>.</p></li>
+<li><p>A passing implementation command may be adopted explicitly as validation evidence with <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">check</span> <span class="pre">--from-implementation-check</span> <span class="pre">CHECK_ID</span></code> only when Taskledger reports an exact final/current workspace snapshot match.</p></li>
+<li><p>This is evidence reuse, not a generic command cache. Rerun validation when fresh execution or external runtime state matters.</p></li>
 </ul>
 </section>
 <section id="archive-import-lock-policy">
@@ -950,6 +954,8 @@ default. Both wrappers pass the argument vector after <code class="docutils lite
 shell. They execute the child from the CLI invocation directory, or the explicit
 <code class="docutils literal notranslate"><span class="pre">--root</span></code> directory, even when Taskledger discovers an ancestor workspace root for
 ledger state, artifacts, and logs.</p>
+<p>Managed command artifacts are bounded by the project <code class="docutils literal notranslate"><span class="pre">artifact_max_bytes</span></code> setting, defaulting to the 20,000,000-byte hard ceiling. Oversized persisted evidence is marked and retains both its beginning and end; only the durable artifact is truncated, not the child command’s exit code or CLI stdout/stderr contract.
+<code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">command</span></code> uses the same managed execution behavior during an active validation run, but records command evidence only. It never automatically maps a non-zero child exit to a criterion result.</p>
 <p>Managed commands preserve the caller environment, but resolve child executable lookup
 deterministically. A usable inherited <code class="docutils literal notranslate"><span class="pre">VIRTUAL_ENV</span></code> takes precedence. Otherwise
 Taskledger checks <code class="docutils literal notranslate"><span class="pre">&lt;command-cwd&gt;/.venv</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;command-cwd&gt;/venv</span></code>, then the workspace
@@ -972,6 +978,8 @@ exit code while returning wrapper exit code <code class="docutils literal notran
 taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--allow-failure<span class="w"> </span>--<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-q
 taskledger<span class="w"> </span>implement<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>--config<span class="o">=</span>.ruff.toml<span class="w"> </span>.
 taskledger<span class="w"> </span>implement<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--allow-failure<span class="w"> </span>--<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;raise SystemExit(7)&quot;</span>
+taskledger<span class="w"> </span>validate<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-q
+taskledger<span class="w"> </span>validate<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--allow-failure<span class="w"> </span>--<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;raise SystemExit(7)&quot;</span>
 </pre></div>
 </div>
 </section>

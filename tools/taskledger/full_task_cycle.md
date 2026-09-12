@@ -5,8 +5,8 @@ permalink: /tools/taskledger/full_task_cycle/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.5"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_ref: "v0.6.8"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -765,6 +765,12 @@ taskledger<span class="w"> </span>validate<span class="w"> </span>show
 taskledger<span class="w"> </span>validate<span class="w"> </span>finish<span class="w"> </span>--result<span class="w"> </span>passed<span class="w"> </span>--summary<span class="w"> </span><span class="s2">&quot;Parser fix validated with regression tests.&quot;</span>
 </pre></div>
 </div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">validate</span> <span class="pre">command</span> <span class="pre">--</span> <span class="pre">...</span></code> to preserve validation command cwd, output, exit status, and transcript evidence. A non-zero command is not automatically a failed acceptance criterion. If the command is a malformed probe or setup failure, correct it and rerun before recording criterion status. Only record <code class="docutils literal notranslate"><span class="pre">fail</span></code> after the target behavior was evaluated and failed.
+When implementation checks have exact tested-state provenance, validation context and status may identify them as reusable. Record that decision explicitly, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>validate<span class="w"> </span>check<span class="w"> </span>--criterion<span class="w"> </span>ac-0001<span class="w"> </span>--status<span class="w"> </span>pass<span class="w"> </span>--from-implementation-check<span class="w"> </span>check-0002<span class="w"> </span>--details<span class="w"> </span><span class="s2">&quot;Reused passing implementation evidence on the exact current snapshot.&quot;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">command</span></code> always executes its child command normally; it does not silently reuse implementation results.</p>
 <section id="if-validation-finds-a-bug">
 <h3>If validation finds a bug</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>validate<span class="w"> </span>check<span class="w"> </span>--criterion<span class="w"> </span>ac-0002<span class="w"> </span>--status<span class="w"> </span>fail<span class="w"> </span>--evidence<span class="w"> </span><span class="s2">&quot;pytest tests/test_parser.py -q&quot;</span>

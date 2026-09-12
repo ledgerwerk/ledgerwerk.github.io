@@ -5,8 +5,8 @@ permalink: /tools/taskledger/multi_repo/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.5"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_ref: "v0.6.8"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 

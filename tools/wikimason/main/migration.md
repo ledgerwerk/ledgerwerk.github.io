@@ -6,7 +6,7 @@ nav_tool: wikimason-main
 docs_project: "wikimason"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "746b23bc8364931701e960ae760861c304925257"
+docs_commit: "78a7df5d4a33bc02995bd8be1c8fb17669c806b0"
 search_enabled: true
 ---
 
@@ -545,7 +545,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>WikiMason is currently a pre-release fresh-start CLI. Cross-profile migration
 commands are intentionally not part of the public command surface yet.</p>
 <p>If you need to move content between vault profiles, use explicit file-system
-copy or conversion scripts in your own workflow, then run canonical verification
+copy or conversion scripts in your own workflow, then run canonical verification</p>
+<p>ledgercore’s storage-migration API is not exposed by WikiMason because WikiMason vault content is not currently managed as ledgercore schema-3 storage. Vault/profile conversion and ledgercore storage relocation are separate concerns.
 commands in the target vault:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wikimason<span class="w"> </span><span class="nb">source</span><span class="w"> </span>verify
 wikimason<span class="w"> </span>index<span class="w"> </span>build

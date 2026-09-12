@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -1064,6 +1064,7 @@ taskledger<span class="w"> </span>implement<span class="w"> </span><span class="
 taskledger<span class="w"> </span>implement<span class="w"> </span><span class="nb">command</span><span class="w"> </span>--allow-failure<span class="w"> </span>--<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;raise SystemExit(7)&quot;</span>
 </pre></div>
 </div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">validate</span> <span class="pre">command</span> <span class="pre">--</span> <span class="pre">...</span></code> for durable validation execution evidence. A non-zero command is not automatically a failed acceptance criterion. Classify whether the target behavior was evaluated before recording <code class="docutils literal notranslate"><span class="pre">fail</span></code>; repair malformed cwd, import, fixture, quoting, or path-normalization probes and rerun them first.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">[agent_logging].enabled</span> <span class="pre">=</span> <span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span></code>
 records CLI invocations and managed command outputs. Both managed wrappers execute
 the exact argv after <code class="docutils literal notranslate"><span class="pre">--</span></code> without a shell and from the CLI invocation directory, or
@@ -1071,8 +1072,8 @@ the explicit <code class="docutils literal notranslate"><span class="pre">--root
 ledger state, but that does not change the child’s cwd. Human mode displays captured
 stdout/stderr before the summary. JSON mode contains stdout/stderr and cwd only in
 the result object. Keep logging opt-in because stdout/stderr may contain sensitive
-data. Route task-relevant commands through <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">command</span></code>
-so their output is included in task transcripts and reports.</p>
+data. Route task-relevant commands through <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">command</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">command</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">command</span></code> so their output is included in task transcripts and reports.</p>
 <p>Managed commands use a usable inherited Python virtualenv first, then a valid
 <code class="docutils literal notranslate"><span class="pre">.venv</span></code> or <code class="docutils literal notranslate"><span class="pre">venv</span></code> in the command directory or workspace, preferring the command
 directory. Taskledger adjusts only the child <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">VIRTUAL_ENV</span></code> (and removes
@@ -1217,7 +1218,11 @@ UUID safety checks still use <code class="docutils literal notranslate"><span cl
 <li><p><code class="docutils literal notranslate"><span class="pre">--no-include-bodies</span></code> removes record body fields from the exported payload.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--include-run-artifacts</span></code> embeds artifact files under <code class="docutils literal notranslate"><span class="pre">artifacts/</span></code> in the archive.</p></li>
 </ul>
-<p>Cross-machine imports preserve durable task/run records but quarantine imported
+</section>
+<section id="artifact-file-size-policy">
+<h2>Artifact file-size policy</h2>
+<p>Taskledger-owned artifact files are limited to 20,000,000 bytes by default and may only be lowered with <code class="docutils literal notranslate"><span class="pre">artifact_max_bytes</span></code>. Oversized command evidence retains its head and tail and includes a deterministic truncation marker; it does not change command execution or exit-code behavior. Import/export, doctor, and Taskledger-managed Git push enforce the same policy. Existing Git history is not rewritten and Git LFS is not used.
+Cross-machine imports preserve durable task/run records but quarantine imported
 runtime locks by default. For an imported in-progress implementation, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>next-action
 taskledger<span class="w"> </span>implement<span class="w"> </span>resume<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Continue imported implementation.&quot;</span>

@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -568,6 +568,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="usage/#resolved-storage">Resolved storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#integrity-and-recovery">Integrity and recovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#export-and-snapshots">Export and snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/#artifact-file-size-policy">Artifact file-size policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#single-task-transfer-from-a-config-only-checkout">Single-task transfer from a config-only checkout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#task-centered-traceability">Task-centered traceability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/#canonical-project-layout">Canonical project layout</a></li>
@@ -773,6 +774,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="transfer/">Transfer archives</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#what-transfer-archives-include">What transfer archives include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transfer/#artifact-file-size-policy">Artifact file-size policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#filename-policy">Filename policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#single-task-transfer-from-a-config-only-checkout">Single-task transfer from a config-only checkout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#dry-run-import">Dry-run import</a></li>
@@ -785,6 +787,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="sync/#shared-state-git-repo">Shared state Git repo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#second-pc-bootstrap">Second PC bootstrap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#daily-sync-protocol">Daily sync protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync/#artifact-preflight">Artifact preflight</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#active-lock-rule">Active lock rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#when-to-use-export-import-instead">When to use export/import instead</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sync/#syncthing-rclone-caveats">Syncthing/rclone caveats</a></li>
@@ -809,6 +812,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-8-unreleased">[v0.6.8] - Unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-7-2026-09-09">[v0.6.7] - 2026-09-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-6-2026-09-04">[v0.6.6] - 2026-09-04</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-5-2026-08-22">[v0.6.5] - 2026-08-22</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-4-2026-08-21">[v0.6.4] - 2026-08-21</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-3-2026-08-19">[v0.6.3] - 2026-08-19</a></li>

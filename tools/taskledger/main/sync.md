@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -612,6 +612,10 @@ taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"
 report project-local vs outside-project dirty paths. <code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">push</span></code> commits
 repository-wide changes by design to match the standard Git workflow. Use
 <code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">cd</span></code> for advanced manual inspection or conflict resolution.</p>
+</section>
+<section id="artifact-preflight">
+<h2>Artifact preflight</h2>
+<p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">sync</span> <span class="pre">git</span> <span class="pre">push</span></code> checks Taskledger-owned artifact files before staging or committing. It refuses any existing file over the configured <code class="docutils literal notranslate"><span class="pre">artifact_max_bytes</span></code> limit and reports the paths, sizes, limit, and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span></code> remediation. Plain <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> remains outside Taskledger’s control, and Taskledger does not rewrite history or use Git LFS.</p>
 <p>For manual conflict resolution or debugging:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span><span class="nb">cd</span><span class="k">)</span><span class="s2">&quot;</span>
 git<span class="w"> </span>status<span class="w"> </span>--short

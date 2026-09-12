@@ -5,8 +5,8 @@ permalink: /tools/taskledger/api/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.5"
-docs_commit: "412b465c3900d28b9f0cc8eb2ef78f10bb8340b3"
+docs_ref: "v0.6.8"
+docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
 search_enabled: true
 ---
 
@@ -687,6 +687,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">add_change</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">scan_changes</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">run_implementation_command</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_validation_command</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">finish_implementation</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">show_task_run</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">start_validation</span></code></p></li>

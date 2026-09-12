@@ -5,16 +5,16 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: ffff48d532acfdd222f3c4e4fa103e737cb983e0
+source_commit: 84bf0b47d02d346940e7496a560b7589b26f5428
 source_url: https://github.com/ledgerwerk/releaseledger/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/releaseledger
-release_tag: v0.4.3
-release_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.3
+release_tag: v0.4.5
+release_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.5
 versions:
 - name: release
   label: Latest release
-  ref: v0.4.3
+  ref: v0.4.5
   url: /tools/releaseledger/
   current: false
 - name: main
