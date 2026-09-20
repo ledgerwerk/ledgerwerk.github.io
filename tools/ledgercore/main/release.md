@@ -6,7 +6,7 @@ nav_tool: ledgercore-main
 docs_project: "ledgercore"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "83c93bb3c07c392e20a90369d9dd332f3708198b"
+docs_commit: "555dfcd190d0865f9634d13dc35ebb0f28d135da"
 search_enabled: true
 ---
 
@@ -590,10 +590,11 @@ python<span class="w"> </span>-m<span class="w"> </span>sphinx<span class="w"> <
 </pre></div>
 </div>
 </li>
-<li><p>Ensure the three example scripts run from the source tree:</p>
+<li><p>Ensure all four example scripts run from the source tree:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python<span class="w"> </span>examples/frontmatter.py
 <span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python<span class="w"> </span>examples/refs.py
 <span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python<span class="w"> </span>examples/storage.py
+<span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python<span class="w"> </span>examples/uuid_ids.py
 </pre></div>
 </div>
 </li>
@@ -609,8 +610,9 @@ is provided explicitly. Use a placeholder for repeatable local runs:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SETUPTOOLS_SCM_PRETEND_VERSION</span><span class="o">=</span>X.Y.Z<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>build
 </pre></div>
 </div>
-<p>For the <code class="docutils literal notranslate"><span class="pre">0.6.0</span></code> release build, use <code class="docutils literal notranslate"><span class="pre">0.6.0</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SETUPTOOLS_SCM_PRETEND_VERSION</span><span class="o">=</span><span class="m">0</span>.6.0<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>build
+<p>Builds from a non-git source archive are supported when the intended version
+is provided explicitly. Use a placeholder for repeatable local runs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SETUPTOOLS_SCM_PRETEND_VERSION</span><span class="o">=</span>X.Y.Z<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>build
 </pre></div>
 </div>
 <p>This produces <code class="docutils literal notranslate"><span class="pre">dist/ledgercore-&lt;version&gt;.tar.gz</span></code> and
@@ -637,7 +639,7 @@ python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </s
 <span class="s2">&quot;</span><span class="nv">$smoke_dir</span><span class="s2">/bin/python&quot;</span><span class="w"> </span>scripts/smoke_wheel.py
 </pre></div>
 </div>
-<p>The script must print <code class="docutils literal notranslate"><span class="pre">ledgercore</span> <span class="pre">0.6.0</span> <span class="pre">smoke</span> <span class="pre">test</span> <span class="pre">passed</span></code> and exit 0. The
+<p>The script must print <code class="docutils literal notranslate"><span class="pre">ledgercore</span> <span class="pre">&lt;version&gt;</span> <span class="pre">smoke</span> <span class="pre">test</span> <span class="pre">passed</span></code> and exit 0. The
 source-tree smoke test (<code class="docutils literal notranslate"><span class="pre">tests/test_smoke_wheel_source.py</span></code>) covers the same
 <code class="docutils literal notranslate"><span class="pre">main()</span></code> function and must also pass in CI.</p>
 </section>
@@ -676,11 +678,11 @@ and the generated <code class="docutils literal notranslate"><span class="pre">l
 </section>
 <section id="version-policy">
 <h2>Version policy</h2>
-<p><code class="docutils literal notranslate"><span class="pre">ledgercore</span></code> is pre-1.0. Patch releases preserve the current minor API where
-practical. Minor releases may intentionally evolve public APIs before 1.0,
-with changelog and migration guidance. The 0.6.0 release adds the schema-3
-storage migration safeguards and validation improvements documented in the
-changelog.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ledgercore</span></code> is pre-1.0. Patch releases preserve the current minor API and may
+add backward-compatible APIs and fixes. Minor releases may intentionally evolve
+existing public APIs before 1.0; such changes require changelog and migration
+guidance. The 0.6.0 release adds the schema-3 storage migration safeguards and
+validation improvements documented in the changelog.</p>
 </section>
 </section>
 </div>

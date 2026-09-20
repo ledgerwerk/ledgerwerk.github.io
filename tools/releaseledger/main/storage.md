@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "84bf0b47d02d346940e7496a560b7589b26f5428"
+docs_commit: "ced19030fa9d36a003ef5bedbf2880b0a21762e6"
 search_enabled: true
 ---
 
@@ -544,7 +544,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>Storage and configuration</h1>
 <p>Releaseledger storage topology is owned by the canonical Ledgercore project
 manifest. New projects use schema 3 and keep Releaseledger configuration at
-<code class="docutils literal notranslate"><span class="pre">.ledger/releaseledger/config.toml</span></code>; authoritative data is a <code class="docutils literal notranslate"><span class="pre">data</span></code> mount and
+<code class="docutils literal notranslate"><span class="pre">.ledger/releaseledger/config.toml</span></code>; authoritative data is a <code class="docutils literal notranslate"><span class="pre">data</span></code> mount and</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[git]</span></code> table may include <code class="docutils literal notranslate"><span class="pre">tag_creation</span> <span class="pre">=</span> <span class="pre">&quot;local&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">tag_creation</span> <span class="pre">=</span> <span class="pre">&quot;external&quot;</span></code>. The key is a Releaseledger release-workflow policy, not storage topology. It defaults to <code class="docutils literal notranslate"><span class="pre">local</span></code>; external mode assigns authoritative tag creation to the external publication workflow while published validation still requires tag evidence. <code class="docutils literal notranslate"><span class="pre">releaseledger</span> <span class="pre">config</span> <span class="pre">show</span></code> displays this policy.
 derived indexes are a <code class="docutils literal notranslate"><span class="pre">cache</span></code> mount. Inspect the resolved topology with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>--root<span class="w"> </span>PATH<span class="w"> </span>storage<span class="w"> </span>where
 releaseledger<span class="w"> </span>--root<span class="w"> </span>PATH<span class="w"> </span>storage<span class="w"> </span>validate<span class="w"> </span>--strict

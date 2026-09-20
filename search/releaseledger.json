@@ -29,6 +29,48 @@
         {
           "anchor": "",
           "heading": "Added",
+          "text": "Added configurable Git tag ownership with external publication handoff guidance and published-tag validation",
+          "lower": "added configurable git tag ownership with external publication handoff guidance and published-tag validation"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Improved release preparation and validation with lifecycle-aware checks, scoped follow-ups, and safe audit handling",
+          "lower": "improved release preparation and validation with lifecycle-aware checks, scoped follow-ups, and safe audit handling"
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Added verified Git ancestry checks for GitHub new-contributor attribution",
+          "lower": "added verified git ancestry checks for github new-contributor attribution"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Changed release validation to detect unacknowledged changelog edits within the reviewed Git range\n\n\nChanged release predecessor matching and changelog date checks to use canonical release identities",
+          "lower": "changed release validation to detect unacknowledged changelog edits within the reviewed git range\n\n\nchanged release predecessor matching and changelog date checks to use canonical release identities"
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Added GitHub-aware changelog attribution for contributors, pull requests, and comparison links\n\n\nAdded safe rebinding for generated index caches before ledger writes",
+          "lower": "added github-aware changelog attribution for contributors, pull requests, and comparison links\n\n\nadded safe rebinding for generated index caches before ledger writes"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Changed release preparation and changelog builds to support proposed dates and explicit output paths\n\n\nChanged release reviews to treat symbolic snapshot drift as advisory while preserving pinned snapshots",
+          "lower": "changed release preparation and changelog builds to support proposed dates and explicit output paths\n\n\nchanged release reviews to treat symbolic snapshot drift as advisory while preserving pinned snapshots"
+        },
+        {
+          "anchor": "",
+          "heading": "Fixed",
+          "text": "Fixed entry batch validation to reject unknown fields with actionable suggestions",
+          "lower": "fixed entry batch validation to reject unknown fields with actionable suggestions"
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
           "text": "Added release refresh for updating Git snapshots and surfacing pending audit decisions",
           "lower": "added release refresh for updating git snapshots and surfacing pending audit decisions"
         },
@@ -181,36 +223,6 @@
           "heading": "Changed",
           "text": "Improved previous-version inference to skip canceled and future predecessors with semantic-version ordering\n\n\nImproved release date validation to require real calendar dates in Keep a Changelog strict mode\n\n\nApplied pre-commit lint fixes and code style cleanup",
           "lower": "improved previous-version inference to skip canceled and future predecessors with semantic-version ordering\n\n\nimproved release date validation to require real calendar dates in keep a changelog strict mode\n\n\napplied pre-commit lint fixes and code style cleanup"
-        },
-        {
-          "anchor": "",
-          "heading": "Documentation",
-          "text": "Added PyPI badge to README\n\n\nSet release date in CHANGELOG.md\n\n\nUpdated CHANGELOG.md and README formatting\n\n\nAdded ReadTheDocs integration for hosted documentation",
-          "lower": "added pypi badge to readme\n\n\nset release date in changelog.md\n\n\nupdated changelog.md and readme formatting\n\n\nadded readthedocs integration for hosted documentation"
-        },
-        {
-          "anchor": "",
-          "heading": "Added",
-          "text": "Added releaseledger CLI for project-local release records, entries, and changelog context\n\n\nAdded events.jsonl audit log and idempotent JSON index rebuild across all mutations\n\n\nAdded public Python API surface for releases and entries\n\n\nAdded releaseledger build command to render and atomically insert CHANGELOG.md sections\n\n\nAdded [changelog] config table for templates, trimming, and postprocessors\n\n\nAdded public changelog build API exports\n\n\nAdded storage where command for read-only workspace, config, and storage path diagnostics\n\n\nAdded config show and config set commands to manage releaseledger.toml safely\n\n\nAdded external releaseledger_dir policy for portable sibling state directories via –external-dir\n\n\nAdded entry –source provenance with opt-in changelog source rendering\n\n\nAdded ent…",
-          "lower": "added releaseledger cli for project-local release records, entries, and changelog context\n\n\nadded events.jsonl audit log and idempotent json index rebuild across all mutations\n\n\nadded public python api surface for releases and entries\n\n\nadded releaseledger build command to render and atomically insert changelog.md sections\n\n\nadded [changelog] config table for templates, trimming, and postprocessors\n\n\nadded public changelog build api exports\n\n\nadded storage where command for read-only workspace, config, and storage path diagnostics\n\n\nadded config show and config set commands to manage releaseledger.toml safely\n\n\nadded external releaseledger_dir policy for portable sibling state directories via –external-dir\n\n\nadded entry –source provenance with opt-in changelog source rendering\n\n\nadded ent…"
-        },
-        {
-          "anchor": "",
-          "heading": "Changed",
-          "text": "Changed changelog context and build to support status filtering, quality grouping, and strict gates\n\n\nRemoved stale taskledger configuration\n\n\nAdded GitHub Actions CI workflows and fixed pre-commit configuration",
-          "lower": "changed changelog context and build to support status filtering, quality grouping, and strict gates\n\n\nremoved stale taskledger configuration\n\n\nadded github actions ci workflows and fixed pre-commit configuration"
-        },
-        {
-          "anchor": "",
-          "heading": "Fixed",
-          "text": "Fixed Windows path handling in storage config",
-          "lower": "fixed windows path handling in storage config"
-        },
-        {
-          "anchor": "",
-          "heading": "Documentation",
-          "text": "Documented quickstart, commands, JSON envelopes, and Python API in README\n\n\nAligned README and Sphinx documentation with current CLI and storage behavior\n\n\nAdded ReadTheDocs integration for hosted documentation\n\n\nUpdated CHANGELOG.md and README formatting",
-          "lower": "documented quickstart, commands, json envelopes, and python api in readme\n\n\naligned readme and sphinx documentation with current cli and storage behavior\n\n\nadded readthedocs integration for hosted documentation\n\n\nupdated changelog.md and readme formatting"
         }
       ]
     },
@@ -258,8 +270,8 @@
         {
           "anchor": "",
           "heading": "Changelog commands",
-          "text": "releaseledger changelog preview VERSION [--format markdown|json] [--output PATH]\n                                [--include-internal]\n                                [--target-changelog PATH]\n                                [--release-date YYYY-MM-DD]\n                                [--include-sources]\n                                [--include-status STATUS]... [--lint]\n\nreleaseledger changelog build VERSION [--target-file PATH]\n                            [--release-date YYYY-MM-DD]\n                            [--unreleased]\n                            [--include-internal]\n                            [--template NAME]\n                            [--dry-run]\n                            [--replace-existing]\n                            [--format markdown|json]\n                            […",
-          "lower": "releaseledger changelog preview version [--format markdown|json] [--output path]\n                                [--include-internal]\n                                [--target-changelog path]\n                                [--release-date yyyy-mm-dd]\n                                [--include-sources]\n                                [--include-status status]... [--lint]\n\nreleaseledger changelog build version [--target-file path]\n                            [--release-date yyyy-mm-dd]\n                            [--unreleased]\n                            [--include-internal]\n                            [--template name]\n                            [--dry-run]\n                            [--replace-existing]\n                            [--format markdown|json]\n                            […"
+          "text": "releaseledger changelog preview VERSION [--format markdown|json] [--output PATH]\n                                [--include-internal]\n                                [--target-changelog PATH]\n                                [--release-date YYYY-MM-DD]\n                                [--include-sources]\n                                [--include-status STATUS]... [--lint]\n\nreleaseledger changelog build VERSION [--output PATH]\n                            [--release-date YYYY-MM-DD]\n                            [--unreleased]\n                            [--include-internal]\n                            [--template NAME]\n                            [--dry-run]\n                            [--replace-existing]\n                            [--format markdown|json]\n                            [--inc…",
+          "lower": "releaseledger changelog preview version [--format markdown|json] [--output path]\n                                [--include-internal]\n                                [--target-changelog path]\n                                [--release-date yyyy-mm-dd]\n                                [--include-sources]\n                                [--include-status status]... [--lint]\n\nreleaseledger changelog build version [--output path]\n                            [--release-date yyyy-mm-dd]\n                            [--unreleased]\n                            [--include-internal]\n                            [--template name]\n                            [--dry-run]\n                            [--replace-existing]\n                            [--format markdown|json]\n                            [--inc…"
         },
         {
           "anchor": "",
@@ -374,8 +386,14 @@
         {
           "anchor": "",
           "heading": "Git-first",
-          "text": "Releaseledger is git-first. Git tags and commit ranges define the shipped change\nset. The canonical evidence of what shipped is git rev-list --reverse --topo-order <base>..<head>\n— every commit reachable from the release target and absent from the previous release.\n\nTaskledger, issue trackers, and PR descriptions are optional provenance that enrich\ncurated entries, but releaseledger works correctly with only git.",
-          "lower": "releaseledger is git-first. git tags and commit ranges define the shipped change\nset. the canonical evidence of what shipped is git rev-list --reverse --topo-order <base>..<head>\n— every commit reachable from the release target and absent from the previous release.\n\ntaskledger, issue trackers, and pr descriptions are optional provenance that enrich\ncurated entries, but releaseledger works correctly with only git."
+          "text": "Releaseledger is git-first. Git tags and commit ranges define the shipped change\nset. The canonical evidence of what shipped is git rev-list --reverse --topo-order <base>..<head>\n— every commit reachable from the release target and absent from the previous release.",
+          "lower": "releaseledger is git-first. git tags and commit ranges define the shipped change\nset. the canonical evidence of what shipped is git rev-list --reverse --topo-order <base>..<head>\n— every commit reachable from the release target and absent from the previous release."
+        },
+        {
+          "anchor": "",
+          "heading": "Git tag ownership policy",
+          "text": "Git tags remain evidence of shipped releases. The [git] key tag_creation defaults to local and accepts local or external. With tag_creation = \"external\", an external publication workflow owns tag creation. This changes remediation ownership only; release check --phase published still fails until the externally created tag is visible.\n\nTaskledger, issue trackers, and PR descriptions are optional provenance that enrich\ncurated entries, but releaseledger works correctly with only git.",
+          "lower": "git tags remain evidence of shipped releases. the [git] key tag_creation defaults to local and accepts local or external. with tag_creation = \"external\", an external publication workflow owns tag creation. this changes remediation ownership only; release check --phase published still fails until the externally created tag is visible.\n\ntaskledger, issue trackers, and pr descriptions are optional provenance that enrich\ncurated entries, but releaseledger works correctly with only git."
         },
         {
           "anchor": "",
@@ -422,8 +440,8 @@
         {
           "anchor": "",
           "heading": "Release-check phases",
-          "text": "release check --phase current evaluates persisted state with the compatible\ndefault behavior. --phase finalize --released-at DATE asks whether a planned,\ndraft, or candidate release is ready to transition to released and does not\nrequire a tag. --phase published checks post-release consistency, including a\nrelease date, matching Git tag when Git is active, changelog presence, and clean\nreconciliation. Human output renders every gate included in the final result;\nJSON exposes stable failed_checks and actionable next_actions.",
-          "lower": "release check --phase current evaluates persisted state with the compatible\ndefault behavior. --phase finalize --released-at date asks whether a planned,\ndraft, or candidate release is ready to transition to released and does not\nrequire a tag. --phase published checks post-release consistency, including a\nrelease date, matching git tag when git is active, changelog presence, and clean\nreconciliation. human output renders every gate included in the final result;\njson exposes stable failed_checks and actionable next_actions."
+          "text": "release check --phase current evaluates persisted state with the compatible\ndefault behavior. --phase finalize --released-at DATE asks whether a planned,\ndraft, or candidate release is ready to transition to released and does not\nrequire a tag. --phase published checks post-release consistency, including a\nrelease date, matching Git tag when Git is active, changelog presence, and clean\nreconciliation. Human output renders every gate included in the final result;\nJSON exposes stable failed_checks and actionable next_actions.\nrelease prepare is preparation-only and never finalizes a release. Its JSON result contains ordered next_actions with command text, mutation metadata, and manual-action markers; human output renders the same list. Without a proposed date, the generated current-release…",
+          "lower": "release check --phase current evaluates persisted state with the compatible\ndefault behavior. --phase finalize --released-at date asks whether a planned,\ndraft, or candidate release is ready to transition to released and does not\nrequire a tag. --phase published checks post-release consistency, including a\nrelease date, matching git tag when git is active, changelog presence, and clean\nreconciliation. human output renders every gate included in the final result;\njson exposes stable failed_checks and actionable next_actions.\nrelease prepare is preparation-only and never finalizes a release. its json result contains ordered next_actions with command text, mutation metadata, and manual-action markers; human output renders the same list. without a proposed date, the generated current-release…"
         },
         {
           "anchor": "",
@@ -496,8 +514,8 @@
         {
           "anchor": "",
           "heading": "releaseledger",
-          "text": "Project-local release management for coding workflows.\n\nreleaseledger stores release records, release-note entries, append-only\nevents, and deterministic JSON indexes in a project-local or explicitly external\nstate directory. It also renders reviewable changelog context and final\nCHANGELOG.md sections.\n\n\nUser guide\n\n\nQuickstart\nInstall\n\nInitialize a project\n\nPrepare a release and pin the git snapshot\n\nCreate audit evidence and scaffold entries\n\nRun the final gate and build the changelog\n\nCorrect a recorded version safely\n\nOptional: taskledger provenance\n\nCreate a release\n\nAdd entries\n\nRender changelog output\n\nRecover a canceled release that shipped\n\n\n\n\nConcepts\nGit-first\n\nSource refs\n\nPinned release snapshot\n\nRelease\n\nEntry\n\nEvent\n\nCommit audit sheet\n\nVersioning\n\nPlanned versus released…",
-          "lower": "project-local release management for coding workflows.\n\nreleaseledger stores release records, release-note entries, append-only\nevents, and deterministic json indexes in a project-local or explicitly external\nstate directory. it also renders reviewable changelog context and final\nchangelog.md sections.\n\n\nuser guide\n\n\nquickstart\ninstall\n\ninitialize a project\n\nprepare a release and pin the git snapshot\n\ncreate audit evidence and scaffold entries\n\nrun the final gate and build the changelog\n\ncorrect a recorded version safely\n\noptional: taskledger provenance\n\ncreate a release\n\nadd entries\n\nrender changelog output\n\nrecover a canceled release that shipped\n\n\n\n\nconcepts\ngit-first\n\nsource refs\n\npinned release snapshot\n\nrelease\n\nentry\n\nevent\n\ncommit audit sheet\n\nversioning\n\nplanned versus released…"
+          "text": "Project-local release management for coding workflows.\n\nreleaseledger stores release records, release-note entries, append-only\nevents, and deterministic JSON indexes in a project-local or explicitly external\nstate directory. It also renders reviewable changelog context and final\nCHANGELOG.md sections.\n\n\nUser guide\n\n\nQuickstart\nInstall\n\nInitialize a project\n\nPrepare a release and pin the git snapshot\n\nCreate audit evidence and scaffold entries\n\nRun the final gate and build the changelog\n\nLocal and external tag workflows\n\nCorrect a recorded version safely\n\nOptional: taskledger provenance\n\nCreate a release\n\nAdd entries\n\nRender changelog output\n\nRecover a canceled release that shipped\n\n\n\n\nConcepts\nGit-first\n\nGit tag ownership policy\n\nSource refs\n\nPinned release snapshot\n\nRelease\n\nEntry\n\nEven…",
+          "lower": "project-local release management for coding workflows.\n\nreleaseledger stores release records, release-note entries, append-only\nevents, and deterministic json indexes in a project-local or explicitly external\nstate directory. it also renders reviewable changelog context and final\nchangelog.md sections.\n\n\nuser guide\n\n\nquickstart\ninstall\n\ninitialize a project\n\nprepare a release and pin the git snapshot\n\ncreate audit evidence and scaffold entries\n\nrun the final gate and build the changelog\n\nlocal and external tag workflows\n\ncorrect a recorded version safely\n\noptional: taskledger provenance\n\ncreate a release\n\nadd entries\n\nrender changelog output\n\nrecover a canceled release that shipped\n\n\n\n\nconcepts\ngit-first\n\ngit tag ownership policy\n\nsource refs\n\npinned release snapshot\n\nrelease\n\nentry\n\neven…"
         },
         {
           "anchor": "",
@@ -527,20 +545,26 @@
         {
           "anchor": "",
           "heading": "Prepare a release and pin the git snapshot",
-          "text": "releaseledger release prepare 1.2.0 \\\n  --previous 1.1.0 \\\n  --released-at 2026-06-14 \\\n  --git-base v1.1.0 \\\n  --git-head HEAD\nwork=.ledger/releaseledger/work/1.2.0\n\n\n\n\nAfter the snapshot is attached, omit --head unless you intentionally want to\nrefresh the stored snapshot to a newer commit.",
-          "lower": "releaseledger release prepare 1.2.0 \\\n  --previous 1.1.0 \\\n  --released-at 2026-06-14 \\\n  --git-base v1.1.0 \\\n  --git-head head\nwork=.ledger/releaseledger/work/1.2.0\n\n\n\n\nafter the snapshot is attached, omit --head unless you intentionally want to\nrefresh the stored snapshot to a newer commit."
+          "text": "releaseledger release prepare 1.2.0 \\\n  --previous 1.1.0 \\\n  --git-base v1.1.0 \\\n  --git-head HEAD\nwork=.ledger/releaseledger/work/1.2.0\n\n\n\n\nAfter the snapshot is attached, omit --head unless you intentionally want to\nrefresh the stored snapshot to a newer commit.",
+          "lower": "releaseledger release prepare 1.2.0 \\\n  --previous 1.1.0 \\\n  --git-base v1.1.0 \\\n  --git-head head\nwork=.ledger/releaseledger/work/1.2.0\n\n\n\n\nafter the snapshot is attached, omit --head unless you intentionally want to\nrefresh the stored snapshot to a newer commit."
         },
         {
           "anchor": "",
           "heading": "Create audit evidence and scaffold entries",
-          "text": "# release prepare already emitted evidence/, audit.yaml, audit-decisions.yaml, and entries.yaml.\nls \"$work\"\nls \"$work/evidence\"\n\nCurate the audit annotations, then validate the evidence phase:\n\n```bash\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions.yaml\" \\\n  --dry-run\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions.yaml\"\nreleaseledger audit validate 1.2.0 --phase evidence --strict\n\n\n\n\nEdit the entry scaffold to write user-facing summaries from reviewed behavior,\nthen validate and write entries atomically:\nOne commit may map to zero, one, or multiple entries. Keep one source_refs coverage owner for each commit and use supporting sources on additional behavior-specific entries; write every summary from the reviewed diff, not the commit subject.\n\nreleasel…",
-          "lower": "# release prepare already emitted evidence/, audit.yaml, audit-decisions.yaml, and entries.yaml.\nls \"$work\"\nls \"$work/evidence\"\n\ncurate the audit annotations, then validate the evidence phase:\n\n```bash\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions.yaml\" \\\n  --dry-run\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions.yaml\"\nreleaseledger audit validate 1.2.0 --phase evidence --strict\n\n\n\n\nedit the entry scaffold to write user-facing summaries from reviewed behavior,\nthen validate and write entries atomically:\none commit may map to zero, one, or multiple entries. keep one source_refs coverage owner for each commit and use supporting sources on additional behavior-specific entries; write every summary from the reviewed diff, not the commit subject.\n\nreleasel…"
+          "text": "# release prepare already emitted evidence/, audit.yaml, audit-decisions.yaml, and entries.yaml.\n# `release prepare` returns structured `next_actions` in JSON and renders the same ordered guidance in human output.\n# Sequence: inspect audit, dry-run/apply audit, validate evidence, edit behavior-based entries, dry-run/apply entries with subject guards, validate complete audit, then run the lifecycle check.\nls \"$work\"\n# For a planned release without a date, use `--unreleased` on direct strict changelog builds. Do not treat preparation as publication.\nls \"$work/evidence\"\n\nCurate the audit annotations, then validate the evidence phase:\n\n```bash\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions.yaml\" \\\n  --dry-run\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions…",
+          "lower": "# release prepare already emitted evidence/, audit.yaml, audit-decisions.yaml, and entries.yaml.\n# `release prepare` returns structured `next_actions` in json and renders the same ordered guidance in human output.\n# sequence: inspect audit, dry-run/apply audit, validate evidence, edit behavior-based entries, dry-run/apply entries with subject guards, validate complete audit, then run the lifecycle check.\nls \"$work\"\n# for a planned release without a date, use `--unreleased` on direct strict changelog builds. do not treat preparation as publication.\nls \"$work/evidence\"\n\ncurate the audit annotations, then validate the evidence phase:\n\n```bash\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions.yaml\" \\\n  --dry-run\nreleaseledger audit apply 1.2.0 \\\n  --file \"$work/audit-decisions…"
         },
         {
           "anchor": "",
           "heading": "Run the final gate and build the changelog",
-          "text": "releaseledger release check 1.2.0 --strict --target-file CHANGELOG.md\nreleaseledger release check 1.2.0 --phase finalize \\\n  --released-at 2026-06-14 --strict --target-file CHANGELOG.md\nreleaseledger release finalize 1.2.0 --released-at 2026-06-14\nreleaseledger changelog build 1.2.0 --strict --target-file CHANGELOG.md",
-          "lower": "releaseledger release check 1.2.0 --strict --target-file changelog.md\nreleaseledger release check 1.2.0 --phase finalize \\\n  --released-at 2026-06-14 --strict --target-file changelog.md\nreleaseledger release finalize 1.2.0 --released-at 2026-06-14\nreleaseledger changelog build 1.2.0 --strict --target-file changelog.md"
+          "text": "releaseledger release check 1.2.0 --strict --target-file CHANGELOG.md\nreleaseledger release check 1.2.0 --phase finalize \\\n  --released-at 2026-06-14 --strict --target-file CHANGELOG.md\nreleaseledger release finalize 1.2.0 --released-at 2026-06-14\nreleaseledger changelog build 1.2.0 --strict --output CHANGELOG.md",
+          "lower": "releaseledger release check 1.2.0 --strict --target-file changelog.md\nreleaseledger release check 1.2.0 --phase finalize \\\n  --released-at 2026-06-14 --strict --target-file changelog.md\nreleaseledger release finalize 1.2.0 --released-at 2026-06-14\nreleaseledger changelog build 1.2.0 --strict --output changelog.md"
+        },
+        {
+          "anchor": "",
+          "heading": "Local and external tag workflows",
+          "text": "The default local policy keeps the existing explicit local release workflow. For a project where GitHub creates the tag, configure the policy before preparation:\n\n[git]\ntag_creation = \"external\"\n\n\n\n\nAn undated preparation remains planned and unreleased. A dated preparation reports the external publication handoff before the published check. The agent must not run tag creation or release publication commands. The human publishes the release externally, then the agent may fetch the tag and resume reconciliation and release check --phase published --strict.",
+          "lower": "the default local policy keeps the existing explicit local release workflow. for a project where github creates the tag, configure the policy before preparation:\n\n[git]\ntag_creation = \"external\"\n\n\n\n\nan undated preparation remains planned and unreleased. a dated preparation reports the external publication handoff before the published check. the agent must not run tag creation or release publication commands. the human publishes the release externally, then the agent may fetch the tag and resume reconciliation and release check --phase published --strict."
         },
         {
           "anchor": "",
@@ -569,14 +593,14 @@
         {
           "anchor": "",
           "heading": "Render changelog output",
-          "text": "Use changelog to produce review context:\n\nreleaseledger changelog preview 1.2.0 \\\n  --target-changelog CHANGELOG.md \\\n  --release-date 2026-06-13\n\n\n\n\nUse build VERSION to render and insert a final section:\n\nreleaseledger changelog build 1.2.0 \\\n  --dry-run \\\n  --strict \\\n  --target-file CHANGELOG.md\n\nreleaseledger changelog build 1.2.0 \\\n  --release-date 2026-06-13 \\\n  --strict \\\n  --target-file CHANGELOG.md",
-          "lower": "use changelog to produce review context:\n\nreleaseledger changelog preview 1.2.0 \\\n  --target-changelog changelog.md \\\n  --release-date 2026-06-13\n\n\n\n\nuse build version to render and insert a final section:\n\nreleaseledger changelog build 1.2.0 \\\n  --dry-run \\\n  --strict \\\n  --target-file changelog.md\n\nreleaseledger changelog build 1.2.0 \\\n  --release-date 2026-06-13 \\\n  --strict \\\n  --target-file changelog.md"
+          "text": "Use changelog to produce review context:\n\nreleaseledger changelog preview 1.2.0 \\\n  --target-changelog CHANGELOG.md \\\n  --release-date 2026-06-13\n\n\n\n\nUse build VERSION to render and insert a final section:\n\nreleaseledger changelog build 1.2.0 \\\n  --dry-run \\\n  --strict \\\n  --unreleased \\\n  --target-file CHANGELOG.md\n\nreleaseledger changelog build 1.2.0 \\\n  --release-date 2026-06-13 \\\n  --strict \\\n  --target-file CHANGELOG.md",
+          "lower": "use changelog to produce review context:\n\nreleaseledger changelog preview 1.2.0 \\\n  --target-changelog changelog.md \\\n  --release-date 2026-06-13\n\n\n\n\nuse build version to render and insert a final section:\n\nreleaseledger changelog build 1.2.0 \\\n  --dry-run \\\n  --strict \\\n  --unreleased \\\n  --target-file changelog.md\n\nreleaseledger changelog build 1.2.0 \\\n  --release-date 2026-06-13 \\\n  --strict \\\n  --target-file changelog.md"
         },
         {
           "anchor": "",
           "heading": "Recover a canceled release that shipped",
-          "text": "If a canceled release has a real Git tag, reconcile first, then use the explicit restore and bundle replacement workflows:\n\nreleaseledger release reconcile --strict\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"Consolidate duplicate canceled bundles.\" \\\n  --dry-run\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"Consolidate duplicate canceled bundles.\"\nreleaseledger release restore 0.1.0 \\\n  --from-tag v0.1.0 \\\n  --git-base :root \\\n  --reason \"The tagged release was actually shipped.\"\nreleaseledger release chain repair --apply\nreleaseledger changelog build --all --strict --no-preserve-unreleased --target-file CHANGELOG.md\nreleaseledger release reconcile --strict\nreleaseledger release chain check --strict\n\n\n\n\nNev…",
-          "lower": "if a canceled release has a real git tag, reconcile first, then use the explicit restore and bundle replacement workflows:\n\nreleaseledger release reconcile --strict\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"consolidate duplicate canceled bundles.\" \\\n  --dry-run\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"consolidate duplicate canceled bundles.\"\nreleaseledger release restore 0.1.0 \\\n  --from-tag v0.1.0 \\\n  --git-base :root \\\n  --reason \"the tagged release was actually shipped.\"\nreleaseledger release chain repair --apply\nreleaseledger changelog build --all --strict --no-preserve-unreleased --target-file changelog.md\nreleaseledger release reconcile --strict\nreleaseledger release chain check --strict\n\n\n\n\nnev…"
+          "text": "If a canceled release has a real Git tag, reconcile first, then use the explicit restore and bundle replacement workflows:\n\nreleaseledger release reconcile --strict\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"Consolidate duplicate canceled bundles.\" \\\n  --dry-run\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"Consolidate duplicate canceled bundles.\"\nreleaseledger release restore 0.1.0 \\\n  --from-tag v0.1.0 \\\n  --git-base :root \\\n  --reason \"The tagged release was actually shipped.\"\nreleaseledger release chain repair --apply\nreleaseledger changelog build --all --strict --no-preserve-unreleased --output CHANGELOG.md\nreleaseledger release reconcile --strict\nreleaseledger release chain check --strict\n\n\n\n\nNever us…",
+          "lower": "if a canceled release has a real git tag, reconcile first, then use the explicit restore and bundle replacement workflows:\n\nreleaseledger release reconcile --strict\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"consolidate duplicate canceled bundles.\" \\\n  --dry-run\nreleaseledger release rename v0.1.0 0.1.0 \\\n  --replace-canceled-target \\\n  --reason \"consolidate duplicate canceled bundles.\"\nreleaseledger release restore 0.1.0 \\\n  --from-tag v0.1.0 \\\n  --git-base :root \\\n  --reason \"the tagged release was actually shipped.\"\nreleaseledger release chain repair --apply\nreleaseledger changelog build --all --strict --no-preserve-unreleased --output changelog.md\nreleaseledger release reconcile --strict\nreleaseledger release chain check --strict\n\n\n\n\nnever us…"
         }
       ]
     },
@@ -588,8 +612,8 @@
         {
           "anchor": "",
           "heading": "Storage and configuration",
-          "text": "Releaseledger storage topology is owned by the canonical Ledgercore project\nmanifest. New projects use schema 3 and keep Releaseledger configuration at\n.ledger/releaseledger/config.toml; authoritative data is a data mount and\nderived indexes are a cache mount. Inspect the resolved topology with:\n\nreleaseledger --root PATH storage where\nreleaseledger --root PATH storage validate --strict\n\n\n\n\nChange topology through the command boundary, with a real dry-run before a\nwrite:\n\nreleaseledger storage set data --storage external \\\n  --storage-root ../ledger --scope project --dry-run\nreleaseledger storage set data --storage external \\\n  --storage-root ../ledger --scope project\n\n\n\n\nAuthoritative data must not use cache storage. Local overrides can be removed\nwith storage clear-override data; its re…",
-          "lower": "releaseledger storage topology is owned by the canonical ledgercore project\nmanifest. new projects use schema 3 and keep releaseledger configuration at\n.ledger/releaseledger/config.toml; authoritative data is a data mount and\nderived indexes are a cache mount. inspect the resolved topology with:\n\nreleaseledger --root path storage where\nreleaseledger --root path storage validate --strict\n\n\n\n\nchange topology through the command boundary, with a real dry-run before a\nwrite:\n\nreleaseledger storage set data --storage external \\\n  --storage-root ../ledger --scope project --dry-run\nreleaseledger storage set data --storage external \\\n  --storage-root ../ledger --scope project\n\n\n\n\nauthoritative data must not use cache storage. local overrides can be removed\nwith storage clear-override data; its re…"
+          "text": "Releaseledger storage topology is owned by the canonical Ledgercore project\nmanifest. New projects use schema 3 and keep Releaseledger configuration at\n.ledger/releaseledger/config.toml; authoritative data is a data mount and\n\nThe [git] table may include tag_creation = \"local\" or tag_creation = \"external\". The key is a Releaseledger release-workflow policy, not storage topology. It defaults to local; external mode assigns authoritative tag creation to the external publication workflow while published validation still requires tag evidence. releaseledger config show displays this policy.\nderived indexes are a cache mount. Inspect the resolved topology with:\n\nreleaseledger --root PATH storage where\nreleaseledger --root PATH storage validate --strict\n\n\n\n\nChange topology through the command b…",
+          "lower": "releaseledger storage topology is owned by the canonical ledgercore project\nmanifest. new projects use schema 3 and keep releaseledger configuration at\n.ledger/releaseledger/config.toml; authoritative data is a data mount and\n\nthe [git] table may include tag_creation = \"local\" or tag_creation = \"external\". the key is a releaseledger release-workflow policy, not storage topology. it defaults to local; external mode assigns authoritative tag creation to the external publication workflow while published validation still requires tag evidence. releaseledger config show displays this policy.\nderived indexes are a cache mount. inspect the resolved topology with:\n\nreleaseledger --root path storage where\nreleaseledger --root path storage validate --strict\n\n\n\n\nchange topology through the command b…"
         },
         {
           "anchor": "",

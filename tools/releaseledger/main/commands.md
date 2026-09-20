@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "84bf0b47d02d346940e7496a560b7589b26f5428"
+docs_commit: "ced19030fa9d36a003ef5bedbf2880b0a21762e6"
 search_enabled: true
 ---
 

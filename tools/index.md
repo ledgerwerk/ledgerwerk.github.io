@@ -14,7 +14,7 @@ permalink: /tools/
   </div>
   <div class="hero-panel" aria-label="Toolkit summary">
     <div class="hero-panel-label">The toolkit</div>
-    <div class="hero-stat">8<span>focused tools</span></div>
+    <div class="hero-stat">9<span>focused tools</span></div>
     <p>File-based, reviewable state for each step of the pipeline.</p>
   </div>
 </section>
@@ -32,7 +32,7 @@ permalink: /tools/
       <h3>releaseledger</h3>
       <div class="card-links">
         <a href="/tools/releaseledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.5" rel="external noopener">Latest release: v0.4.5 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.9" rel="external noopener">Latest release: v0.4.9 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/releaseledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -59,7 +59,7 @@ permalink: /tools/
       <h3>ledgercore</h3>
       <div class="card-links">
         <a href="/tools/ledgercore/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.1" rel="external noopener">Latest release: v0.6.1 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/ledgercore/releases/tag/v0.6.2" rel="external noopener">Latest release: v0.6.2 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/ledgercore" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -97,6 +97,15 @@ permalink: /tools/
         <a href="/tools/wikimason/">Read docs <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/wikimason/releases/tag/v0.2.0" rel="external noopener">Latest release: v0.2.0 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/wikimason" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+    <article class="card tool-card">
+      <p class="card-label">Tool</p>
+      <h3>pyjev</h3>
+      <div class="card-links">
+        <a href="/tools/pyjev/">Read docs <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.0" rel="external noopener">Latest release: v0.1.0 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/pyjev" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
   </div>

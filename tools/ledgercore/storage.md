@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/storage/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.1"
-docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
+docs_ref: "v0.6.2"
+docs_commit: "555dfcd190d0865f9634d13dc35ebb0f28d135da"
 search_enabled: true
 ---
 

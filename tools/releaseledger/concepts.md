@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/concepts/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.4.5"
-docs_commit: "84bf0b47d02d346940e7496a560b7589b26f5428"
+docs_ref: "v0.4.9"
+docs_commit: "ced19030fa9d36a003ef5bedbf2880b0a21762e6"
 search_enabled: true
 ---
 
@@ -547,6 +547,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>Releaseledger is git-first. Git tags and commit ranges define the shipped change
 set. The canonical evidence of what shipped is <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rev-list</span> <span class="pre">--reverse</span> <span class="pre">--topo-order</span> <span class="pre">&lt;base&gt;..&lt;head&gt;</span></code>
 — every commit reachable from the release target and absent from the previous release.</p>
+</section>
+<section id="git-tag-ownership-policy">
+<h2>Git tag ownership policy</h2>
+<p>Git tags remain evidence of shipped releases. The <code class="docutils literal notranslate"><span class="pre">[git]</span></code> key <code class="docutils literal notranslate"><span class="pre">tag_creation</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">local</span></code> and accepts <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">external</span></code>. With <code class="docutils literal notranslate"><span class="pre">tag_creation</span> <span class="pre">=</span> <span class="pre">&quot;external&quot;</span></code>, an external publication workflow owns tag creation. This changes remediation ownership only; <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">check</span> <span class="pre">--phase</span> <span class="pre">published</span></code> still fails until the externally created tag is visible.</p>
 <p>Taskledger, issue trackers, and PR descriptions are optional provenance that enrich
 curated entries, but releaseledger works correctly with only git.</p>
 </section>
@@ -677,7 +681,8 @@ draft, or candidate release is ready to transition to released and does not
 require a tag. <code class="docutils literal notranslate"><span class="pre">--phase</span> <span class="pre">published</span></code> checks post-release consistency, including a
 release date, matching Git tag when Git is active, changelog presence, and clean
 reconciliation. Human output renders every gate included in the final result;
-JSON exposes stable <code class="docutils literal notranslate"><span class="pre">failed_checks</span></code> and actionable <code class="docutils literal notranslate"><span class="pre">next_actions</span></code>.</p>
+JSON exposes stable <code class="docutils literal notranslate"><span class="pre">failed_checks</span></code> and actionable <code class="docutils literal notranslate"><span class="pre">next_actions</span></code>.
+<code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">prepare</span></code> is preparation-only and never finalizes a release. Its JSON result contains ordered <code class="docutils literal notranslate"><span class="pre">next_actions</span></code> with command text, mutation metadata, and manual-action markers; human output renders the same list. Without a proposed date, the generated current-release changelog dry run includes <code class="docutils literal notranslate"><span class="pre">--unreleased</span></code>.</p>
 </section>
 </section>
 <section id="versioning">

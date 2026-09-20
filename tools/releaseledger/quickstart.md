@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/quickstart/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.4.5"
-docs_commit: "84bf0b47d02d346940e7496a560b7589b26f5428"
+docs_ref: "v0.4.9"
+docs_commit: "ced19030fa9d36a003ef5bedbf2880b0a21762e6"
 search_enabled: true
 ---
 
@@ -592,7 +592,6 @@ as the canonical evidence of shipped changes.</p>
 <h2>Prepare a release and pin the git snapshot</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>release<span class="w"> </span>prepare<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--previous<span class="w"> </span><span class="m">1</span>.1.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--git-base<span class="w"> </span>v1.1.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--git-head<span class="w"> </span>HEAD
 <span class="nv">work</span><span class="o">=</span>.ledger/releaseledger/work/1.2.0
@@ -604,7 +603,10 @@ refresh the stored snapshot to a newer commit.</p>
 <section id="create-audit-evidence-and-scaffold-entries">
 <h2>Create audit evidence and scaffold entries</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># release prepare already emitted evidence/, audit.yaml, audit-decisions.yaml, and entries.yaml.</span>
+<span class="c1"># `release prepare` returns structured `next_actions` in JSON and renders the same ordered guidance in human output.</span>
+<span class="c1"># Sequence: inspect audit, dry-run/apply audit, validate evidence, edit behavior-based entries, dry-run/apply entries with subject guards, validate complete audit, then run the lifecycle check.</span>
 ls<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">&quot;</span>
+<span class="c1"># For a planned release without a date, use `--unreleased` on direct strict changelog builds. Do not treat preparation as publication.</span>
 ls<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work</span><span class="s2">/evidence&quot;</span>
 
 Curate<span class="w"> </span>the<span class="w"> </span>audit<span class="w"> </span>annotations,<span class="w"> </span><span class="k">then</span><span class="w"> </span>validate<span class="w"> </span>the<span class="w"> </span>evidence<span class="w"> </span>phase:
@@ -641,9 +643,18 @@ releaseledger<span class="w"> </span>audit<span class="w"> </span>validate<span 
 releaseledger<span class="w"> </span>release<span class="w"> </span>check<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--phase<span class="w"> </span>finalize<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
 releaseledger<span class="w"> </span>release<span class="w"> </span>finalize<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--released-at<span class="w"> </span><span class="m">2026</span>-06-14
-releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span>--strict<span class="w"> </span>--output<span class="w"> </span>CHANGELOG.md
 </pre></div>
 </div>
+</section>
+<section id="local-and-external-tag-workflows">
+<h2>Local and external tag workflows</h2>
+<p>The default local policy keeps the existing explicit local release workflow. For a project where GitHub creates the tag, configure the policy before preparation:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[git]</span>
+<span class="n">tag_creation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;external&quot;</span>
+</pre></div>
+</div>
+<p>An undated preparation remains planned and unreleased. A dated preparation reports the external publication handoff before the published check. The agent must not run tag creation or release publication commands. The human publishes the release externally, then the agent may fetch the tag and resume reconciliation and <code class="docutils literal notranslate"><span class="pre">release</span> <span class="pre">check</span> <span class="pre">--phase</span> <span class="pre">published</span> <span class="pre">--strict</span></code>.</p>
 </section>
 <section id="correct-a-recorded-version-safely">
 <h2>Correct a recorded version safely</h2>
@@ -677,7 +688,7 @@ do not need unrelated public changelog entries.</p>
 <p>For a single release section update only, <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">VERSION</span></code> is the default and
 explicit version intent. Rebuild the whole file only when you really mean all
 history:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span>--strict<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span>--strict<span class="w"> </span>--output<span class="w"> </span>CHANGELOG.md
 </pre></div>
 </div>
 </section>
@@ -730,6 +741,7 @@ primary source of truth:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--dry-run<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--strict<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--unreleased<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target-file<span class="w"> </span>CHANGELOG.md
 
 releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span><span class="m">1</span>.2.0<span class="w"> </span><span class="se">\</span>
@@ -755,7 +767,7 @@ releaseledger<span class="w"> </span>release<span class="w"> </span>restore<span
 <span class="w">  </span>--git-base<span class="w"> </span>:root<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;The tagged release was actually shipped.&quot;</span>
 releaseledger<span class="w"> </span>release<span class="w"> </span>chain<span class="w"> </span>repair<span class="w"> </span>--apply
-releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>--strict<span class="w"> </span>--no-preserve-unreleased<span class="w"> </span>--target-file<span class="w"> </span>CHANGELOG.md
+releaseledger<span class="w"> </span>changelog<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>--strict<span class="w"> </span>--no-preserve-unreleased<span class="w"> </span>--output<span class="w"> </span>CHANGELOG.md
 releaseledger<span class="w"> </span>release<span class="w"> </span>reconcile<span class="w"> </span>--strict
 releaseledger<span class="w"> </span>release<span class="w"> </span>chain<span class="w"> </span>check<span class="w"> </span>--strict
 </pre></div>

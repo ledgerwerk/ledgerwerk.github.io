@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/references/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.1"
-docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
+docs_ref: "v0.6.2"
+docs_commit: "555dfcd190d0865f9634d13dc35ebb0f28d135da"
 search_enabled: true
 ---
 
@@ -552,19 +552,28 @@ adr-0002
 spec-0003
 </pre></div>
 </div>
-<p>A local ID has the form <code class="docutils literal notranslate"><span class="pre">&lt;kind&gt;-&lt;number&gt;</span></code>, where kind is a lowercase alphanumeric
-token and number is a zero-padded positive integer.</p>
+<p>A numeric local ID has the form <code class="docutils literal notranslate"><span class="pre">&lt;kind&gt;-&lt;number&gt;</span></code>, where kind is a lowercase
+alphanumeric token and number is a zero-padded positive integer. UUIDv7 local IDs
+use <code class="docutils literal notranslate"><span class="pre">&lt;kind&gt;-&lt;uuidv7&gt;</span></code>, for example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>task-0199a1b2-3c4d-7e5f-8a90-123456789abc
+</pre></div>
+</div>
+<p>UUIDv7 IDs are independently generated and time ordered. Their timestamp is
+approximate, and the value should be treated as an identifier rather than a
+secret.</p>
 </section>
 <section id="global-refs">
 <h2>Global refs</h2>
 <p>When linking records across ledgers, use canonical global refs:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;ledger&gt;:&lt;kind&gt;-&lt;number&gt;
+&lt;ledger&gt;:&lt;kind&gt;-&lt;uuidv7&gt;
 </pre></div>
 </div>
 <p>Examples:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>tl:task-0001
 al:adr-0002
 sw:spec-0003
+tl:task-0199a1b2-3c4d-7e5f-8a90-123456789abc
 </pre></div>
 </div>
 <p>The ledger code is a short lowercase token that identifies the originating
@@ -602,7 +611,18 @@ file-safe forms.</p>
 <span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">file_ref</span> <span class="o">==</span> <span class="s2">&quot;tl-task-0001&quot;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">parse_resource_ref</span></code> accepts canonical, file-safe, legacy, and local forms.
+<p><code class="docutils literal notranslate"><span class="pre">parse_resource_ref</span></code> accepts canonical, file-safe, legacy, and local forms.</p>
+<p>For UUIDv7 references, use the parallel parser family:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ledgercore</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_uuid_resource_ref</span>
+
+<span class="n">ref</span> <span class="o">=</span> <span class="n">parse_uuid_resource_ref</span><span class="p">(</span><span class="s2">&quot;tl:task-0199a1b2-3c4d-7e5f-8a90-123456789abc&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">global_ref</span> <span class="o">==</span> <span class="s2">&quot;tl:task-0199a1b2-3c4d-7e5f-8a90-123456789abc&quot;</span>
+<span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">file_ref</span> <span class="o">==</span> <span class="s2">&quot;tl-task-0199a1b2-3c4d-7e5f-8a90-123456789abc&quot;</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">parse_uuid_global_ref</span></code>, <code class="docutils literal notranslate"><span class="pre">parse_uuid_local_ref</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">is_uuid_resource_ref</span></code> when a UUID-specific type or validation result is needed.
+The numeric parser remains separate and continues to return <code class="docutils literal notranslate"><span class="pre">LedgerResourceRef</span></code>.
 When parsing a local ref, set <code class="docutils literal notranslate"><span class="pre">default_ledger</span></code> to attach a namespace:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ref</span> <span class="o">=</span> <span class="n">parse_resource_ref</span><span class="p">(</span><span class="s2">&quot;task-0001&quot;</span><span class="p">,</span> <span class="n">default_ledger</span><span class="o">=</span><span class="s2">&quot;tl&quot;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">global_ref</span> <span class="o">==</span> <span class="s2">&quot;tl:task-0001&quot;</span>
@@ -638,8 +658,8 @@ When parsing a local ref, set <code class="docutils literal notranslate"><span c
 <span class="n">ref</span> <span class="o">=</span> <span class="n">LedgerResourceRef</span><span class="p">(</span><span class="n">ledger</span><span class="o">=</span><span class="s2">&quot;tl&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">ref</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;canonical&quot;</span><span class="p">)</span>  <span class="c1"># &quot;tl:task-0001&quot;</span>
-<span class="n">ref</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">)</span>       <span class="c1"># &quot;tl-task-0001&quot;</span>
-<span class="n">ref</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">)</span>      <span class="c1"># &quot;task-0001&quot;</span>
+<span class="n">ref</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">)</span>  <span class="c1"># &quot;tl-task-0001&quot;</span>
+<span class="n">ref</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">)</span>  <span class="c1"># &quot;task-0001&quot;</span>
 </pre></div>
 </div>
 </section>

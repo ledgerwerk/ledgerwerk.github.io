@@ -54,6 +54,8 @@ packages = [
     "memoryledger",
     "repairledger",
     "wikimason",
+    "keyring>=25,<26",
+    "typesafe-sdk>=0.7.0,<1",
     "platformdirs",
     "sphinxpress",
 ]
@@ -71,6 +73,7 @@ project_order = [
     "memoryledger",
     "repairledger",
     "wikimason",
+    "pyjev",
 ]
 
 [pdf]
@@ -205,6 +208,22 @@ docs_root = "../wikimason/docs"
 conf_dir = "../wikimason/docs"
 root_doc = "index"
 repo_url = "https://github.com/ledgerwerk/wikimason"
+release_strategy = "git_tag"
+site_variants = [
+    "release",
+    "main",
+]
+
+[projects.version_refs]
+main = "main"
+
+[[projects]]
+name = "pyjev"
+title = "pyjev"
+docs_root = "../pyjev/docs"
+conf_dir = "../pyjev/docs"
+root_doc = "index"
+repo_url = "https://github.com/ledgerwerk/pyjev"
 release_strategy = "git_tag"
 site_variants = [
     "release",

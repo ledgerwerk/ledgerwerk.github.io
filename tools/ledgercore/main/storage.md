@@ -6,7 +6,7 @@ nav_tool: ledgercore-main
 docs_project: "ledgercore"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "83c93bb3c07c392e20a90369d9dd332f3708198b"
+docs_commit: "555dfcd190d0865f9634d13dc35ebb0f28d135da"
 search_enabled: true
 ---
 

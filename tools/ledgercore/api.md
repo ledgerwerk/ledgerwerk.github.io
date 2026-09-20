@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/api/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.1"
-docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
+docs_ref: "v0.6.2"
+docs_commit: "555dfcd190d0865f9634d13dc35ebb0f28d135da"
 search_enabled: true
 ---
 
@@ -708,7 +708,7 @@ This module does not parse TOML or define tool-specific schemas.</p>
 </section>
 <section id="ledgercore-ids">
 <span id="ledgercoreids"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.ids</span></code></h2>
-<p>Prefixed numeric ID formatting, parsing, next-ID generation, and slug helpers.</p>
+<p>Numeric and UUIDv7 ID formatting, parsing, generation, and slug helpers.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Symbol</p></th>
@@ -725,20 +725,47 @@ This module does not parse TOML or define tool-specific schemas.</p>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NumericIdFormat(prefix,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
 <td><p>Simpler ID format for compatibility. Methods: <code class="docutils literal notranslate"><span class="pre">format</span></code>, <code class="docutils literal notranslate"><span class="pre">parse</span></code>, <code class="docutils literal notranslate"><span class="pre">next</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_prefixed_number(value,</span> <span class="pre">*,</span> <span class="pre">prefix,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Uuid7IdFormat(prefix,</span> <span class="pre">separator=&quot;-&quot;)</span></code></p></td>
+<td><p>UUIDv7 ID format. Methods: <code class="docutils literal notranslate"><span class="pre">new</span></code>, <code class="docutils literal notranslate"><span class="pre">format</span></code>, <code class="docutils literal notranslate"><span class="pre">parse</span></code>, <code class="docutils literal notranslate"><span class="pre">is_valid</span></code>, <code class="docutils literal notranslate"><span class="pre">filename</span></code>, <code class="docutils literal notranslate"><span class="pre">timestamp_ms</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_prefixed_number(value,</span> <span class="pre">*,</span> <span class="pre">prefix,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
 <td><p>Parse a prefixed numeric ID and return the number.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">next_prefixed_id(prefix,</span> <span class="pre">existing_ids,</span> <span class="pre">*,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">next_prefixed_id(prefix,</span> <span class="pre">existing_ids,</span> <span class="pre">*,</span> <span class="pre">separator=&quot;-&quot;,</span> <span class="pre">width=4)</span></code></p></td>
 <td><p>Return the next prefixed ID given existing IDs.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">slugify_ref(value,</span> <span class="pre">*,</span> <span class="pre">empty=&quot;item&quot;)</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slugify_ref(value,</span> <span class="pre">*,</span> <span class="pre">empty=&quot;item&quot;)</span></code></p></td>
 <td><p>Lowercase, trim, collapse non-alphanumeric runs to dashes.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
+<section id="ledgercore-uuids">
+<span id="ledgercoreio"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.uuids</span></code></h2>
+<p>UUIDv7 generation, validation, and timestamp extraction backed by <code class="docutils literal notranslate"><span class="pre">uuid6</span></code> for
+Python 3.10 through 3.13. Generation is serialized for concurrent callers in one
+process; UUIDv7 values are not globally causal or monotonic across machines.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uuid7()</span></code></p></td>
+<td><p>Generate a standard <code class="docutils literal notranslate"><span class="pre">uuid.UUID</span></code> with version 7.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_uuid7(value)</span></code></p></td>
+<td><p>Normalize and require a UUIDv7 value.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uuid7_timestamp_ms(value)</span></code></p></td>
+<td><p>Extract the embedded Unix millisecond timestamp.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="ledgercore-io">
-<span id="ledgercoreio"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.io</span></code></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">ledgercore.io</span></code></h2>
 <p>UTF-8 text helpers, newline normalization, content hash, text merging.</p>
 <table class="docutils align-default">
 <thead>
@@ -1000,7 +1027,7 @@ filesystem access.</p>
 </section>
 <section id="ledgercore-refs">
 <span id="ledgercorerefs"></span><h2><code class="docutils literal notranslate"><span class="pre">ledgercore.refs</span></code></h2>
-<p>Canonical cross-ledger resource references.</p>
+<p>Canonical numeric and UUIDv7 cross-ledger resource references.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Symbol</p></th>
@@ -1014,22 +1041,37 @@ filesystem access.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerResourceRef</span></code></p></td>
 <td><p>Frozen dataclass with properties: <code class="docutils literal notranslate"><span class="pre">local_id</span></code>, <code class="docutils literal notranslate"><span class="pre">is_global</span></code>, <code class="docutils literal notranslate"><span class="pre">global_ref</span></code>, <code class="docutils literal notranslate"><span class="pre">file_ref</span></code>. Methods: <code class="docutils literal notranslate"><span class="pre">format</span></code>, <code class="docutils literal notranslate"><span class="pre">with_ledger</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_resource_ref(value,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LedgerUuidResourceRef</span></code></p></td>
+<td><p>Frozen UUIDv7 reference with <code class="docutils literal notranslate"><span class="pre">local_id</span></code>, <code class="docutils literal notranslate"><span class="pre">is_global</span></code>, <code class="docutils literal notranslate"><span class="pre">global_ref</span></code>, and <code class="docutils literal notranslate"><span class="pre">file_ref</span></code> properties.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_resource_ref(value,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
 <td><p>Parse a canonical, file-safe, legacy, or local resource reference.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_global_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_global_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
 <td><p>Parse and require a ledger namespace.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_local_ref(value,</span> <span class="pre">*,</span> <span class="pre">width=4)</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_local_ref(value,</span> <span class="pre">*,</span> <span class="pre">width=4)</span></code></p></td>
 <td><p>Parse a local kind-number ID without assigning a ledger.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_resource_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_resource_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
 <td><p>Return True if value is a valid resource ref.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_ref_token(value,</span> <span class="pre">*,</span> <span class="pre">label)</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_uuid_resource_ref(value,</span> <span class="pre">*,</span> <span class="pre">...)</span></code></p></td>
+<td><p>Parse UUIDv7 local, canonical global, or file-safe global references.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parse_uuid_global_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
+<td><p>Parse a UUIDv7 reference and require a ledger namespace.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse_uuid_local_ref(value)</span></code></p></td>
+<td><p>Parse a local UUIDv7 resource ID without assigning a ledger.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_uuid_resource_ref(value,</span> <span class="pre">**kwargs)</span></code></p></td>
+<td><p>Return True if value is a valid UUIDv7 resource reference.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_ref_token(value,</span> <span class="pre">*,</span> <span class="pre">label)</span></code></p></td>
 <td><p>Lowercase and validate a short token.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_kind(value)</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_kind(value)</span></code></p></td>
 <td><p>Lowercase, replace underscores with hyphens, and validate a resource kind.</p></td>
 </tr>
 </tbody>

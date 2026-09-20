@@ -35,3 +35,7 @@
   description: A filesystem-backed wiki toolkit for LLM and knowledge workflows.
   docs_url: /tools/wikimason/
   repo_url: https://github.com/ledgerwerk/wikimason
+- name: pyjev
+  description: Confidence-aware Jev decisions for Python, shell, CI, and automation.
+  docs_url: /tools/pyjev/
+  repo_url: https://github.com/ledgerwerk/pyjev

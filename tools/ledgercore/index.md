@@ -5,8 +5,8 @@ permalink: /tools/ledgercore/
 nav_tool: ledgercore
 docs_project: "ledgercore"
 docs_variant: "release"
-docs_ref: "v0.6.1"
-docs_commit: "16b2a3cc86b8b5b44e39bb1fd11ed524314c08d9"
+docs_ref: "v0.6.2"
+docs_commit: "555dfcd190d0865f9634d13dc35ebb0f28d135da"
 search_enabled: true
 ---
 
@@ -570,6 +570,7 @@ hands-on introduction.</p>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-errors"><code class="docutils literal notranslate"><span class="pre">ledgercore.errors</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-frontmatter"><code class="docutils literal notranslate"><span class="pre">ledgercore.frontmatter</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-ids"><code class="docutils literal notranslate"><span class="pre">ledgercore.ids</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-uuids"><code class="docutils literal notranslate"><span class="pre">ledgercore.uuids</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-io"><code class="docutils literal notranslate"><span class="pre">ledgercore.io</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-jsonio"><code class="docutils literal notranslate"><span class="pre">ledgercore.jsonio</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/#ledgercore-jsonl"><code class="docutils literal notranslate"><span class="pre">ledgercore.jsonl</span></code></a></li>
@@ -619,13 +620,14 @@ hands-on introduction.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id1">[0.6.1] - 2026-07-28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id2">[0.6.0] - 2026-07-27</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id6">[0.5.0] - 2026-07-17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id9">[0.5.1] - 2026-07-27</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id12">[0.2.1] - 2026-06-17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id15">[0.2.0] - 2026-06-13</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id19">[0.1.0] - 2026-06-12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id1">[0.5.1] - 2026-07-27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id2">[0.5.0] - 2026-07-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id4">[0.2.1] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id7">[0.2.0] - 2026-06-13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id11">[0.1.0] - 2026-06-12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#unreleased">[0.6.2] - Unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id16">[0.6.1] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id20">[0.6.0] - 2026-07-27</a></li>
 </ul>
 </li>
 </ul>
