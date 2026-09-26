@@ -4,17 +4,17 @@ nav_key: releaseledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.4.9
-source_commit: ced19030fa9d36a003ef5bedbf2880b0a21762e6
-source_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.9
+source_ref: v0.4.11
+source_commit: 5fa733fb24b115a5c566df0a619928ba10edf2d4
+source_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.11
 is_default: true
 repo_url: https://github.com/ledgerwerk/releaseledger
-release_tag: v0.4.9
-release_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.9
+release_tag: v0.4.11
+release_url: https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.11
 versions:
 - name: release
   label: Latest release
-  ref: v0.4.9
+  ref: v0.4.11
   url: /tools/releaseledger/
   current: true
 - name: main

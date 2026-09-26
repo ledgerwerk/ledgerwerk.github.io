@@ -1,7 +1,7 @@
 ---
 layout: tool-doc
-title: "pyjev Authentication"
-permalink: /tools/pyjev/authentication/
+title: "pyjev Agent skill"
+permalink: /tools/pyjev/agent-skill/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
@@ -540,72 +540,25 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="authentication">
-<h1>Authentication</h1>
-<p>Credential lookup order for Python clients is:</p>
+<section id="agent-skill">
+<h1>Agent skill</h1>
+<p>The bundled pyjev skill at <code class="docutils literal notranslate"><span class="pre">skills/pyjev/SKILL.md</span></code> teaches an agent to use
+named decision contracts without reading pyjev source or adding an MCP
+integration.</p>
+<p>Its workflow is deliberately inspect-first:</p>
 <ol class="arabic simple">
-<li><p>explicit Python <code class="docutils literal notranslate"><span class="pre">api_key=</span></code>;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">TYPESAFE_API_KEY</span></code>;</p></li>
-<li><p>the OS keyring;</p></li>
-<li><p>a user-level plaintext fallback file.</p></li>
+<li><p>list and show named decisions;</p></li>
+<li><p>validate the complete <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> locally;</p></li>
+<li><p>compile the exact request without credentials;</p></li>
+<li><p>inspect the schema marker and specification fingerprint;</p></li>
+<li><p>execute only after offline checks succeed;</p></li>
+<li><p>preserve uncertainty and metadata unless a scalar is explicitly safe;</p></li>
+<li><p>apply confidence thresholds as caller policy;</p></li>
+<li><p>keep deterministic constraints in normal application code.</p></li>
 </ol>
-<p>Decision validation and compilation do not read credentials or contact the Jev
-API.</p>
-<section id="cli-management">
-<h2>CLI management</h2>
-<p>For interactive local setup, omit the key argument so input stays hidden:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">set</span>
-pyjev<span class="w"> </span>auth<span class="w"> </span>status
-pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">test</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">test</span></code> performs exactly one minimal request through the official SDK. It
-reports only the credential source and returned model:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>credential: keyring
-status: valid
-model: jev-latest
-</pre></div>
-</div>
-<p>Use <code class="docutils literal notranslate"><span class="pre">--json</span></code> for automation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--json
-</pre></div>
-</div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;credential_source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyring&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jev-latest&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Missing credentials, authentication rejection, network failures, and API
-failures use runtime exit code <code class="docutils literal notranslate"><span class="pre">1</span></code> and safe status messages. The command never
-persists a credential and never prints the key.</p>
-<p>The explicit <code class="docutils literal notranslate"><span class="pre">--api-key</span></code> option remains available for compatibility:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--api-key<span class="w"> </span><span class="s1">&#39;...&#39;</span>
-</pre></div>
-</div>
-<p>It is <strong>unsafe</strong> because shell history, process listings, or CI command logs may
-expose the value. Prefer the hidden prompt for interactive use and
-<code class="docutils literal notranslate"><span class="pre">TYPESAFE_API_KEY</span></code> for non-interactive use. If a secret must be supplied by a
-pipeline, keep it in the environment or protected stdin rather than command
-arguments.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TYPESAFE_API_KEY</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
-pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--json
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">pyjev</span> <span class="pre">auth</span> <span class="pre">delete</span></code> removes pyjev-managed persisted credentials but does not
-unset an active <code class="docutils literal notranslate"><span class="pre">TYPESAFE_API_KEY</span></code> environment variable.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><code class="docutils literal notranslate"><span class="pre">--storage</span> <span class="pre">file</span></code> stores the key as plaintext in the user’s configuration
-directory. Restrictive permissions are helpful but do not make the key
-encrypted.</p>
-</div>
-</section>
-<section id="credential-sources">
-<h2>Credential sources</h2>
-<p><code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">status</span></code> identifies the effective source as <code class="docutils literal notranslate"><span class="pre">environment</span></code>, <code class="docutils literal notranslate"><span class="pre">keyring</span></code>, or
-<code class="docutils literal notranslate"><span class="pre">file</span></code>. It reports <code class="docutils literal notranslate"><span class="pre">missing</span></code> as an error. Errors, JSON output, and diagnostic
-messages must not include the key contents.</p>
-<p>Project <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> files must never contain API keys. Keep credentials out of
-source control, compiled decision previews, documentation builds, and logs.</p>
-</section>
+<p>The skill also documents credential-safe setup, <code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">test</span></code>, and pyjev’s
+project-specific exit codes. It does not expose a generic primitive MCP server;
+a future agent adapter should expose named-decision and offline tooling instead.</p>
 </section>
 </div>
 <script data-sphinxpress-script="search" defer>

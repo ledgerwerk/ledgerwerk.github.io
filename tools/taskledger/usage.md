@@ -5,8 +5,8 @@ permalink: /tools/taskledger/usage/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.8"
-docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
+docs_ref: "v0.6.9"
+docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
 search_enabled: true
 ---
 
@@ -869,6 +869,9 @@ avoid inventing question answers, and only mark todos done after evidence exists
 <p>If <code class="docutils literal notranslate"><span class="pre">next-action</span></code> reports an orphaned implementation state or an active lock
 recovery situation, inspect the task and lock first, then choose the recovery
 path that matches the lock state:</p>
+<p>Natural-language requests to “continue” or “resume work” do not imply <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">resume</span></code>.
+Run <code class="docutils literal notranslate"><span class="pre">next-action</span></code> first. If the lock is classified as <code class="docutils literal notranslate"><span class="pre">active_current_execution</span></code>,
+keep it and continue the todo loop; do not reacquire or repair it.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>task<span class="w"> </span>show
 taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>task-0001
 taskledger<span class="w"> </span>lock<span class="w"> </span>show
@@ -880,23 +883,21 @@ taskledger<span class="w"> </span>doctor
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">lock</span> <span class="pre">show</span> <span class="pre">--task</span> <span class="pre">TASK</span></code>. <code class="docutils literal notranslate"><span class="pre">lock</span> <span class="pre">show</span></code> reports a
 <code class="docutils literal notranslate"><span class="pre">classification</span></code> field that names the lock state.</p></li>
 <li><p>If there is no lock, run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">next-action</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_current_execution</span></code>, keep the lock and continue
+the todo loop. Do not run <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">resume</span></code> or repair the lock.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">expired</span></code> and the lock is an implementation lock
-for a running implementation run:
-run
+for a running implementation run, run
 <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">implement</span> <span class="pre">resume</span> <span class="pre">--repair-expired-lock</span> <span class="pre">--task</span> <span class="pre">TASK</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code>.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_dead_local_process</span></code>:
-run
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_dead_local_process</span></code>, run
 <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">lock</span> <span class="pre">--task</span> <span class="pre">TASK</span> <span class="pre">--reason</span> <span class="pre">&quot;Holder</span> <span class="pre">PID</span> <span class="pre">...</span> <span class="pre">is</span> <span class="pre">no</span> <span class="pre">longer</span> <span class="pre">running.&quot;</span></code>,
 then <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">implement</span> <span class="pre">resume</span> <span class="pre">--task</span> <span class="pre">TASK</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code>.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_live_local_process</span></code> or
-<code class="docutils literal notranslate"><span class="pre">active_other_actor</span></code>:
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_live_local_process</span></code> or <code class="docutils literal notranslate"><span class="pre">active_other_actor</span></code>,
 do not repair; use a handoff or wait for the holder to release.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_unverifiable_remote_or_unknown_process</span></code>:
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_unverifiable_remote_or_unknown_process</span></code>,
 do not infer staleness from local process checks; inspect handoffs or ask
 the user before repairing.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code> itself returns <code class="docutils literal notranslate"><span class="pre">action=repair-lock</span></code> with diagnostics and
-the recommended command sequence when the active implementation lock has
-a dead local holder PID.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code> itself returns <code class="docutils literal notranslate"><span class="pre">action=repair-lock</span></code> with diagnostics and the
+recommended command sequence when the active implementation lock has a dead local holder PID.</p></li>
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">--repair-expired-lock</span></code> is not a general stale-lock takeover flag. It only
 handles locks whose <code class="docutils literal notranslate"><span class="pre">expires_at</span></code> is in the past. For non-expired active
@@ -920,6 +921,9 @@ taskledger<span class="w"> </span>todo<span class="w"> </span><span class="k">do
 taskledger<span class="w"> </span>--json<span class="w"> </span>next-action
 </pre></div>
 </div>
+<p>Completing a todo renews the active implementation lease only when the current
+execution proves that it owns the lock. Read-only commands and other sessions do
+not renew the lease.</p>
 <p>Rules for agents:</p>
 <ul class="simple">
 <li><p>Install the <code class="docutils literal notranslate"><span class="pre">taskledger</span></code> skill in the coding harness before relying on agent-driven workflows.</p></li>

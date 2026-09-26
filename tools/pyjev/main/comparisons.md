@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_commit: "5de343d01807d581d4b55db3e15732774c66e91c"
 search_enabled: true
 ---
 
@@ -545,21 +545,217 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="three-layers">
 <h2>Three layers</h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>: the official low-level Python SDK for TypeSafe models, transport,
-retries, and API errors.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pyjev</span></code>: an operational wrapper with result preservation, named <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>
-decisions, CLI behavior, credentials, validation, compilation, and confidence gates.</p></li>
-<li><p>Other higher-level interfaces: may optimize for application-model or Pydantic ergonomics.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>: the official low-level Python SDK for TypeSafe models,
+transport, retries, and API errors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyjev</span></code>: a Python application layer with typed results, named <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>
+decisions, offline compilation, credentials, CLI behavior, and confidence
+gates.</p></li>
+<li><p>Other higher-level tools: may optimize for a different application, provider,
+agent, or protocol workflow.</p></li>
 </ul>
+</section>
+<section id="pyjev-and-jev-cli">
+<h2>pyjev and <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code></h2>
+<p>This comparison uses <code class="docutils literal notranslate"><span class="pre">tumf/jev-cli</span></code> version <strong>0.6.2</strong>, main commit
+<code class="docutils literal notranslate"><span class="pre">980cb98f5f529ba310ce4c7481a55e034b0a0829</span></code>, reviewed on <strong>2026-09-20</strong>. It is a
+version-qualified snapshot, not a claim about every future release.</p>
+<p>Both projects are useful and overlap on direct Jev primitives. They optimize for
+different layers rather than being interchangeable implementations of one
+product.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Use case or capability</p></th>
+<th class="head"><p>pyjev</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> 0.6.2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Embed Jev in a Python application</p></td>
+<td><p>First-class <code class="docutils literal notranslate"><span class="pre">Jev</span></code> API</p></td>
+<td><p>Primarily a CLI/MCP tool</p></td>
+</tr>
+<tr class="row-odd"><td><p>Native async Python integration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AsyncJev</span></code> uses the SDK async client</p></td>
+<td><p>Not its primary API</p></td>
+</tr>
+<tr class="row-even"><td><p>Transport boundary</p></td>
+<td><p>Delegates to the official <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code></p></td>
+<td><p>Direct provider-aware HTTP/request translation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Typed application results</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NoulResult</span></code>, <code class="docutils literal notranslate"><span class="pre">ChoiceResult</span></code>, <code class="docutils literal notranslate"><span class="pre">ScoreResult</span></code>, <code class="docutils literal notranslate"><span class="pre">BundleResult</span></code></p></td>
+<td><p>JSON close to the provider/remote contract</p></td>
+</tr>
+<tr class="row-even"><td><p>Version-controlled named decisions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> with schema and discovery</p></td>
+<td><p>No equivalent named-decision declaration layer</p></td>
+</tr>
+<tr class="row-odd"><td><p>Named mixed-question bundles</p></td>
+<td><p>Yes</p></td>
+<td><p>Raw request capability, without the same declaration layer</p></td>
+</tr>
+<tr class="row-even"><td><p>Offline validation and compilation</p></td>
+<td><p>Yes; no credential or network required</p></td>
+<td><p>No equivalent named-decision compiler</p></td>
+</tr>
+<tr class="row-odd"><td><p>Confidence-gated automation</p></td>
+<td><p>Yes; failed <code class="docutils literal notranslate"><span class="pre">--value</span></code> gates emit no actionable stdout</p></td>
+<td><p>No equivalent confidence-policy gate</p></td>
+</tr>
+<tr class="row-even"><td><p>Credential storage</p></td>
+<td><p>Environment, OS keyring, or explicit plaintext fallback</p></td>
+<td><p>Environment or XDG JSON credential store</p></td>
+</tr>
+<tr class="row-odd"><td><p>Generic one-off shell primitives</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">noul</span></code>, <code class="docutils literal notranslate"><span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code>, <code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">noul</span></code>, <code class="docutils literal notranslate"><span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code>, <code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>State and machine output</p></td>
+<td><p>stdin, file, JSON state, <code class="docutils literal notranslate"><span class="pre">--json</span></code>, <code class="docutils literal notranslate"><span class="pre">--value</span></code></p></td>
+<td><p>stdin, <code class="docutils literal notranslate"><span class="pre">&#64;file</span></code>, JSON state, JSON-first output</p></td>
+</tr>
+<tr class="row-odd"><td><p>Providers</p></td>
+<td><p>Official SDK semantics</p></td>
+<td><p>Official, Vercel AI Gateway, OpenRouter, and custom Jev-compatible endpoint in this baseline</p></td>
+</tr>
+<tr class="row-even"><td><p>MCP host integration</p></td>
+<td><p>Not currently</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jev-mcp</span></code> stdio server</p></td>
+</tr>
+<tr class="row-odd"><td><p>Agent installation workflow</p></td>
+<td><p>Not currently</p></td>
+<td><p>Bundled <code class="docutils literal notranslate"><span class="pre">jev</span> <span class="pre">install-skills</span></code> skill installer</p></td>
+</tr>
+<tr class="row-even"><td><p>Online credential check</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">status</span></code> reports local source; <code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">test</span></code> checks the service</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">test</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> retains rich response data where the provider supplies it. pyjev’s
+result wrappers are a stable Python-facing contract; the distinction is not
+that <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> discards uncertainty.</p>
+</section>
+<section id="pyjev-and-nasrallah-al-jev-cli">
+<h2>pyjev and Nasrallah-AL/jev-cli</h2>
+<p>This is a separate comparison from the <code class="docutils literal notranslate"><span class="pre">tumf/jev-cli</span></code> section above. It covers <code class="docutils literal notranslate"><span class="pre">Nasrallah-AL/jev-cli</span></code>, the TypeScript project distributed as npm package <code class="docutils literal notranslate"><span class="pre">jevctl</span></code> 0.2.3, executable <code class="docutils literal notranslate"><span class="pre">jev</span></code>, at main commit <code class="docutils literal notranslate"><span class="pre">a1e668164e75d7fc80cc4a51aaeb1d0144d8961f</span></code> (reviewed 2026-09-25). It is a dated snapshot, not a winner/loser ranking or a claim about future releases.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Capability</p></th>
+<th class="head"><p>pyjev</p></th>
+<th class="head"><p>Nasrallah <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Primary product</p></td>
+<td><p>Python application decision layer over the official SDK</p></td>
+<td><p>Purpose-built TypeScript CLI/library semantic operations</p></td>
+</tr>
+<tr class="row-odd"><td><p>Named project contracts</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>, offline validation and compilation</p></td>
+<td><p>Different configuration and request-inspection model</p></td>
+</tr>
+<tr class="row-even"><td><p>Semantic operations</p></td>
+<td><p>Typed primitives and recipes such as <code class="docutils literal notranslate"><span class="pre">find</span></code>, <code class="docutils literal notranslate"><span class="pre">extract</span></code>, and <code class="docutils literal notranslate"><span class="pre">verify</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verify</span></code>, <code class="docutils literal notranslate"><span class="pre">classify</span></code>, <code class="docutils literal notranslate"><span class="pre">extract</span></code>, <code class="docutils literal notranslate"><span class="pre">match</span></code>, <code class="docutils literal notranslate"><span class="pre">route</span></code>, <code class="docutils literal notranslate"><span class="pre">find</span></code>, <code class="docutils literal notranslate"><span class="pre">rerank</span></code>, and more</p></td>
+</tr>
+<tr class="row-odd"><td><p>Generic batch</p></td>
+<td><p>Native async <code class="docutils literal notranslate"><span class="pre">pyjev.amap</span></code> with ordered records</p></td>
+<td><p>Batch command and library support</p></td>
+</tr>
+<tr class="row-even"><td><p>Transport boundary</p></td>
+<td><p>Official <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>; no provider translation</p></td>
+<td><p>Provider selection/translation including multiple providers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Output</p></td>
+<td><p>JSON, confidence-safe <code class="docutils literal notranslate"><span class="pre">--value</span></code>, and structured <code class="docutils literal notranslate"><span class="pre">--pluck</span></code></p></td>
+<td><p>JSON/JSONL and rich pluck/output options</p></td>
+</tr>
+<tr class="row-even"><td><p>Agent workflow</p></td>
+<td><p>Inspect-first skill and reusable Python API</p></td>
+<td><p>Skill plus project-specific plugin/hooks</p></td>
+</tr>
+<tr class="row-odd"><td><p>Transcript compaction</p></td>
+<td><p>Not in pyjev core</p></td>
+<td><p>Agent-runtime-oriented compact operation</p></td>
+</tr>
+</tbody>
+</table>
+<p>The useful lesson is the semantic recipe layer and operational UX, not copying the external CLI’s entire product boundary. pyjev keeps named contracts, offline inspection, typed uncertainty, explicit caller policy, and the official SDK transport boundary. Its recipes compose those foundations without invoking handlers or owning provider behavior.</p>
+</section>
+<section id="architecture">
+<h2>Architecture</h2>
+<p>A pyjev named decision flows through a validated repository declaration:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.pyjev.toml -&gt; schema/discovery -&gt; offline compile -&gt; Jev/AsyncJev -&gt; typesafe-sdk
+</pre></div>
+</div>
+<p>The official SDK owns transport, retries, request models, and API error
+semantics. pyjev adds declaration, validation, result normalization, lifecycle,
+credentials, and caller policy.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> baseline is closer to:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CLI or MCP tool -&gt; provider selection/translation -&gt; HTTP endpoint -&gt; JSON result
+</pre></div>
+</div>
+<p>That makes it a strong direct shell, agent, MCP, and multi-provider client. It
+also means it owns provider request translation and compatibility behavior.</p>
+</section>
+<section id="when-to-use-which">
+<h2>When to use which</h2>
+<p>Use <strong>pyjev</strong> when you need:</p>
+<ul class="simple">
+<li><p>an embeddable sync or async Python client;</p></li>
+<li><p>dependency injection and caller-owned client lifecycle;</p></li>
+<li><p>typed results with uncertainty and metadata preserved;</p></li>
+<li><p>named decisions reviewed in source control;</p></li>
+<li><p>credential-free validation or request previews;</p></li>
+<li><p>explicit confidence policy at an automation boundary.</p></li>
+</ul>
+<p>Use <strong><code class="docutils literal notranslate"><span class="pre">jev-cli</span></code></strong> when you need:</p>
+<ul class="simple">
+<li><p>a standalone generic shell client;</p></li>
+<li><p>provider selection across the official service, gateways, or a custom endpoint;</p></li>
+<li><p>an MCP server for an agent host;</p></li>
+<li><p>its bundled agent-skill installation workflow;</p></li>
+<li><p>JSON-first direct request tooling.</p></li>
+</ul>
+<p>For a one-off primitive shell judgment, either tool may fit. The syntax and
+output overlap there and should not be treated as the strategic distinction.</p>
+</section>
+<section id="exit-codes-are-not-interchangeable">
+<h2>Exit codes are not interchangeable</h2>
+<p>pyjev’s exit codes are its own automation contract:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Exit</p></th>
+<th class="head"><p>pyjev meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>0</p></td>
+<td><p>Successful result and any gate passed</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>1</p></td>
+<td><p>Runtime, credential, API, network, or I/O failure</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td><p>Usage or local validation error</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td><p>Valid Choice/Score result, but the caller’s confidence gate failed</p></td>
+</tr>
+</tbody>
+</table>
+<p>In particular, pyjev exit code <code class="docutils literal notranslate"><span class="pre">3</span></code> means a policy gate failed after Jev returned a
+valid result. It does <strong>not</strong> mean the API rejected authentication. Do not use
+these numbers as if they were interoperable with another <code class="docutils literal notranslate"><span class="pre">jev</span></code> CLI’s taxonomy.</p>
 </section>
 <section id="why-not-use-the-sdk-directly">
 <h2>Why not use the SDK directly?</h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code> directly when you want maximum control and do not need named decisions,
-pyjev credential ergonomics, the shell CLI, confidence-gate exit semantics, or pyjev result
-wrappers. Use pyjev when those operational features make decisions easier to declare,
-inspect, validate, execute, gate, trace, and reuse.</p>
-<p>pyjev is not a decorator framework, does not require Pydantic, and does not replace the
-official SDK’s transport or probabilistic semantics.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code> directly when you want maximum control and do not need named
+decisions, pyjev credential ergonomics, shell-safe confidence gates, offline
+inspection, or pyjev result wrappers. Use pyjev when those application and
+workflow abstractions make decisions easier to declare, inspect, validate,
+execute, gate, trace, and reuse.</p>
 </section>
 </section>
 </div>

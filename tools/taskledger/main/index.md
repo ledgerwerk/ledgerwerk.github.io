@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
+docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
 search_enabled: true
 ---
 
@@ -812,7 +812,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-8-unreleased">[v0.6.8] - Unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-10-2026-09-26">[v0.6.10] - 2026-09-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-9-2026-09-24">[v0.6.9] - 2026-09-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-8-2026-09-11">[v0.6.8] - 2026-09-11</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-7-2026-09-09">[v0.6.7] - 2026-09-09</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-6-2026-09-04">[v0.6.6] - 2026-09-04</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-5-2026-08-22">[v0.6.5] - 2026-08-22</a></li>

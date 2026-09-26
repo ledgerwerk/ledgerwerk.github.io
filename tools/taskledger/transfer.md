@@ -5,8 +5,8 @@ permalink: /tools/taskledger/transfer/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.8"
-docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
+docs_ref: "v0.6.9"
+docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
 search_enabled: true
 ---
 

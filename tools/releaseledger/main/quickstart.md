@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "ced19030fa9d36a003ef5bedbf2880b0a21762e6"
+docs_commit: "5fa733fb24b115a5c566df0a619928ba10edf2d4"
 search_enabled: true
 ---
 
@@ -585,6 +585,20 @@ created by new projects:</p>
       indexes/
 </pre></div>
 </div>
+</section>
+<section id="agent-skill-discovery">
+<h2>Agent Skill discovery</h2>
+<p>Releaseledger keeps its canonical Agent Skill source at:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>skills/releaseledger/SKILL.md
+</pre></div>
+</div>
+<p>For agent-visible installations, use the portable <code class="docutils literal notranslate"><span class="pre">.agents/skills</span></code> location first:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;project&gt;/.agents/skills/releaseledger/SKILL.md
+~/.agents/skills/releaseledger/SKILL.md
+</pre></div>
+</div>
+<p>The diagnostics also inspect these bounded host-native project roots: <code class="docutils literal notranslate"><span class="pre">.opencode/skills</span></code>, legacy <code class="docutils literal notranslate"><span class="pre">.opencode/skill</span></code>, <code class="docutils literal notranslate"><span class="pre">.github/skills</span></code>, <code class="docutils literal notranslate"><span class="pre">.claude/skills</span></code>, <code class="docutils literal notranslate"><span class="pre">.gemini/skills</span></code>, <code class="docutils literal notranslate"><span class="pre">.cursor/skills</span></code>, and Cursor’s <code class="docutils literal notranslate"><span class="pre">.codex/skills</span></code> compatibility root. The corresponding user roots are supported under <code class="docutils literal notranslate"><span class="pre">~/.config/opencode</span></code>, <code class="docutils literal notranslate"><span class="pre">~/.copilot</span></code>, <code class="docutils literal notranslate"><span class="pre">~/.claude</span></code>, <code class="docutils literal notranslate"><span class="pre">~/.gemini</span></code>, <code class="docutils literal notranslate"><span class="pre">~/.cursor</span></code>, and <code class="docutils literal notranslate"><span class="pre">~/.codex</span></code>. Codex administrator skills can be checked with the <code class="docutils literal notranslate"><span class="pre">/etc/codex/skills</span></code> root.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">releaseledger</span> <span class="pre">doctor</span> <span class="pre">--check</span></code> after installing or updating a skill. Diagnostics inspect every known local copy and report malformed, stale, or conflicting metadata conservatively. This order is a deterministic Releaseledger display order, not a claim about which copy every host activates.</p>
 <p>Releaseledger is git-first. The recommended workflow uses git commit ranges
 as the canonical evidence of shipped changes.</p>
 </section>

@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_commit: "5de343d01807d581d4b55db3e15732774c66e91c"
 search_enabled: true
 ---
 
@@ -542,7 +542,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="getting-started">
 <h1>Getting started</h1>
-<p>This page takes a new user from installation to a first decision in about five minutes.</p>
+<p>This walkthrough introduces pyjev’s main idea: define a reusable decision
+contract, inspect it offline, then use the same contract from shell and Python.</p>
 <section id="install">
 <h2>Install</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyjev
@@ -554,53 +555,9 @@ uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </
 </pre></div>
 </div>
 </section>
-<section id="authenticate">
-<h2>Authenticate</h2>
-<p>For an interactive local setup:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">set</span>
-pyjev<span class="w"> </span>auth<span class="w"> </span>status
-</pre></div>
-</div>
-<p>For CI, use an environment variable:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TYPESAFE_API_KEY</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
-</pre></div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The file fallback is plaintext. Restrictive permissions reduce exposure but do not
-encrypt the credential.</p>
-</div>
-</section>
-<section id="first-cli-decision">
-<h2>First CLI decision</h2>
-<p>Choice returns a selected label, confidence, and the complete distribution:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>choice<span class="w"> </span><span class="s2">&quot;Where should this ticket go?&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--state<span class="w"> </span><span class="s2">&quot;Stripe checkout fails&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--option<span class="w"> </span><span class="nv">billing</span><span class="o">=</span><span class="s2">&quot;Payments and refunds&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--option<span class="w"> </span><span class="nv">engineering</span><span class="o">=</span><span class="s2">&quot;Technical failures&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--option<span class="w"> </span><span class="nv">sales</span><span class="o">=</span><span class="s2">&quot;Purchasing questions&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--json
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">--json</span></code> is intended for programs and preserves all result metadata.</p>
-</section>
-<section id="first-python-decision">
-<h2>First Python decision</h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Jev</span>
-
-<span class="k">with</span> <span class="n">Jev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
-        <span class="s2">&quot;Where should this ticket go?&quot;</span><span class="p">,</span>
-        <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Stripe checkout fails&quot;</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;billing&quot;</span><span class="p">:</span> <span class="s2">&quot;Payments&quot;</span><span class="p">,</span> <span class="s2">&quot;engineering&quot;</span><span class="p">:</span> <span class="s2">&quot;Technical&quot;</span><span class="p">,</span> <span class="s2">&quot;sales&quot;</span><span class="p">:</span> <span class="s2">&quot;Purchasing&quot;</span><span class="p">},</span>
-    <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">confidence</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">probabilities</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="first-named-decision">
-<h2>First named decision</h2>
-<p>Create <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>:</p>
+<section id="create-a-decision-contract">
+<h2>Create a decision contract</h2>
+<p>In a project directory, create <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[pyjev]</span>
 <span class="n">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
 
@@ -614,12 +571,82 @@ encrypt the credential.</p>
 <span class="n">sales</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Purchasing, pricing, or procurement question&quot;</span>
 </pre></div>
 </div>
-<p>Then run it from the project directory:</p>
+<p>This is a version-controlled specification. It is not a secret store and must
+not contain API keys.</p>
+</section>
+<section id="inspect-before-execution">
+<h2>Inspect before execution</h2>
+<p>Validation and compilation are local operations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>decision<span class="w"> </span>validate
+pyjev<span class="w"> </span>decision<span class="w"> </span>show<span class="w"> </span>ticket-route
+pyjev<span class="w"> </span>decision<span class="w"> </span>compile<span class="w"> </span>ticket-route<span class="w"> </span>--state<span class="w"> </span><span class="s2">&quot;Stripe webhooks fail&quot;</span>
+</pre></div>
+</div>
+<p>They do not read credentials, construct a client, or contact the Jev API. The
+compiled output is a normalized request preview with a stable schema marker and
+non-secret decision fingerprint.</p>
+</section>
+<section id="authenticate">
+<h2>Authenticate</h2>
+<p>For an interactive local setup, use hidden input:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">set</span>
+pyjev<span class="w"> </span>auth<span class="w"> </span>status
+pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+<p>For CI, prefer the environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TYPESAFE_API_KEY</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
+pyjev<span class="w"> </span>auth<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--json
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">test</span></code> performs one minimal request through the official SDK and reports
+safe metadata only. The explicit <code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">set</span> <span class="pre">--api-key</span></code> option is retained for
+compatibility but is unsafe because shell history and process listings may
+expose the value. Do not put secrets in command output, decision files, or
+logs.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The file fallback is plaintext. Restrictive permissions reduce exposure but do
+not encrypt the credential.</p>
+</div>
+</section>
+<section id="execute-from-shell">
+<h2>Execute from shell</h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Stripe webhooks fail&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>pyjev<span class="w"> </span>decide<span class="w"> </span>ticket-route<span class="w"> </span>--json
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">--json</span></code> preserves result metadata. Use <code class="docutils literal notranslate"><span class="pre">--value</span></code> only when a scalar is safe to
+consume, and use <code class="docutils literal notranslate"><span class="pre">--min-confidence</span></code> when the application requires a confidence
+policy.</p>
+</section>
+<section id="execute-from-python">
+<h2>Execute from Python</h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Jev</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;ticket-route&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Stripe webhooks fail&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">confidence</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">probabilities</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For native asynchronous applications:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncJev</span>
+
+<span class="k">async</span> <span class="k">with</span> <span class="n">AsyncJev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;ticket-route&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Stripe webhooks fail&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="when-to-use-a-direct-primitive">
+<h2>When to use a direct primitive</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">jev.choice(...)</span></code>, <code class="docutils literal notranslate"><span class="pre">jev.noul(...)</span></code>, or <code class="docutils literal notranslate"><span class="pre">jev.score(...)</span></code> when criteria are
+computed dynamically from deterministic application state. Keep deterministic
+constraints in normal Python; use a named decision when the judgment contract
+is stable and worth reviewing in source control.</p>
 <p>Continue with <a class="reference internal" href="../named-decisions/"><span class="std std-doc">Named decisions</span></a>, <a class="reference internal" href="../confidence/"><span class="std std-doc">Confidence</span></a>,
-<a class="reference internal" href="../python-api/"><span class="std std-doc">Python API</span></a>, and <a class="reference internal" href="../cli/"><span class="std std-doc">CLI</span></a>.</p>
+<a class="reference internal" href="../authentication/"><span class="std std-doc">Authentication</span></a>, and <a class="reference internal" href="../python-api/"><span class="std std-doc">Python API</span></a>.</p>
 </section>
 </section>
 </div>

@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_commit: "5de343d01807d581d4b55db3e15732774c66e91c"
 search_enabled: true
 ---
 
@@ -602,6 +602,33 @@ explicit call model, then bundle model, then the client/SDK default.</p>
 <p>Bundle results preserve every child result’s probabilities and confidence, plus shared
 model, usage, raw response, and request ID. Bundles have no aggregate confidence policy;
 <code class="docutils literal notranslate"><span class="pre">--value</span></code> and <code class="docutils literal notranslate"><span class="pre">--min-confidence</span></code> are rejected.</p>
+</section>
+<section id="compiled-output-contract">
+<h2>Compiled output contract</h2>
+<p><code class="docutils literal notranslate"><span class="pre">decision</span> <span class="pre">compile</span></code> produces a credential-free JSON preview with this stable top-level shape:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;decision&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ticket-route&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;choice&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;config&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.pyjev.toml&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sha256&gt;&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;questions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">schema</span></code> marker is the compiled-output contract version. <code class="docutils literal notranslate"><span class="pre">decision.name</span></code>,
+<code class="docutils literal notranslate"><span class="pre">decision.type</span></code>, <code class="docutils literal notranslate"><span class="pre">decision.config</span></code>, <code class="docutils literal notranslate"><span class="pre">decision.fingerprint</span></code>, and the request fields
+are stable contract fields. The config identifier is relative to the current
+project when possible and otherwise uses the config filename; it is never an
+absolute machine path. Question and answer data retain the official SDK shape.</p>
+<p>The SHA-256 <code class="docutils literal notranslate"><span class="pre">fingerprint</span></code> identifies the validated decision specification and
+schema. It includes the decision name, type, criteria, model, and declaration
+content. It excludes runtime <code class="docutils literal notranslate"><span class="pre">state</span></code>, credentials, and environment-specific
+absolute paths, so the same declaration has the same fingerprint in different
+checkouts. Compilation remains local: it does not construct a client, read a
+credential, or contact the API.</p>
 </section>
 <section id="discovery-and-inspection">
 <h2>Discovery and inspection</h2>

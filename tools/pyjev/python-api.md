@@ -5,8 +5,8 @@ permalink: /tools/pyjev/python-api/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.0"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_ref: "v0.1.1"
+docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
 search_enabled: true
 ---
 
@@ -586,6 +586,11 @@ Named bundles provide the same pattern from <code class="docutils literal notran
 </div>
 <p>Compilation resolves and validates configuration without creating a client or reading
 credentials. It is useful for review, debugging, and agent tooling.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CompiledDecision.fingerprint</span></code> is a deterministic SHA-256 identifier for the
+validated declaration. It excludes the runtime state passed to
+<code class="docutils literal notranslate"><span class="pre">compile_decision()</span></code> and does not include credentials or absolute config paths.
+The serialized preview includes <code class="docutils literal notranslate"><span class="pre">schema</span> <span class="pre">=</span> <span class="pre">1</span></code>, a reproducible config identifier,
+the fingerprint, and the normalized official SDK request shape.</p>
 </section>
 <section id="injected-clients">
 <h2>Injected clients</h2>
@@ -606,6 +611,33 @@ credentials. It is useful for review, debugging, and agent tooling.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">.value</span></code>, <code class="docutils literal notranslate"><span class="pre">.confidence</span></code>, <code class="docutils literal notranslate"><span class="pre">.probabilities</span></code>, and <code class="docutils literal notranslate"><span class="pre">.legend</span></code> as applicable. Every result
 also preserves model, usage, raw answer data, and request ID. <code class="docutils literal notranslate"><span class="pre">NoulResult.value</span></code> remains
 the raw probability of true.</p>
+</section>
+<section id="result-pipelines">
+<h2>Result pipelines</h2>
+<p>The optional <code class="docutils literal notranslate"><span class="pre">pyjev.pipeline</span></code> module composes already returned result objects with local policy stages. The pipe never creates a client or performs network I/O, so the Jev call remains visible:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Jev</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyjev.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">answer</span><span class="p">,</span> <span class="n">require_confidence</span>
+
+<span class="n">policy</span> <span class="o">=</span> <span class="n">answer</span><span class="p">(</span><span class="s2">&quot;intent&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">require_confidence</span><span class="p">(</span><span class="mf">0.70</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;support-triage&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">message</span><span class="p">})</span>
+
+<span class="n">outcome</span> <span class="o">=</span> <span class="n">result</span> <span class="o">|</span> <span class="n">policy</span>
+<span class="k">if</span> <span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="p">:</span>
+    <span class="n">route_to</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">human_review</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">answer(name)</span></code> selects the exact typed child from a <code class="docutils literal notranslate"><span class="pre">BundleResult</span></code>. Confidence gates accept only <code class="docutils literal notranslate"><span class="pre">ChoiceResult</span></code> and <code class="docutils literal notranslate"><span class="pre">ScoreResult</span></code>, and preserve the complete result in either an <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> or <code class="docutils literal notranslate"><span class="pre">Rejected</span></code> outcome. A rejected outcome has no <code class="docutils literal notranslate"><span class="pre">.value</span></code> attribute, so a below-threshold result cannot be mistaken for permission to act.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">NoulResult</span></code>, use the separate probability policy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">require_probability</span>
+
+<span class="n">outcome</span> <span class="o">=</span> <span class="n">result</span> <span class="o">|</span> <span class="n">require_probability</span><span class="p">(</span><span class="n">at_least</span><span class="o">=</span><span class="mf">0.80</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Thresholds are inclusive and must be finite values from 0 through 1. Choice and Score confidence is a Jev-supplied signal, not the probability that an answer is correct. The same local pipeline works after either synchronous or asynchronous evaluation.</p>
 </section>
 <section id="async-api">
 <h2>Async API</h2>

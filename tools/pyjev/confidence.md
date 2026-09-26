@@ -5,8 +5,8 @@ permalink: /tools/pyjev/confidence/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.0"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_ref: "v0.1.1"
+docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
 search_enabled: true
 ---
 
@@ -567,12 +567,26 @@ accidentally consumed by a pipeline. Use the exit code to route to human review.
 </section>
 <section id="thresholds-belong-to-the-application">
 <h2>Thresholds belong to the application</h2>
+<p>The Python equivalent is a value-level policy outcome rather than a process exit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">require_confidence</span>
+
+<span class="n">outcome</span> <span class="o">=</span> <span class="n">result</span> <span class="o">|</span> <span class="n">require_confidence</span><span class="p">(</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="p">:</span>
+    <span class="n">use_value</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">human_review</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Both gates consume the same Choice/Score <code class="docutils literal notranslate"><span class="pre">confidence</span></code> signal. Neither treats that signal as a correctness probability, and a rejected Python outcome still preserves the complete result for review. <code class="docutils literal notranslate"><span class="pre">require_probability()</span></code> is a separate policy for a Noul probability of true.</p>
 <p>A threshold is invocation policy, not a universal Jev recommendation. Different actions
 have different consequences. Keep thresholds at the call site until a deliberate policy
 and outcome abstraction exists. pyjev does not add <code class="docutils literal notranslate"><span class="pre">min_confidence</span></code> to <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> in
 this pass, and it does not invent a default threshold.</p>
 <p>Noul returns a probability of true and does not expose the Choice/Score confidence gate.
 Choose and document an application policy explicitly when using Noul.</p>
+<p>The numeric exit codes are part of pyjev’s CLI contract, not a Jev or cross-tool
+standard. Do not assume they match <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code>; a pyjev exit <code class="docutils literal notranslate"><span class="pre">3</span></code> specifically means
+the returned Choice/Score result did not satisfy the caller’s threshold.</p>
 </section>
 </section>
 </div>

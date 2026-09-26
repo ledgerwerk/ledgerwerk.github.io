@@ -6,7 +6,7 @@ nav_tool: releaseledger-main
 docs_project: "releaseledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "ced19030fa9d36a003ef5bedbf2880b0a21762e6"
+docs_commit: "5fa733fb24b115a5c566df0a619928ba10edf2d4"
 search_enabled: true
 ---
 
@@ -547,6 +547,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>Releaseledger is git-first. Git tags and commit ranges define the shipped change
 set. The canonical evidence of what shipped is <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rev-list</span> <span class="pre">--reverse</span> <span class="pre">--topo-order</span> <span class="pre">&lt;base&gt;..&lt;head&gt;</span></code>
 — every commit reachable from the release target and absent from the previous release.</p>
+</section>
+<section id="agent-skill-source-and-discovery">
+<h2>Agent Skill source and discovery</h2>
+<p>The repository-maintained source skill is <code class="docutils literal notranslate"><span class="pre">skills/releaseledger/SKILL.md</span></code>. It is a canonical source file and legacy compatibility location, not a package-bundled skill that automatically becomes visible to an external agent.</p>
+<p>Install the skill for agents at <code class="docutils literal notranslate"><span class="pre">.agents/skills/releaseledger/SKILL.md</span></code> in a project or at <code class="docutils literal notranslate"><span class="pre">~/.agents/skills/releaseledger/SKILL.md</span></code> for the current user. Releaseledger also recognizes supported OpenCode, GitHub Copilot and VS Code, Claude, Gemini, Cursor, and Codex compatibility roots, including an injectable administrator equivalent of <code class="docutils literal notranslate"><span class="pre">/etc/codex/skills</span></code> for diagnostics.</p>
+<p>Skill diagnostics use a bounded filesystem registry. They inspect all known local copies, validate the required <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>, and integer <code class="docutils literal notranslate"><span class="pre">protocol</span></code> metadata, and report conflicts instead of assuming that the first existing path is active. Host runtimes have different precedence rules, so Releaseledger does not claim to reproduce universal activation precedence.</p>
 </section>
 <section id="git-tag-ownership-policy">
 <h2>Git tag ownership policy</h2>

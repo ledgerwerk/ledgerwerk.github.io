@@ -5,8 +5,8 @@ permalink: /tools/pyjev/cli/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.0"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_ref: "v0.1.1"
+docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
 search_enabled: true
 ---
 
@@ -609,6 +609,9 @@ Choice/Score confidence signal, so Noul has no confidence gate.</p>
 </section>
 <section id="shell-composition">
 <h2>Shell composition</h2>
+<p>These are pyjev-specific automation codes. They are not interchangeable with
+another <code class="docutils literal notranslate"><span class="pre">jev</span></code> CLI’s exit-code taxonomy; in particular, pyjev code <code class="docutils literal notranslate"><span class="pre">3</span></code> means a
+valid Choice/Score result failed the caller’s confidence gate.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nv">TEAM</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span>ticket.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>pyjev<span class="w"> </span>choice<span class="w"> </span><span class="s2">&quot;Route this ticket&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--option<span class="w"> </span>billing<span class="w"> </span>--option<span class="w"> </span>engineering<span class="w"> </span>--option<span class="w"> </span>sales<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--min-confidence<span class="w"> </span><span class="m">0</span>.85<span class="w"> </span>--value<span class="k">)</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>

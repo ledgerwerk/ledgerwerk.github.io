@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_commit: "5de343d01807d581d4b55db3e15732774c66e91c"
 search_enabled: true
 ---
 
@@ -563,6 +563,25 @@ The context manager closes clients created by <code class="docutils literal notr
 <p>All validation happens before the SDK call. Results preserve uncertainty instead of
 collapsing to a scalar convenience value.</p>
 </section>
+<section id="in-memory-decisions">
+<h2>In-memory decisions</h2>
+<p>The same typed decision declarations used by named contracts can be assembled at runtime. They are public constructors and can be evaluated without writing a <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">BundleDecision</span><span class="p">,</span> <span class="n">ChoiceDecision</span><span class="p">,</span> <span class="n">Jev</span><span class="p">,</span> <span class="n">NoulDecision</span>
+
+<span class="n">decision</span> <span class="o">=</span> <span class="n">BundleDecision</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ticket-triage&quot;</span><span class="p">,</span>
+    <span class="n">questions</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;route&quot;</span><span class="p">:</span> <span class="n">ChoiceDecision</span><span class="p">(</span><span class="s2">&quot;route&quot;</span><span class="p">,</span> <span class="s2">&quot;Which team?&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;billing&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;engineering&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}),</span>
+        <span class="s2">&quot;refund&quot;</span><span class="p">:</span> <span class="n">NoulDecision</span><span class="p">(</span><span class="s2">&quot;refund&quot;</span><span class="p">,</span> <span class="s2">&quot;Is a refund requested?&quot;</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;jev-latest&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">decision</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Checkout failed; please refund me.&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Jev.evaluate()</span></code> and <code class="docutils literal notranslate"><span class="pre">AsyncJev.evaluate()</span></code> accept <code class="docutils literal notranslate"><span class="pre">NoulDecision</span></code>, <code class="docutils literal notranslate"><span class="pre">ChoiceDecision</span></code>, <code class="docutils literal notranslate"><span class="pre">ScoreDecision</span></code>, and <code class="docutils literal notranslate"><span class="pre">BundleDecision</span></code>. Explicit <code class="docutils literal notranslate"><span class="pre">model=</span></code> overrides the declaration’s model; otherwise the declaration model is used. A bundle shares one request and returns the usual typed child results in a <code class="docutils literal notranslate"><span class="pre">BundleResult</span></code>. Child model overrides are not allowed, matching named bundle rules. Constructing and locally validating decisions does not resolve credentials or make a request. <code class="docutils literal notranslate"><span class="pre">decide()</span></code> remains the convenient interface for declarations stored in <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>.</p>
+</section>
 <section id="named-decisions">
 <h2>Named decisions</h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;ticket-route&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">ticket</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="s2">&quot;ops/.pyjev.toml&quot;</span><span class="p">)</span>
@@ -586,6 +605,11 @@ Named bundles provide the same pattern from <code class="docutils literal notran
 </div>
 <p>Compilation resolves and validates configuration without creating a client or reading
 credentials. It is useful for review, debugging, and agent tooling.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CompiledDecision.fingerprint</span></code> is a deterministic SHA-256 identifier for the
+validated declaration. It excludes the runtime state passed to
+<code class="docutils literal notranslate"><span class="pre">compile_decision()</span></code> and does not include credentials or absolute config paths.
+The serialized preview includes <code class="docutils literal notranslate"><span class="pre">schema</span> <span class="pre">=</span> <span class="pre">1</span></code>, a reproducible config identifier,
+the fingerprint, and the normalized official SDK request shape.</p>
 </section>
 <section id="injected-clients">
 <h2>Injected clients</h2>
@@ -607,6 +631,33 @@ credentials. It is useful for review, debugging, and agent tooling.</p>
 also preserves model, usage, raw answer data, and request ID. <code class="docutils literal notranslate"><span class="pre">NoulResult.value</span></code> remains
 the raw probability of true.</p>
 </section>
+<section id="result-pipelines">
+<h2>Result pipelines</h2>
+<p>The optional <code class="docutils literal notranslate"><span class="pre">pyjev.pipeline</span></code> module composes already returned result objects with local policy stages. The pipe never creates a client or performs network I/O, so the Jev call remains visible:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Jev</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyjev.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">answer</span><span class="p">,</span> <span class="n">require_confidence</span>
+
+<span class="n">policy</span> <span class="o">=</span> <span class="n">answer</span><span class="p">(</span><span class="s2">&quot;intent&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">require_confidence</span><span class="p">(</span><span class="mf">0.70</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;support-triage&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">message</span><span class="p">})</span>
+
+<span class="n">outcome</span> <span class="o">=</span> <span class="n">result</span> <span class="o">|</span> <span class="n">policy</span>
+<span class="k">if</span> <span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="p">:</span>
+    <span class="n">route_to</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">human_review</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">answer(name)</span></code> selects the exact typed child from a <code class="docutils literal notranslate"><span class="pre">BundleResult</span></code>. Confidence gates accept only <code class="docutils literal notranslate"><span class="pre">ChoiceResult</span></code> and <code class="docutils literal notranslate"><span class="pre">ScoreResult</span></code>, and preserve the complete result in either an <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> or <code class="docutils literal notranslate"><span class="pre">Rejected</span></code> outcome. A rejected outcome has no <code class="docutils literal notranslate"><span class="pre">.value</span></code> attribute, so a below-threshold result cannot be mistaken for permission to act.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">NoulResult</span></code>, use the separate probability policy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">require_probability</span>
+
+<span class="n">outcome</span> <span class="o">=</span> <span class="n">result</span> <span class="o">|</span> <span class="n">require_probability</span><span class="p">(</span><span class="n">at_least</span><span class="o">=</span><span class="mf">0.80</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Thresholds are inclusive and must be finite values from 0 through 1. Choice and Score confidence is a Jev-supplied signal, not the probability that an answer is correct. The same local pipeline works after either synchronous or asynchronous evaluation.</p>
+</section>
 <section id="async-api">
 <h2>Async API</h2>
 <p>When the installed official SDK supports native async transport, <code class="docutils literal notranslate"><span class="pre">AsyncJev</span></code> exposes the
@@ -618,6 +669,30 @@ same primitive, named-decision, bundle, validation, model-precedence, and result
 </pre></div>
 </div>
 <p>It uses <code class="docutils literal notranslate"><span class="pre">AsyncTypeSafeClient</span></code> directly and does not hide synchronous work in a thread pool.</p>
+</section>
+<section id="bounded-async-batches">
+<h2>Bounded async batches</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">amap</span></code> for independent states that can be evaluated concurrently. It preserves input order, returns one <code class="docutils literal notranslate"><span class="pre">BatchRecord</span></code> per input, and aggregates token usage from successful typed results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncJev</span><span class="p">,</span> <span class="n">amap</span>
+
+<span class="k">async</span> <span class="k">with</span> <span class="n">AsyncJev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="k">await</span> <span class="n">amap</span><span class="p">(</span>
+        <span class="n">tickets</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">ticket</span><span class="p">:</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;ticket-triage&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">ticket</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+        <span class="n">concurrency</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="n">ticket</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">ticket</span> <span class="ow">in</span> <span class="n">tickets</span><span class="p">],</span>
+    <span class="p">)</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">records</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+        <span class="n">consume</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">log_failure</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">kind</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Failures are row-local by default. <code class="docutils literal notranslate"><span class="pre">fail_fast=True</span></code> stops scheduling after the first observed failure, waits for already-running workers, and marks the remaining rows <code class="docutils literal notranslate"><span class="pre">not_started</span></code>. Worker exception text is deliberately omitted from <code class="docutils literal notranslate"><span class="pre">BatchError</span></code> because it may contain secrets or user data. Cancellation cancels workers and propagates rather than returning a partial result. The batch layer adds no retries; SDK behavior is unchanged. A policy rejection inside a successful result is still an execution success, not a batch error.</p>
 </section>
 </section>
 </div>

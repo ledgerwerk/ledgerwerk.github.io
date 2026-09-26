@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_commit: "5de343d01807d581d4b55db3e15732774c66e91c"
 search_enabled: true
 ---
 

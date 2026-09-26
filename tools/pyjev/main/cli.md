@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_commit: "5de343d01807d581d4b55db3e15732774c66e91c"
 search_enabled: true
 ---
 
@@ -557,6 +557,8 @@ as JSON.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">--value</span></code> emits only the selected value.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">--json</span></code> and <code class="docutils literal notranslate"><span class="pre">--value</span></code> cannot be combined.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">PATH</span></code> selects from the same structured dictionary used by <code class="docutils literal notranslate"><span class="pre">.to_dict()</span></code> (and by <code class="docutils literal notranslate"><span class="pre">--json</span></code>). It is available on <code class="docutils literal notranslate"><span class="pre">ask</span></code>/<code class="docutils literal notranslate"><span class="pre">noul</span></code>, <code class="docutils literal notranslate"><span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code>, <code class="docutils literal notranslate"><span class="pre">decide</span></code>, and raw <code class="docutils literal notranslate"><span class="pre">run</span></code>; <code class="docutils literal notranslate"><span class="pre">run</span></code> already emits structured JSON and therefore needs no <code class="docutils literal notranslate"><span class="pre">--json</span></code> flag. It supports dotted keys and numeric array indexes, such as <code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">answers.intent.choice</span></code>, or <code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">results[0].verdict.</span> <span class="pre">A</span> <span class="pre">missing</span> <span class="pre">key,</span> <span class="pre">bad</span> <span class="pre">index,</span> <span class="pre">or</span> <span class="pre">malformed</span> <span class="pre">path</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">error;</span> <span class="pre">selectors</span> <span class="pre">never</span> <span class="pre">silently</span> <span class="pre">emit</span> <span class="pre">empty</span> <span class="pre">output.</span> <span class="pre">On</span> <span class="pre">commands</span> <span class="pre">that</span> <span class="pre">expose</span> <span class="pre">the</span> <span class="pre">flags,</span> </code>–json<code class="docutils literal notranslate"><span class="pre">,</span> </code>–value<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">and</span> </code>–pluck` are mutually exclusive.</p>
+<p>A pluck selector cannot bypass an active confidence gate: when <code class="docutils literal notranslate"><span class="pre">--min-confidence</span></code> fails, <code class="docutils literal notranslate"><span class="pre">--pluck</span></code> is unavailable, stdout remains empty, and the command exits 3. For a failed gate, use the existing <code class="docutils literal notranslate"><span class="pre">--json</span></code> gate envelope or consume the exit status instead.</p>
 </section>
 <section id="commands">
 <h2>Commands</h2>
@@ -609,6 +611,9 @@ Choice/Score confidence signal, so Noul has no confidence gate.</p>
 </section>
 <section id="shell-composition">
 <h2>Shell composition</h2>
+<p>These are pyjev-specific automation codes. They are not interchangeable with
+another <code class="docutils literal notranslate"><span class="pre">jev</span></code> CLI’s exit-code taxonomy; in particular, pyjev code <code class="docutils literal notranslate"><span class="pre">3</span></code> means a
+valid Choice/Score result failed the caller’s confidence gate.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nv">TEAM</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span>ticket.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>pyjev<span class="w"> </span>choice<span class="w"> </span><span class="s2">&quot;Route this ticket&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--option<span class="w"> </span>billing<span class="w"> </span>--option<span class="w"> </span>engineering<span class="w"> </span>--option<span class="w"> </span>sales<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--min-confidence<span class="w"> </span><span class="m">0</span>.85<span class="w"> </span>--value<span class="k">)</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>

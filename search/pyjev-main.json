@@ -3,6 +3,25 @@
   "tool": "pyjev-main",
   "entries": [
     {
+      "url": "/tools/pyjev/main/agent-skill/",
+      "title": "pyjev Agent skill",
+      "snippet": "The bundled pyjev skill at skills/pyjev/SKILL.md teaches an agent to use\nnamed decision contracts without reading pyjev source or adding an …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Agent skill",
+          "text": "The bundled pyjev skill at skills/pyjev/SKILL.md teaches an agent to use\nnamed decision contracts without reading pyjev source or adding an MCP\nintegration.\n\nIts workflow is deliberately inspect-first:\n\n\nlist and show named decisions;\n\n\nvalidate the complete .pyjev.toml locally;\n\n\ncompile the exact request without credentials;\n\n\ninspect the schema marker and specification fingerprint;\n\n\nexecute only after offline checks succeed;\n\n\npreserve uncertainty and metadata unless a scalar is explicitly safe;\n\n\napply confidence thresholds as caller policy;\n\n\nkeep deterministic constraints in normal application code.\n\n\n\nThe skill also documents credential-safe setup, auth test, and pyjev’s\nproject-specific exit codes. It does not expose a generic primitive MCP server;\na future agent adapter should e…",
+          "lower": "the bundled pyjev skill at skills/pyjev/skill.md teaches an agent to use\nnamed decision contracts without reading pyjev source or adding an mcp\nintegration.\n\nits workflow is deliberately inspect-first:\n\n\nlist and show named decisions;\n\n\nvalidate the complete .pyjev.toml locally;\n\n\ncompile the exact request without credentials;\n\n\ninspect the schema marker and specification fingerprint;\n\n\nexecute only after offline checks succeed;\n\n\npreserve uncertainty and metadata unless a scalar is explicitly safe;\n\n\napply confidence thresholds as caller policy;\n\n\nkeep deterministic constraints in normal application code.\n\n\n\nthe skill also documents credential-safe setup, auth test, and pyjev’s\nproject-specific exit codes. it does not expose a generic primitive mcp server;\na future agent adapter should e…"
+        },
+        {
+          "anchor": "",
+          "heading": "Choosing a pattern",
+          "text": "Stable reusable judgment: declare a named decision in .pyjev.toml; validate and compile before executing.\n\n\nRuntime-built contract: use Jev.evaluate() / AsyncJev.evaluate() with typed decision objects.\n\n\nSeveral questions over one state: use a bundle; many independent states: use bounded pyjev.amap.\n\n\nCandidate search where none may fit: pyjev.recipes.find ranks with Choice and judges applicability independently.\n\n\nLiteral field extraction: pyjev.recipes.extract selects only deterministic candidates; inspect candidates and request state before execution.\n\n\nClaim/evidence review: pyjev.recipes.verify distinguishes unsupported from contradicted and does not fetch evidence.\n\n\nFixed taxonomies: use pyjev.recipes.classify; multi-label mode is independent Noul judgments with an explicit unclear…",
+          "lower": "stable reusable judgment: declare a named decision in .pyjev.toml; validate and compile before executing.\n\n\nruntime-built contract: use jev.evaluate() / asyncjev.evaluate() with typed decision objects.\n\n\nseveral questions over one state: use a bundle; many independent states: use bounded pyjev.amap.\n\n\ncandidate search where none may fit: pyjev.recipes.find ranks with choice and judges applicability independently.\n\n\nliteral field extraction: pyjev.recipes.extract selects only deterministic candidates; inspect candidates and request state before execution.\n\n\nclaim/evidence review: pyjev.recipes.verify distinguishes unsupported from contradicted and does not fetch evidence.\n\n\nfixed taxonomies: use pyjev.recipes.classify; multi-label mode is independent noul judgments with an explicit unclear…"
+        }
+      ]
+    },
+    {
       "url": "/tools/pyjev/main/api/client/",
       "title": "pyjev Client",
       "snippet": ".. py:module:: pyjev.client\n\nThin Python convenience API over TypeSafe’s official SDK.\n\n.. py:class:: Jev(*, api_key=None, model=None, timeo …",
@@ -44,19 +63,25 @@
     {
       "url": "/tools/pyjev/main/authentication/",
       "title": "pyjev Authentication",
-      "snippet": "Credential lookup order is:\n\n\nexplicit Python api_key=;\n\n\nTYPESAFE_API_KEY;\n\n\nthe OS keyring;\n\n\na user-level plaintext fallback file.\npyjev …",
+      "snippet": "Credential lookup order for Python clients is:\n\n\nexplicit Python api_key=;\n\n\nTYPESAFE_API_KEY;\n\n\nthe OS keyring;\n\n\na user-level plaintext fa …",
       "sections": [
         {
           "anchor": "",
           "heading": "Authentication",
-          "text": "Credential lookup order is:\n\n\nexplicit Python api_key=;\n\n\nTYPESAFE_API_KEY;\n\n\nthe OS keyring;\n\n\na user-level plaintext fallback file.",
-          "lower": "credential lookup order is:\n\n\nexplicit python api_key=;\n\n\ntypesafe_api_key;\n\n\nthe os keyring;\n\n\na user-level plaintext fallback file."
+          "text": "Credential lookup order for Python clients is:\n\n\nexplicit Python api_key=;\n\n\nTYPESAFE_API_KEY;\n\n\nthe OS keyring;\n\n\na user-level plaintext fallback file.\n\n\n\nDecision validation and compilation do not read credentials or contact the Jev\nAPI.",
+          "lower": "credential lookup order for python clients is:\n\n\nexplicit python api_key=;\n\n\ntypesafe_api_key;\n\n\nthe os keyring;\n\n\na user-level plaintext fallback file.\n\n\n\ndecision validation and compilation do not read credentials or contact the jev\napi."
         },
         {
           "anchor": "",
           "heading": "CLI management",
-          "text": "pyjev auth set\npyjev auth set --storage keyring\npyjev auth set --storage file\npyjev auth status\npyjev auth delete\n\n\n\n\nInteractive entry hides the key. --api-key SECRET can leak into shell history, so use\nit only when that tradeoff is acceptable. Deleting persisted credentials does not unset\nan active TYPESAFE_API_KEY environment variable.\n\n\nWarning\n\n--storage file stores the key as plaintext in the user’s configuration directory.\nRestrictive permissions are helpful but do not make the key encrypted.\n\n\n\nProject .pyjev.toml files must never contain API keys. Decision compilation and docs\nbuilds do not read credentials or contact the Jev API.",
-          "lower": "pyjev auth set\npyjev auth set --storage keyring\npyjev auth set --storage file\npyjev auth status\npyjev auth delete\n\n\n\n\ninteractive entry hides the key. --api-key secret can leak into shell history, so use\nit only when that tradeoff is acceptable. deleting persisted credentials does not unset\nan active typesafe_api_key environment variable.\n\n\nwarning\n\n--storage file stores the key as plaintext in the user’s configuration directory.\nrestrictive permissions are helpful but do not make the key encrypted.\n\n\n\nproject .pyjev.toml files must never contain api keys. decision compilation and docs\nbuilds do not read credentials or contact the jev api."
+          "text": "For interactive local setup, omit the key argument so input stays hidden:\n\npyjev auth set\npyjev auth status\npyjev auth test\n\n\n\n\nauth test performs exactly one minimal request through the official SDK. It\nreports only the credential source and returned model:\n\ncredential: keyring\nstatus: valid\nmodel: jev-latest\n\n\n\n\nUse --json for automation:\n\npyjev auth test --json\n\n\n\n\n{ \"credential_source\": \"keyring\", \"model\": \"jev-latest\", \"ok\": true }\n\n\n\n\nMissing credentials, authentication rejection, network failures, and API\nfailures use runtime exit code 1 and safe status messages. The command never\npersists a credential and never prints the key.\n\nThe explicit --api-key option remains available for compatibility:\n\npyjev auth set --api-key '...'\n\n\n\n\nIt is unsafe because shell history, process listings…",
+          "lower": "for interactive local setup, omit the key argument so input stays hidden:\n\npyjev auth set\npyjev auth status\npyjev auth test\n\n\n\n\nauth test performs exactly one minimal request through the official sdk. it\nreports only the credential source and returned model:\n\ncredential: keyring\nstatus: valid\nmodel: jev-latest\n\n\n\n\nuse --json for automation:\n\npyjev auth test --json\n\n\n\n\n{ \"credential_source\": \"keyring\", \"model\": \"jev-latest\", \"ok\": true }\n\n\n\n\nmissing credentials, authentication rejection, network failures, and api\nfailures use runtime exit code 1 and safe status messages. the command never\npersists a credential and never prints the key.\n\nthe explicit --api-key option remains available for compatibility:\n\npyjev auth set --api-key '...'\n\n\n\n\nit is unsafe because shell history, process listings…"
+        },
+        {
+          "anchor": "",
+          "heading": "Credential sources",
+          "text": "auth status identifies the effective source as environment, keyring, or\nfile. It reports missing as an error. Errors, JSON output, and diagnostic\nmessages must not include the key contents.\n\nProject .pyjev.toml files must never contain API keys. Keep credentials out of\nsource control, compiled decision previews, documentation builds, and logs.",
+          "lower": "auth status identifies the effective source as environment, keyring, or\nfile. it reports missing as an error. errors, json output, and diagnostic\nmessages must not include the key contents.\n\nproject .pyjev.toml files must never contain api keys. keep credentials out of\nsource control, compiled decision previews, documentation builds, and logs."
         }
       ]
     },
@@ -70,6 +95,12 @@
           "heading": "Changelog",
           "text": "This page is generated from project release records by releaseledger. Do not edit it\nmanually; regenerate it through the release workflow.",
           "lower": "this page is generated from project release records by releaseledger. do not edit it\nmanually; regenerate it through the release workflow."
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Added named decision contracts, offline compilation, async support, safe authentication checks, and agent guidance\n\n\nAdded an async semantic linter example that batches fourteen rules per function and reports structured findings\n\n\nAdded documented decision patterns and a support-triage example for routing, scoring, confidence gates, and fan-out\n\n\nAdded an interactive emoji analysis example using one typed bundle request per message\n\n\nAdded local result pipelines for selecting bundle answers and applying confidence or probability gates",
+          "lower": "added named decision contracts, offline compilation, async support, safe authentication checks, and agent guidance\n\n\nadded an async semantic linter example that batches fourteen rules per function and reports structured findings\n\n\nadded documented decision patterns and a support-triage example for routing, scoring, confidence gates, and fan-out\n\n\nadded an interactive emoji analysis example using one typed bundle request per message\n\n\nadded local result pipelines for selecting bundle answers and applying confidence or probability gates"
         },
         {
           "anchor": "",
@@ -117,8 +148,8 @@
         {
           "anchor": "",
           "heading": "Output modes",
-          "text": "Default output is compact human-readable output.\n\n\n--json emits structured metadata.\n\n\n--value emits only the selected value.\n\n\n\n--json and --value cannot be combined.",
-          "lower": "default output is compact human-readable output.\n\n\n--json emits structured metadata.\n\n\n--value emits only the selected value.\n\n\n\n--json and --value cannot be combined."
+          "text": "Default output is compact human-readable output.\n\n\n--json emits structured metadata.\n\n\n--value emits only the selected value.\n\n\n\n--json and --value cannot be combined.\n\n--pluck PATH selects from the same structured dictionary used by .to_dict() (and by --json). It is available on ask/noul, choice, score, decide, and raw run; run already emits structured JSON and therefore needs no --json flag. It supports dotted keys and numeric array indexes, such as --pluck choice, --pluck answers.intent.choice, or --pluck results[0].verdict. A missing key, bad index, or malformed path is an error; selectors never silently emit empty output. On commands that expose the flags, –json, –value, and –pluck` are mutually exclusive.\n\nA pluck selector cannot bypass an active confidence gate: when --min-confiden…",
+          "lower": "default output is compact human-readable output.\n\n\n--json emits structured metadata.\n\n\n--value emits only the selected value.\n\n\n\n--json and --value cannot be combined.\n\n--pluck path selects from the same structured dictionary used by .to_dict() (and by --json). it is available on ask/noul, choice, score, decide, and raw run; run already emits structured json and therefore needs no --json flag. it supports dotted keys and numeric array indexes, such as --pluck choice, --pluck answers.intent.choice, or --pluck results[0].verdict. a missing key, bad index, or malformed path is an error; selectors never silently emit empty output. on commands that expose the flags, –json, –value, and –pluck` are mutually exclusive.\n\na pluck selector cannot bypass an active confidence gate: when --min-confiden…"
         },
         {
           "anchor": "",
@@ -147,27 +178,57 @@
         {
           "anchor": "",
           "heading": "Shell composition",
-          "text": "if TEAM=\"$(cat ticket.txt | pyjev choice \"Route this ticket\" \\\n  --option billing --option engineering --option sales \\\n  --min-confidence 0.85 --value)\"; then\n  route_to \"$TEAM\"\nelse\n  case \"$?\" in\n    3) human_review ;;\n    *) exit 1 ;;\n  esac\nfi\n\n\n\n\nA failed gate means Jev returned a valid result but the caller’s policy did not permit\nautomated use; it does not mean that the model was universally untrustworthy.",
-          "lower": "if team=\"$(cat ticket.txt | pyjev choice \"route this ticket\" \\\n  --option billing --option engineering --option sales \\\n  --min-confidence 0.85 --value)\"; then\n  route_to \"$team\"\nelse\n  case \"$?\" in\n    3) human_review ;;\n    *) exit 1 ;;\n  esac\nfi\n\n\n\n\na failed gate means jev returned a valid result but the caller’s policy did not permit\nautomated use; it does not mean that the model was universally untrustworthy."
+          "text": "These are pyjev-specific automation codes. They are not interchangeable with\nanother jev CLI’s exit-code taxonomy; in particular, pyjev code 3 means a\nvalid Choice/Score result failed the caller’s confidence gate.\n\nif TEAM=\"$(cat ticket.txt | pyjev choice \"Route this ticket\" \\\n  --option billing --option engineering --option sales \\\n  --min-confidence 0.85 --value)\"; then\n  route_to \"$TEAM\"\nelse\n  case \"$?\" in\n    3) human_review ;;\n    *) exit 1 ;;\n  esac\nfi\n\n\n\n\nA failed gate means Jev returned a valid result but the caller’s policy did not permit\nautomated use; it does not mean that the model was universally untrustworthy.",
+          "lower": "these are pyjev-specific automation codes. they are not interchangeable with\nanother jev cli’s exit-code taxonomy; in particular, pyjev code 3 means a\nvalid choice/score result failed the caller’s confidence gate.\n\nif team=\"$(cat ticket.txt | pyjev choice \"route this ticket\" \\\n  --option billing --option engineering --option sales \\\n  --min-confidence 0.85 --value)\"; then\n  route_to \"$team\"\nelse\n  case \"$?\" in\n    3) human_review ;;\n    *) exit 1 ;;\n  esac\nfi\n\n\n\n\na failed gate means jev returned a valid result but the caller’s policy did not permit\nautomated use; it does not mean that the model was universally untrustworthy."
         }
       ]
     },
     {
       "url": "/tools/pyjev/main/comparisons/",
       "title": "pyjev Comparisons",
-      "snippet": "typesafe-sdk: the official low-level Python SDK for TypeSafe models, transport,\nretries, and API errors.\n\n\npyjev: an operational wrapper wit …",
+      "snippet": "typesafe-sdk: the official low-level Python SDK for TypeSafe models,\ntransport, retries, and API errors.\n\n\npyjev: a Python application layer …",
       "sections": [
         {
           "anchor": "",
           "heading": "Three layers",
-          "text": "typesafe-sdk: the official low-level Python SDK for TypeSafe models, transport,\nretries, and API errors.\n\n\npyjev: an operational wrapper with result preservation, named .pyjev.toml\ndecisions, CLI behavior, credentials, validation, compilation, and confidence gates.\n\n\nOther higher-level interfaces: may optimize for application-model or Pydantic ergonomics.",
-          "lower": "typesafe-sdk: the official low-level python sdk for typesafe models, transport,\nretries, and api errors.\n\n\npyjev: an operational wrapper with result preservation, named .pyjev.toml\ndecisions, cli behavior, credentials, validation, compilation, and confidence gates.\n\n\nother higher-level interfaces: may optimize for application-model or pydantic ergonomics."
+          "text": "typesafe-sdk: the official low-level Python SDK for TypeSafe models,\ntransport, retries, and API errors.\n\n\npyjev: a Python application layer with typed results, named .pyjev.toml\ndecisions, offline compilation, credentials, CLI behavior, and confidence\ngates.\n\n\nOther higher-level tools: may optimize for a different application, provider,\nagent, or protocol workflow.",
+          "lower": "typesafe-sdk: the official low-level python sdk for typesafe models,\ntransport, retries, and api errors.\n\n\npyjev: a python application layer with typed results, named .pyjev.toml\ndecisions, offline compilation, credentials, cli behavior, and confidence\ngates.\n\n\nother higher-level tools: may optimize for a different application, provider,\nagent, or protocol workflow."
+        },
+        {
+          "anchor": "",
+          "heading": "pyjev and jev-cli",
+          "text": "This comparison uses tumf/jev-cli version 0.6.2, main commit\n980cb98f5f529ba310ce4c7481a55e034b0a0829, reviewed on 2026-09-20. It is a\nversion-qualified snapshot, not a claim about every future release.\n\nBoth projects are useful and overlap on direct Jev primitives. They optimize for\ndifferent layers rather than being interchangeable implementations of one\nproduct.\n\n\n\nUse case or capability\n\npyjev\n\njev-cli 0.6.2\n\n\n\n\n\nEmbed Jev in a Python application\n\nFirst-class Jev API\n\nPrimarily a CLI/MCP tool\n\n\n\nNative async Python integration\n\nAsyncJev uses the SDK async client\n\nNot its primary API\n\n\n\nTransport boundary\n\nDelegates to the official typesafe-sdk\n\nDirect provider-aware HTTP/request translation\n\n\n\nTyped application results\n\nNoulResult, ChoiceResult, ScoreResult, BundleResult\n\nJSON close t…",
+          "lower": "this comparison uses tumf/jev-cli version 0.6.2, main commit\n980cb98f5f529ba310ce4c7481a55e034b0a0829, reviewed on 2026-09-20. it is a\nversion-qualified snapshot, not a claim about every future release.\n\nboth projects are useful and overlap on direct jev primitives. they optimize for\ndifferent layers rather than being interchangeable implementations of one\nproduct.\n\n\n\nuse case or capability\n\npyjev\n\njev-cli 0.6.2\n\n\n\n\n\nembed jev in a python application\n\nfirst-class jev api\n\nprimarily a cli/mcp tool\n\n\n\nnative async python integration\n\nasyncjev uses the sdk async client\n\nnot its primary api\n\n\n\ntransport boundary\n\ndelegates to the official typesafe-sdk\n\ndirect provider-aware http/request translation\n\n\n\ntyped application results\n\nnoulresult, choiceresult, scoreresult, bundleresult\n\njson close t…"
+        },
+        {
+          "anchor": "",
+          "heading": "pyjev and Nasrallah-AL/jev-cli",
+          "text": "This is a separate comparison from the tumf/jev-cli section above. It covers Nasrallah-AL/jev-cli, the TypeScript project distributed as npm package jevctl 0.2.3, executable jev, at main commit a1e668164e75d7fc80cc4a51aaeb1d0144d8961f (reviewed 2026-09-25). It is a dated snapshot, not a winner/loser ranking or a claim about future releases.\n\n\n\nCapability\n\npyjev\n\nNasrallah jev-cli\n\n\n\n\n\nPrimary product\n\nPython application decision layer over the official SDK\n\nPurpose-built TypeScript CLI/library semantic operations\n\n\n\nNamed project contracts\n\n.pyjev.toml, offline validation and compilation\n\nDifferent configuration and request-inspection model\n\n\n\nSemantic operations\n\nTyped primitives and recipes such as find, extract, and verify\n\nverify, classify, extract, match, route, find, rerank, and mor…",
+          "lower": "this is a separate comparison from the tumf/jev-cli section above. it covers nasrallah-al/jev-cli, the typescript project distributed as npm package jevctl 0.2.3, executable jev, at main commit a1e668164e75d7fc80cc4a51aaeb1d0144d8961f (reviewed 2026-09-25). it is a dated snapshot, not a winner/loser ranking or a claim about future releases.\n\n\n\ncapability\n\npyjev\n\nnasrallah jev-cli\n\n\n\n\n\nprimary product\n\npython application decision layer over the official sdk\n\npurpose-built typescript cli/library semantic operations\n\n\n\nnamed project contracts\n\n.pyjev.toml, offline validation and compilation\n\ndifferent configuration and request-inspection model\n\n\n\nsemantic operations\n\ntyped primitives and recipes such as find, extract, and verify\n\nverify, classify, extract, match, route, find, rerank, and mor…"
+        },
+        {
+          "anchor": "",
+          "heading": "Architecture",
+          "text": "A pyjev named decision flows through a validated repository declaration:\n\n.pyjev.toml -> schema/discovery -> offline compile -> Jev/AsyncJev -> typesafe-sdk\n\n\n\n\nThe official SDK owns transport, retries, request models, and API error\nsemantics. pyjev adds declaration, validation, result normalization, lifecycle,\ncredentials, and caller policy.\n\nThe jev-cli baseline is closer to:\n\nCLI or MCP tool -> provider selection/translation -> HTTP endpoint -> JSON result\n\n\n\n\nThat makes it a strong direct shell, agent, MCP, and multi-provider client. It\nalso means it owns provider request translation and compatibility behavior.",
+          "lower": "a pyjev named decision flows through a validated repository declaration:\n\n.pyjev.toml -> schema/discovery -> offline compile -> jev/asyncjev -> typesafe-sdk\n\n\n\n\nthe official sdk owns transport, retries, request models, and api error\nsemantics. pyjev adds declaration, validation, result normalization, lifecycle,\ncredentials, and caller policy.\n\nthe jev-cli baseline is closer to:\n\ncli or mcp tool -> provider selection/translation -> http endpoint -> json result\n\n\n\n\nthat makes it a strong direct shell, agent, mcp, and multi-provider client. it\nalso means it owns provider request translation and compatibility behavior."
+        },
+        {
+          "anchor": "",
+          "heading": "When to use which",
+          "text": "Use pyjev when you need:\n\n\nan embeddable sync or async Python client;\n\n\ndependency injection and caller-owned client lifecycle;\n\n\ntyped results with uncertainty and metadata preserved;\n\n\nnamed decisions reviewed in source control;\n\n\ncredential-free validation or request previews;\n\n\nexplicit confidence policy at an automation boundary.\n\n\n\nUse jev-cli when you need:\n\n\na standalone generic shell client;\n\n\nprovider selection across the official service, gateways, or a custom endpoint;\n\n\nan MCP server for an agent host;\n\n\nits bundled agent-skill installation workflow;\n\n\nJSON-first direct request tooling.\n\n\n\nFor a one-off primitive shell judgment, either tool may fit. The syntax and\noutput overlap there and should not be treated as the strategic distinction.",
+          "lower": "use pyjev when you need:\n\n\nan embeddable sync or async python client;\n\n\ndependency injection and caller-owned client lifecycle;\n\n\ntyped results with uncertainty and metadata preserved;\n\n\nnamed decisions reviewed in source control;\n\n\ncredential-free validation or request previews;\n\n\nexplicit confidence policy at an automation boundary.\n\n\n\nuse jev-cli when you need:\n\n\na standalone generic shell client;\n\n\nprovider selection across the official service, gateways, or a custom endpoint;\n\n\nan mcp server for an agent host;\n\n\nits bundled agent-skill installation workflow;\n\n\njson-first direct request tooling.\n\n\n\nfor a one-off primitive shell judgment, either tool may fit. the syntax and\noutput overlap there and should not be treated as the strategic distinction."
+        },
+        {
+          "anchor": "",
+          "heading": "Exit codes are not interchangeable",
+          "text": "pyjev’s exit codes are its own automation contract:\n\n\n\nExit\n\npyjev meaning\n\n\n\n\n\n0\n\nSuccessful result and any gate passed\n\n\n\n1\n\nRuntime, credential, API, network, or I/O failure\n\n\n\n2\n\nUsage or local validation error\n\n\n\n3\n\nValid Choice/Score result, but the caller’s confidence gate failed\n\n\n\n\n\nIn particular, pyjev exit code 3 means a policy gate failed after Jev returned a\nvalid result. It does not mean the API rejected authentication. Do not use\nthese numbers as if they were interoperable with another jev CLI’s taxonomy.",
+          "lower": "pyjev’s exit codes are its own automation contract:\n\n\n\nexit\n\npyjev meaning\n\n\n\n\n\n0\n\nsuccessful result and any gate passed\n\n\n\n1\n\nruntime, credential, api, network, or i/o failure\n\n\n\n2\n\nusage or local validation error\n\n\n\n3\n\nvalid choice/score result, but the caller’s confidence gate failed\n\n\n\n\n\nin particular, pyjev exit code 3 means a policy gate failed after jev returned a\nvalid result. it does not mean the api rejected authentication. do not use\nthese numbers as if they were interoperable with another jev cli’s taxonomy."
         },
         {
           "anchor": "",
           "heading": "Why not use the SDK directly?",
-          "text": "Use typesafe-sdk directly when you want maximum control and do not need named decisions,\npyjev credential ergonomics, the shell CLI, confidence-gate exit semantics, or pyjev result\nwrappers. Use pyjev when those operational features make decisions easier to declare,\ninspect, validate, execute, gate, trace, and reuse.\n\npyjev is not a decorator framework, does not require Pydantic, and does not replace the\nofficial SDK’s transport or probabilistic semantics.",
-          "lower": "use typesafe-sdk directly when you want maximum control and do not need named decisions,\npyjev credential ergonomics, the shell cli, confidence-gate exit semantics, or pyjev result\nwrappers. use pyjev when those operational features make decisions easier to declare,\ninspect, validate, execute, gate, trace, and reuse.\n\npyjev is not a decorator framework, does not require pydantic, and does not replace the\nofficial sdk’s transport or probabilistic semantics."
+          "text": "Use typesafe-sdk directly when you want maximum control and do not need named\ndecisions, pyjev credential ergonomics, shell-safe confidence gates, offline\ninspection, or pyjev result wrappers. Use pyjev when those application and\nworkflow abstractions make decisions easier to declare, inspect, validate,\nexecute, gate, trace, and reuse.",
+          "lower": "use typesafe-sdk directly when you want maximum control and do not need named\ndecisions, pyjev credential ergonomics, shell-safe confidence gates, offline\ninspection, or pyjev result wrappers. use pyjev when those application and\nworkflow abstractions make decisions easier to declare, inspect, validate,\nexecute, gate, trace, and reuse."
         }
       ]
     },
@@ -234,8 +295,14 @@
         {
           "anchor": "",
           "heading": "Thresholds belong to the application",
-          "text": "A threshold is invocation policy, not a universal Jev recommendation. Different actions\nhave different consequences. Keep thresholds at the call site until a deliberate policy\nand outcome abstraction exists. pyjev does not add min_confidence to .pyjev.toml in\nthis pass, and it does not invent a default threshold.\n\nNoul returns a probability of true and does not expose the Choice/Score confidence gate.\nChoose and document an application policy explicitly when using Noul.",
-          "lower": "a threshold is invocation policy, not a universal jev recommendation. different actions\nhave different consequences. keep thresholds at the call site until a deliberate policy\nand outcome abstraction exists. pyjev does not add min_confidence to .pyjev.toml in\nthis pass, and it does not invent a default threshold.\n\nnoul returns a probability of true and does not expose the choice/score confidence gate.\nchoose and document an application policy explicitly when using noul."
+          "text": "The Python equivalent is a value-level policy outcome rather than a process exit:\n\nfrom pyjev.pipeline import require_confidence\n\noutcome = result | require_confidence(0.85)\nif outcome.passed:\n    use_value(outcome.value)\nelse:\n    human_review(outcome.result)\n\n\n\n\nBoth gates consume the same Choice/Score confidence signal. Neither treats that signal as a correctness probability, and a rejected Python outcome still preserves the complete result for review. require_probability() is a separate policy for a Noul probability of true.\n\nA threshold is invocation policy, not a universal Jev recommendation. Different actions\nhave different consequences. Keep thresholds at the call site until a deliberate policy\nand outcome abstraction exists. pyjev does not add min_confidence to .pyjev.toml in\nthi…",
+          "lower": "the python equivalent is a value-level policy outcome rather than a process exit:\n\nfrom pyjev.pipeline import require_confidence\n\noutcome = result | require_confidence(0.85)\nif outcome.passed:\n    use_value(outcome.value)\nelse:\n    human_review(outcome.result)\n\n\n\n\nboth gates consume the same choice/score confidence signal. neither treats that signal as a correctness probability, and a rejected python outcome still preserves the complete result for review. require_probability() is a separate policy for a noul probability of true.\n\na threshold is invocation policy, not a universal jev recommendation. different actions\nhave different consequences. keep thresholds at the call site until a deliberate policy\nand outcome abstraction exists. pyjev does not add min_confidence to .pyjev.toml in\nthi…"
+        },
+        {
+          "anchor": "",
+          "heading": "Calibrate thresholds and pin models",
+          "text": "For calibrated production policy, run representative labeled examples, inspect confidence/probability distributions and error consequences, then record the chosen caller thresholds. Pin an explicit model version for the calibrated workflow and deliberately re-evaluate/re-calibrate before changing that model version; an alias can change underneath a fixed threshold. A pinned model makes version changes visible but does not eliminate data drift or guarantee correctness.",
+          "lower": "for calibrated production policy, run representative labeled examples, inspect confidence/probability distributions and error consequences, then record the chosen caller thresholds. pin an explicit model version for the calibrated workflow and deliberately re-evaluate/re-calibrate before changing that model version; an alias can change underneath a fixed threshold. a pinned model makes version changes visible but does not eliminate data drift or guarantee correctness."
         }
       ]
     },
@@ -293,19 +360,31 @@
           "heading": "Connect Four",
           "text": "connect_four.py demonstrates deterministic preprocessing, dynamic Choice criteria,\nrequest inspection, and credential-free JSONL tracing. Python computes exact legal moves\nand removes moves proven to lose under the example’s bounded tactical rules. Jev is called\nonly when multiple tactically admissible actions remain.\n\n\nDeterministic constraints belong in ordinary code; ambiguous judgment among valid\nalternatives belongs in Jev.\n\n\n\nRead the full source for the playable demo rather than copying its tactical helpers into\nan application without understanding their scope.",
           "lower": "connect_four.py demonstrates deterministic preprocessing, dynamic choice criteria,\nrequest inspection, and credential-free jsonl tracing. python computes exact legal moves\nand removes moves proven to lose under the example’s bounded tactical rules. jev is called\nonly when multiple tactically admissible actions remain.\n\n\ndeterministic constraints belong in ordinary code; ambiguous judgment among valid\nalternatives belongs in jev.\n\n\n\nread the full source for the playable demo rather than copying its tactical helpers into\nan application without understanding their scope."
+        },
+        {
+          "anchor": "",
+          "heading": "Plain-English semantic linter",
+          "text": "semantic_linter.py demonstrates a named bundle plus native async fan-out. Standard-library Python AST parsing owns exact file discovery, syntax errors, function boundaries, qualified names, decorators, and source locations. The semantic-lint bundle contains 14 independent plain-English Noul rules, and all 14 rules are evaluated in one request for each function.\n\nIndependent functions are scheduled concurrently with bounded AsyncJev concurrency. The human summary calculates actual function, rule, judgment, and request counts, token usage, and observed elapsed time. JSON output preserves every rule probability and request metadata.\n\npyjev decision show semantic-lint --config examples/.pyjev.toml --json\npyjev decision validate --config examples/.pyjev.toml\npython examples/semantic_linter.py…",
+          "lower": "semantic_linter.py demonstrates a named bundle plus native async fan-out. standard-library python ast parsing owns exact file discovery, syntax errors, function boundaries, qualified names, decorators, and source locations. the semantic-lint bundle contains 14 independent plain-english noul rules, and all 14 rules are evaluated in one request for each function.\n\nindependent functions are scheduled concurrently with bounded asyncjev concurrency. the human summary calculates actual function, rule, judgment, and request counts, token usage, and observed elapsed time. json output preserves every rule probability and request metadata.\n\npyjev decision show semantic-lint --config examples/.pyjev.toml --json\npyjev decision validate --config examples/.pyjev.toml\npython examples/semantic_linter.py…"
+        },
+        {
+          "anchor": "",
+          "heading": "Emoji Jev",
+          "text": "emoji_jev.py is an interactive named-bundle example. A single request evaluates a 64-way emoji Choice plus tone questions. The terminal displays the selected emoji, top alternatives from the Choice probability distribution, typed side signals, request metadata, token usage, and client-observed round-trip time.\n\nThe top-N display is deterministic Python over Jev’s preserved probability distribution; it is not a second model call.",
+          "lower": "emoji_jev.py is an interactive named-bundle example. a single request evaluates a 64-way emoji choice plus tone questions. the terminal displays the selected emoji, top alternatives from the choice probability distribution, typed side signals, request metadata, token usage, and client-observed round-trip time.\n\nthe top-n display is deterministic python over jev’s preserved probability distribution; it is not a second model call."
         }
       ]
     },
     {
       "url": "/tools/pyjev/main/getting-started/",
       "title": "pyjev Getting started",
-      "snippet": "This page takes a new user from installation to a first decision in about five minutes.\npip install pyjev\nuv tool install pyjev\n\n\n\n\nFor a ch …",
+      "snippet": "This walkthrough introduces pyjev’s main idea: define a reusable decision\ncontract, inspect it offline, then use the same contract from shel …",
       "sections": [
         {
           "anchor": "",
           "heading": "Getting started",
-          "text": "This page takes a new user from installation to a first decision in about five minutes.",
-          "lower": "this page takes a new user from installation to a first decision in about five minutes."
+          "text": "This walkthrough introduces pyjev’s main idea: define a reusable decision\ncontract, inspect it offline, then use the same contract from shell and Python.",
+          "lower": "this walkthrough introduces pyjev’s main idea: define a reusable decision\ncontract, inspect it offline, then use the same contract from shell and python."
         },
         {
           "anchor": "",
@@ -315,58 +394,76 @@
         },
         {
           "anchor": "",
+          "heading": "Create a decision contract",
+          "text": "In a project directory, create .pyjev.toml:\n\n[pyjev]\nschema = 1\n\n[decision.ticket-route]\ntype = \"choice\"\nquestion = \"Which team should handle this support request?\"\n\n[decision.ticket-route.options]\nbilling = \"Billing, invoice, payment, or refund issue\"\nengineering = \"Technical problem or product bug\"\nsales = \"Purchasing, pricing, or procurement question\"\n\n\n\n\nThis is a version-controlled specification. It is not a secret store and must\nnot contain API keys.",
+          "lower": "in a project directory, create .pyjev.toml:\n\n[pyjev]\nschema = 1\n\n[decision.ticket-route]\ntype = \"choice\"\nquestion = \"which team should handle this support request?\"\n\n[decision.ticket-route.options]\nbilling = \"billing, invoice, payment, or refund issue\"\nengineering = \"technical problem or product bug\"\nsales = \"purchasing, pricing, or procurement question\"\n\n\n\n\nthis is a version-controlled specification. it is not a secret store and must\nnot contain api keys."
+        },
+        {
+          "anchor": "",
+          "heading": "Inspect before execution",
+          "text": "Validation and compilation are local operations:\n\npyjev decision validate\npyjev decision show ticket-route\npyjev decision compile ticket-route --state \"Stripe webhooks fail\"\n\n\n\n\nThey do not read credentials, construct a client, or contact the Jev API. The\ncompiled output is a normalized request preview with a stable schema marker and\nnon-secret decision fingerprint.",
+          "lower": "validation and compilation are local operations:\n\npyjev decision validate\npyjev decision show ticket-route\npyjev decision compile ticket-route --state \"stripe webhooks fail\"\n\n\n\n\nthey do not read credentials, construct a client, or contact the jev api. the\ncompiled output is a normalized request preview with a stable schema marker and\nnon-secret decision fingerprint."
+        },
+        {
+          "anchor": "",
           "heading": "Authenticate",
-          "text": "For an interactive local setup:\n\npyjev auth set\npyjev auth status\n\n\n\n\nFor CI, use an environment variable:\n\nexport TYPESAFE_API_KEY='...'\n\n\n\n\n\nWarning\n\nThe file fallback is plaintext. Restrictive permissions reduce exposure but do not\nencrypt the credential.",
-          "lower": "for an interactive local setup:\n\npyjev auth set\npyjev auth status\n\n\n\n\nfor ci, use an environment variable:\n\nexport typesafe_api_key='...'\n\n\n\n\n\nwarning\n\nthe file fallback is plaintext. restrictive permissions reduce exposure but do not\nencrypt the credential."
+          "text": "For an interactive local setup, use hidden input:\n\npyjev auth set\npyjev auth status\npyjev auth test\n\n\n\n\nFor CI, prefer the environment:\n\nexport TYPESAFE_API_KEY='...'\npyjev auth test --json\n\n\n\n\nauth test performs one minimal request through the official SDK and reports\nsafe metadata only. The explicit auth set --api-key option is retained for\ncompatibility but is unsafe because shell history and process listings may\nexpose the value. Do not put secrets in command output, decision files, or\nlogs.\n\n\nWarning\n\nThe file fallback is plaintext. Restrictive permissions reduce exposure but do\nnot encrypt the credential.",
+          "lower": "for an interactive local setup, use hidden input:\n\npyjev auth set\npyjev auth status\npyjev auth test\n\n\n\n\nfor ci, prefer the environment:\n\nexport typesafe_api_key='...'\npyjev auth test --json\n\n\n\n\nauth test performs one minimal request through the official sdk and reports\nsafe metadata only. the explicit auth set --api-key option is retained for\ncompatibility but is unsafe because shell history and process listings may\nexpose the value. do not put secrets in command output, decision files, or\nlogs.\n\n\nwarning\n\nthe file fallback is plaintext. restrictive permissions reduce exposure but do\nnot encrypt the credential."
         },
         {
           "anchor": "",
-          "heading": "First CLI decision",
-          "text": "Choice returns a selected label, confidence, and the complete distribution:\n\npyjev choice \"Where should this ticket go?\" \\\n  --state \"Stripe checkout fails\" \\\n  --option billing=\"Payments and refunds\" \\\n  --option engineering=\"Technical failures\" \\\n  --option sales=\"Purchasing questions\" \\\n  --json\n\n\n\n\n--json is intended for programs and preserves all result metadata.",
-          "lower": "choice returns a selected label, confidence, and the complete distribution:\n\npyjev choice \"where should this ticket go?\" \\\n  --state \"stripe checkout fails\" \\\n  --option billing=\"payments and refunds\" \\\n  --option engineering=\"technical failures\" \\\n  --option sales=\"purchasing questions\" \\\n  --json\n\n\n\n\n--json is intended for programs and preserves all result metadata."
+          "heading": "Execute from shell",
+          "text": "echo \"Stripe webhooks fail\" | pyjev decide ticket-route --json\n\n\n\n\n--json preserves result metadata. Use --value only when a scalar is safe to\nconsume, and use --min-confidence when the application requires a confidence\npolicy.",
+          "lower": "echo \"stripe webhooks fail\" | pyjev decide ticket-route --json\n\n\n\n\n--json preserves result metadata. use --value only when a scalar is safe to\nconsume, and use --min-confidence when the application requires a confidence\npolicy."
         },
         {
           "anchor": "",
-          "heading": "First Python decision",
-          "text": "from pyjev import Jev\n\nwith Jev() as jev:\n    result = jev.choice(\n        \"Where should this ticket go?\",\n        state=\"Stripe checkout fails\",\n        choices={\"billing\": \"Payments\", \"engineering\": \"Technical\", \"sales\": \"Purchasing\"},\n    )\nprint(result.value, result.confidence, result.probabilities)",
-          "lower": "from pyjev import jev\n\nwith jev() as jev:\n    result = jev.choice(\n        \"where should this ticket go?\",\n        state=\"stripe checkout fails\",\n        choices={\"billing\": \"payments\", \"engineering\": \"technical\", \"sales\": \"purchasing\"},\n    )\nprint(result.value, result.confidence, result.probabilities)"
+          "heading": "Execute from Python",
+          "text": "from pyjev import Jev\n\nwith Jev() as jev:\n    result = jev.decide(\"ticket-route\", state=\"Stripe webhooks fail\")\n\nprint(result.value)\nprint(result.confidence)\nprint(result.probabilities)\n\n\n\n\nFor native asynchronous applications:\n\nfrom pyjev import AsyncJev\n\nasync with AsyncJev() as jev:\n    result = await jev.decide(\"ticket-route\", state=\"Stripe webhooks fail\")",
+          "lower": "from pyjev import jev\n\nwith jev() as jev:\n    result = jev.decide(\"ticket-route\", state=\"stripe webhooks fail\")\n\nprint(result.value)\nprint(result.confidence)\nprint(result.probabilities)\n\n\n\n\nfor native asynchronous applications:\n\nfrom pyjev import asyncjev\n\nasync with asyncjev() as jev:\n    result = await jev.decide(\"ticket-route\", state=\"stripe webhooks fail\")"
         },
         {
           "anchor": "",
-          "heading": "First named decision",
-          "text": "Create .pyjev.toml:\n\n[pyjev]\nschema = 1\n\n[decision.ticket-route]\ntype = \"choice\"\nquestion = \"Which team should handle this support request?\"\n\n[decision.ticket-route.options]\nbilling = \"Billing, invoice, payment, or refund issue\"\nengineering = \"Technical problem or product bug\"\nsales = \"Purchasing, pricing, or procurement question\"\n\n\n\n\nThen run it from the project directory:\n\necho \"Stripe webhooks fail\" | pyjev decide ticket-route --json\n\n\n\n\nContinue with Named decisions, Confidence,\nPython API, and CLI.",
-          "lower": "create .pyjev.toml:\n\n[pyjev]\nschema = 1\n\n[decision.ticket-route]\ntype = \"choice\"\nquestion = \"which team should handle this support request?\"\n\n[decision.ticket-route.options]\nbilling = \"billing, invoice, payment, or refund issue\"\nengineering = \"technical problem or product bug\"\nsales = \"purchasing, pricing, or procurement question\"\n\n\n\n\nthen run it from the project directory:\n\necho \"stripe webhooks fail\" | pyjev decide ticket-route --json\n\n\n\n\ncontinue with named decisions, confidence,\npython api, and cli."
+          "heading": "When to use a direct primitive",
+          "text": "Use jev.choice(...), jev.noul(...), or jev.score(...) when criteria are\ncomputed dynamically from deterministic application state. Keep deterministic\nconstraints in normal Python; use a named decision when the judgment contract\nis stable and worth reviewing in source control.\n\nContinue with Named decisions, Confidence,\nAuthentication, and Python API.",
+          "lower": "use jev.choice(...), jev.noul(...), or jev.score(...) when criteria are\ncomputed dynamically from deterministic application state. keep deterministic\nconstraints in normal python; use a named decision when the judgment contract\nis stable and worth reviewing in source control.\n\ncontinue with named decisions, confidence,\nauthentication, and python api."
         }
       ]
     },
     {
       "url": "/tools/pyjev/main/",
       "title": "pyjev",
-      "snippet": "Confidence-aware Jev decisions for Python, shell, CI, and automation.\n\npyjev is a thin operational layer over TypeSafe’s official typesafe-s …",
+      "snippet": "Reusable, inspectable Jev decision contracts for Python applications and automation.\n\npyjev is the Python application layer above TypeSafe’s …",
       "sections": [
         {
           "anchor": "",
           "heading": "pyjev",
-          "text": "Confidence-aware Jev decisions for Python, shell, CI, and automation.\n\npyjev is a thin operational layer over TypeSafe’s official typesafe-sdk. It\npreserves Jev probabilities, confidence, and response metadata while adding\nreusable named decisions, shell-safe output, local validation, request\ninspection, and credential ergonomics.",
-          "lower": "confidence-aware jev decisions for python, shell, ci, and automation.\n\npyjev is a thin operational layer over typesafe’s official typesafe-sdk. it\npreserves jev probabilities, confidence, and response metadata while adding\nreusable named decisions, shell-safe output, local validation, request\ninspection, and credential ergonomics."
-        },
-        {
-          "anchor": "",
-          "heading": "CLI",
-          "text": "pyjev choice \"Where should this ticket go?\" \\\n  --state \"Stripe checkout fails\" \\\n  --option billing=\"Payments and refunds\" \\\n  --option engineering=\"Technical failures\" \\\n  --option sales=\"Purchasing questions\"",
-          "lower": "pyjev choice \"where should this ticket go?\" \\\n  --state \"stripe checkout fails\" \\\n  --option billing=\"payments and refunds\" \\\n  --option engineering=\"technical failures\" \\\n  --option sales=\"purchasing questions\""
-        },
-        {
-          "anchor": "",
-          "heading": "Python",
-          "text": "from pyjev import Jev\n\nwith Jev() as jev:\n    result = jev.choice(\n        \"Where should this ticket go?\",\n        state=\"Stripe checkout fails\",\n        choices={\"billing\": \"Payments\", \"engineering\": \"Technical\", \"sales\": \"Purchasing\"},\n    )\n\nprint(result.value)\nprint(result.confidence)\nprint(result.probabilities)",
-          "lower": "from pyjev import jev\n\nwith jev() as jev:\n    result = jev.choice(\n        \"where should this ticket go?\",\n        state=\"stripe checkout fails\",\n        choices={\"billing\": \"payments\", \"engineering\": \"technical\", \"sales\": \"purchasing\"},\n    )\n\nprint(result.value)\nprint(result.confidence)\nprint(result.probabilities)"
+          "text": "Reusable, inspectable Jev decision contracts for Python applications and automation.\n\npyjev is the Python application layer above TypeSafe’s official\ntypesafe-sdk. It adds typed synchronous and native asynchronous clients,\nversion-controlled .pyjev.toml decision contracts, offline validation and\ncompilation, uncertainty-preserving results, credential ergonomics, and\nconfidence-aware application policy.",
+          "lower": "reusable, inspectable jev decision contracts for python applications and automation.\n\npyjev is the python application layer above typesafe’s official\ntypesafe-sdk. it adds typed synchronous and native asynchronous clients,\nversion-controlled .pyjev.toml decision contracts, offline validation and\ncompilation, uncertainty-preserving results, credential ergonomics, and\nconfidence-aware application policy."
         },
         {
           "anchor": "",
           "heading": "Why pyjev?",
-          "text": "Preserve probabilities, confidence, and response metadata.\n\n\nDefine reusable decisions in .pyjev.toml.\n\n\nUse the same decision from Python or the shell.\n\n\nGate automation explicitly at the invocation boundary.\n\n\nValidate mistakes before spending an API request.\n\n\nRetain request IDs and usage metadata for debugging.\n\n\n\nStart with Getting started, then read Concepts.\nSee Confidence for safe automation, Named decisions\nfor reusable specifications, CLI for shell usage, and Python API\nfor code usage.",
-          "lower": "preserve probabilities, confidence, and response metadata.\n\n\ndefine reusable decisions in .pyjev.toml.\n\n\nuse the same decision from python or the shell.\n\n\ngate automation explicitly at the invocation boundary.\n\n\nvalidate mistakes before spending an api request.\n\n\nretain request ids and usage metadata for debugging.\n\n\n\nstart with getting started, then read concepts.\nsee confidence for safe automation, named decisions\nfor reusable specifications, cli for shell usage, and python api\nfor code usage."
+          "text": "Embed Jev in Python applications with dependency injection and typed results.\n\n\nDeclare stable named decisions and bundles once, then reuse them from Python,\nshell, CI, or an agent workflow.\n\n\nInspect and compile requests without credentials, client construction, or\nnetwork access.\n\n\nPreserve probabilities, confidence, usage, request IDs, and raw metadata.\n\n\nGate automation explicitly without consuming a low-confidence value by mistake.\n\n\nLet the official SDK own transport, retries, API models, authentication, and\nAPI error semantics.",
+          "lower": "embed jev in python applications with dependency injection and typed results.\n\n\ndeclare stable named decisions and bundles once, then reuse them from python,\nshell, ci, or an agent workflow.\n\n\ninspect and compile requests without credentials, client construction, or\nnetwork access.\n\n\npreserve probabilities, confidence, usage, request ids, and raw metadata.\n\n\ngate automation explicitly without consuming a low-confidence value by mistake.\n\n\nlet the official sdk own transport, retries, api models, authentication, and\napi error semantics."
+        },
+        {
+          "anchor": "",
+          "heading": "60-second workflow",
+          "text": "cat > .pyjev.toml <<'EOF'\n[pyjev]\nschema = 1\n\n[decision.ticket-route]\ntype = \"choice\"\nquestion = \"Which team should handle this support request?\"\n\n[decision.ticket-route.options]\nbilling = \"Billing or refunds\"\nengineering = \"Technical problem or product bug\"\nsales = \"Purchasing or procurement\"\nEOF\n\npyjev decision validate\npyjev decision compile ticket-route --state \"Stripe checkout fails\"\necho \"Stripe checkout fails\" | pyjev decide ticket-route --json\n\n\n\n\nThe same contract is available to Python callers:\n\nfrom pyjev import Jev\n\nwith Jev() as jev:\n    result = jev.decide(\"ticket-route\", state=\"Stripe checkout fails\")\n\nprint(result.value, result.confidence, result.probabilities)",
+          "lower": "cat > .pyjev.toml <<'eof'\n[pyjev]\nschema = 1\n\n[decision.ticket-route]\ntype = \"choice\"\nquestion = \"which team should handle this support request?\"\n\n[decision.ticket-route.options]\nbilling = \"billing or refunds\"\nengineering = \"technical problem or product bug\"\nsales = \"purchasing or procurement\"\neof\n\npyjev decision validate\npyjev decision compile ticket-route --state \"stripe checkout fails\"\necho \"stripe checkout fails\" | pyjev decide ticket-route --json\n\n\n\n\nthe same contract is available to python callers:\n\nfrom pyjev import jev\n\nwith jev() as jev:\n    result = jev.decide(\"ticket-route\", state=\"stripe checkout fails\")\n\nprint(result.value, result.confidence, result.probabilities)"
+        },
+        {
+          "anchor": "",
+          "heading": "Direct dynamic decisions",
+          "text": "For criteria that depend on runtime deterministic logic, use Jev/AsyncJev\nor the direct pyjev choice, pyjev noul, and pyjev score commands. The CLI\nis a useful shell and CI interface to pyjev’s application layer, not its only\nabstraction.",
+          "lower": "for criteria that depend on runtime deterministic logic, use jev/asyncjev\nor the direct pyjev choice, pyjev noul, and pyjev score commands. the cli\nis a useful shell and ci interface to pyjev’s application layer, not its only\nabstraction."
+        },
+        {
+          "anchor": "",
+          "heading": "Documentation",
+          "text": "Getting started\n\n\nNamed decisions\n\n\nDecision patterns\n\n\nPython API\n\n\nSemantic recipes\n\n\nCLI and exit codes\n\n\nConfidence policy\n\n\nAuthentication\n\n\nAgent skill\n\n\npyjev vs jev-cli\n\n\nRunnable examples",
+          "lower": "getting started\n\n\nnamed decisions\n\n\ndecision patterns\n\n\npython api\n\n\nsemantic recipes\n\n\ncli and exit codes\n\n\nconfidence policy\n\n\nauthentication\n\n\nagent skill\n\n\npyjev vs jev-cli\n\n\nrunnable examples"
         }
       ]
     },
@@ -401,6 +498,12 @@
         },
         {
           "anchor": "",
+          "heading": "Compiled output contract",
+          "text": "decision compile produces a credential-free JSON preview with this stable top-level shape:\n\n{\n  \"schema\": 1,\n  \"decision\": {\n    \"name\": \"ticket-route\",\n    \"type\": \"choice\",\n    \"config\": \".pyjev.toml\",\n    \"fingerprint\": \"<sha256>\"\n  },\n  \"request\": { \"state\": \"...\", \"questions\": {}, \"model\": null }\n}\n\n\n\n\nThe schema marker is the compiled-output contract version. decision.name,\ndecision.type, decision.config, decision.fingerprint, and the request fields\nare stable contract fields. The config identifier is relative to the current\nproject when possible and otherwise uses the config filename; it is never an\nabsolute machine path. Question and answer data retain the official SDK shape.\n\nThe SHA-256 fingerprint identifies the validated decision specification and\nschema. It includes the decis…",
+          "lower": "decision compile produces a credential-free json preview with this stable top-level shape:\n\n{\n  \"schema\": 1,\n  \"decision\": {\n    \"name\": \"ticket-route\",\n    \"type\": \"choice\",\n    \"config\": \".pyjev.toml\",\n    \"fingerprint\": \"<sha256>\"\n  },\n  \"request\": { \"state\": \"...\", \"questions\": {}, \"model\": null }\n}\n\n\n\n\nthe schema marker is the compiled-output contract version. decision.name,\ndecision.type, decision.config, decision.fingerprint, and the request fields\nare stable contract fields. the config identifier is relative to the current\nproject when possible and otherwise uses the config filename; it is never an\nabsolute machine path. question and answer data retain the official sdk shape.\n\nthe sha-256 fingerprint identifies the validated decision specification and\nschema. it includes the decis…"
+        },
+        {
+          "anchor": "",
           "heading": "Discovery and inspection",
           "text": "Configuration precedence is explicit config=/--config, then PYJEV_CONFIG, then the\nnearest .pyjev.toml in the current directory or a parent. Use decision validate to\ncheck all declarations without a network call and decision compile to inspect a\nnormalized request for a particular state.",
           "lower": "configuration precedence is explicit config=/--config, then pyjev_config, then the\nnearest .pyjev.toml in the current directory or a parent. use decision validate to\ncheck all declarations without a network call and decision compile to inspect a\nnormalized request for a particular state."
@@ -410,6 +513,97 @@
           "heading": "When not to use named decisions",
           "text": "Do not put a decision in .pyjev.toml when its criteria are inherently dynamic at runtime.\nFor example, Connect Four legal actions depend on the current board; build those choices\nin Python after deterministic filtering.",
           "lower": "do not put a decision in .pyjev.toml when its criteria are inherently dynamic at runtime.\nfor example, connect four legal actions depend on the current board; build those choices\nin python after deterministic filtering."
+        }
+      ]
+    },
+    {
+      "url": "/tools/pyjev/main/patterns/",
+      "title": "pyjev Decision patterns",
+      "snippet": "pyjev supports common decision patterns by combining typed Jev judgments with\nordinary Python policy. Jev evaluates ambiguous questions. The …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Decision patterns",
+          "text": "pyjev supports common decision patterns by combining typed Jev judgments with\nordinary Python policy. Jev evaluates ambiguous questions. The application then\nuses the structured results to route work, combine signals, gate automation, or\nignore answers that are not relevant to the selected branch.\n\nThe boundary is intentional:\n\n\nTypeSafe and Jev provide model evaluation, typed question semantics, result\nprobabilities, confidence, and request metadata.\n\n\npyjev provides reusable decision declarations, bundles, typed result\nwrappers, offline inspection, and access to preserved uncertainty.\n\n\nApplication code owns deterministic facts, thresholds, normalization, weights,\nhandlers, side effects, and business policy.",
+          "lower": "pyjev supports common decision patterns by combining typed jev judgments with\nordinary python policy. jev evaluates ambiguous questions. the application then\nuses the structured results to route work, combine signals, gate automation, or\nignore answers that are not relevant to the selected branch.\n\nthe boundary is intentional:\n\n\ntypesafe and jev provide model evaluation, typed question semantics, result\nprobabilities, confidence, and request metadata.\n\n\npyjev provides reusable decision declarations, bundles, typed result\nwrappers, offline inspection, and access to preserved uncertainty.\n\n\napplication code owns deterministic facts, thresholds, normalization, weights,\nhandlers, side effects, and business policy."
+        },
+        {
+          "anchor": "",
+          "heading": "Intent routing",
+          "text": "Use a Choice question for the intent and route from its selected value. Add\nScore or Noul questions when a branch needs extra signals.\n\n[decision.ticket-router]\ntype = \"bundle\"\n\n[decision.ticket-router.questions.intent]\ntype = \"choice\"\nquestion = \"What is the primary intent of this customer message?\"\n\n[decision.ticket-router.questions.intent.options]\norder_status = \"Asking about an existing order\"\nproduct_question = \"Asking about a product before buying\"\nreturn_exchange = \"Wants to return or exchange something\"\ncomplaint = \"Unhappy with the experience and wants resolution\"\n\n[decision.ticket-router.questions.complexity]\ntype = \"score\"\nquestion = \"How complex is this request to resolve?\"\nlevels = [\n  \"Simple lookup or standard procedure\",\n  \"Requires judgment or a multi-step process\",\n  \"Un…",
+          "lower": "use a choice question for the intent and route from its selected value. add\nscore or noul questions when a branch needs extra signals.\n\n[decision.ticket-router]\ntype = \"bundle\"\n\n[decision.ticket-router.questions.intent]\ntype = \"choice\"\nquestion = \"what is the primary intent of this customer message?\"\n\n[decision.ticket-router.questions.intent.options]\norder_status = \"asking about an existing order\"\nproduct_question = \"asking about a product before buying\"\nreturn_exchange = \"wants to return or exchange something\"\ncomplaint = \"unhappy with the experience and wants resolution\"\n\n[decision.ticket-router.questions.complexity]\ntype = \"score\"\nquestion = \"how complex is this request to resolve?\"\nlevels = [\n  \"simple lookup or standard procedure\",\n  \"requires judgment or a multi-step process\",\n  \"un…"
+        },
+        {
+          "anchor": "",
+          "heading": "Composite scoring",
+          "text": "A bundle can ask for several independent Score dimensions in one request.\nNormalize and combine those dimensions in Python:\n\nweights = {\n    \"python_depth\": 0.40,\n    \"leadership\": 0.10,\n    \"system_design\": 0.40,\n    \"generalist\": 0.10,\n}\n\ncomposite = sum(\n    weights[name] * result.answers[name].value / (len(result.answers[name].legend) - 1)\n    for name in weights\n)\n\n\n\n\nScoreResult.value is the probability-weighted position over the ordered\nlevels, so fractional values are expected. Keep normalization and weights in\napplication code. They are deterministic policy and do not change the Jev\nrequest or belong in .pyjev.toml unless the project deliberately adopts a\nbroader application-policy DSL.\n\nThis keeps the model contract and the business ranking contract separate. The\napplication can…",
+          "lower": "a bundle can ask for several independent score dimensions in one request.\nnormalize and combine those dimensions in python:\n\nweights = {\n    \"python_depth\": 0.40,\n    \"leadership\": 0.10,\n    \"system_design\": 0.40,\n    \"generalist\": 0.10,\n}\n\ncomposite = sum(\n    weights[name] * result.answers[name].value / (len(result.answers[name].legend) - 1)\n    for name in weights\n)\n\n\n\n\nscoreresult.value is the probability-weighted position over the ordered\nlevels, so fractional values are expected. keep normalization and weights in\napplication code. they are deterministic policy and do not change the jev\nrequest or belong in .pyjev.toml unless the project deliberately adopts a\nbroader application-policy dsl.\n\nthis keeps the model contract and the business ranking contract separate. the\napplication can…"
+        },
+        {
+          "anchor": "",
+          "heading": "Confidence-gated routing",
+          "text": "ChoiceResult.confidence and ScoreResult.confidence are preserved separately\nfrom the selected value and probability distribution. Use the signal for the\nspecific action being considered, with thresholds appropriate to that action:\n\nresult = jev.decide(\"banking-intent\", state=command)\n\nif result.confidence < 0.60:\n    route_to_support()\nelif result.value == \"check_balance\":\n    show_balance()\nelif result.value == \"approve_transfer\" and result.confidence > 0.85:\n    approve_transfer()\nelse:\n    ask_user_to_confirm()\n\n\n\n\nConfidence is not a correctness probability. It is a model signal that the\ncaller may use as part of an explicit policy. The CLI exposes\n--min-confidence for direct Choice and Score decisions and named primitive\ndecisions. Python policy is the right place for different thres…",
+          "lower": "choiceresult.confidence and scoreresult.confidence are preserved separately\nfrom the selected value and probability distribution. use the signal for the\nspecific action being considered, with thresholds appropriate to that action:\n\nresult = jev.decide(\"banking-intent\", state=command)\n\nif result.confidence < 0.60:\n    route_to_support()\nelif result.value == \"check_balance\":\n    show_balance()\nelif result.value == \"approve_transfer\" and result.confidence > 0.85:\n    approve_transfer()\nelse:\n    ask_user_to_confirm()\n\n\n\n\nconfidence is not a correctness probability. it is a model signal that the\ncaller may use as part of an explicit policy. the cli exposes\n--min-confidence for direct choice and score decisions and named primitive\ndecisions. python policy is the right place for different thres…"
+        },
+        {
+          "anchor": "",
+          "heading": "Result-pipeline form",
+          "text": "The same child-specific gate can be expressed with the optional local pipeline API:\n\nfrom pyjev.pipeline import answer, require_confidence\n\nroute_policy = answer(\"intent\") | require_confidence(0.60)\noutcome = result | route_policy\n\nif outcome.passed:\n    handle_intent(outcome.value)\nelse:\n    route_to_human(outcome.result)\n\n\n\n\nThis is an ergonomic alternative to the explicit if form above. It does not make a network request, dispatch a handler, or add aggregate confidence to a bundle. For a Noul child, use require_probability(at_least=...) or require_probability(at_most=...) instead of a confidence gate.\nBundles deliberately have no aggregate confidence. A bundle may contain a\nhigh-confidence intent, a low-confidence severity, and another signal with a\ndifferent consequence. Gate the chil…",
+          "lower": "the same child-specific gate can be expressed with the optional local pipeline api:\n\nfrom pyjev.pipeline import answer, require_confidence\n\nroute_policy = answer(\"intent\") | require_confidence(0.60)\noutcome = result | route_policy\n\nif outcome.passed:\n    handle_intent(outcome.value)\nelse:\n    route_to_human(outcome.result)\n\n\n\n\nthis is an ergonomic alternative to the explicit if form above. it does not make a network request, dispatch a handler, or add aggregate confidence to a bundle. for a noul child, use require_probability(at_least=...) or require_probability(at_most=...) instead of a confidence gate.\nbundles deliberately have no aggregate confidence. a bundle may contain a\nhigh-confidence intent, a low-confidence severity, and another signal with a\ndifferent consequence. gate the chil…"
+        },
+        {
+          "anchor": "",
+          "heading": "Speculative fan-out",
+          "text": "A named bundle is the first-class speculative fan-out primitive. Put every\npotentially useful question in one bundle, send one request for the shared\nstate, and consume only the answers relevant to the selected route.\n\n[decision.ticket-triage]\ntype = \"bundle\"\n\n[decision.ticket-triage.questions.category]\ntype = \"choice\"\nquestion = \"What is the category of this ticket?\"\n\n[decision.ticket-triage.questions.category.options]\nbug = \"Technical problem\"\nbilling = \"Payment or refund problem\"\nother = \"Another support request\"\n\n[decision.ticket-triage.questions.refund-requested]\ntype = \"noul\"\nquestion = \"The customer explicitly asks for a refund or credit.\"\n\n[decision.ticket-triage.questions.bug-severity]\ntype = \"score\"\nquestion = \"How severe is the technical issue?\"\nlevels = [\"Minor\", \"Degraded\", \"…",
+          "lower": "a named bundle is the first-class speculative fan-out primitive. put every\npotentially useful question in one bundle, send one request for the shared\nstate, and consume only the answers relevant to the selected route.\n\n[decision.ticket-triage]\ntype = \"bundle\"\n\n[decision.ticket-triage.questions.category]\ntype = \"choice\"\nquestion = \"what is the category of this ticket?\"\n\n[decision.ticket-triage.questions.category.options]\nbug = \"technical problem\"\nbilling = \"payment or refund problem\"\nother = \"another support request\"\n\n[decision.ticket-triage.questions.refund-requested]\ntype = \"noul\"\nquestion = \"the customer explicitly asks for a refund or credit.\"\n\n[decision.ticket-triage.questions.bug-severity]\ntype = \"score\"\nquestion = \"how severe is the technical issue?\"\nlevels = [\"minor\", \"degraded\", \"…"
+        },
+        {
+          "anchor": "",
+          "heading": "Bounded async fan-out",
+          "text": "For independent inputs, use pyjev.amap rather than writing an unbounded asyncio.gather loop. It bounds active work, preserves input order, and represents per-row execution errors without discarding successful results. Each row is a separate worker invocation; use a bundle when several independent questions share one state and should use a single API request. Batch concurrency is operational capacity, not a confidence or correctness policy.\n\nWorker error details are omitted from the serialized BatchError to avoid leaking credentials or user data. A successful result that application policy rejects remains ok=True; execution status and judgment policy are separate.",
+          "lower": "for independent inputs, use pyjev.amap rather than writing an unbounded asyncio.gather loop. it bounds active work, preserves input order, and represents per-row execution errors without discarding successful results. each row is a separate worker invocation; use a bundle when several independent questions share one state and should use a single api request. batch concurrency is operational capacity, not a confidence or correctness policy.\n\nworker error details are omitted from the serialized batcherror to avoid leaking credentials or user data. a successful result that application policy rejects remains ok=true; execution status and judgment policy are separate."
+        },
+        {
+          "anchor": "",
+          "heading": "Rank plus applicability",
+          "text": "A closed-set Choice always returns a winner. When no candidate may apply, combine Choice ranking with an independent Noul applicability judgment rather than treating the top Choice probability as proof that a match exists. The pyjev.recipes.find helper packages that pattern and retains both results.",
+          "lower": "a closed-set choice always returns a winner. when no candidate may apply, combine choice ranking with an independent noul applicability judgment rather than treating the top choice probability as proof that a match exists. the pyjev.recipes.find helper packages that pattern and retains both results."
+        },
+        {
+          "anchor": "",
+          "heading": "Explicit escape states",
+          "text": "If “none applies,” “unknown,” “other,” or “unclear” is a meaningful domain outcome, model it explicitly in the Choice options or another typed question. A low-confidence answer and a confident judgment that none of the options applies are different signals. Do not inject an escape option automatically where it changes the domain semantics.",
+          "lower": "if “none applies,” “unknown,” “other,” or “unclear” is a meaningful domain outcome, model it explicitly in the choice options or another typed question. a low-confidence answer and a confident judgment that none of the options applies are different signals. do not inject an escape option automatically where it changes the domain semantics."
+        },
+        {
+          "anchor": "",
+          "heading": "Deterministic candidate discovery",
+          "text": "For literal extraction, use Python to find source spans and deduplicate/order/cap them; ask Jev only to select among those exact candidates (plus an explicit none). Normalize the chosen literal deterministically in Python. This bounds the model’s role and keeps the original literal and typed Choice evidence available for review. See Semantic recipes.",
+          "lower": "for literal extraction, use python to find source spans and deduplicate/order/cap them; ask jev only to select among those exact candidates (plus an explicit none). normalize the chosen literal deterministically in python. this bounds the model’s role and keeps the original literal and typed choice evidence available for review. see semantic recipes."
+        },
+        {
+          "anchor": "",
+          "heading": "Taxonomies and entity matching",
+          "text": "Use a single Choice for exactly one fixed label, adding an explicit other option only when that outcome exists in the domain. For independent multi-label classification, use one Noul per label and expose caller-owned positive/negative thresholds; the middle band stays unclear. Entity matching is categorical (same, unclear, different), not a numeric score whose weighted position is mistaken for the relation.",
+          "lower": "use a single choice for exactly one fixed label, adding an explicit other option only when that outcome exists in the domain. for independent multi-label classification, use one noul per label and expose caller-owned positive/negative thresholds; the middle band stays unclear. entity matching is categorical (same, unclear, different), not a numeric score whose weighted position is mistaken for the relation."
+        },
+        {
+          "anchor": "",
+          "heading": "Proposals, independent reranking, and advisory screens",
+          "text": "A route helper may return a typed proposal and closed arguments, but the application decides whether to dispatch it; pyjev never calls a handler. Use reranking when each candidate should receive an independent relevance judgment and zero, one, or many may qualify; it is distinct from find’s competing Choice plus existence judgment. Semantic screening is advisory only: preserve each signal, calibrate thresholds locally, and never treat pass as a security guarantee.",
+          "lower": "a route helper may return a typed proposal and closed arguments, but the application decides whether to dispatch it; pyjev never calls a handler. use reranking when each candidate should receive an independent relevance judgment and zero, one, or many may qualify; it is distinct from find’s competing choice plus existence judgment. semantic screening is advisory only: preserve each signal, calibrate thresholds locally, and never treat pass as a security guarantee."
+        },
+        {
+          "anchor": "",
+          "heading": "All four patterns together",
+          "text": "examples/support_triage.py combines the patterns in one support workflow. Its\nsupport-triage bundle asks for intent, complexity, severity, reproducibility,\nrefund likelihood, and frustration before the route is known. The example then:\n\n\ngates low-confidence intent classifications to a human;\n\n\nsends order-status requests to a deterministic lookup;\n\n\nuses severity confidence, severity score, and reproducibility for bug\nescalation;\n\n\nuses refund probability for billing policy;\n\n\nuses frustration as a cross-cutting priority flag;\n\n\nignores speculative answers that do not control the selected route.\n\n\n\nThe example prints the request and result metadata so the one-request fan-out\nand the separation between judgment and policy are visible.",
+          "lower": "examples/support_triage.py combines the patterns in one support workflow. its\nsupport-triage bundle asks for intent, complexity, severity, reproducibility,\nrefund likelihood, and frustration before the route is known. the example then:\n\n\ngates low-confidence intent classifications to a human;\n\n\nsends order-status requests to a deterministic lookup;\n\n\nuses severity confidence, severity score, and reproducibility for bug\nescalation;\n\n\nuses refund probability for billing policy;\n\n\nuses frustration as a cross-cutting priority flag;\n\n\nignores speculative answers that do not control the selected route.\n\n\n\nthe example prints the request and result metadata so the one-request fan-out\nand the separation between judgment and policy are visible."
+        },
+        {
+          "anchor": "",
+          "heading": "Design boundaries",
+          "text": "Do not add a generic jev.route() handler framework, aggregate\nbundle.confidence, or composite weights to the named-decision schema merely to\nexpress these patterns. The reusable library contract is typed judgment plus\npreserved uncertainty. Routing, ranking, thresholds, normalization, and side\neffects are deterministic application policy and should remain explicit in\nPython.",
+          "lower": "do not add a generic jev.route() handler framework, aggregate\nbundle.confidence, or composite weights to the named-decision schema merely to\nexpress these patterns. the reusable library contract is typed judgment plus\npreserved uncertainty. routing, ranking, thresholds, normalization, and side\neffects are deterministic application policy and should remain explicit in\npython."
         }
       ]
     },
@@ -432,6 +626,12 @@
         },
         {
           "anchor": "",
+          "heading": "In-memory decisions",
+          "text": "The same typed decision declarations used by named contracts can be assembled at runtime. They are public constructors and can be evaluated without writing a .pyjev.toml file:\n\nfrom pyjev import BundleDecision, ChoiceDecision, Jev, NoulDecision\n\ndecision = BundleDecision(\n    name=\"ticket-triage\",\n    questions={\n        \"route\": ChoiceDecision(\"route\", \"Which team?\", {\"billing\": None, \"engineering\": None}),\n        \"refund\": NoulDecision(\"refund\", \"Is a refund requested?\"),\n    },\n)\n\nwith Jev(model=\"jev-latest\") as jev:\n    result = jev.evaluate(decision, state={\"message\": \"Checkout failed; please refund me.\"})\n\n\n\n\nJev.evaluate() and AsyncJev.evaluate() accept NoulDecision, ChoiceDecision, ScoreDecision, and BundleDecision. Explicit model= overrides the declaration’s model; otherwise the…",
+          "lower": "the same typed decision declarations used by named contracts can be assembled at runtime. they are public constructors and can be evaluated without writing a .pyjev.toml file:\n\nfrom pyjev import bundledecision, choicedecision, jev, nouldecision\n\ndecision = bundledecision(\n    name=\"ticket-triage\",\n    questions={\n        \"route\": choicedecision(\"route\", \"which team?\", {\"billing\": none, \"engineering\": none}),\n        \"refund\": nouldecision(\"refund\", \"is a refund requested?\"),\n    },\n)\n\nwith jev(model=\"jev-latest\") as jev:\n    result = jev.evaluate(decision, state={\"message\": \"checkout failed; please refund me.\"})\n\n\n\n\njev.evaluate() and asyncjev.evaluate() accept nouldecision, choicedecision, scoredecision, and bundledecision. explicit model= overrides the declaration’s model; otherwise the…"
+        },
+        {
+          "anchor": "",
           "heading": "Named decisions",
           "text": "result = jev.decide(\"ticket-route\", state=ticket, config=\"ops/.pyjev.toml\")\n\n\n\n\nExplicit call model overrides the decision model. Configuration discovery and schema\nrules are described in Named decisions.",
           "lower": "result = jev.decide(\"ticket-route\", state=ticket, config=\"ops/.pyjev.toml\")\n\n\n\n\nexplicit call model overrides the decision model. configuration discovery and schema\nrules are described in named decisions."
@@ -445,8 +645,8 @@
         {
           "anchor": "",
           "heading": "Compiling offline",
-          "text": "from pyjev import compile_decision\n\ncompiled = compile_decision(\"ticket-route\", state=\"Stripe checkout fails\")\nprint(compiled.to_dict())\n\n\n\n\nCompilation resolves and validates configuration without creating a client or reading\ncredentials. It is useful for review, debugging, and agent tooling.",
-          "lower": "from pyjev import compile_decision\n\ncompiled = compile_decision(\"ticket-route\", state=\"stripe checkout fails\")\nprint(compiled.to_dict())\n\n\n\n\ncompilation resolves and validates configuration without creating a client or reading\ncredentials. it is useful for review, debugging, and agent tooling."
+          "text": "from pyjev import compile_decision\n\ncompiled = compile_decision(\"ticket-route\", state=\"Stripe checkout fails\")\nprint(compiled.to_dict())\n\n\n\n\nCompilation resolves and validates configuration without creating a client or reading\ncredentials. It is useful for review, debugging, and agent tooling.\n\nCompiledDecision.fingerprint is a deterministic SHA-256 identifier for the\nvalidated declaration. It excludes the runtime state passed to\ncompile_decision() and does not include credentials or absolute config paths.\nThe serialized preview includes schema = 1, a reproducible config identifier,\nthe fingerprint, and the normalized official SDK request shape.",
+          "lower": "from pyjev import compile_decision\n\ncompiled = compile_decision(\"ticket-route\", state=\"stripe checkout fails\")\nprint(compiled.to_dict())\n\n\n\n\ncompilation resolves and validates configuration without creating a client or reading\ncredentials. it is useful for review, debugging, and agent tooling.\n\ncompileddecision.fingerprint is a deterministic sha-256 identifier for the\nvalidated declaration. it excludes the runtime state passed to\ncompile_decision() and does not include credentials or absolute config paths.\nthe serialized preview includes schema = 1, a reproducible config identifier,\nthe fingerprint, and the normalized official sdk request shape."
         },
         {
           "anchor": "",
@@ -462,9 +662,94 @@
         },
         {
           "anchor": "",
+          "heading": "Result pipelines",
+          "text": "The optional pyjev.pipeline module composes already returned result objects with local policy stages. The pipe never creates a client or performs network I/O, so the Jev call remains visible:\n\nfrom pyjev import Jev\nfrom pyjev.pipeline import answer, require_confidence\n\npolicy = answer(\"intent\") | require_confidence(0.70)\n\nwith Jev() as jev:\n    result = jev.decide(\"support-triage\", state={\"message\": message})\n\noutcome = result | policy\nif outcome.passed:\n    route_to(outcome.value)\nelse:\n    human_review(outcome.result)\n\n\n\n\nanswer(name) selects the exact typed child from a BundleResult. Confidence gates accept only ChoiceResult and ScoreResult, and preserve the complete result in either an Accepted or Rejected outcome. A rejected outcome has no .value attribute, so a below-threshold resul…",
+          "lower": "the optional pyjev.pipeline module composes already returned result objects with local policy stages. the pipe never creates a client or performs network i/o, so the jev call remains visible:\n\nfrom pyjev import jev\nfrom pyjev.pipeline import answer, require_confidence\n\npolicy = answer(\"intent\") | require_confidence(0.70)\n\nwith jev() as jev:\n    result = jev.decide(\"support-triage\", state={\"message\": message})\n\noutcome = result | policy\nif outcome.passed:\n    route_to(outcome.value)\nelse:\n    human_review(outcome.result)\n\n\n\n\nanswer(name) selects the exact typed child from a bundleresult. confidence gates accept only choiceresult and scoreresult, and preserve the complete result in either an accepted or rejected outcome. a rejected outcome has no .value attribute, so a below-threshold resul…"
+        },
+        {
+          "anchor": "",
           "heading": "Async API",
           "text": "When the installed official SDK supports native async transport, AsyncJev exposes the\nsame primitive, named-decision, bundle, validation, model-precedence, and result semantics:\n\nfrom pyjev import AsyncJev\n\nasync with AsyncJev() as jev:\n    result = await jev.choice(\"Route this ticket\", state=ticket, choices=choices)\n\n\n\n\nIt uses AsyncTypeSafeClient directly and does not hide synchronous work in a thread pool.",
           "lower": "when the installed official sdk supports native async transport, asyncjev exposes the\nsame primitive, named-decision, bundle, validation, model-precedence, and result semantics:\n\nfrom pyjev import asyncjev\n\nasync with asyncjev() as jev:\n    result = await jev.choice(\"route this ticket\", state=ticket, choices=choices)\n\n\n\n\nit uses asynctypesafeclient directly and does not hide synchronous work in a thread pool."
+        },
+        {
+          "anchor": "",
+          "heading": "Bounded async batches",
+          "text": "Use amap for independent states that can be evaluated concurrently. It preserves input order, returns one BatchRecord per input, and aggregates token usage from successful typed results:\n\nfrom pyjev import AsyncJev, amap\n\nasync with AsyncJev() as jev:\n    batch = await amap(\n        tickets,\n        lambda ticket: jev.decide(\"ticket-triage\", state=ticket.state),\n        concurrency=4,\n        ids=[ticket.id for ticket in tickets],\n    )\n\nfor row in batch.records:\n    if row.ok:\n        consume(row.id, row.result)\n    else:\n        log_failure(row.id, row.error.kind)\n\nprint(batch.summary.to_dict())\n\n\n\n\nFailures are row-local by default. fail_fast=True stops scheduling after the first observed failure, waits for already-running workers, and marks the remaining rows not_started. Worker excep…",
+          "lower": "use amap for independent states that can be evaluated concurrently. it preserves input order, returns one batchrecord per input, and aggregates token usage from successful typed results:\n\nfrom pyjev import asyncjev, amap\n\nasync with asyncjev() as jev:\n    batch = await amap(\n        tickets,\n        lambda ticket: jev.decide(\"ticket-triage\", state=ticket.state),\n        concurrency=4,\n        ids=[ticket.id for ticket in tickets],\n    )\n\nfor row in batch.records:\n    if row.ok:\n        consume(row.id, row.result)\n    else:\n        log_failure(row.id, row.error.kind)\n\nprint(batch.summary.to_dict())\n\n\n\n\nfailures are row-local by default. fail_fast=true stops scheduling after the first observed failure, waits for already-running workers, and marks the remaining rows not_started. worker excep…"
+        }
+      ]
+    },
+    {
+      "url": "/tools/pyjev/main/recipes/",
+      "title": "pyjev Semantic recipes",
+      "snippet": "Semantic recipes package typed pyjev decisions with deterministic input preparation and result interpretation. They are ordinary Python APIs …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Semantic recipes",
+          "text": "Semantic recipes package typed pyjev decisions with deterministic input preparation and result interpretation. They are ordinary Python APIs, not a second transport client. Recipe plans can be inspected without credentials or network access; execution uses the caller’s existing Jev or AsyncJev instance. Recipes preserve their underlying typed results so callers can inspect probability distributions, confidence, usage, model, request ID, and raw response data.\n\nThresholds and actions are caller policy. The examples below use illustrative defaults, not universal correctness thresholds. Calibrate against representative local data and account for the consequences of each action.",
+          "lower": "semantic recipes package typed pyjev decisions with deterministic input preparation and result interpretation. they are ordinary python apis, not a second transport client. recipe plans can be inspected without credentials or network access; execution uses the caller’s existing jev or asyncjev instance. recipes preserve their underlying typed results so callers can inspect probability distributions, confidence, usage, model, request id, and raw response data.\n\nthresholds and actions are caller policy. the examples below use illustrative defaults, not universal correctness thresholds. calibrate against representative local data and account for the consequences of each action."
+        },
+        {
+          "anchor": "",
+          "heading": "Find: rank and independently test applicability",
+          "text": "Use find to rank candidate documents or records while separately asking whether any candidate actually answers the query. The Choice ranking alone always has a winner, so it must not be treated as proof that a match exists.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import Candidate, build_find, execute_find\n\ncandidates = [\n    Candidate(\"auth\", \"API-key resolution and credential precedence.\"),\n    Candidate(\"client\", \"Retry behavior in the TypeSafe client.\"),\n    Candidate(\"release\", \"Release process and version tagging.\"),\n]\n\nplan = build_find(\n    \"Where is retry behavior configured?\",\n    candidates,\n    top_k=2,\n    found_at=0.70,\n    absent_below=0.35,\n)\nprint(plan.to_dict())  # inspect exact state, question specification, and local policy\n\nwith Jev() as jev:\n    result = execute_fin…",
+          "lower": "use find to rank candidate documents or records while separately asking whether any candidate actually answers the query. the choice ranking alone always has a winner, so it must not be treated as proof that a match exists.\n\nfrom pyjev import jev\nfrom pyjev.recipes import candidate, build_find, execute_find\n\ncandidates = [\n    candidate(\"auth\", \"api-key resolution and credential precedence.\"),\n    candidate(\"client\", \"retry behavior in the typesafe client.\"),\n    candidate(\"release\", \"release process and version tagging.\"),\n]\n\nplan = build_find(\n    \"where is retry behavior configured?\",\n    candidates,\n    top_k=2,\n    found_at=0.70,\n    absent_below=0.35,\n)\nprint(plan.to_dict())  # inspect exact state, question specification, and local policy\n\nwith jev() as jev:\n    result = execute_fin…"
+        },
+        {
+          "anchor": "",
+          "heading": "Planning, execution, and interpretation",
+          "text": "build_find is deterministic and credential-free. execute_find performs the API call; interpret_find can be tested with a synthetic BundleResult without network access. This split makes request shape, interpretation rules, and call count independently testable.",
+          "lower": "build_find is deterministic and credential-free. execute_find performs the api call; interpret_find can be tested with a synthetic bundleresult without network access. this split makes request shape, interpretation rules, and call count independently testable."
+        },
+        {
+          "anchor": "",
+          "heading": "Policy and limitations",
+          "text": "The probability distribution ranks candidates; a top candidate is not by itself a found/not-found signal.\n\n\nThresholds should be calibrated locally. Confidence and probability values are model signals, not guarantees of correctness.\n\n\nThe recipe never opens a path, fetches a URL, or dispatches a handler.\n\n\nReturned evidence can support application review; it is not a citation guarantee or a substitute for inspecting source material.",
+          "lower": "the probability distribution ranks candidates; a top candidate is not by itself a found/not-found signal.\n\n\nthresholds should be calibrated locally. confidence and probability values are model signals, not guarantees of correctness.\n\n\nthe recipe never opens a path, fetches a url, or dispatches a handler.\n\n\nreturned evidence can support application review; it is not a citation guarantee or a substitute for inspecting source material."
+        },
+        {
+          "anchor": "",
+          "heading": "Extract: deterministic literal candidates",
+          "text": "Use extract only to disambiguate literal values already found by deterministic Python logic. Jev selects among supplied values or an explicit none option; it cannot generate a new value.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import extract, regex_field\n\nfield = regex_field(\n    name=\"invoice\",\n    pattern=r\"INV-\\d+\",\n    description=\"the invoice number\",\n    normalizer=lambda value: int(value.removeprefix(\"INV-\")),\n    max_candidates=32,\n)\n\nwith Jev() as jev:\n    result = extract(\n        jev,\n        document=invoice_text,\n        fields=[field],\n        min_confidence=0.85,  # caller policy; calibrate for your use case\n    )\n\ninvoice = result.fields[\"invoice\"]\nif invoice.action == \"auto\":\n    persist(invoice.normalized_value)\nelif invoice.action in {\"review\", \"none\"}:\n    human_revi…",
+          "lower": "use extract only to disambiguate literal values already found by deterministic python logic. jev selects among supplied values or an explicit none option; it cannot generate a new value.\n\nfrom pyjev import jev\nfrom pyjev.recipes import extract, regex_field\n\nfield = regex_field(\n    name=\"invoice\",\n    pattern=r\"inv-\\d+\",\n    description=\"the invoice number\",\n    normalizer=lambda value: int(value.removeprefix(\"inv-\")),\n    max_candidates=32,\n)\n\nwith jev() as jev:\n    result = extract(\n        jev,\n        document=invoice_text,\n        fields=[field],\n        min_confidence=0.85,  # caller policy; calibrate for your use case\n    )\n\ninvoice = result.fields[\"invoice\"]\nif invoice.action == \"auto\":\n    persist(invoice.normalized_value)\nelif invoice.action in {\"review\", \"none\"}:\n    human_revi…"
+        },
+        {
+          "anchor": "",
+          "heading": "Verify: support, contradiction, or no coverage",
+          "text": "Use verify to judge explicit claims against caller-supplied evidence. It deliberately distinguishes contradiction from evidence that says nothing: supports maps to verified, contradicts to contradicted, and says_nothing to unsupported. Unsupported does not mean false.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import verify\n\nwith Jev() as jev:\n    report = verify(\n        jev,\n        claims=[\n            (\"compat\", \"The public API remains backwards compatible.\"),\n            (\"transport\", \"The change adds a second provider.\"),\n        ],\n        evidence=[\n            (\"diff\", diff_text),\n            (\"api-docs\", api_docs),\n        ],\n        auto_accept=0.85,  # optional, caller-owned policy\n    )\n\nfor item in report.results:\n    print(item.claim_id, item.verdict, item.confidence, item.p…",
+          "lower": "use verify to judge explicit claims against caller-supplied evidence. it deliberately distinguishes contradiction from evidence that says nothing: supports maps to verified, contradicts to contradicted, and says_nothing to unsupported. unsupported does not mean false.\n\nfrom pyjev import jev\nfrom pyjev.recipes import verify\n\nwith jev() as jev:\n    report = verify(\n        jev,\n        claims=[\n            (\"compat\", \"the public api remains backwards compatible.\"),\n            (\"transport\", \"the change adds a second provider.\"),\n        ],\n        evidence=[\n            (\"diff\", diff_text),\n            (\"api-docs\", api_docs),\n        ],\n        auto_accept=0.85,  # optional, caller-owned policy\n    )\n\nfor item in report.results:\n    print(item.claim_id, item.verdict, item.confidence, item.p…"
+        },
+        {
+          "anchor": "",
+          "heading": "Classify: single label, multiple labels, and other",
+          "text": "For one label, use a closed-set Choice; request the explicit other option when items outside the taxonomy are meaningful. min_confidence is caller policy. Without it, a single-label result reports action=\"review\" rather than implying an automatic action. Multi-label classification is not a Choice: it bundles one independent Noul per label and requires both positive_at and negative_below; the band between them is returned as unclear.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import Label, build_classify, execute_classify\n\nplan = build_classify(\n    \"classify this support ticket\",\n    [Label(\"billing\", \"Payment and invoice issues\"), Label(\"technical\", \"Product failures\")],\n    include_other=True,\n    min_confidence=0.90,  # local policy, calibrated for this workflow\n    model=\"typesafe-mode…",
+          "lower": "for one label, use a closed-set choice; request the explicit other option when items outside the taxonomy are meaningful. min_confidence is caller policy. without it, a single-label result reports action=\"review\" rather than implying an automatic action. multi-label classification is not a choice: it bundles one independent noul per label and requires both positive_at and negative_below; the band between them is returned as unclear.\n\nfrom pyjev import jev\nfrom pyjev.recipes import label, build_classify, execute_classify\n\nplan = build_classify(\n    \"classify this support ticket\",\n    [label(\"billing\", \"payment and invoice issues\"), label(\"technical\", \"product failures\")],\n    include_other=true,\n    min_confidence=0.90,  # local policy, calibrated for this workflow\n    model=\"typesafe-mode…"
+        },
+        {
+          "anchor": "",
+          "heading": "Match: same, unclear, or different",
+          "text": "Entity matching uses three categorical Choice outcomes. unclear is a real semantic result, not an intermediate Score value. Without min_confidence, every result remains action=\"review\"; a supplied threshold can yield auto_match or auto_different, while unclear always remains review.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import build_match, execute_match\n\nplan = build_match(\n    \"Alice Smith, 1 Main St\",\n    \"A. Smith, 1 Main Street\",\n    min_confidence=0.92,  # caller-owned\n)\nwith Jev() as jev:\n    result = execute_match(jev, plan)\nif result.action == \"auto_match\":\n    link_records()\nelif result.action == \"review\":\n    inspect(result.decision.probabilities)",
+          "lower": "entity matching uses three categorical choice outcomes. unclear is a real semantic result, not an intermediate score value. without min_confidence, every result remains action=\"review\"; a supplied threshold can yield auto_match or auto_different, while unclear always remains review.\n\nfrom pyjev import jev\nfrom pyjev.recipes import build_match, execute_match\n\nplan = build_match(\n    \"alice smith, 1 main st\",\n    \"a. smith, 1 main street\",\n    min_confidence=0.92,  # caller-owned\n)\nwith jev() as jev:\n    result = execute_match(jev, plan)\nif result.action == \"auto_match\":\n    link_records()\nelif result.action == \"review\":\n    inspect(result.decision.probabilities)"
+        },
+        {
+          "anchor": "",
+          "heading": "Route: propose a handler, never invoke it",
+          "text": "RouteHandler and RouteArgument are descriptions, not imports or callbacks. build_route creates one handler Choice plus speculative closed-set argument Choices for every supplied handler in one bounded bundle. __none__ abstains from routing; __unspecified__ preserves a missing argument. Only the chosen handler’s argument answers are projected into the proposal, while the complete bundle remains available for review.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import RouteArgument, RouteHandler, build_route, execute_route\n\nhandlers = [\n    RouteHandler(\n        \"refund\",\n        \"Start a refund request\",\n        (RouteArgument(\"reason\", \"Refund reason\", (\"duplicate\", \"not_received\", \"other\")),),\n    ),\n    RouteHandler(\"tracking\", \"Look up shipment status\"),\n]\nplan = build_route(message, hand…",
+          "lower": "routehandler and routeargument are descriptions, not imports or callbacks. build_route creates one handler choice plus speculative closed-set argument choices for every supplied handler in one bounded bundle. __none__ abstains from routing; __unspecified__ preserves a missing argument. only the chosen handler’s argument answers are projected into the proposal, while the complete bundle remains available for review.\n\nfrom pyjev import jev\nfrom pyjev.recipes import routeargument, routehandler, build_route, execute_route\n\nhandlers = [\n    routehandler(\n        \"refund\",\n        \"start a refund request\",\n        (routeargument(\"reason\", \"refund reason\", (\"duplicate\", \"not_received\", \"other\")),),\n    ),\n    routehandler(\"tracking\", \"look up shipment status\"),\n]\nplan = build_route(message, hand…"
+        },
+        {
+          "anchor": "",
+          "heading": "Rerank: independent relevance judgments",
+          "text": "Use rerank when zero, one, or many candidates can be relevant. Unlike find, candidates do not compete in one normalized Choice distribution and there is no separate existence question: each candidate receives an independent Noul. The plan splits candidates into deterministic chunks of at most 64, executes chunks sequentially, preserves input order in results, and sorts ranked by descending relevance probability with input order as the tie-break. The hard plan cap is 4096 candidates; no candidate is silently dropped.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import RerankCandidate, build_rerank, execute_rerank\n\nplan = build_rerank(\n    \"Which pages explain retry behavior?\",\n    [RerankCandidate(\"client\", client_doc), RerankCandidate(\"guide\", guide_doc)],\n    chunk_size=64,\n    min_relevanc…",
+          "lower": "use rerank when zero, one, or many candidates can be relevant. unlike find, candidates do not compete in one normalized choice distribution and there is no separate existence question: each candidate receives an independent noul. the plan splits candidates into deterministic chunks of at most 64, executes chunks sequentially, preserves input order in results, and sorts ranked by descending relevance probability with input order as the tie-break. the hard plan cap is 4096 candidates; no candidate is silently dropped.\n\nfrom pyjev import jev\nfrom pyjev.recipes import rerankcandidate, build_rerank, execute_rerank\n\nplan = build_rerank(\n    \"which pages explain retry behavior?\",\n    [rerankcandidate(\"client\", client_doc), rerankcandidate(\"guide\", guide_doc)],\n    chunk_size=64,\n    min_relevanc…"
+        },
+        {
+          "anchor": "",
+          "heading": "Screen: an advisory semantic prefilter",
+          "text": "screen is a heuristic recipe, not a prompt-injection defense or security boundary. The caller must supply all thresholds through ScreenPolicy. The deterministic outcome precedence is: high instruction signal → block; low substance or relevance → skip; adequate substance plus relevance → pass; otherwise review. Every signal probability and Noul result is returned, and no client-side gate is installed.\n\nfrom pyjev import Jev\nfrom pyjev.recipes import ScreenPolicy, build_screen, execute_screen\n\npolicy = ScreenPolicy(\n    instruction_block_at=0.80,\n    substantive_skip_below=0.20,\n    relevance_skip_below=0.15,\n    relevance_pass_at=0.75,\n)\nplan = build_screen(untrusted_text, \"summarize a release note\", policy=policy)\nprint(plan.to_dict())  # inspect sensitive state and caller policy\nwith Jev…",
+          "lower": "screen is a heuristic recipe, not a prompt-injection defense or security boundary. the caller must supply all thresholds through screenpolicy. the deterministic outcome precedence is: high instruction signal → block; low substance or relevance → skip; adequate substance plus relevance → pass; otherwise review. every signal probability and noul result is returned, and no client-side gate is installed.\n\nfrom pyjev import jev\nfrom pyjev.recipes import screenpolicy, build_screen, execute_screen\n\npolicy = screenpolicy(\n    instruction_block_at=0.80,\n    substantive_skip_below=0.20,\n    relevance_skip_below=0.15,\n    relevance_pass_at=0.75,\n)\nplan = build_screen(untrusted_text, \"summarize a release note\", policy=policy)\nprint(plan.to_dict())  # inspect sensitive state and caller policy\nwith jev…"
         }
       ]
     }

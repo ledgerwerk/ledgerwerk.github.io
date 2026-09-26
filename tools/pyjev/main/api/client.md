@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_commit: "5de343d01807d581d4b55db3e15732774c66e91c"
 search_enabled: true
 ---
 
@@ -584,6 +584,16 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate state against an ordered Score rubric.
 </pre></div>
 </div>
+<p>.. py:method:: Jev.evaluate(decision, *, state, model=None)
+:module: pyjev.client</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate a validated in-memory typed decision declaration.
+
+  An explicit ``model`` overrides the declaration&#39;s model. A bundle is sent
+  in one SDK request and each child is returned as its normal typed result.
+  Decision construction and this method&#39;s local validation do not resolve
+  credentials; only the call to the underlying SDK performs I/O.
+</pre></div>
+</div>
 <p>.. py:method:: Jev.decide(name, *, state, config=None, model=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate a named primitive or bundle decision from TOML.
@@ -597,6 +607,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>.. py:method:: Jev.models()
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  List models using the underlying SDK client.
+</pre></div>
+</div>
+<p>.. py:method:: Jev.auth_test()
+:module: pyjev.client</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Perform one minimal official-SDK request to verify authentication.
 </pre></div>
 </div>
 <p>.. py:method:: Jev.close()
@@ -641,6 +656,15 @@ html[data-theme="dark"] .sphinxpress-doc {
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate Score through the native async SDK client.
+</pre></div>
+</div>
+<p>.. py:method:: AsyncJev.evaluate(decision, *, state, model=None)
+:module: pyjev.client
+:async:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate an in-memory decision using the native async SDK client.
+
+  An explicit ``model`` overrides the declaration&#39;s model. Independent bundle
+  questions share one SDK request and retain their primitive result types.
 </pre></div>
 </div>
 <p>.. py:method:: AsyncJev.decide(name, *, state, config=None, model=None)

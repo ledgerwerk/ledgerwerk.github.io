@@ -5,8 +5,8 @@ permalink: /tools/releaseledger/
 nav_tool: releaseledger
 docs_project: "releaseledger"
 docs_variant: "release"
-docs_ref: "v0.4.9"
-docs_commit: "ced19030fa9d36a003ef5bedbf2880b0a21762e6"
+docs_ref: "v0.4.11"
+docs_commit: "5fa733fb24b115a5c566df0a619928ba10edf2d4"
 search_enabled: true
 ---
 
@@ -553,6 +553,7 @@ state directory. It also renders reviewable changelog context and final
 <li class="toctree-l1"><a class="reference internal" href="quickstart/">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#install">Install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#initialize-a-project">Initialize a project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/#agent-skill-discovery">Agent Skill discovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#prepare-a-release-and-pin-the-git-snapshot">Prepare a release and pin the git snapshot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#create-audit-evidence-and-scaffold-entries">Create audit evidence and scaffold entries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/#run-the-final-gate-and-build-the-changelog">Run the final gate and build the changelog</a></li>
@@ -567,6 +568,7 @@ state directory. It also renders reviewable changelog context and final
 </li>
 <li class="toctree-l1"><a class="reference internal" href="concepts/">Concepts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#git-first">Git-first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/#agent-skill-source-and-discovery">Agent Skill source and discovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#git-tag-ownership-policy">Git tag ownership policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#source-refs">Source refs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concepts/#pinned-release-snapshot">Pinned release snapshot</a></li>
@@ -596,6 +598,8 @@ state directory. It also renders reviewable changelog context and final
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-11-2026-09-24">[v0.4.11] - 2026-09-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-10-2026-09-22">[v0.4.10] - 2026-09-22</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-9-2026-09-19">[v0.4.9] - 2026-09-19</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-8-2026-09-16">[v0.4.8] - 2026-09-16</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-7-2026-09-15">[v0.4.7] - 2026-09-15</a></li>
@@ -605,14 +609,14 @@ state directory. It also renders reviewable changelog context and final
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-3-2026-08-21">[v0.4.3] - 2026-08-21</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-2-2026-08-02">[v0.4.2] - 2026-08-02</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-4-1-2026-07-31">[v0.4.1] - 2026-07-31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id15">[0.4.0] - 2026-07-28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id18">[0.3.4] - 2026-07-14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id20">[0.3.3] - 2026-06-26</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id23">[0.3.2] - 2026-06-17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id26">[0.3.1] - 2026-06-16</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id29">[0.3.0] - 2026-06-15</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id32">[0.2.0] - 2026-06-14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog/#id36">[0.1.0] - 2026-06-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id18">[0.4.0] - 2026-07-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id21">[0.3.4] - 2026-07-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id23">[0.3.3] - 2026-06-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id26">[0.3.2] - 2026-06-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id29">[0.3.1] - 2026-06-16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id32">[0.3.0] - 2026-06-15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id35">[0.2.0] - 2026-06-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#id39">[0.1.0] - 2026-06-14</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="storage/">Storage and configuration</a><ul>

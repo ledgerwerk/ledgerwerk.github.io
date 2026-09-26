@@ -5,16 +5,16 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: f0a03f3a5b71ae32166ca602bfe97596b1feb498
+source_commit: 5de343d01807d581d4b55db3e15732774c66e91c
 source_url: https://github.com/ledgerwerk/pyjev/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/pyjev
-release_tag: v0.1.0
-release_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.0
+release_tag: v0.1.1
+release_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.1
 versions:
 - name: release
   label: Latest release
-  ref: v0.1.0
+  ref: v0.1.1
   url: /tools/pyjev/
   current: false
 - name: main
@@ -26,6 +26,9 @@ entries:
 - slug: index
   title: pyjev
   url: /tools/pyjev/main/
+- slug: agent-skill
+  title: pyjev Agent skill
+  url: /tools/pyjev/main/agent-skill/
 - slug: api/client
   title: pyjev Client
   url: /tools/pyjev/main/api/client/
@@ -68,6 +71,12 @@ entries:
 - slug: named-decisions
   title: pyjev Named decisions
   url: /tools/pyjev/main/named-decisions/
+- slug: patterns
+  title: pyjev Decision patterns
+  url: /tools/pyjev/main/patterns/
 - slug: python-api
   title: pyjev Python API
   url: /tools/pyjev/main/python-api/
+- slug: recipes
+  title: pyjev Semantic recipes
+  url: /tools/pyjev/main/recipes/

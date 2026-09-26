@@ -5,8 +5,8 @@ permalink: /tools/pyjev/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.0"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_ref: "v0.1.1"
+docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
 search_enabled: true
 ---
 
@@ -542,54 +542,80 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="pyjev">
 <h1>pyjev</h1>
-<p><strong>Confidence-aware Jev decisions for Python, shell, CI, and automation.</strong></p>
-<p>pyjev is a thin operational layer over TypeSafe’s official <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>. It
-preserves Jev probabilities, confidence, and response metadata while adding
-reusable named decisions, shell-safe output, local validation, request
-inspection, and credential ergonomics.</p>
-<section id="cli">
-<h2>CLI</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>choice<span class="w"> </span><span class="s2">&quot;Where should this ticket go?&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--state<span class="w"> </span><span class="s2">&quot;Stripe checkout fails&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--option<span class="w"> </span><span class="nv">billing</span><span class="o">=</span><span class="s2">&quot;Payments and refunds&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--option<span class="w"> </span><span class="nv">engineering</span><span class="o">=</span><span class="s2">&quot;Technical failures&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--option<span class="w"> </span><span class="nv">sales</span><span class="o">=</span><span class="s2">&quot;Purchasing questions&quot;</span>
-</pre></div>
-</div>
-</section>
-<section id="python">
-<h2>Python</h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Jev</span>
-
-<span class="k">with</span> <span class="n">Jev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
-        <span class="s2">&quot;Where should this ticket go?&quot;</span><span class="p">,</span>
-        <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Stripe checkout fails&quot;</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;billing&quot;</span><span class="p">:</span> <span class="s2">&quot;Payments&quot;</span><span class="p">,</span> <span class="s2">&quot;engineering&quot;</span><span class="p">:</span> <span class="s2">&quot;Technical&quot;</span><span class="p">,</span> <span class="s2">&quot;sales&quot;</span><span class="p">:</span> <span class="s2">&quot;Purchasing&quot;</span><span class="p">},</span>
-    <span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">confidence</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">probabilities</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
+<p><strong>Reusable, inspectable Jev decision contracts for Python applications and automation.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">pyjev</span></code> is the Python application layer above TypeSafe’s official
+<code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>. It adds typed synchronous and native asynchronous clients,
+version-controlled <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> decision contracts, offline validation and
+compilation, uncertainty-preserving results, credential ergonomics, and
+confidence-aware application policy.</p>
 <section id="why-pyjev">
 <h2>Why pyjev?</h2>
 <ul class="simple">
-<li><p>Preserve probabilities, confidence, and response metadata.</p></li>
-<li><p>Define reusable decisions in <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>.</p></li>
-<li><p>Use the same decision from Python or the shell.</p></li>
-<li><p>Gate automation explicitly at the invocation boundary.</p></li>
-<li><p>Validate mistakes before spending an API request.</p></li>
-<li><p>Retain request IDs and usage metadata for debugging.</p></li>
+<li><p>Embed Jev in Python applications with dependency injection and typed results.</p></li>
+<li><p>Declare stable named decisions and bundles once, then reuse them from Python,
+shell, CI, or an agent workflow.</p></li>
+<li><p>Inspect and compile requests without credentials, client construction, or
+network access.</p></li>
+<li><p>Preserve probabilities, confidence, usage, request IDs, and raw metadata.</p></li>
+<li><p>Gate automation explicitly without consuming a low-confidence value by mistake.</p></li>
+<li><p>Let the official SDK own transport, retries, API models, authentication, and
+API error semantics.</p></li>
 </ul>
-<p>Start with <a class="reference internal" href="getting-started/"><span class="std std-doc">Getting started</span></a>, then read <a class="reference internal" href="concepts/"><span class="std std-doc">Concepts</span></a>.
-See <a class="reference internal" href="confidence/"><span class="std std-doc">Confidence</span></a> for safe automation, <a class="reference internal" href="named-decisions/"><span class="std std-doc">Named decisions</span></a>
-for reusable specifications, <a class="reference internal" href="cli/"><span class="std std-doc">CLI</span></a> for shell usage, and <a class="reference internal" href="python-api/"><span class="std std-doc">Python API</span></a>
-for code usage.</p>
+</section>
+<section id="second-workflow">
+<h2>60-second workflow</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>.pyjev.toml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">[pyjev]</span>
+<span class="s">schema = 1</span>
+
+<span class="s">[decision.ticket-route]</span>
+<span class="s">type = &quot;choice&quot;</span>
+<span class="s">question = &quot;Which team should handle this support request?&quot;</span>
+
+<span class="s">[decision.ticket-route.options]</span>
+<span class="s">billing = &quot;Billing or refunds&quot;</span>
+<span class="s">engineering = &quot;Technical problem or product bug&quot;</span>
+<span class="s">sales = &quot;Purchasing or procurement&quot;</span>
+<span class="s">EOF</span>
+
+pyjev<span class="w"> </span>decision<span class="w"> </span>validate
+pyjev<span class="w"> </span>decision<span class="w"> </span>compile<span class="w"> </span>ticket-route<span class="w"> </span>--state<span class="w"> </span><span class="s2">&quot;Stripe checkout fails&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Stripe checkout fails&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>pyjev<span class="w"> </span>decide<span class="w"> </span>ticket-route<span class="w"> </span>--json
+</pre></div>
+</div>
+<p>The same contract is available to Python callers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Jev</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">()</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;ticket-route&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Stripe checkout fails&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">confidence</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">probabilities</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="direct-dynamic-decisions">
+<h2>Direct dynamic decisions</h2>
+<p>For criteria that depend on runtime deterministic logic, use <code class="docutils literal notranslate"><span class="pre">Jev</span></code>/<code class="docutils literal notranslate"><span class="pre">AsyncJev</span></code>
+or the direct <code class="docutils literal notranslate"><span class="pre">pyjev</span> <span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">pyjev</span> <span class="pre">noul</span></code>, and <code class="docutils literal notranslate"><span class="pre">pyjev</span> <span class="pre">score</span></code> commands. The CLI
+is a useful shell and CI interface to pyjev’s application layer, not its only
+abstraction.</p>
+</section>
+<section id="documentation">
+<h2>Documentation</h2>
 <div class="toctree-wrapper compound">
 </div>
+<ul class="simple">
+<li><p><a class="reference internal" href="getting-started/"><span class="std std-doc">Getting started</span></a></p></li>
+<li><p><a class="reference internal" href="named-decisions/"><span class="std std-doc">Named decisions</span></a></p></li>
+<li><p><a class="reference internal" href="patterns/"><span class="std std-doc">Decision patterns</span></a></p></li>
+<li><p><a class="reference internal" href="python-api/"><span class="std std-doc">Python API</span></a></p></li>
+<li><p><a class="reference internal" href="cli/"><span class="std std-doc">CLI and exit codes</span></a></p></li>
+<li><p><a class="reference internal" href="confidence/"><span class="std std-doc">Confidence policy</span></a></p></li>
+<li><p><a class="reference internal" href="authentication/"><span class="std std-doc">Authentication</span></a></p></li>
+<li><p><a class="reference internal" href="agent-skill/"><span class="std std-doc">Agent skill</span></a></p></li>
+<li><p><a class="reference internal" href="comparisons/"><span class="std std-doc">pyjev vs jev-cli</span></a></p></li>
+<li><p><a class="reference internal" href="examples/"><span class="std std-doc">Runnable examples</span></a></p></li>
+</ul>
 </section>
 </section>
 </div>

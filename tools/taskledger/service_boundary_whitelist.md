@@ -5,8 +5,8 @@ permalink: /tools/taskledger/service_boundary_whitelist/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.8"
-docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
+docs_ref: "v0.6.9"
+docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
 search_enabled: true
 ---
 
@@ -632,6 +632,8 @@ resolves actor/harness context for event metadata.</p></li>
 Implement command wrapper records managed-shell command failures.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_validate.py:taskledger.services.agent_logging</span></code> — Validation
 command wrapper records managed-shell command failures.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py:taskledger.services.actors</span></code> — Todo updates resolve
+current identity to persist completion actor and harness metadata.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py:taskledger.services.doctor</span></code> — Doctor commands
 still consume doctor service inspectors directly.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_pipeline.py:taskledger.services.handoff</span></code> — Pipeline

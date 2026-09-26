@@ -5,8 +5,8 @@ permalink: /tools/taskledger/command_contract/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.8"
-docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
+docs_ref: "v0.6.9"
+docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
 search_enabled: true
 ---
 
@@ -924,7 +924,10 @@ This reduces LLM context consumption during implementation loops.</p>
 <p>The following commands produce compact output:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">add</span></code>: emits <code class="docutils literal notranslate"><span class="pre">todo_added</span></code> result with new todo, progress, and next command.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">done</span></code> / <code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">undone</span></code>: emits <code class="docutils literal notranslate"><span class="pre">todo_update</span></code> result with todo id, status, progress, and next command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">done</span></code> / <code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">undone</span></code>: emits <code class="docutils literal notranslate"><span class="pre">todo_update</span></code> result with todo id, status, progress, and next command.
+Successful <code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">done</span></code> renews the active implementation lease only when the
+current execution proves ownership. Read-only commands and other sessions do
+not renew it.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">finish</span></code>: emits <code class="docutils literal notranslate"><span class="pre">task_lifecycle</span></code> result with task id, run id, status, and next command.</p></li>
 </ul>
 <p>Human mode shows a one-line summary:</p>
@@ -1202,20 +1205,29 @@ a clear error.</p>
 <p>Lock diagnostics are exposed through three surfaces:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">lock</span> <span class="pre">show</span> <span class="pre">--task</span> <span class="pre">TASK</span></code> returns a <code class="docutils literal notranslate"><span class="pre">diagnostics</span></code> object and
-a structured human block. The <code class="docutils literal notranslate"><span class="pre">classification</span></code> field names the lock
-state: <code class="docutils literal notranslate"><span class="pre">none</span></code>, <code class="docutils literal notranslate"><span class="pre">expired</span></code>, <code class="docutils literal notranslate"><span class="pre">active_dead_local_process</span></code>,
+a structured human block. The <code class="docutils literal notranslate"><span class="pre">classification</span></code> field names the lock state:
+<code class="docutils literal notranslate"><span class="pre">none</span></code>, <code class="docutils literal notranslate"><span class="pre">expired</span></code>, <code class="docutils literal notranslate"><span class="pre">active_dead_local_process</span></code>,
 <code class="docutils literal notranslate"><span class="pre">active_live_local_process</span></code>, <code class="docutils literal notranslate"><span class="pre">active_unverifiable_remote_or_unknown_process</span></code>,
-<code class="docutils literal notranslate"><span class="pre">active_no_pid</span></code>, <code class="docutils literal notranslate"><span class="pre">active_same_actor</span></code>, or <code class="docutils literal notranslate"><span class="pre">active_other_actor</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">active_no_pid</span></code>, <code class="docutils literal notranslate"><span class="pre">active_current_execution</span></code>, <code class="docutils literal notranslate"><span class="pre">active_harness_session</span></code>,
+<code class="docutils literal notranslate"><span class="pre">active_same_actor</span></code>, or <code class="docutils literal notranslate"><span class="pre">active_other_actor</span></code>.
+<code class="docutils literal notranslate"><span class="pre">active_current_execution</span></code> requires matching strong execution evidence, such
+as a shared harness session ID or a stable same-host owner PID; actor-name
+equality alone is not ownership proof.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">--json</span> <span class="pre">next-action</span></code> returns <code class="docutils literal notranslate"><span class="pre">lock_status</span></code> whenever a lock
 exists, and sets <code class="docutils literal notranslate"><span class="pre">action=repair-lock</span></code> with a diagnostics blocker when the
 active implementation lock has a dead local holder PID.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">implement</span> <span class="pre">resume</span> <span class="pre">--repair-expired-lock</span></code> returns a
-<code class="docutils literal notranslate"><span class="pre">LOCK_CONFLICT</span></code> error (exit code 4) with diagnostics and remediation
-commands when the existing lock is non-expired.</p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">--repair-expired-lock</span></code> is not a general stale-lock takeover flag. It only
+<code class="docutils literal notranslate"><span class="pre">LOCK_CONFLICT</span></code> error (exit code 4) with diagnostics when a non-expired
+lock belongs to another or unknown execution. If the selected run is already
+active and <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_current_execution</span></code>, resume succeeds
+as a no-op with <code class="docutils literal notranslate"><span class="pre">changed=false</span></code>, preserving the existing lock and run IDs
+without a repair or release event.
+For ordinary continuation, inspect <code class="docutils literal notranslate"><span class="pre">next-action</span></code> and continue the todo loop;
+do not use <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">resume</span></code> or lock repair while this execution owns the lock.
+<code class="docutils literal notranslate"><span class="pre">--repair-expired-lock</span></code> is not a general stale-lock takeover flag. It only
 applies to locks whose <code class="docutils literal notranslate"><span class="pre">expires_at</span></code> is in the past. For non-expired active
-locks, follow the classification returned by <code class="docutils literal notranslate"><span class="pre">lock</span> <span class="pre">show</span></code> or <code class="docutils literal notranslate"><span class="pre">next-action</span></code>.</p>
+locks, follow the classification returned by <code class="docutils literal notranslate"><span class="pre">lock</span> <span class="pre">show</span></code> or <code class="docutils literal notranslate"><span class="pre">next-action</span></code>.</p></li>
+</ul>
 <p>For non-expired active locks classified as <code class="docutils literal notranslate"><span class="pre">active_dead_local_process</span></code>, the
 canonical recovery sequence is:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>lock<span class="w"> </span>--task<span class="w"> </span>TASK<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Holder PID ... is no longer running.&quot;</span>

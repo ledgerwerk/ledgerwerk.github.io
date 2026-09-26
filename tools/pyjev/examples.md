@@ -5,8 +5,8 @@ permalink: /tools/pyjev/examples/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.0"
-docs_commit: "f0a03f3a5b71ae32166ca602bfe97596b1feb498"
+docs_ref: "v0.1.1"
+docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
 search_enabled: true
 ---
 
@@ -566,6 +566,27 @@ alternatives belongs in Jev.</p>
 </div></blockquote>
 <p>Read the full source for the playable demo rather than copying its tactical helpers into
 an application without understanding their scope.</p>
+</section>
+<section id="plain-english-semantic-linter">
+<h2>Plain-English semantic linter</h2>
+<p><code class="docutils literal notranslate"><span class="pre">semantic_linter.py</span></code> demonstrates a named bundle plus native async fan-out. Standard-library Python AST parsing owns exact file discovery, syntax errors, function boundaries, qualified names, decorators, and source locations. The <code class="docutils literal notranslate"><span class="pre">semantic-lint</span></code> bundle contains 14 independent plain-English Noul rules, and all 14 rules are evaluated in one request for each function.</p>
+<p>Independent functions are scheduled concurrently with bounded <code class="docutils literal notranslate"><span class="pre">AsyncJev</span></code> concurrency. The human summary calculates actual function, rule, judgment, and request counts, token usage, and observed elapsed time. JSON output preserves every rule probability and request metadata.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyjev<span class="w"> </span>decision<span class="w"> </span>show<span class="w"> </span>semantic-lint<span class="w"> </span>--config<span class="w"> </span>examples/.pyjev.toml<span class="w"> </span>--json
+pyjev<span class="w"> </span>decision<span class="w"> </span>validate<span class="w"> </span>--config<span class="w"> </span>examples/.pyjev.toml
+python<span class="w"> </span>examples/semantic_linter.py<span class="w"> </span>pyjev/client.py
+python<span class="w"> </span>examples/semantic_linter.py<span class="w"> </span>pyjev/client.py<span class="w"> </span>--show-all
+python<span class="w"> </span>examples/semantic_linter.py<span class="w"> </span>pyjev/client.py<span class="w"> </span>--json
+</pre></div>
+</div>
+<blockquote>
+<div><p>Batch independent semantic questions about one state into one Jev request; use ordinary async concurrency across independent states.</p>
+</div></blockquote>
+<p>The default threshold is a demo application policy, not a Jev correctness guarantee. Calibrate it against labeled examples before using this linter as a CI gate. The selected function source is sent to the configured Jev API; do not run it on code you are not permitted to send to that service.</p>
+</section>
+<section id="emoji-jev">
+<h2>Emoji Jev</h2>
+<p><code class="docutils literal notranslate"><span class="pre">emoji_jev.py</span></code> is an interactive named-bundle example. A single request evaluates a 64-way emoji Choice plus tone questions. The terminal displays the selected emoji, top alternatives from the Choice probability distribution, typed side signals, request metadata, token usage, and client-observed round-trip time.</p>
+<p>The top-N display is deterministic Python over Jev’s preserved probability distribution; it is not a second model call.</p>
 </section>
 </section>
 </div>

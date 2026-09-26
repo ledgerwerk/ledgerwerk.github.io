@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "4f9cd16f017a428dcc33eefa0deb74e1f32c8eff"
+docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
 search_enabled: true
 ---
 
@@ -697,14 +697,21 @@ taskledger<span class="w"> </span>plan<span class="w"> </span>lint<span class="w
 taskledger<span class="w"> </span>plan<span class="w"> </span>review<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
-<p>Revising a proposed plan safely:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>revise
-taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--version<span class="w"> </span>latest<span class="w"> </span>--file<span class="w"> </span>./plan.md
-<span class="c1"># edit ./plan.md (never edit .taskledger/ directly)</span>
-taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--file<span class="w"> </span>./plan.md
+<p>Revising a proposed plan safely: prepare the draft before opening a revision run. Export to a separate workspace file so an existing <code class="docutils literal notranslate"><span class="pre">plan.md</span></code> or local edits are not overwritten:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--version<span class="w"> </span>latest<span class="w"> </span>--file<span class="w"> </span>./plan.revision.md
+<span class="c1"># edit ./plan.revision.md (never edit .taskledger/ directly)</span>
+taskledger<span class="w"> </span>plan<span class="w"> </span>check<span class="w"> </span>--file<span class="w"> </span>./plan.revision.md
+taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--auto-revise<span class="w"> </span>--file<span class="w"> </span>./plan.revision.md
 taskledger<span class="w"> </span>plan<span class="w"> </span>diff<span class="w"> </span>--from<span class="w"> </span><span class="m">1</span><span class="w"> </span>--to<span class="w"> </span><span class="m">2</span>
+taskledger<span class="w"> </span>plan<span class="w"> </span>review<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
+<p>If <code class="docutils literal notranslate"><span class="pre">./plan.md</span></code> is already edited, check and submit it directly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>check<span class="w"> </span>--file<span class="w"> </span>./plan.md
+taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--auto-revise<span class="w"> </span>--file<span class="w"> </span>./plan.md
+</pre></div>
+</div>
+<p>Auto-revision only proposes a new version; it does not approve it. Implementation still requires explicit user approval.</p>
 <p>For structured scope trims, use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>amend<span class="w"> </span>--drop-criterion<span class="w"> </span>ac-0007<span class="w"> </span>--drop-todo<span class="w"> </span>plan-todo-0010<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;User reduced scope.&quot;</span>
 </pre></div>
@@ -869,6 +876,9 @@ avoid inventing question answers, and only mark todos done after evidence exists
 <p>If <code class="docutils literal notranslate"><span class="pre">next-action</span></code> reports an orphaned implementation state or an active lock
 recovery situation, inspect the task and lock first, then choose the recovery
 path that matches the lock state:</p>
+<p>Natural-language requests to “continue” or “resume work” do not imply <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">resume</span></code>.
+Run <code class="docutils literal notranslate"><span class="pre">next-action</span></code> first. If the lock is classified as <code class="docutils literal notranslate"><span class="pre">active_current_execution</span></code>,
+keep it and continue the todo loop; do not reacquire or repair it.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>task<span class="w"> </span>show
 taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>task-0001
 taskledger<span class="w"> </span>lock<span class="w"> </span>show
@@ -880,23 +890,21 @@ taskledger<span class="w"> </span>doctor
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">lock</span> <span class="pre">show</span> <span class="pre">--task</span> <span class="pre">TASK</span></code>. <code class="docutils literal notranslate"><span class="pre">lock</span> <span class="pre">show</span></code> reports a
 <code class="docutils literal notranslate"><span class="pre">classification</span></code> field that names the lock state.</p></li>
 <li><p>If there is no lock, run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">next-action</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_current_execution</span></code>, keep the lock and continue
+the todo loop. Do not run <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">resume</span></code> or repair the lock.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">expired</span></code> and the lock is an implementation lock
-for a running implementation run:
-run
+for a running implementation run, run
 <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">implement</span> <span class="pre">resume</span> <span class="pre">--repair-expired-lock</span> <span class="pre">--task</span> <span class="pre">TASK</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code>.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_dead_local_process</span></code>:
-run
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_dead_local_process</span></code>, run
 <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">lock</span> <span class="pre">--task</span> <span class="pre">TASK</span> <span class="pre">--reason</span> <span class="pre">&quot;Holder</span> <span class="pre">PID</span> <span class="pre">...</span> <span class="pre">is</span> <span class="pre">no</span> <span class="pre">longer</span> <span class="pre">running.&quot;</span></code>,
 then <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">implement</span> <span class="pre">resume</span> <span class="pre">--task</span> <span class="pre">TASK</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code>.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_live_local_process</span></code> or
-<code class="docutils literal notranslate"><span class="pre">active_other_actor</span></code>:
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_live_local_process</span></code> or <code class="docutils literal notranslate"><span class="pre">active_other_actor</span></code>,
 do not repair; use a handoff or wait for the holder to release.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_unverifiable_remote_or_unknown_process</span></code>:
+<li><p>If <code class="docutils literal notranslate"><span class="pre">classification</span></code> is <code class="docutils literal notranslate"><span class="pre">active_unverifiable_remote_or_unknown_process</span></code>,
 do not infer staleness from local process checks; inspect handoffs or ask
 the user before repairing.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code> itself returns <code class="docutils literal notranslate"><span class="pre">action=repair-lock</span></code> with diagnostics and
-the recommended command sequence when the active implementation lock has
-a dead local holder PID.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next-action</span></code> itself returns <code class="docutils literal notranslate"><span class="pre">action=repair-lock</span></code> with diagnostics and the
+recommended command sequence when the active implementation lock has a dead local holder PID.</p></li>
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">--repair-expired-lock</span></code> is not a general stale-lock takeover flag. It only
 handles locks whose <code class="docutils literal notranslate"><span class="pre">expires_at</span></code> is in the past. For non-expired active
@@ -920,6 +928,9 @@ taskledger<span class="w"> </span>todo<span class="w"> </span><span class="k">do
 taskledger<span class="w"> </span>--json<span class="w"> </span>next-action
 </pre></div>
 </div>
+<p>Completing a todo renews the active implementation lease only when the current
+execution proves that it owns the lock. Read-only commands and other sessions do
+not renew the lease.</p>
 <p>Rules for agents:</p>
 <ul class="simple">
 <li><p>Install the <code class="docutils literal notranslate"><span class="pre">taskledger</span></code> skill in the coding harness before relying on agent-driven workflows.</p></li>
