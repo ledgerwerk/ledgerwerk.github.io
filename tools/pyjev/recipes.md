@@ -1,11 +1,11 @@
 ---
 layout: tool-doc
 title: "pyjev Semantic recipes"
-permalink: /tools/pyjev/main/recipes/
-nav_tool: pyjev-main
+permalink: /tools/pyjev/recipes/
+nav_tool: pyjev
 docs_project: "pyjev"
-docs_variant: "main"
-docs_ref: "main"
+docs_variant: "release"
+docs_ref: "v0.1.2"
 docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
 search_enabled: true
 ---

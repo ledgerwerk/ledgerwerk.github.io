@@ -5,8 +5,8 @@ permalink: /tools/pyjev/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
+docs_ref: "v0.1.2"
+docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
 search_enabled: true
 ---
 
@@ -609,6 +609,7 @@ abstraction.</p>
 <li><p><a class="reference internal" href="named-decisions/"><span class="std std-doc">Named decisions</span></a></p></li>
 <li><p><a class="reference internal" href="patterns/"><span class="std std-doc">Decision patterns</span></a></p></li>
 <li><p><a class="reference internal" href="python-api/"><span class="std std-doc">Python API</span></a></p></li>
+<li><p><a class="reference internal" href="recipes/"><span class="std std-doc">Semantic recipes</span></a></p></li>
 <li><p><a class="reference internal" href="cli/"><span class="std std-doc">CLI and exit codes</span></a></p></li>
 <li><p><a class="reference internal" href="confidence/"><span class="std std-doc">Confidence policy</span></a></p></li>
 <li><p><a class="reference internal" href="authentication/"><span class="std std-doc">Authentication</span></a></p></li>

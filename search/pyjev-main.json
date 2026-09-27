@@ -99,6 +99,12 @@
         {
           "anchor": "",
           "heading": "Added",
+          "text": "Added typed recipes for classification, extraction, search, verification, matching, reranking, routing, and screening\n\n\nAdded typed in-memory decision evaluation and bounded, ordered async batch execution\n\n\nAdded structured –pluck selection for CLI results without bypassing confidence gates",
+          "lower": "added typed recipes for classification, extraction, search, verification, matching, reranking, routing, and screening\n\n\nadded typed in-memory decision evaluation and bounded, ordered async batch execution\n\n\nadded structured –pluck selection for cli results without bypassing confidence gates"
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
           "text": "Added named decision contracts, offline compilation, async support, safe authentication checks, and agent guidance\n\n\nAdded an async semantic linter example that batches fourteen rules per function and reports structured findings\n\n\nAdded documented decision patterns and a support-triage example for routing, scoring, confidence gates, and fan-out\n\n\nAdded an interactive emoji analysis example using one typed bundle request per message\n\n\nAdded local result pipelines for selecting bundle answers and applying confidence or probability gates",
           "lower": "added named decision contracts, offline compilation, async support, safe authentication checks, and agent guidance\n\n\nadded an async semantic linter example that batches fourteen rules per function and reports structured findings\n\n\nadded documented decision patterns and a support-triage example for routing, scoring, confidence gates, and fan-out\n\n\nadded an interactive emoji analysis example using one typed bundle request per message\n\n\nadded local result pipelines for selecting bundle answers and applying confidence or probability gates"
         },

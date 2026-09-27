@@ -5,16 +5,16 @@ variant: main
 variant_label: Current main
 variant_kind: git_ref
 source_ref: main
-source_commit: 5de343d01807d581d4b55db3e15732774c66e91c
+source_commit: 1bf1b09753773aa6ac13276f3bfd97e2f46d7db8
 source_url: https://github.com/ledgerwerk/pyjev/tree/main
 is_default: false
 repo_url: https://github.com/ledgerwerk/pyjev
-release_tag: v0.1.1
-release_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.1
+release_tag: v0.1.2
+release_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.2
 versions:
 - name: release
   label: Latest release
-  ref: v0.1.1
+  ref: v0.1.2
   url: /tools/pyjev/
   current: false
 - name: main

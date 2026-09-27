@@ -5,8 +5,8 @@ permalink: /tools/pyjev/confidence/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
+docs_ref: "v0.1.2"
+docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
 search_enabled: true
 ---
 
@@ -587,6 +587,10 @@ Choose and document an application policy explicitly when using Noul.</p>
 <p>The numeric exit codes are part of pyjev’s CLI contract, not a Jev or cross-tool
 standard. Do not assume they match <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code>; a pyjev exit <code class="docutils literal notranslate"><span class="pre">3</span></code> specifically means
 the returned Choice/Score result did not satisfy the caller’s threshold.</p>
+</section>
+<section id="calibrate-thresholds-and-pin-models">
+<h2>Calibrate thresholds and pin models</h2>
+<p>For calibrated production policy, run representative labeled examples, inspect confidence/probability distributions and error consequences, then record the chosen caller thresholds. Pin an explicit model version for the calibrated workflow and deliberately re-evaluate/re-calibrate before changing that model version; an alias can change underneath a fixed threshold. A pinned model makes version changes visible but does not eliminate data drift or guarantee correctness.</p>
 </section>
 </section>
 </div>

@@ -5,8 +5,8 @@ permalink: /tools/pyjev/agent-skill/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
+docs_ref: "v0.1.2"
+docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
 search_enabled: true
 ---
 
@@ -559,6 +559,23 @@ integration.</p>
 <p>The skill also documents credential-safe setup, <code class="docutils literal notranslate"><span class="pre">auth</span> <span class="pre">test</span></code>, and pyjev’s
 project-specific exit codes. It does not expose a generic primitive MCP server;
 a future agent adapter should expose named-decision and offline tooling instead.</p>
+<section id="choosing-a-pattern">
+<h2>Choosing a pattern</h2>
+<ul class="simple">
+<li><p>Stable reusable judgment: declare a named decision in <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>; validate and compile before executing.</p></li>
+<li><p>Runtime-built contract: use <code class="docutils literal notranslate"><span class="pre">Jev.evaluate()</span></code> / <code class="docutils literal notranslate"><span class="pre">AsyncJev.evaluate()</span></code> with typed decision objects.</p></li>
+<li><p>Several questions over one state: use a bundle; many independent states: use bounded <code class="docutils literal notranslate"><span class="pre">pyjev.amap</span></code>.</p></li>
+<li><p>Candidate search where none may fit: <code class="docutils literal notranslate"><span class="pre">pyjev.recipes.find</span></code> ranks with Choice and judges applicability independently.</p></li>
+<li><p>Literal field extraction: <code class="docutils literal notranslate"><span class="pre">pyjev.recipes.extract</span></code> selects only deterministic candidates; inspect candidates and request state before execution.</p></li>
+<li><p>Claim/evidence review: <code class="docutils literal notranslate"><span class="pre">pyjev.recipes.verify</span></code> distinguishes <code class="docutils literal notranslate"><span class="pre">unsupported</span></code> from <code class="docutils literal notranslate"><span class="pre">contradicted</span></code> and does not fetch evidence.</p></li>
+<li><p>Fixed taxonomies: use <code class="docutils literal notranslate"><span class="pre">pyjev.recipes.classify</span></code>; multi-label mode is independent Noul judgments with an explicit unclear band.</p></li>
+<li><p>Entity linkage: use <code class="docutils literal notranslate"><span class="pre">pyjev.recipes.match</span></code> for <code class="docutils literal notranslate"><span class="pre">same</span></code> / <code class="docutils literal notranslate"><span class="pre">unclear</span></code> / <code class="docutils literal notranslate"><span class="pre">different</span></code>, not an overloaded numeric Score.</p></li>
+<li><p>Independent candidate relevance: use <code class="docutils literal notranslate"><span class="pre">pyjev.recipes.rerank</span></code>; it is not the competing rank-plus-existence behavior in <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyjev.recipes.screen</span></code> is advisory only; preserve all probabilities and never treat <code class="docutils literal notranslate"><span class="pre">pass</span></code> as a security guarantee.</p></li>
+<li><p>Route recipes return proposals; they never invoke handlers. Caller thresholds and side effects stay in application code.</p></li>
+</ul>
+<p>Do not flatten a recipe result when review needs its probabilities, confidence, usage, request ID, or raw typed decision. <code class="docutils literal notranslate"><span class="pre">--pluck</span></code> is for structured shell selection and is unavailable if a confidence gate fails; it cannot turn a rejected value into an actionable output.</p>
+</section>
 </section>
 </div>
 <script data-sphinxpress-script="search" defer>

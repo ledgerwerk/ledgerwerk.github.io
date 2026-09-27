@@ -5,8 +5,8 @@ permalink: /tools/pyjev/cli/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
+docs_ref: "v0.1.2"
+docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
 search_enabled: true
 ---
 
@@ -557,6 +557,8 @@ as JSON.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">--value</span></code> emits only the selected value.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">--json</span></code> and <code class="docutils literal notranslate"><span class="pre">--value</span></code> cannot be combined.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">PATH</span></code> selects from the same structured dictionary used by <code class="docutils literal notranslate"><span class="pre">.to_dict()</span></code> (and by <code class="docutils literal notranslate"><span class="pre">--json</span></code>). It is available on <code class="docutils literal notranslate"><span class="pre">ask</span></code>/<code class="docutils literal notranslate"><span class="pre">noul</span></code>, <code class="docutils literal notranslate"><span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code>, <code class="docutils literal notranslate"><span class="pre">decide</span></code>, and raw <code class="docutils literal notranslate"><span class="pre">run</span></code>; <code class="docutils literal notranslate"><span class="pre">run</span></code> already emits structured JSON and therefore needs no <code class="docutils literal notranslate"><span class="pre">--json</span></code> flag. It supports dotted keys and numeric array indexes, such as <code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">answers.intent.choice</span></code>, or <code class="docutils literal notranslate"><span class="pre">--pluck</span> <span class="pre">results[0].verdict.</span> <span class="pre">A</span> <span class="pre">missing</span> <span class="pre">key,</span> <span class="pre">bad</span> <span class="pre">index,</span> <span class="pre">or</span> <span class="pre">malformed</span> <span class="pre">path</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">error;</span> <span class="pre">selectors</span> <span class="pre">never</span> <span class="pre">silently</span> <span class="pre">emit</span> <span class="pre">empty</span> <span class="pre">output.</span> <span class="pre">On</span> <span class="pre">commands</span> <span class="pre">that</span> <span class="pre">expose</span> <span class="pre">the</span> <span class="pre">flags,</span> </code>–json<code class="docutils literal notranslate"><span class="pre">,</span> </code>–value<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">and</span> </code>–pluck` are mutually exclusive.</p>
+<p>A pluck selector cannot bypass an active confidence gate: when <code class="docutils literal notranslate"><span class="pre">--min-confidence</span></code> fails, <code class="docutils literal notranslate"><span class="pre">--pluck</span></code> is unavailable, stdout remains empty, and the command exits 3. For a failed gate, use the existing <code class="docutils literal notranslate"><span class="pre">--json</span></code> gate envelope or consume the exit status instead.</p>
 </section>
 <section id="commands">
 <h2>Commands</h2>

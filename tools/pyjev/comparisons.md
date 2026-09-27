@@ -5,8 +5,8 @@ permalink: /tools/pyjev/comparisons/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
+docs_ref: "v0.1.2"
+docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
 search_enabled: true
 ---
 
@@ -635,6 +635,53 @@ product.</p>
 <p><code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> retains rich response data where the provider supplies it. pyjev’s
 result wrappers are a stable Python-facing contract; the distinction is not
 that <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> discards uncertainty.</p>
+</section>
+<section id="pyjev-and-nasrallah-al-jev-cli">
+<h2>pyjev and Nasrallah-AL/jev-cli</h2>
+<p>This is a separate comparison from the <code class="docutils literal notranslate"><span class="pre">tumf/jev-cli</span></code> section above. It covers <code class="docutils literal notranslate"><span class="pre">Nasrallah-AL/jev-cli</span></code>, the TypeScript project distributed as npm package <code class="docutils literal notranslate"><span class="pre">jevctl</span></code> 0.2.3, executable <code class="docutils literal notranslate"><span class="pre">jev</span></code>, at main commit <code class="docutils literal notranslate"><span class="pre">a1e668164e75d7fc80cc4a51aaeb1d0144d8961f</span></code> (reviewed 2026-09-25). It is a dated snapshot, not a winner/loser ranking or a claim about future releases.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Capability</p></th>
+<th class="head"><p>pyjev</p></th>
+<th class="head"><p>Nasrallah <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Primary product</p></td>
+<td><p>Python application decision layer over the official SDK</p></td>
+<td><p>Purpose-built TypeScript CLI/library semantic operations</p></td>
+</tr>
+<tr class="row-odd"><td><p>Named project contracts</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>, offline validation and compilation</p></td>
+<td><p>Different configuration and request-inspection model</p></td>
+</tr>
+<tr class="row-even"><td><p>Semantic operations</p></td>
+<td><p>Typed primitives and recipes such as <code class="docutils literal notranslate"><span class="pre">find</span></code>, <code class="docutils literal notranslate"><span class="pre">extract</span></code>, and <code class="docutils literal notranslate"><span class="pre">verify</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verify</span></code>, <code class="docutils literal notranslate"><span class="pre">classify</span></code>, <code class="docutils literal notranslate"><span class="pre">extract</span></code>, <code class="docutils literal notranslate"><span class="pre">match</span></code>, <code class="docutils literal notranslate"><span class="pre">route</span></code>, <code class="docutils literal notranslate"><span class="pre">find</span></code>, <code class="docutils literal notranslate"><span class="pre">rerank</span></code>, and more</p></td>
+</tr>
+<tr class="row-odd"><td><p>Generic batch</p></td>
+<td><p>Native async <code class="docutils literal notranslate"><span class="pre">pyjev.amap</span></code> with ordered records</p></td>
+<td><p>Batch command and library support</p></td>
+</tr>
+<tr class="row-even"><td><p>Transport boundary</p></td>
+<td><p>Official <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>; no provider translation</p></td>
+<td><p>Provider selection/translation including multiple providers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Output</p></td>
+<td><p>JSON, confidence-safe <code class="docutils literal notranslate"><span class="pre">--value</span></code>, and structured <code class="docutils literal notranslate"><span class="pre">--pluck</span></code></p></td>
+<td><p>JSON/JSONL and rich pluck/output options</p></td>
+</tr>
+<tr class="row-even"><td><p>Agent workflow</p></td>
+<td><p>Inspect-first skill and reusable Python API</p></td>
+<td><p>Skill plus project-specific plugin/hooks</p></td>
+</tr>
+<tr class="row-odd"><td><p>Transcript compaction</p></td>
+<td><p>Not in pyjev core</p></td>
+<td><p>Agent-runtime-oriented compact operation</p></td>
+</tr>
+</tbody>
+</table>
+<p>The useful lesson is the semantic recipe layer and operational UX, not copying the external CLI’s entire product boundary. pyjev keeps named contracts, offline inspection, typed uncertainty, explicit caller policy, and the official SDK transport boundary. Its recipes compose those foundations without invoking handlers or owning provider behavior.</p>
 </section>
 <section id="architecture">
 <h2>Architecture</h2>

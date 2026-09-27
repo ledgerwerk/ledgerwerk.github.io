@@ -5,8 +5,8 @@ permalink: /tools/pyjev/patterns/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.1"
-docs_commit: "3aedf7b81b63955f9fb79b26e5cd38581e13dc5c"
+docs_ref: "v0.1.2"
+docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
 search_enabled: true
 ---
 
@@ -714,6 +714,31 @@ unless application code chooses to use them.</p>
 hatches and return the SDK-shaped response dictionary. Use a named bundle when
 the question set is reusable and you want <code class="docutils literal notranslate"><span class="pre">BundleResult</span></code> with typed child
 wrappers. Do not silently change the dynamic <code class="docutils literal notranslate"><span class="pre">run()</span></code> return contract.</p>
+</section>
+<section id="bounded-async-fan-out">
+<h2>Bounded async fan-out</h2>
+<p>For independent inputs, use <code class="docutils literal notranslate"><span class="pre">pyjev.amap</span></code> rather than writing an unbounded <code class="docutils literal notranslate"><span class="pre">asyncio.gather</span></code> loop. It bounds active work, preserves input order, and represents per-row execution errors without discarding successful results. Each row is a separate worker invocation; use a bundle when several independent questions share one state and should use a single API request. Batch concurrency is operational capacity, not a confidence or correctness policy.</p>
+<p>Worker error details are omitted from the serialized <code class="docutils literal notranslate"><span class="pre">BatchError</span></code> to avoid leaking credentials or user data. A successful result that application policy rejects remains <code class="docutils literal notranslate"><span class="pre">ok=True</span></code>; execution status and judgment policy are separate.</p>
+</section>
+<section id="rank-plus-applicability">
+<h2>Rank plus applicability</h2>
+<p>A closed-set <code class="docutils literal notranslate"><span class="pre">Choice</span></code> always returns a winner. When no candidate may apply, combine Choice ranking with an independent <code class="docutils literal notranslate"><span class="pre">Noul</span></code> applicability judgment rather than treating the top Choice probability as proof that a match exists. The <code class="docutils literal notranslate"><span class="pre">pyjev.recipes.find</span></code> helper packages that pattern and retains both results.</p>
+</section>
+<section id="explicit-escape-states">
+<h2>Explicit escape states</h2>
+<p>If “none applies,” “unknown,” “other,” or “unclear” is a meaningful domain outcome, model it explicitly in the Choice options or another typed question. A low-confidence answer and a confident judgment that none of the options applies are different signals. Do not inject an escape option automatically where it changes the domain semantics.</p>
+</section>
+<section id="deterministic-candidate-discovery">
+<h2>Deterministic candidate discovery</h2>
+<p>For literal extraction, use Python to find source spans and deduplicate/order/cap them; ask Jev only to select among those exact candidates (plus an explicit <code class="docutils literal notranslate"><span class="pre">none</span></code>). Normalize the chosen literal deterministically in Python. This bounds the model’s role and keeps the original literal and typed Choice evidence available for review. See <a class="reference internal" href="../recipes/#extract-deterministic-literal-candidates"><span class="std std-ref">Semantic recipes</span></a>.</p>
+</section>
+<section id="taxonomies-and-entity-matching">
+<h2>Taxonomies and entity matching</h2>
+<p>Use a single <code class="docutils literal notranslate"><span class="pre">Choice</span></code> for exactly one fixed label, adding an explicit <code class="docutils literal notranslate"><span class="pre">other</span></code> option only when that outcome exists in the domain. For independent multi-label classification, use one Noul per label and expose caller-owned positive/negative thresholds; the middle band stays <code class="docutils literal notranslate"><span class="pre">unclear</span></code>. Entity matching is categorical (<code class="docutils literal notranslate"><span class="pre">same</span></code>, <code class="docutils literal notranslate"><span class="pre">unclear</span></code>, <code class="docutils literal notranslate"><span class="pre">different</span></code>), not a numeric score whose weighted position is mistaken for the relation.</p>
+</section>
+<section id="proposals-independent-reranking-and-advisory-screens">
+<h2>Proposals, independent reranking, and advisory screens</h2>
+<p>A route helper may return a typed proposal and closed arguments, but the application decides whether to dispatch it; pyjev never calls a handler. Use reranking when each candidate should receive an independent relevance judgment and zero, one, or many may qualify; it is distinct from <code class="docutils literal notranslate"><span class="pre">find</span></code>’s competing Choice plus existence judgment. Semantic screening is advisory only: preserve each signal, calibrate thresholds locally, and never treat <code class="docutils literal notranslate"><span class="pre">pass</span></code> as a security guarantee.</p>
 </section>
 <section id="all-four-patterns-together">
 <h2>All four patterns together</h2>

@@ -104,7 +104,7 @@ permalink: /tools/
       <h3>pyjev</h3>
       <div class="card-links">
         <a href="/tools/pyjev/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.1" rel="external noopener">Latest release: v0.1.1 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.2" rel="external noopener">Latest release: v0.1.2 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/pyjev" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
