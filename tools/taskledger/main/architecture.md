@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -692,7 +692,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>Key architectural choices:</p>
 <ul class="simple">
 <li><p><strong>Markdown and YAML front matter as canonical format</strong> — Each record (task, plan, run, lock, handoff, code review, etc.) is stored as a <code class="docutils literal notranslate"><span class="pre">.md</span></code> file with YAML front matter metadata and a Markdown body. This makes state human-readable and Git-friendly.</p></li>
-<li><p><strong>Sidecar indexes as derived caches</strong> — A <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index lives under <code class="docutils literal notranslate"><span class="pre">.taskledger/ledgers/&lt;ledger_ref&gt;/</span></code> and is rebuilt from canonical records. Per-task sidecar writes update the index in place.</p></li>
+<li><p><strong>UUID-backed task bundles with numeric aliases</strong> — Canonical task bundles live in UUIDv7-named directories under the Ledgercore data mount. UUIDs anchor storage identity and cross-task relationships; <code class="docutils literal notranslate"><span class="pre">task-####</span></code> remains the user-facing alias derived from the identity inventory.</p></li>
+<li><p><strong>Sidecar indexes as derived caches</strong> — The <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index lives in the configured rebuildable indexes mount and is rebuilt from canonical Markdown records. Per-task sidecar writes update the index in place.</p></li>
 <li><p><strong>Policy-based gate decisions</strong> — All lifecycle transitions go through functions in <code class="docutils literal notranslate"><span class="pre">taskledger/domain/policies.py</span></code> that return <code class="docutils literal notranslate"><span class="pre">Decision</span></code> objects with <code class="docutils literal notranslate"><span class="pre">allowed</span></code>, <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, and <code class="docutils literal notranslate"><span class="pre">exit_code</span></code>. This keeps gate logic testable and separate from I/O.</p></li>
 <li><p><strong>Atomic file writes</strong> — All writes use <code class="docutils literal notranslate"><span class="pre">atomic_write_text</span></code> (write to temp, fsync, <code class="docutils literal notranslate"><span class="pre">os.replace</span></code>) from <code class="docutils literal notranslate"><span class="pre">ledgercore</span></code>.</p></li>
 <li><p><strong>Editable plan input with preflight</strong> — <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">plan</span> <span class="pre">check</span></code> parses editable plan input through <code class="docutils literal notranslate"><span class="pre">taskledger/services/plan_input.py</span></code>, applies worker-pipeline validation, and returns indexed issues before any plan upsert.</p></li>
@@ -734,7 +735,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="markdown-yaml-front-matter-as-canonical-records">
 <h2>Markdown/YAML front matter as canonical records</h2>
 <p><strong>Drivers:</strong> human readable state, git diffable records, no database dependency
-<strong>Constraints:</strong> strict front matter validation, ledgercore front matter parsing, storage layout v3
+<strong>Constraints:</strong> strict front matter validation, ledgercore front matter parsing, storage layout 6
 <strong>Related ADRs:</strong> adr-0046, adr-0050</p>
 </section>
 <section id="id1">
@@ -752,18 +753,18 @@ html[data-theme="dark"] .sphinxpress-doc {
 <section id="json-indexes-as-rebuildable-derived-caches">
 <h2>JSON indexes as rebuildable derived caches</h2>
 <p><strong>Drivers:</strong> fast list and query operations, canonical records remain source of truth
-<strong>Constraints:</strong> summary index rebuildable on miss, reindex after out of band changes
+<strong>Constraints:</strong> summary index rebuildable on miss, index repair after out of band changes
 <strong>Related ADRs:</strong> adr-0047</p>
 </section>
 <section id="id3">
 <h2>Strategy</h2>
-<p>A <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index under <code class="docutils literal notranslate"><span class="pre">.taskledger/ledgers/&lt;ledger_ref&gt;/</span></code> is a derived cache rebuilt from canonical Markdown records by <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">reindex</span></code>. Per-task sidecar writes call <code class="docutils literal notranslate"><span class="pre">update_sidecar_summary</span></code> in <code class="docutils literal notranslate"><span class="pre">taskledger/storage/sidecar_index.py</span></code> so the index stays current. The index speeds up list and query operations but is never authoritative. <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span> <span class="pre">indexes</span></code> checks for staleness.</p>
+<p>The task sidecar summary index is a derived cache stored in the configured rebuildable indexes mount, not alongside canonical task data. It is keyed by stable UUID identity and rebuilt from canonical Markdown records by <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code>; human-readable task aliases remain available in the read models. Per-task sidecar writes update the summary through <code class="docutils literal notranslate"><span class="pre">update_sidecar_summary</span></code> in <code class="docutils literal notranslate"><span class="pre">taskledger/storage/sidecar_index.py</span></code>. <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span> <span class="pre">indexes</span></code> checks for staleness.</p>
 </section>
 <section id="id4">
 <h2>Trade-offs</h2>
 <ul class="simple">
 <li><p>Avoids the complexity of a query engine on front matter files.</p></li>
-<li><p>Indexes can become stale if writes bypass taskledger (for example manual edits). <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span></code> and <code class="docutils literal notranslate"><span class="pre">reindex</span></code> address this.</p></li>
+<li><p>Indexes can become stale if writes bypass taskledger (for example manual edits). <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span> <span class="pre">indexes</span></code> and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code> address this.</p></li>
 <li><p>The summary index is a JSON document with a schema version and an <code class="docutils literal notranslate"><span class="pre">object_type</span></code> field; it is rebuildable from canonical records.</p></li>
 </ul>
 </section>
@@ -815,7 +816,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Storage Layer</strong> — Manages file system persistence and layout. Low-level primitives (atomic writes, JSON, YAML, front matter, refs) are delegated to <code class="docutils literal notranslate"><span class="pre">ledgercore</span></code>.</p></li>
 </ol>
 <p>Data flows strictly downward: CLI -&gt; Services -&gt; Domain + Storage. The API layer calls Services directly. The Domain layer has no dependencies on Storage or Services.</p>
-<p>Each task is stored as a <strong>task bundle directory</strong> under <code class="docutils literal notranslate"><span class="pre">.taskledger/ledgers/&lt;ledger_ref&gt;/</span></code> containing the task record (Markdown) and sidecar collections for plans, runs, locks, todos, questions, changes, checks, handoffs, links, and code reviews. Mutations append immutable <code class="docutils literal notranslate"><span class="pre">TaskEvent</span></code> records to the ledger-level <code class="docutils literal notranslate"><span class="pre">events/</span></code> directory. Action and event logging is enabled by default; set <code class="docutils literal notranslate"><span class="pre">[event_logging]</span> <span class="pre">enabled</span> <span class="pre">=</span> <span class="pre">false</span></code> in <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> to disable new event records. Existing records remain readable regardless. A <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index under the same ledger path is maintained as a derived cache of sidecar counts and lock summaries.</p>
+<p>Each task is stored as a <strong>task bundle directory</strong> at <code class="docutils literal notranslate"><span class="pre">&lt;data-root&gt;/ledgers/&lt;ledger_ref&gt;/tasks/&lt;uuidv7&gt;/</span></code>, containing <code class="docutils literal notranslate"><span class="pre">task.md</span></code> and its sidecar collections. The UUIDv7 is the stable storage identity; <code class="docutils literal notranslate"><span class="pre">task-####</span></code> remains the derived user-facing task alias. Mutations append immutable <code class="docutils literal notranslate"><span class="pre">TaskEvent</span></code> records to the ledger-level <code class="docutils literal notranslate"><span class="pre">events/</span></code> directory. Action and event logging is enabled by default; set the project event-logging configuration to disable new event records. Existing records remain readable regardless. Task and sidecar indexes are derived caches in the configured rebuildable indexes mount.</p>
 <section id="whitebox-taskledger-system">
 <h2>Whitebox taskledger system</h2>
 </section>
@@ -878,7 +879,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Parent:</strong> block-0029
 <strong>Interfaces:</strong>
 <strong>Location:</strong></p>
-<p>File system persistence for canonical records. Storage layout keeps each task in <code class="docutils literal notranslate"><span class="pre">.taskledger/ledgers/&lt;ledger_ref&gt;/tasks/&lt;task-id&gt;/</span></code>, with independently addressable sidecars including plans, runs, locks, todos, questions, changes, checks, handoffs, links, and code reviews. Ledger-level collections hold events, introductions, releases, and rebuildable indexes. A <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index is maintained as a derived cache; per-task sidecar writes call <code class="docutils literal notranslate"><span class="pre">update_sidecar_summary</span></code> from <code class="docutils literal notranslate"><span class="pre">taskledger/storage/sidecar_index.py</span></code> so the read path does not need a full rescan. Atomic write primitives, YAML I/O, front matter parsing, and ref parsing are delegated to <code class="docutils literal notranslate"><span class="pre">ledgercore</span></code>. Action and event logging is enabled by default and can be disabled in project config. Project config edits use structured TOML handling rather than ad hoc text replacement.</p>
+<p>File system persistence for canonical records. Each task lives in the current Ledgercore data mount at <code class="docutils literal notranslate"><span class="pre">ledgers/&lt;ledger_ref&gt;/tasks/&lt;uuidv7&gt;/</span></code>, with <code class="docutils literal notranslate"><span class="pre">task.md</span></code> and independently addressable sidecars including plans, runs, locks, todos, questions, changes, checks, handoffs, links, and code reviews. UUIDv7 is the stable storage identity; <code class="docutils literal notranslate"><span class="pre">task-####</span></code> is a derived user-facing alias resolved through the identity inventory. Layout-5 numeric bundles migrate deterministically to layout 6 before mutation; read-only access does not migrate. Ledger-level collections hold events, introductions, releases, and other shared records. Task and sidecar indexes are derived caches in the configured rebuildable indexes mount. Atomic write primitives, YAML I/O, front matter parsing, and ref parsing are delegated to <code class="docutils literal notranslate"><span class="pre">ledgercore</span></code>. Project configuration edits use structured TOML handling rather than ad hoc text replacement.</p>
 </section>
 </section>
 </section>
@@ -929,7 +930,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Stale lock handling</strong>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">lock_is_expired</span></code> checks lease expiry</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lock</span> <span class="pre">break</span></code> requires explicit user action, records <code class="docutils literal notranslate"><span class="pre">broken_at</span></code>, <code class="docutils literal notranslate"><span class="pre">broken_by</span></code>, <code class="docutils literal notranslate"><span class="pre">broken_reason</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">lock</span></code> requires explicit user action, records <code class="docutils literal notranslate"><span class="pre">broken_at</span></code>, <code class="docutils literal notranslate"><span class="pre">broken_by</span></code>, <code class="docutils literal notranslate"><span class="pre">broken_reason</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code> detects lock/run mismatches</p></li>
 </ul>
 <p><strong>Key source</strong>: <code class="docutils literal notranslate"><span class="pre">taskledger/services/tasks.py</span></code> (<code class="docutils literal notranslate"><span class="pre">_start_run</span></code>), <code class="docutils literal notranslate"><span class="pre">taskledger/storage/locks.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/domain/lock.py</span></code>.</p>
@@ -1009,32 +1010,30 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p><strong>Trigger</strong>: Developer runs <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">sync</span> <span class="pre">git</span> <span class="pre">init</span></code> to set up an external sync repo.</p>
 <p><strong>Flow</strong>:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">init</span></code> → Moves or copies <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code> content into a dedicated Git repository, updates <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> with <code class="docutils literal notranslate"><span class="pre">external_dir</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">preflight</span></code> → Checks that no active locks would conflict with a sync operation</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">commit</span> <span class="pre">--message</span> <span class="pre">&quot;...&quot;</span></code> → Commits current state to the sync repo</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">export-local</span></code> / <code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">import-local</span></code> → Exchanges state between the sync repo and the project</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">status</span></code> → Shows working tree status of the sync repo</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">paths</span></code> → Shows resolved paths for the sync repo and project</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">&quot;$(taskledger</span> <span class="pre">sync</span> <span class="pre">git</span> <span class="pre">cd)&quot;</span></code> → Opens a shell in the sync repo directory for manual Git operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">init</span></code> → Sets up a dedicated repository and registers its external data directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">preflight</span></code> → Checks that no active locks would conflict with a sync operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">status</span></code> → Shows the working tree status of the sync repository.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">path</span></code> → Shows the resolved paths for the sync repository and project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span> <span class="pre">commit</span> <span class="pre">--message</span> <span class="pre">&quot;...&quot;</span></code> → Commits current state to the sync repository.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">&quot;$(taskledger</span> <span class="pre">sync</span> <span class="pre">git</span> <span class="pre">cd)&quot;</span></code> for manual Git operations; run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> or <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> explicitly when needed.
+<strong>Result</strong>: Taskledger state is stored in a separate Git repository that can be versioned and shared manually. The design intentionally avoids automated push/pull to prevent merge conflicts — users run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>/<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> directly in the sync repo.</p></li>
 </ol>
-<p><strong>Result</strong>: Taskledger state is stored in a separate Git repository that can be versioned and shared manually. The design intentionally avoids automated push/pull to prevent merge conflicts — users run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>/<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> directly in the sync repo.</p>
 <p><strong>Key source</strong>: <code class="docutils literal notranslate"><span class="pre">taskledger/services/git_sync.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/cli_sync.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/api/sync.py</span></code>.</p>
 </section>
-<section id="migration-reindex-and-doctor-interaction">
-<h2>Migration, reindex, and doctor interaction</h2>
-<p><strong>Trigger</strong>: Developer upgrades taskledger and runs <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span></code>, which reports a storage version mismatch.</p>
+<section id="migration-index-repair-and-doctor-interaction">
+<h2>Migration, index repair, and doctor interaction</h2>
+<p><strong>Trigger</strong>: A developer updates a project using layout-5 numeric task bundles and a mutating Taskledger command needs canonical layout 6.</p>
 <p><strong>Flow</strong>:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code> → Scans project config, storage layout version, task records, indexes, locks, and runs</p></li>
-<li><p>Detects that storage layout version (e.g., v2) is behind current version (v3)</p></li>
-<li><p>Reports diagnostic with severity, code, and repair hint</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">migrate</span></code> → Applies storage layout migrations to upgrade records to current schema</p></li>
-<li><p>Migration code in <code class="docutils literal notranslate"><span class="pre">taskledger/storage/migrations.py</span></code> handles version-to-version upgrades</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reindex</span></code> → Rebuilds JSON index caches from migrated canonical records</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code> → Re-run confirms all checks pass</p></li>
+<li><p>Before mutation, storage checks the project layout and inventories task identities. Read-only commands continue to read without migrating.</p></li>
+<li><p>The migration maps legacy task aliases to deterministic UUIDv7 identities while preserving ordering, ordinal gaps, and reserved or incomplete allocations.</p></li>
+<li><p>The migration verifies that the source is safe to transform; mixed layouts, active locks, and unresolved repository conflicts block automatic migration rather than being guessed through.</p></li>
+<li><p>Canonical task records and sidecars are moved into UUID-named task bundle directories with recovery information retained.</p></li>
+<li><p>Layout metadata is advanced to version 6 and UUID-keyed derived indexes are rebuilt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code> verifies canonical records, indexes, locks, and runs after migration.</p></li>
 </ol>
-<p><strong>Result</strong>: Storage layout is upgraded to the current version. Indexes are rebuilt. Doctor passes cleanly.</p>
-<p><strong>Key source</strong>: <code class="docutils literal notranslate"><span class="pre">taskledger/storage/migrations.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor_checks/migration_checks.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/domain/states.py</span></code>.</p>
+<p><strong>Result</strong>: The first mutation uses UUIDv7 task directories while numeric task aliases remain available to users. Read-only access does not change the legacy layout.</p>
+<p><strong>Key source</strong>: <code class="docutils literal notranslate"><span class="pre">taskledger/storage/task_directory_migration.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/storage/task_identity.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/storage/task_store.py</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor.py</span></code>.</p>
 </section>
 <section id="worker-pipeline-guided-handoff">
 <h2>Worker pipeline guided handoff</h2>
@@ -1145,7 +1144,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </ul>
 <section id="markdown-yaml-front-matter-as-canonical-format">
 <h2>Markdown/YAML front matter as canonical format</h2>
-<p><strong>Document version:</strong> 5</p>
+<p><strong>Document version:</strong> 6</p>
 </section>
 <section id="context">
 <h2>Context</h2>
@@ -1174,7 +1173,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="sidecar-summary-index-as-derived-rebuildable-cache">
 <h2>Sidecar summary index as derived rebuildable cache</h2>
-<p><strong>Document version:</strong> 5</p>
+<p><strong>Document version:</strong> 6</p>
 </section>
 <section id="id10">
 <h2>Context</h2>
@@ -1182,7 +1181,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="id11">
 <h2>Decision</h2>
-<p>Maintain JSON index files under <code class="docutils literal notranslate"><span class="pre">.taskledger/indexes/</span></code> as derived caches. They are rebuilt from canonical records by <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">reindex</span></code> and checked by <code class="docutils literal notranslate"><span class="pre">doctor</span> <span class="pre">indexes</span></code>. They are never the source of truth.</p>
+<p>Maintain JSON index files under <code class="docutils literal notranslate"><span class="pre">.taskledger/indexes/</span></code> as derived caches. They are rebuilt from canonical records by <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code> and checked by <code class="docutils literal notranslate"><span class="pre">doctor</span> <span class="pre">indexes</span></code>. They are never the source of truth.</p>
 </section>
 <section id="id12">
 <h2>Consequences</h2>
@@ -1190,7 +1189,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p>Positive: Fast list/query operations without parsing all front matter files.</p></li>
 <li><p>Positive: Indexes can always be rebuilt from canonical source.</p></li>
 <li><p>Negative: Indexes can become stale after manual edits or crashes.</p></li>
-<li><p>Negative: <code class="docutils literal notranslate"><span class="pre">reindex</span></code> must be run after out-of-band changes.</p></li>
+<li><p>Negative: <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code> must be run after out-of-band changes.</p></li>
 </ul>
 </section>
 <section id="id13">
@@ -1203,7 +1202,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="explicit-lifecycle-gates-with-policy-decisions">
 <h2>Explicit lifecycle gates with policy decisions</h2>
-<p><strong>Document version:</strong> 5</p>
+<p><strong>Document version:</strong> 6</p>
 </section>
 <section id="id14">
 <h2>Context</h2>
@@ -1231,7 +1230,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="typer-cli-framework">
 <h2>Typer CLI framework</h2>
-<p><strong>Document version:</strong> 5</p>
+<p><strong>Document version:</strong> 6</p>
 </section>
 <section id="id18">
 <h2>Context</h2>
@@ -1259,35 +1258,39 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="task-bundle-directory-layout">
 <h2>Task bundle directory layout</h2>
-<p><strong>Document version:</strong> 5</p>
+<p><strong>Document version:</strong> 6</p>
 </section>
 <section id="id22">
 <h2>Context</h2>
-<p>Need a storage layout that scales to many sidecar collections per task (plans, runs, locks, todos, questions, changes, checks, handoffs, links, code reviews) while keeping each record individually addressable. Events are stored at ledger level, not per-task, and are enabled by default.</p>
+<p>Tasks need individually addressable Markdown records and sidecar collections for plans, runs, locks, todos, questions, changes, checks, handoffs, links, reviews, artifacts, and audit data. Task directories are canonical storage keys, while task references and relationships must survive branches, imports, and changing display numbers.</p>
 </section>
 <section id="id23">
 <h2>Decision</h2>
-<p>Use a directory-per-task layout (v2 bundle) under <code class="docutils literal notranslate"><span class="pre">.taskledger/ledgers/&lt;ledger_ref&gt;/</span></code>. Each task gets a directory containing the task record (Markdown) and subdirectories for sidecar collections. JSON indexes, including the <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary, are derived caches at the ledger level. Event records are stored in the ledger-level <code class="docutils literal notranslate"><span class="pre">events/</span></code> directory (not per-task) and are written by default; set <code class="docutils literal notranslate"><span class="pre">[event_logging]</span> <span class="pre">enabled</span> <span class="pre">=</span> <span class="pre">false</span></code> to disable. The current storage layout version is <code class="docutils literal notranslate"><span class="pre">TASKLEDGER_STORAGE_LAYOUT_VERSION</span> <span class="pre">=</span> <span class="pre">3</span></code>.</p>
+<p>Use a UUIDv7 directory for each task bundle under the current Ledgercore data mount: <code class="docutils literal notranslate"><span class="pre">&lt;data-root&gt;/ledgers/&lt;ledger_ref&gt;/tasks/&lt;uuidv7&gt;/</span></code>. Each bundle contains <code class="docutils literal notranslate"><span class="pre">task.md</span></code> and its task-local sidecar collections. UUID is the immutable storage identity and the authoritative cross-task reference.</p>
+<p>Keep <code class="docutils literal notranslate"><span class="pre">task-####</span></code> as the user-facing CLI reference and display alias. Derive aliases from UUID order across live identities, tombstones, and reserved or incomplete allocations; aliases can change after a merge or import. Tombstones remain in the inventory so deleting or quarantining a task does not collapse later aliases. JSON task, dependency, sidecar, and lock indexes are derived caches and can be rebuilt from canonical records.</p>
+<p>Storage layout 6 migrates layout-5 numeric task bundles to deterministic UUIDv7 directories before the first mutation. Read-only commands do not migrate. Migration preserves legacy ordering and reservations, is recoverable, and blocks mixed layouts or unresolved repository conflicts rather than guessing.</p>
 </section>
 <section id="id24">
 <h2>Consequences</h2>
 <ul class="simple">
-<li><p>Positive: Each record is a single file - easy to read, edit, and version-control.</p></li>
-<li><p>Positive: Sidecar collections are independently addressable.</p></li>
-<li><p>Positive: The sidecar summary index keeps common read paths fast.</p></li>
-<li><p>Negative: Many small files create directory overhead on very large projects.</p></li>
+<li><p>Positive: Independent branch task creation uses distinct filesystem paths and avoids numeric-directory merge conflicts.</p></li>
+<li><p>Positive: Task relationships retain stable UUID identity while commands continue accepting numeric aliases.</p></li>
+<li><p>Positive: Sidecar records remain independently addressable and indexes remain rebuildable.</p></li>
+<li><p>Negative: Numeric display aliases are derived and can change after merge or import.</p></li>
+<li><p>Negative: Layout migration requires preflight and recovery handling.</p></li>
 </ul>
 </section>
 <section id="id25">
 <h2>Alternatives considered</h2>
 <ul class="simple">
-<li><p>Single JSON index file: Merge conflicts, scalability, not human-readable.</p></li>
-<li><p>Database (SQLite): Opaque, harder to inspect and version-control.</p></li>
+<li><p>Keep numeric task directory names: Independent branches can create colliding paths.</p></li>
+<li><p>Use UUIDs as the user-facing CLI IDs: Stable, but unnecessarily discards the established short numeric task-reference UX.</p></li>
+<li><p>Store all task state in one JSON index or a database: Harder to inspect, version-control, and merge.</p></li>
 </ul>
 </section>
 <section id="external-skill-packaging">
 <h2>External skill packaging</h2>
-<p><strong>Document version:</strong> 5</p>
+<p><strong>Document version:</strong> 6</p>
 </section>
 <section id="id26">
 <h2>Context</h2>
@@ -1395,14 +1398,14 @@ html[data-theme="dark"] .sphinxpress-doc {
 <tr class="row-even"><td><p>Storage scaling with many tasks</p></td>
 <td><p>medium</p></td>
 <td><p>medium</p></td>
-<td><p>Run reindex after bulk changes; consider task archival for completed work.</p></td>
-<td><p>Each task is a directory with multiple sidecar files. Projects with hundreds of tasks may see slowdowns in list and query operations due to file system scanning. The <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index is updated in place by per-task sidecar writes and is rebuilt on miss, which keeps the common read path fast. Mitigation: run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">reindex</span></code> after bulk changes; consider task archival for completed work; rely on the sidecar summary index for navigation.</p></td>
+<td><p>Run repair index after bulk changes; consider task archival for completed work.</p></td>
+<td><p>Each task is a directory with multiple sidecar files. Projects with hundreds of tasks may see slowdowns in list and query operations due to file system scanning. The <code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index is updated in place by per-task sidecar writes and is rebuilt on miss, which keeps the common read path fast. Mitigation: run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code> after bulk changes; consider task archival for completed work; rely on the sidecar summary index for navigation.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Migration surface between storage versions</p></td>
 <td><p>medium</p></td>
 <td><p>medium</p></td>
 <td><p>Doctor checks detect version mismatches; migration checks flag incompatible records.</p></td>
-<td><p>The storage layout is currently v3 (<code class="docutils literal notranslate"><span class="pre">TASKLEDGER_STORAGE_LAYOUT_VERSION</span></code> in <code class="docutils literal notranslate"><span class="pre">taskledger/domain/states.py</span></code>). Migration code in <code class="docutils literal notranslate"><span class="pre">taskledger/storage/migrations.py</span></code> adds complexity. Future format changes must maintain backward compatibility or provide migration steps. Mitigation: <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">doctor</span></code> checks detect version mismatches; migration checks in <code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor_checks/migration_checks.py</span></code> flag incompatible records.</p></td>
+<td><p>The current storage layout is v6 (<code class="docutils literal notranslate"><span class="pre">TASKLEDGER_STORAGE_LAYOUT_VERSION</span></code> in <code class="docutils literal notranslate"><span class="pre">taskledger/domain/states.py</span></code>). Layout-5-to-6 migration introduces a UUIDv7 identity inventory, deterministic conversion of numeric task bundles, and derived aliases; incomplete or mixed states must remain recoverable and must not reuse identities. Mitigation: migration performs safety preflight and preserves recovery data, read-only access does not migrate, and doctor checks validate layout and identity consistency. Future format changes must maintain backward compatibility or provide explicit migration steps.</p></td>
 </tr>
 <tr class="row-even"><td><p>Service boundary erosion</p></td>
 <td><p>medium</p></td>

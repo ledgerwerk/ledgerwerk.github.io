@@ -5,8 +5,8 @@ permalink: /tools/taskledger/public_surface/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.9"
-docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
+docs_ref: "v0.7.0"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -548,9 +548,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </div>
 <section id="supported-cli-entries">
 <h2>Supported CLI entries</h2>
-<p>The command inventory tracks 44 top-level CLI entries. Some are groups and some
-are root commands. The normal agent path is intentionally smaller than the full
-registered surface.</p>
+<p>The command inventory records registered command paths and derives top-level command names used by root-option parsing. The normal agent path is intentionally smaller than the complete CLI surface.</p>
 <section id="core-agent-path">
 <h3>Core agent path</h3>
 <p>Agents should start with this durable lifecycle path:</p>
@@ -583,7 +581,7 @@ the normal planning/approval path for agents.</p>
 </ul>
 <p><strong>Advanced entries</strong> — power-user, storage, transfer, and project operations:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ledger</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span></code>, <code class="docutils literal notranslate"><span class="pre">sync</span></code>, <code class="docutils literal notranslate"><span class="pre">release</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ledger</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span></code>, <code class="docutils literal notranslate"><span class="pre">sync</span></code>, <code class="docutils literal notranslate"><span class="pre">release</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span></code>, <code class="docutils literal notranslate"><span class="pre">maintenance</span></code></p></li>
 </ul>
 <p><strong>Human-oriented entries</strong> — interactive inspection and reporting:</p>
 <ul class="simple">
@@ -591,7 +589,7 @@ the normal planning/approval path for agents.</p>
 </ul>
 <p><strong>Repair and migration groups</strong> — exceptional recovery:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span></code>, <code class="docutils literal notranslate"><span class="pre">reindex</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span></code>, <code class="docutils literal notranslate"><span class="pre">migrate</span></code></p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">usage</span></code> is the compact fresh-session startup command. It summarizes actor,
 harness, active work, inbox items, and ready tasks without mutating ledger
@@ -641,10 +639,7 @@ advanced metadata control and compatibility.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">export</span></code> writes a full single-file LLM/archive bundle.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">transcript</span></code> renders a per-task command transcript in <code class="docutils literal notranslate"><span class="pre">markdown</span></code> or <code class="docutils literal notranslate"><span class="pre">json</span></code></p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">dossier</span></code>, root <code class="docutils literal notranslate"><span class="pre">view</span></code>, and <code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">plan-context</span></code> /
-<code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">implementation-context</span></code> / <code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">validation-context</span></code> remain
-advanced/compatibility read surfaces; prefer <code class="docutils literal notranslate"><span class="pre">context</span> <span class="pre">--for</span> <span class="pre">...</span></code> and
-<code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">show</span></code> for new agent protocols.</p>
+<p><code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">dossier</span></code> and root <code class="docutils literal notranslate"><span class="pre">view</span></code> remain advanced read surfaces; prefer <code class="docutils literal notranslate"><span class="pre">context</span> <span class="pre">--for</span> <span class="pre">planner|implementer|validator</span></code> and <code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">show</span></code> for continuation.</p>
 </section>
 <section id="todo-subcommands">
 <h2>todo subcommands</h2>
@@ -684,6 +679,7 @@ advanced/compatibility read surfaces; prefer <code class="docutils literal notra
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.storage</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.sync</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.search</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.maintenance</span></code></p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">taskledger.api.task_runs</span></code> includes the public lifecycle helpers
 <code class="docutils literal notranslate"><span class="pre">start_implementation</span></code>, <code class="docutils literal notranslate"><span class="pre">restart_implementation</span></code>, <code class="docutils literal notranslate"><span class="pre">resume_implementation</span></code>,

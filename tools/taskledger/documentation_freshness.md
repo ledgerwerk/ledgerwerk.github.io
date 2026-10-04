@@ -5,8 +5,8 @@ permalink: /tools/taskledger/documentation_freshness/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.9"
-docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
+docs_ref: "v0.7.0"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 

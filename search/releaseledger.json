@@ -28,6 +28,18 @@
         },
         {
           "anchor": "",
+          "heading": "Changed",
+          "text": "Changed strict public builds to accept complete internal or rejected audit decisions as commit coverage",
+          "lower": "changed strict public builds to accept complete internal or rejected audit decisions as commit coverage"
+        },
+        {
+          "anchor": "",
+          "heading": "Fixed",
+          "text": "Fixed release reconciliation to validate changelog dates against persisted release dates rather than tag target dates",
+          "lower": "fixed release reconciliation to validate changelog dates against persisted release dates rather than tag target dates"
+        },
+        {
+          "anchor": "",
           "heading": "Added",
           "text": "Added repair index to rebind, rebuild, or quarantine the disposable indexes cache",
           "lower": "added repair index to rebind, rebuild, or quarantine the disposable indexes cache"
@@ -205,18 +217,6 @@
           "heading": "Changed",
           "text": "Changed full builds to omit an empty Unreleased section and its link reference\n\n\nChanged release show to display git range metadata\n\n\nChanged git range –head to default to the stored release head\n\n\nChanged entry lint to report per-entry issues on failure",
           "lower": "changed full builds to omit an empty unreleased section and its link reference\n\n\nchanged release show to display git range metadata\n\n\nchanged git range –head to default to the stored release head\n\n\nchanged entry lint to report per-entry issues on failure"
-        },
-        {
-          "anchor": "",
-          "heading": "Added",
-          "text": "Added commit audit sheet system for per-release git-range review evidence with init, show, update, validate, and sync commands\n\n\nAdded full changelog rebuild via build with no version argument or –all flag, with Unreleased section preservation and release status filtering\n\n\nAdded entry add-many –guard-commit-subjects to reject batches whose summaries copy or trivially transform commit subjects\n\n\nAdded review –require-audit-sheet flag and audit sheet statistics display in review output",
-          "lower": "added commit audit sheet system for per-release git-range review evidence with init, show, update, validate, and sync commands\n\n\nadded full changelog rebuild via build with no version argument or –all flag, with unreleased section preservation and release status filtering\n\n\nadded entry add-many –guard-commit-subjects to reject batches whose summaries copy or trivially transform commit subjects\n\n\nadded review –require-audit-sheet flag and audit sheet statistics display in review output"
-        },
-        {
-          "anchor": "",
-          "heading": "Changed",
-          "text": "Changed project URLs from holgern to ledgerwerk GitHub organization",
-          "lower": "changed project urls from holgern to ledgerwerk github organization"
         }
       ]
     },

@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -591,11 +591,10 @@ lives.</p>
 <p>Start the planning stage and inspect planning context:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>can<span class="w"> </span>plan
 taskledger<span class="w"> </span>plan<span class="w"> </span>start
-taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>planning<span class="w"> </span>--format<span class="w"> </span>markdown
-taskledger<span class="w"> </span>handoff<span class="w"> </span>plan-context<span class="w"> </span>--format<span class="w"> </span>markdown
+taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>planner<span class="w"> </span>--format<span class="w"> </span>markdown
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">start</span></code> acquires a visible planning lock. The context commands render the
+<p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">start</span></code> acquires a visible planning lock. The context command renders the
 current task, linked files, questions, requirements, and prior records.</p>
 </section>
 <section id="ask-and-answer-questions">
@@ -691,7 +690,7 @@ taskledger<span class="w"> </span>handoff<span class="w"> </span>create<span cla
 <h2>7. Start Implementation</h2>
 <p>Begin implementation and keep durable notes as work progresses:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>can<span class="w"> </span>implement
-taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementation<span class="w"> </span>--format<span class="w"> </span>markdown
+taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementer<span class="w"> </span>--format<span class="w"> </span>markdown
 taskledger<span class="w"> </span>implement<span class="w"> </span>start
 taskledger<span class="w"> </span>implement<span class="w"> </span>checklist
 taskledger<span class="w"> </span>implement<span class="w"> </span>log<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;Started parser fix.&quot;</span>
@@ -756,7 +755,7 @@ are complete.</p>
 <p>Start validation, run checks against each acceptance criterion, and finish the
 validation stage:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>can<span class="w"> </span>validate
-taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>validation<span class="w"> </span>--format<span class="w"> </span>markdown
+taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>validator<span class="w"> </span>--format<span class="w"> </span>markdown
 taskledger<span class="w"> </span>validate<span class="w"> </span>start
 taskledger<span class="w"> </span>validate<span class="w"> </span>status
 taskledger<span class="w"> </span>validate<span class="w"> </span>check<span class="w"> </span>--criterion<span class="w"> </span>ac-0001<span class="w"> </span>--status<span class="w"> </span>pass<span class="w"> </span>--evidence<span class="w"> </span><span class="s2">&quot;pytest tests/test_parser.py -q&quot;</span>
@@ -776,7 +775,7 @@ When implementation checks have exact tested-state provenance, validation contex
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>validate<span class="w"> </span>check<span class="w"> </span>--criterion<span class="w"> </span>ac-0002<span class="w"> </span>--status<span class="w"> </span>fail<span class="w"> </span>--evidence<span class="w"> </span><span class="s2">&quot;pytest tests/test_parser.py -q&quot;</span>
 taskledger<span class="w"> </span>validate<span class="w"> </span>finish<span class="w"> </span>--result<span class="w"> </span>failed<span class="w"> </span>--summary<span class="w"> </span><span class="s2">&quot;ac-0002 failed.&quot;</span>
 taskledger<span class="w"> </span>next-action
-taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementation<span class="w"> </span>--format<span class="w"> </span>markdown
+taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementer<span class="w"> </span>--format<span class="w"> </span>markdown
 taskledger<span class="w"> </span>implement<span class="w"> </span>restart<span class="w"> </span>--summary<span class="w"> </span><span class="s2">&quot;Fix ac-0002 validation failure.&quot;</span>
 </pre></div>
 </div>
@@ -832,17 +831,16 @@ parent task for ordinary deltas.</p>
 cycle:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>lock<span class="w"> </span>show
 taskledger<span class="w"> </span>doctor<span class="w"> </span>locks
-taskledger<span class="w"> </span>lock<span class="w"> </span><span class="k">break</span><span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Recover stale planning lock.&quot;</span>
+taskledger<span class="w"> </span>repair<span class="w"> </span>lock<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Recover stale planning lock.&quot;</span>
 taskledger<span class="w"> </span>implement<span class="w"> </span>resume<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Reacquire implementation lock for existing running run.&quot;</span>
 taskledger<span class="w"> </span>task<span class="w"> </span>uncancel<span class="w"> </span>--task<span class="w"> </span>TASK_REF<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Restore the task to a safe durable stage.&quot;</span>
 taskledger<span class="w"> </span>repair<span class="w"> </span>index
 taskledger<span class="w"> </span>repair<span class="w"> </span>task<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Inspect task record after manual edit.&quot;</span>
-taskledger<span class="w"> </span>reindex
 taskledger<span class="w"> </span>--json<span class="w"> </span><span class="nb">export</span>
 taskledger<span class="w"> </span>snapshot<span class="w"> </span>./taskledger-snapshot<span class="w"> </span>--include-bodies<span class="w"> </span>--include-run-artifacts
 </pre></div>
 </div>
-<p>Locks are never cleared silently. Use <code class="docutils literal notranslate"><span class="pre">lock</span> <span class="pre">break</span></code> only after inspecting the
+<p>Locks are never cleared silently. Use <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">lock</span></code> only after inspecting the
 lock and recording a reason. If a broken stale lock leaves an implementation run
 still marked <code class="docutils literal notranslate"><span class="pre">running</span></code>, continue with <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">resume</span></code> instead of starting a
 new implementation run. If a task is truly <code class="docutils literal notranslate"><span class="pre">cancelled</span></code>, use <code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">uncancel</span></code>

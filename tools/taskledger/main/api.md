@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -559,6 +559,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.storage</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.sync</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.search</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.maintenance</span></code></p></li>
 </ul>
 </section>
 <section id="import-boundary">
@@ -776,6 +777,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">symbols_workspace</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dependencies_for_module</span></code></p></li>
 </ul>
+</section>
+<section id="maintenance-api">
+<h3>Maintenance API</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">garbage_collect</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">garbage_collect(workspace_root,</span> <span class="pre">*,</span> <span class="pre">scope=&quot;all&quot;,</span> <span class="pre">task_id=None,</span> <span class="pre">older_than=None,</span> <span class="pre">apply=False,</span> <span class="pre">reason=&quot;&quot;)</span></code> reports eligible cache, runtime snapshot, and unreferenced artifact files. It is dry-run by default. Evidence/runtime deletion requires <code class="docutils literal notranslate"><span class="pre">apply=True</span></code> and a non-empty <code class="docutils literal notranslate"><span class="pre">reason</span></code>; canonical task records are never targets.</p>
 </section>
 <section id="sync-api">
 <h3>Sync API</h3>

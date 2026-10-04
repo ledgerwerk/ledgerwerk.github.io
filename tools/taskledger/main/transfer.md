@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -595,7 +595,7 @@ taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w
 <li><p>Inspect resolved data and index mounts with <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> after cloning when the configured mounts are absent.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">export</span> <span class="pre">--task</span> <span class="pre">TASK_REF</span></code> and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">export</span> <span class="pre">TASK_REF</span></code> export task-scoped archives.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">sync</span> <span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">sync</span> <span class="pre">import</span></code> are aliases for the same archive transfer primitives.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">import</span></code> are root-level archive transfer commands, separate from Git sync.</p></li>
 <li><p>Task-scoped import is additive by default; if the task id already exists locally, import renumbers and reports an id map.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--replace</span></code> is for full-state replacement, not the normal single-task workflow.</p></li>
 <li><p>Task IDs are allocated from the active ledger’s task and tombstone inventory; imports do not restore a persisted counter.</p></li>

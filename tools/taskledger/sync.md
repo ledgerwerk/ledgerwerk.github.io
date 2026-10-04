@@ -5,8 +5,8 @@ permalink: /tools/taskledger/sync/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.9"
-docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
+docs_ref: "v0.7.0"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -625,7 +625,6 @@ git<span class="w"> </span>status<span class="w"> </span>--short
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/src/project-a
 taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>status
 taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>pull
-taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>import-local
 taskledger<span class="w"> </span>doctor
 taskledger<span class="w"> </span>next-action
 </pre></div>
@@ -653,12 +652,11 @@ or semantic conflicts across canonical task records.</p>
 </section>
 <section id="when-to-use-export-import-instead">
 <h2>When to use export/import instead</h2>
-<p>Archive commands are still the transfer primitive and remain available at both
-the root and under <code class="docutils literal notranslate"><span class="pre">sync</span></code>:</p>
+<p>Archive commands are the root-level transfer primitives:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0040
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-task-project-a-main-task-0040-...tar.gz
-taskledger<span class="w"> </span>sync<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--output<span class="w"> </span>./taskledger-transfer.tar.gz
-taskledger<span class="w"> </span>sync<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--dry-run
+taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--output<span class="w"> </span>./taskledger-transfer.tar.gz
+taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--dry-run
 </pre></div>
 </div>
 <p>If work must move mid-run, prefer task-scoped transfer archives instead of

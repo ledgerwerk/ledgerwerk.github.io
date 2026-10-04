@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -553,8 +553,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code> is root-level only and must appear before the command group.</p></li>
 <li><p>Command-local <code class="docutils literal notranslate"><span class="pre">--json</span></code> options are not part of the public contract.</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">--cwd</span></code> remains accepted as a compatibility root alias, but docs and examples
-should prefer <code class="docutils literal notranslate"><span class="pre">--root</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--cwd</span></code> was removed in v0.7.0; use <code class="docutils literal notranslate"><span class="pre">--root</span></code> to select the workspace root.</p>
 </section>
 <section id="task-scoping">
 <h2>Task Scoping</h2>
@@ -817,8 +816,8 @@ taskledger<span class="w"> </span>storage<span class="w"> </span>move<span class
 taskledger<span class="w"> </span>sync<span class="w"> </span>preflight
 taskledger<span class="w"> </span>sync<span class="w"> </span>status
 taskledger<span class="w"> </span>sync<span class="w"> </span>commit<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;Sync project-a taskledger state&quot;</span>
-taskledger<span class="w"> </span>sync<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--output<span class="w"> </span>./taskledger-transfer.tar.gz
-taskledger<span class="w"> </span>sync<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--dry-run
+taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--output<span class="w"> </span>./taskledger-transfer.tar.gz
+taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--dry-run
 taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>status
 taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>init<span class="w"> </span>--repo<span class="w"> </span>../taskledger-state<span class="w"> </span>--project-path<span class="w"> </span>project-a
 taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;Sync project-a taskledger state&quot;</span>
@@ -841,8 +840,8 @@ been copied or explicitly adopted.</p></li>
 push/pull operations.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">status</span></code> and <code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">commit</span></code> operate only on the Git repository that
 contains the resolved <code class="docutils literal notranslate"><span class="pre">taskledger_dir</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">import</span></code> are archive aliases for the root
-<code class="docutils literal notranslate"><span class="pre">export</span></code>/<code class="docutils literal notranslate"><span class="pre">import</span></code> commands.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">import</span></code> are root-level archive transfer commands; <code class="docutils literal notranslate"><span class="pre">sync</span></code>
+remains focused on storage and Git synchronization.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sync</span> <span class="pre">git</span></code> commands operate on a private external Git repository that stores
 full project taskledger state under <code class="docutils literal notranslate"><span class="pre">&lt;repo&gt;/&lt;project_path&gt;</span></code>.</p></li>
 </ul>
@@ -962,6 +961,29 @@ finished implementation run-0001  task task-0001 -&gt; implemented
 </section>
 <section id="run-and-lock-repair">
 <h2>Run and lock repair</h2>
+<p>A missing canonical task record can leave the active-task pointer and runtime lock in place. Forced deactivation clears only the dangling pointer. It does not silently remove the lock:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>task<span class="w"> </span>deactivate<span class="w"> </span>--force<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Clear dangling active task after record loss.&quot;</span>
+taskledger<span class="w"> </span>repair<span class="w"> </span>locks
+taskledger<span class="w"> </span>repair<span class="w"> </span>locks<span class="w"> </span>--apply<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Preserve and remove the orphaned runtime lock.&quot;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">locks</span></code> is dry-run by default. It reports <code class="docutils literal notranslate"><span class="pre">orphan_missing_task</span></code> separately from expired and dead-process locks, copies the orphan lock to the recovery audit area, removes the runtime lock, and updates derived lock indexes. Inspect the dry-run before applying.</p>
+<p>Doctor also reports nonempty task allocation directories that lack <code class="docutils literal notranslate"><span class="pre">task.md</span></code>. Their repair preserves all files in quarantine and writes a task-ID tombstone so the identifier cannot be reused:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--apply<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Quarantine incomplete task allocation after record loss.&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="maintenance-garbage-collection">
+<h2>Maintenance garbage collection</h2>
+<p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">maintenance</span> <span class="pre">gc</span></code> is an explicit maintenance operation and is dry-run by default:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>maintenance<span class="w"> </span>gc
+taskledger<span class="w"> </span>maintenance<span class="w"> </span>gc<span class="w"> </span>--scope<span class="w"> </span>artifacts<span class="w"> </span>--task<span class="w"> </span>task-0042<span class="w"> </span>--older-than<span class="w"> </span>30d
+taskledger<span class="w"> </span>maintenance<span class="w"> </span>gc<span class="w"> </span>--apply<span class="w"> </span>--scope<span class="w"> </span>runtime<span class="w"> </span>--older-than<span class="w"> </span>14d<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Prune retained terminal snapshots.&quot;</span>
+</pre></div>
+</div>
+<p>Scopes are <code class="docutils literal notranslate"><span class="pre">all</span></code>, <code class="docutils literal notranslate"><span class="pre">runtime</span></code>, <code class="docutils literal notranslate"><span class="pre">artifacts</span></code>, and <code class="docutils literal notranslate"><span class="pre">cache</span></code>. Default retention is 14 days for terminal workspace snapshots, 30 days for unreferenced artifacts, and 7 days for quarantined cache generations. <code class="docutils literal notranslate"><span class="pre">--older-than</span></code> overrides the selected scopes. <code class="docutils literal notranslate"><span class="pre">--task</span></code> limits runtime/artifact cleanup to one canonical task ID and cannot be used with cache cleanup.</p>
+<p>Artifact cleanup marks references from canonical task, run, todo, check, review, handoff, event, and agent-log records. Only old unreferenced artifacts owned by terminal, unlocked work are eligible. Runtime cleanup targets detailed manifests for terminal runs whose canonical summary hashes remain. Cache cleanup removes only old quarantined index generations, never the active indexes. Evidence/runtime deletion requires both <code class="docutils literal notranslate"><span class="pre">--apply</span></code> and <code class="docutils literal notranslate"><span class="pre">--reason</span></code>; every apply writes a durable report and attempts a project-level audit event. Canonical task history is never a GC target, and task completion does not run GC.</p>
 </section>
 <section id="managed-command-wrappers">
 <h2>Managed command wrappers</h2>
@@ -1105,8 +1127,8 @@ taskledger<span class="w"> </span>handoff<span class="w"> </span>show<span class
 <li><p><code class="docutils literal notranslate"><span class="pre">--run</span></code> implies <code class="docutils literal notranslate"><span class="pre">--scope</span> <span class="pre">run</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--scope</span> <span class="pre">todo</span></code> requires <code class="docutils literal notranslate"><span class="pre">--todo</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--scope</span> <span class="pre">run</span></code> requires <code class="docutils literal notranslate"><span class="pre">--run</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--for</span> <span class="pre">implementation|validation|planning|review|full</span></code> remain accepted as
-compatibility aliases.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--for</span></code> accepts the role names shown above; <code class="docutils literal notranslate"><span class="pre">spec</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> normalize to
+<code class="docutils literal notranslate"><span class="pre">spec-reviewer</span></code> and <code class="docutils literal notranslate"><span class="pre">code-reviewer</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">create</span> <span class="pre">--worker</span></code> derives mode and context from the configured
 worker step and stores <code class="docutils literal notranslate"><span class="pre">worker_step_id</span></code> in the handoff record.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pipeline</span> <span class="pre">context</span> <span class="pre">STEP_ID</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">context</span> <span class="pre">--worker</span> <span class="pre">STEP_ID</span></code>.</p></li>
@@ -1171,25 +1193,27 @@ is cache storage. A local <code class="docutils literal notranslate"><span class
 Commands keep <code class="docutils literal notranslate"><span class="pre">--root</span></code> scoped to the source workspace, not the storage root.</p>
 <p>Taskledger uses:</p>
 <ul class="simple">
-<li><p>storage layout version 5 in the UUID-scoped data root’s <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code></p></li>
+<li><p>storage layout version 6 in the UUID-scoped data root’s <code class="docutils literal notranslate"><span class="pre">storage.yaml</span></code></p></li>
 <li><p>schema-2 canonical ledger state</p></li>
 <li><p>per-record <code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></li>
 <li><p>per-record <code class="docutils literal notranslate"><span class="pre">object_type</span></code></p></li>
 <li><p>per-file <code class="docutils literal notranslate"><span class="pre">file_version</span></code> for durable Markdown/YAML/JSON record files</p></li>
 </ul>
-<p>Storage layout history is maintained by explicit migration receipts. The
-current layout keeps branch-scoped ledgers under
-<code class="docutils literal notranslate"><span class="pre">&lt;data-root&gt;/ledgers/&lt;ledger_ref&gt;/</span></code>.</p>
-<p>Taskledger does not silently rewrite storage during read-only commands.</p>
-<p>If the installed taskledger version can read but not write an older workspace,
-it reports that migration is required.</p>
-<p>To migrate:</p>
+<p>Storage layout history is maintained by migration receipts. The current layout keeps
+branch-scoped ledgers under <code class="docutils literal notranslate"><span class="pre">&lt;data-root&gt;/ledgers/&lt;ledger_ref&gt;/</span></code>.</p>
+<p>Within each ledger, canonical task bundles live at
+<code class="docutils literal notranslate"><span class="pre">tasks/&lt;uuidv7&gt;/task.md</span></code>. UUIDv7 is the stable storage identity and relationship
+key; <code class="docutils literal notranslate"><span class="pre">task-####</span></code> remains the derived user-facing alias and is never a directory
+name. Layout 5 to 6 migration deterministically converts legacy numeric task
+bundles before the first mutation, preserves ordinal gaps and reserved identities,
+and is recoverable. Read-only commands do not migrate.</p>
+<p>Other legacy storage-root or topology migrations remain explicit:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>storage<span class="w"> </span>validate
 taskledger<span class="w"> </span>migrate<span class="w"> </span>plan
 taskledger<span class="w"> </span>migrate<span class="w"> </span>apply
 </pre></div>
 </div>
-<p>After migration to layout 5, verify health with:</p>
+<p>After migration to layout 6, verify health with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>doctor
 taskledger<span class="w"> </span>ledger<span class="w"> </span>doctor
 </pre></div>
@@ -1203,7 +1227,7 @@ quarantined beside the cache and rebuilt from canonical records. Conflicting or
 invalid markers, symlinks, and non-directory cache paths are not adopted
 automatically. The remaining derived caches may be plain JSON arrays with no
 version metadata and can be rebuilt explicitly with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>reindex
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>index
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code> uses the same recovery path and reports any quarantine

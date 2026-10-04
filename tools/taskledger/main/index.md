@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "2c62e04040c1ef2b0ab748106e93352b524fe70d"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -639,7 +639,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="architecture/#branch-scoped-ledger-selection-and-fork">Branch-scoped ledger selection and fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#implementation-workspace-snapshot-lifecycle">Implementation workspace snapshot lifecycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#git-sync-workflow-for-shared-state">Git sync workflow for shared state</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture/#migration-reindex-and-doctor-interaction">Migration, reindex, and doctor interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/#migration-index-repair-and-doctor-interaction">Migration, index repair, and doctor interaction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/#worker-pipeline-guided-handoff">Worker pipeline guided handoff</a></li>
 </ul>
 </li>
@@ -758,6 +758,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#config-commands">Config commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#next-action-result-contract"><code class="docutils literal notranslate"><span class="pre">next-action</span></code> result contract</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#run-and-lock-repair">Run and lock repair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_contract/#maintenance-garbage-collection">Maintenance garbage collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#managed-command-wrappers">Managed command wrappers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#transcript-review-modes">Transcript review modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#post-completion-follow-up-deltas">Post-completion follow-up deltas</a></li>
@@ -812,6 +813,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-0-2026-10-04">[v0.7.0] - 2026-10-04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-11-2026-10-02">[v0.6.11] - 2026-10-02</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-10-2026-09-26">[v0.6.10] - 2026-09-26</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-9-2026-09-24">[v0.6.9] - 2026-09-24</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-8-2026-09-11">[v0.6.8] - 2026-09-11</a></li>

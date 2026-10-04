@@ -5,8 +5,8 @@ permalink: /tools/taskledger/service_boundary_whitelist/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.9"
-docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
+docs_ref: "v0.7.0"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -583,8 +583,8 @@ smaller compatibility facade and move residual helpers into focused modules.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_sync.py::register_sync_commands</span></code></p>
 <ul>
-<li><p>Current reason: Sync command registration currently co-locates legacy
-sync, archive alias, git sync, and hook command wiring.</p></li>
+<li><p>Current reason: Git-sync and hook commands are registered together in the
+sync group.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/layout_migration.py::_apply_migration_phases</span></code></p>
@@ -597,11 +597,6 @@ sync, archive alias, git sync, and hook command wiring.</p></li>
 <li><p>Current reason: Migration inspect logic covers candidate discovery, config analysis, and issue assembly.</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py::register_handoff_v2_commands</span></code></p>
-<ul>
-<li><p>Current reason: Handoff v2 command registration covers create, claim, release, retarget, review, show, list, close, and cancel command wiring.</p></li>
-</ul>
-</li>
 </ul>
 </section>
 <section id="cliservices-import-whitelist">
@@ -610,64 +605,68 @@ sync, archive alias, git sync, and hook command wiring.</p></li>
 <code class="docutils literal notranslate"><span class="pre">tests/test_service_boundaries.py</span></code> under <code class="docutils literal notranslate"><span class="pre">CLI_SERVICES_IMPORT_WHITELIST</span></code>.</p>
 <p>Current sanctioned imports:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli.py:taskledger.services.dashboard</span></code> — Dashboard and view
-rendering are currently service-level read models.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli.py:taskledger.services.agent_logging</span></code> — Root CLI
-initializes recorder and payload/error notes.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli.py:taskledger.services.tree</span></code> — Tree rendering currently
-lives in services/tree.py.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli.py:taskledger.services.doctor</span></code> — Repair command uses
-doctor cleanup helper pending API wrapper.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli.py:taskledger.services.monitor</span></code> — Root monitor command
-renders the terminal monitor read model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli.py:taskledger.services.usage</span></code> — Root usage command renders
-the fresh-session startup read model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_monitor.py:taskledger.services.dashboard</span></code> — Dashboard and view
+rendering are service-level read models.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli.py:taskledger.services.agent_logging</span></code> — Root CLI initializes
+recorder and payload/error notes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_project.py:taskledger.services.tree</span></code> — Tree rendering lives in
+services/tree.py.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_monitor.py:taskledger.services.monitor</span></code> — Monitor commands
+render the terminal monitor read model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_navigation.py:taskledger.services.usage</span></code> — Navigation commands
+render the fresh-session usage read model.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_actor.py:taskledger.services.actors</span></code> — Actor and harness
-resolution currently lives in services/actors.py.</p></li>
+resolution lives in services/actors.py.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_common.py:taskledger.services.actors</span></code> — CLI common resolves
+actor/harness context for event metadata.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_common.py:taskledger.services.agent_logging</span></code> — CLI common
 emits recorder task/payload/error notes.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_common.py:taskledger.services.actors</span></code> — CLI common
-resolves actor/harness context for event metadata.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_implement.py:taskledger.services.agent_logging</span></code> —
-Implement command wrapper records managed-shell command failures.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_implement.py:taskledger.services.agent_logging</span></code> — Implement
+command wrapper records managed-shell command failures.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_validate.py:taskledger.services.agent_logging</span></code> — Validation
 command wrapper records managed-shell command failures.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py:taskledger.services.actors</span></code> — Todo updates resolve
-current identity to persist completion actor and harness metadata.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_misc.py:taskledger.services.doctor</span></code> — Doctor commands
-still consume doctor service inspectors directly.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_pipeline.py:taskledger.services.handoff</span></code> — Pipeline
-context rendering currently reuses the handoff service payloads.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_pipeline.py:taskledger.services.worker_pipeline</span></code> —
-Pipeline CLI commands read the worker pipeline service overlay directly.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_review.py:taskledger.services.actors</span></code> — Review commands
-resolve reviewer/harness context.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.plan_editing</span></code> — Plan input
-path validation currently lives in services/plan_editing.py.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.plan_lint</span></code> — Plan lint
-payload model is still service-owned.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_question.py:taskledger.services.actors</span></code> — Question
-commands resolve actor/harness context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_repair.py:taskledger.services.doctor</span></code> — Doctor commands
+consume doctor service inspectors directly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_todo.py:taskledger.services.actors</span></code> — Todo updates resolve
+identity for completion metadata.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_pipeline.py:taskledger.services.handoff</span></code> — Pipeline context
+rendering reuses handoff service payloads.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_pipeline.py:taskledger.services.worker_pipeline</span></code> — Pipeline
+commands read the worker pipeline service overlay directly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_review.py:taskledger.services.actors</span></code> — Review commands resolve
+reviewer/harness context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.plan_editing</span></code> — Plan input path
+validation lives in services/plan_editing.py.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.plan_lint</span></code> — Plan lint payload
+model is service-owned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_question.py:taskledger.services.actors</span></code> — Question commands
+resolve actor/harness context.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.workflow_guidance</span></code> — Planning
 guidance profile read model is service-owned.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.agent_logging</span></code> — Plan command
 wrapper records managed-shell command failures.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.planning_flow</span></code> — Plan
-guidance command marks guidance viewed via planning flow service.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.actors</span></code> — Task record command
-resolves completed-by actor metadata.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_plan.py:taskledger.services.planning_flow</span></code> — Plan guidance
+marks guidance viewed via the planning flow service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.actors</span></code> — Task record commands
+resolve completed-by actor metadata.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.agent_transcripts</span></code> — Task
-transcript rendering currently lives in services.</p></li>
+transcript rendering lives in services.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.task_reports</span></code> — Task report
 rendering and options are service-owned.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.task_export</span></code> — Task export
-service for compiled LLM-ready Markdown.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.tasks</span></code> — Task events read
-model and lifecycle mutations.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_trace.py:taskledger.services.trace</span></code> — Trace CLI delegates
-to the trace service.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_migrate.py:taskledger.services.storage_migration</span></code> — Migration CLI delegates to the storage migration service.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_runtime.py:taskledger.services.runtime_info</span></code> — Runtime CLI delegates provenance collection to the runtime service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.task_export</span></code> — Task export service
+for compiled LLM-ready Markdown.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.tasks</span></code> — Task events read model
+and lifecycle mutations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_trace.py:taskledger.services.trace</span></code> — Trace CLI delegates to
+the trace service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_migrate.py:taskledger.services.storage_migration</span></code> — Migration
+CLI delegates to the storage migration service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_runtime.py:taskledger.services.runtime_info</span></code> — Runtime CLI
+delegates provenance collection to the runtime service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_lock.py:taskledger.services.actors</span></code> — Lock commands resolve
+actor and harness context for lock changes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_navigation.py:taskledger.services.actors</span></code> — Navigation
+commands resolve actor/harness context for usage metadata.</p></li>
 </ul>
 </section>
 <section id="catch-all-exception-whitelist-except-exception">

@@ -4,17 +4,17 @@ nav_key: taskledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.6.9
-source_commit: d17a4522d51ea1faf6ec585c9e8f57476a831025
-source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.9
+source_ref: v0.7.0
+source_commit: c0804535fe3490142decc1cc641dc1ee07224ac7
+source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.0
 is_default: true
 repo_url: https://github.com/ledgerwerk/taskledger
-release_tag: v0.6.9
-release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.9
+release_tag: v0.7.0
+release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.0
 versions:
 - name: release
   label: Latest release
-  ref: v0.6.9
+  ref: v0.7.0
   url: /tools/taskledger/
   current: true
 - name: main

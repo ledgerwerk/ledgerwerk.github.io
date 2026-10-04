@@ -5,8 +5,8 @@ permalink: /tools/taskledger/multi_repo/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.9"
-docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
+docs_ref: "v0.7.0"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -566,7 +566,7 @@ taskledger<span class="w"> </span>deps<span class="w"> </span>custom_sale.models
 </pre></div>
 </div>
 <p>Then render fresh context for the next stage:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementation<span class="w"> </span>--format<span class="w"> </span>markdown
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementer<span class="w"> </span>--format<span class="w"> </span>markdown
 taskledger<span class="w"> </span>handoff<span class="w"> </span>create<span class="w"> </span>--mode<span class="w"> </span>implementation<span class="w"> </span>--intended-actor<span class="w"> </span>agent<span class="w"> </span>--intended-harness<span class="w"> </span>codex
 </pre></div>
 </div>

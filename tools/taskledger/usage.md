@@ -5,8 +5,8 @@ permalink: /tools/taskledger/usage/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.9"
-docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
+docs_ref: "v0.7.0"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -697,14 +697,21 @@ taskledger<span class="w"> </span>plan<span class="w"> </span>lint<span class="w
 taskledger<span class="w"> </span>plan<span class="w"> </span>review<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
-<p>Revising a proposed plan safely:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>revise
-taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--version<span class="w"> </span>latest<span class="w"> </span>--file<span class="w"> </span>./plan.md
-<span class="c1"># edit ./plan.md (never edit .taskledger/ directly)</span>
-taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--file<span class="w"> </span>./plan.md
+<p>Revising a proposed plan safely: prepare the draft before opening a revision run. Export to a separate workspace file so an existing <code class="docutils literal notranslate"><span class="pre">plan.md</span></code> or local edits are not overwritten:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--version<span class="w"> </span>latest<span class="w"> </span>--file<span class="w"> </span>./plan.revision.md
+<span class="c1"># edit ./plan.revision.md (never edit .taskledger/ directly)</span>
+taskledger<span class="w"> </span>plan<span class="w"> </span>check<span class="w"> </span>--file<span class="w"> </span>./plan.revision.md
+taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--auto-revise<span class="w"> </span>--file<span class="w"> </span>./plan.revision.md
 taskledger<span class="w"> </span>plan<span class="w"> </span>diff<span class="w"> </span>--from<span class="w"> </span><span class="m">1</span><span class="w"> </span>--to<span class="w"> </span><span class="m">2</span>
+taskledger<span class="w"> </span>plan<span class="w"> </span>review<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
+<p>If <code class="docutils literal notranslate"><span class="pre">./plan.md</span></code> is already edited, check and submit it directly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>check<span class="w"> </span>--file<span class="w"> </span>./plan.md
+taskledger<span class="w"> </span>plan<span class="w"> </span>upsert<span class="w"> </span>--auto-revise<span class="w"> </span>--file<span class="w"> </span>./plan.md
+</pre></div>
+</div>
+<p>Auto-revision only proposes a new version; it does not approve it. Implementation still requires explicit user approval.</p>
 <p>For structured scope trims, use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>plan<span class="w"> </span>amend<span class="w"> </span>--drop-criterion<span class="w"> </span>ac-0007<span class="w"> </span>--drop-todo<span class="w"> </span>plan-todo-0010<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;User reduced scope.&quot;</span>
 </pre></div>
@@ -981,7 +988,7 @@ taskledger<span class="w"> </span>task<span class="w"> </span>report<span class=
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">context</span></code> is agent-handoff-oriented. <code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">report</span></code> and root <code class="docutils literal notranslate"><span class="pre">report</span></code> HTML
 commands are human-oriented. <code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">dossier</span></code> remains available as an
-advanced/compatibility full-context dump; prefer <code class="docutils literal notranslate"><span class="pre">context</span> <span class="pre">--for</span> <span class="pre">...</span></code> for new
+advanced full-context dump; prefer <code class="docutils literal notranslate"><span class="pre">context</span> <span class="pre">--for</span> <span class="pre">...</span></code> for new
 agent protocols.</p>
 <p><code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">transcript</span></code> renders a per-task command transcript from the ledger-level
 agent log store:</p>
@@ -1086,14 +1093,14 @@ the child cwd, no-shell execution, and the parent environment. Use portable form
 such as <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">ruff</span></code>, or <code class="docutils literal notranslate"><span class="pre">mypy</span></code> rather than hard-coding an
 absolute virtualenv interpreter path.</p>
 <blockquote>
-<div><p>taskledger context –for implementation –format markdown
+<div><p>taskledger context –for implementer –format markdown
 taskledger implement start
 taskledger implement log –message “Started implementation.”
 taskledger implement change –path taskledger/storage/task_store.py –kind edit –summary “Updated storage semantics.”
 taskledger implement scan-changes –from-git –summary “Implementation diff summary.”
 taskledger implement finish –summary “Implemented the approved plan.”
 taskledger review record –result pass –summary “No blocking code-quality issues.”</p>
-<p>taskledger context –for validation –format markdown
+<p>taskledger context –for validator –format markdown
 taskledger validate start
 taskledger validate check –criterion ac-0001 –status pass –evidence “pytest -q tests/test_taskledger_v2_cli.py”
 taskledger validate finish –result passed –summary “Validated the rewrite.”</p>
@@ -1109,7 +1116,7 @@ records are append-only and do not reopen the task.</p>
 correct, restart implementation instead of replanning:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>validate<span class="w"> </span>finish<span class="w"> </span>--result<span class="w"> </span>failed<span class="w"> </span>--summary<span class="w"> </span><span class="s2">&quot;Parser edge case still fails.&quot;</span>
 taskledger<span class="w"> </span>next-action
-taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementation<span class="w"> </span>--format<span class="w"> </span>markdown
+taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementer<span class="w"> </span>--format<span class="w"> </span>markdown
 taskledger<span class="w"> </span>implement<span class="w"> </span>restart<span class="w"> </span>--summary<span class="w"> </span><span class="s2">&quot;Fix failed validation findings.&quot;</span>
 </pre></div>
 </div>
@@ -1117,7 +1124,7 @@ taskledger<span class="w"> </span>implement<span class="w"> </span>restart<span 
 correct, restart implementation instead of replanning:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>validate<span class="w"> </span>finish<span class="w"> </span>--result<span class="w"> </span>failed<span class="w"> </span>--summary<span class="w"> </span><span class="s2">&quot;Parser edge case still fails.&quot;</span>
 taskledger<span class="w"> </span>next-action
-taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementation<span class="w"> </span>--format<span class="w"> </span>markdown
+taskledger<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>implementer<span class="w"> </span>--format<span class="w"> </span>markdown
 taskledger<span class="w"> </span>implement<span class="w"> </span>restart<span class="w"> </span>--summary<span class="w"> </span><span class="s2">&quot;Fix failed validation findings.&quot;</span>
 </pre></div>
 </div>
@@ -1129,7 +1136,7 @@ taskledger<span class="w"> </span>implement<span class="w"> </span>restart<span 
 taskledger<span class="w"> </span>--json<span class="w"> </span>task<span class="w"> </span>active
 taskledger<span class="w"> </span>--json<span class="w"> </span>task<span class="w"> </span>show
 taskledger<span class="w"> </span>--json<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>task-0001
-taskledger<span class="w"> </span>--json<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>validation<span class="w"> </span>--format<span class="w"> </span>json
+taskledger<span class="w"> </span>--json<span class="w"> </span>context<span class="w"> </span>--for<span class="w"> </span>validator<span class="w"> </span>--format<span class="w"> </span>json
 taskledger<span class="w"> </span>--json<span class="w"> </span>review<span class="w"> </span>list<span class="w"> </span>--task<span class="w"> </span>task-0001
 </pre></div>
 </div>
@@ -1182,8 +1189,15 @@ taskledger<span class="w"> </span>implement<span class="w"> </span>resume<span c
 taskledger<span class="w"> </span>task<span class="w"> </span>uncancel<span class="w"> </span>--task<span class="w"> </span>TASK_REF<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Restore the task to a safe durable stage.&quot;</span>
 taskledger<span class="w"> </span>next-action
 taskledger<span class="w"> </span>repair<span class="w"> </span>index
+taskledger<span class="w"> </span>task<span class="w"> </span>deactivate<span class="w"> </span>--force<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Clear dangling active task after record loss.&quot;</span>
+taskledger<span class="w"> </span>repair<span class="w"> </span>locks
+taskledger<span class="w"> </span>repair<span class="w"> </span>locks<span class="w"> </span>--apply<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Preserve and remove the orphaned runtime lock.&quot;</span>
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--apply<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Quarantine incomplete task allocation after record loss.&quot;</span>
+taskledger<span class="w"> </span>maintenance<span class="w"> </span>gc<span class="w"> </span>--scope<span class="w"> </span>artifacts
 </pre></div>
 </div>
+<p>Forced deactivation clears only a dangling active-task pointer. Run the lock-repair dry-run separately to inspect orphan locks before applying. Allocation repair preserves the partial directory in quarantine and tombstones its ID. Garbage collection is explicit, dry-run by default, and never deletes canonical task history; see <code class="docutils literal notranslate"><span class="pre">docs/command_contract.md</span></code> for scope and retention details.</p>
 </section>
 <section id="export-and-snapshots">
 <h2>Export and snapshots</h2>
@@ -1191,9 +1205,9 @@ taskledger<span class="w"> </span>repair<span class="w"> </span>index
 taskledger<span class="w"> </span><span class="nb">export</span>
 taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--task<span class="w"> </span>task-0040
 taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>task-0040
-taskledger<span class="w"> </span>sync<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--output<span class="w"> </span>./taskledger-transfer.tar.gz
+taskledger<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--output<span class="w"> </span>./taskledger-transfer.tar.gz
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--dry-run
-taskledger<span class="w"> </span>sync<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--dry-run
+taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--dry-run
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-task-planledger-main-task-0040-20260509T101500Z.tar.gz<span class="w"> </span>--id-policy<span class="w"> </span>fail-on-conflict
 taskledger<span class="w"> </span>import<span class="w"> </span>./taskledger-transfer.tar.gz<span class="w"> </span>--replace
@@ -1264,6 +1278,7 @@ opaque link refs, source refs, evidence refs, changes, reviews, and handoffs.</p
 <section id="canonical-project-layout">
 <h2>Canonical project layout</h2>
 <p>Taskledger uses a schema-3 <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> manifest and <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger/config.toml</span></code>. The canonical mounts are durable <code class="docutils literal notranslate"><span class="pre">data</span></code> (external storage rooted at <code class="docutils literal notranslate"><span class="pre">../ledger</span></code>), checkout-local <code class="docutils literal notranslate"><span class="pre">runtime</span></code> (user-data), diagnostic <code class="docutils literal notranslate"><span class="pre">logs</span></code> (user-data), and rebuildable <code class="docutils literal notranslate"><span class="pre">indexes</span></code> (cache). A machine-local <code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code> may select <code class="docutils literal notranslate"><span class="pre">user-data</span></code> for <code class="docutils literal notranslate"><span class="pre">data</span></code>. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">where</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">path</span> <span class="pre">data|runtime|logs|indexes</span></code>, <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">set</span></code>, and <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">storage</span> <span class="pre">clear-override</span></code> to inspect or change mounts.</p>
+<p>Canonical task bundles live under <code class="docutils literal notranslate"><span class="pre">&lt;data-root&gt;/ledgers/&lt;ledger_ref&gt;/tasks/&lt;uuidv7&gt;/</span></code>. UUIDv7 is the stable storage and relationship identity; <code class="docutils literal notranslate"><span class="pre">task-####</span></code> remains the derived CLI/display alias and is not a directory name. Existing layout-5 numeric bundles migrate deterministically and recoverably to layout 6 before the first mutation. Read-only commands do not migrate.</p>
 </section>
 </section>
 </div>

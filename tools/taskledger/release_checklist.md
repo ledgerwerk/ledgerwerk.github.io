@@ -5,8 +5,8 @@ permalink: /tools/taskledger/release_checklist/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.6.9"
-docs_commit: "d17a4522d51ea1faf6ec585c9e8f57476a831025"
+docs_ref: "v0.7.0"
+docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
 search_enabled: true
 ---
 
@@ -545,16 +545,17 @@ html[data-theme="dark"] .sphinxpress-doc {
 <p>Build Taskledger from the intended release tag or commit in a clean
 environment. The artifact version must agree across package metadata, the
 imported module, and the CLI before publishing.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>build
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">VERSION</span><span class="o">=</span><span class="m">0</span>.7.0
+python<span class="w"> </span>-m<span class="w"> </span>build
 python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>check<span class="w"> </span>dist/*
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>dist/taskledger-0.6.1-*.whl
-taskledger<span class="w"> </span>--version
-python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import taskledger; print(taskledger.__version__)&#39;</span>
-python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from importlib.metadata import version; print(version(&quot;taskledger&quot;))&#39;</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span><span class="s2">&quot;dist/taskledger-</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">-&quot;</span>*.whl
+
+<span class="nb">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>taskledger<span class="w"> </span>--version<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;taskledger </span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import taskledger; print(taskledger.__version__)&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from importlib.metadata import version; print(version(&quot;taskledger&quot;))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
-<p>The clean environment must contain Ledgercore 0.6.1, and all three version
-checks must report <code class="docutils literal notranslate"><span class="pre">0.6.1</span></code>. Confirm that the wheel contains <code class="docutils literal notranslate"><span class="pre">taskledger/py.typed</span></code>
+<p>Use a Ledgercore version satisfying the declared dependency range (<code class="docutils literal notranslate"><span class="pre">&gt;=0.6.1,&lt;0.7.0</span></code>). Confirm that the wheel contains <code class="docutils literal notranslate"><span class="pre">taskledger/py.typed</span></code>
 and required runtime package files. Run the full test, lint, type, Sphinx,
 Documentledger, and SpecMason gates before changing release metadata or
 publishing artifacts.</p>

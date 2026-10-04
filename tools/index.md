@@ -32,7 +32,7 @@ permalink: /tools/
       <h3>releaseledger</h3>
       <div class="card-links">
         <a href="/tools/releaseledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.11" rel="external noopener">Latest release: v0.4.11 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/releaseledger/releases/tag/v0.4.12" rel="external noopener">Latest release: v0.4.12 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/releaseledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -41,7 +41,7 @@ permalink: /tools/
       <h3>taskledger</h3>
       <div class="card-links">
         <a href="/tools/taskledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.6.9" rel="external noopener">Latest release: v0.6.9 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.0" rel="external noopener">Latest release: v0.7.0 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/taskledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
