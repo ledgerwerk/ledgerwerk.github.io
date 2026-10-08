@@ -1,7 +1,7 @@
 ---
 layout: tool-doc
-title: "Taskledger architecture"
-permalink: /tools/taskledger/main/architecture_taskledger_split/
+title: "taskledger UUID identity and allocation recovery"
+permalink: /tools/taskledger/main/recovery_identity/
 nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
@@ -540,76 +540,167 @@ html[data-theme="dark"] .sphinxpress-doc {
 </style>
 
 <div class="sphinxpress-doc">
-<section id="taskledger-architecture">
-<h1>Taskledger architecture</h1>
-<p><code class="docutils literal notranslate"><span class="pre">taskledger</span></code> is a task-first CLI and Python package for staged coding work.
-The canonical workflow is:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>task -&gt; plan -&gt; approval -&gt; implement -&gt; validate -&gt; done
-</pre></div>
-</div>
-<section id="owning-layers">
-<h2>Owning layers</h2>
+<section id="uuid-identity-and-allocation-recovery">
+<h1>UUID identity and allocation recovery</h1>
+<p>This runbook covers damaged UUID-backed task identity, incomplete task allocations,
+misattributed tombstones, and unresolved cross-task relationships. Repair commands
+are exceptional recovery surfaces, not normal lifecycle commands. Diagnose first;
+apply only a reviewed dry-run plan against an unchanged source.</p>
+<section id="safety-boundary">
+<h2>Safety boundary</h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/domain/</span></code> owns lifecycle enums, policies, record models, and the
-canonical <code class="docutils literal notranslate"><span class="pre">TASKLEDGER_STORAGE_LAYOUT_VERSION</span></code> constant.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/storage/</span></code> owns persisted task bundles, locks, and the
-<code class="docutils literal notranslate"><span class="pre">task_sidecars.json</span></code> summary index. Low-level atomic I/O, JSON I/O, YAML
-I/O, front matter parsing, and cross-ledger ref parsing are delegated to
-<code class="docutils literal notranslate"><span class="pre">ledgercore</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/</span></code> owns task lifecycle orchestration, including
-<code class="docutils literal notranslate"><span class="pre">plan_input.py</span></code>, <code class="docutils literal notranslate"><span class="pre">plan_lint.py</span></code>, <code class="docutils literal notranslate"><span class="pre">plan_review.py</span></code>, <code class="docutils literal notranslate"><span class="pre">planning_flow.py</span></code>,
-<code class="docutils literal notranslate"><span class="pre">implementation_flow.py</span></code>, <code class="docutils literal notranslate"><span class="pre">workspace_snapshot.py</span></code>, <code class="docutils literal notranslate"><span class="pre">validation_flow.py</span></code>,
-<code class="docutils literal notranslate"><span class="pre">handoff.py</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor.py</span></code>, and <code class="docutils literal notranslate"><span class="pre">navigation.py</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/api/*</span></code> exposes stable public wrappers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli*.py</span></code> wires Typer commands only.</p></li>
+<li><p>Stop other Taskledger writers before taking the snapshot or applying a repair.</p></li>
+<li><p>Do not infer physical identity from a <code class="docutils literal notranslate"><span class="pre">task-####</span></code> display alias. A repair plan
+must show the physical source path and persisted source ID separately.</p></li>
+<li><p>Do not delete tombstones or recovery payloads by hand, choose a UUID by guess,
+or rebuild indexes while canonical identity/schema findings remain unresolved.</p></li>
+<li><p>If source provenance is missing, inconsistent, or changed since the dry run,
+stop and preserve the evidence for a human decision.</p></li>
 </ul>
 </section>
-<section id="storage-model">
-<h2>Storage model</h2>
-<p>Markdown records are canonical. Task, plan, and run reads come from those
-records directly. Canonical Taskledger uses four Ledgercore mounts: durable
-<code class="docutils literal notranslate"><span class="pre">data</span></code>, checkout-local <code class="docutils literal notranslate"><span class="pre">runtime</span></code>, diagnostic <code class="docutils literal notranslate"><span class="pre">logs</span></code>, and rebuildable cache
-<code class="docutils literal notranslate"><span class="pre">indexes</span></code>. The default data mount is external sibling storage; runtime and logs
-use user-data and indexes use cache. Local machine overrides live in
-<code class="docutils literal notranslate"><span class="pre">.ledger/ledger.local.toml</span></code>.</p>
-<p>Active/session state and workspace snapshot manifests are runtime data. Raw event
-and agent-command logs are diagnostic logs. Small semantic run summaries and
-task records remain in data. Indexes are always derived from data and may be
-deleted and rebuilt without task-history loss. The historical <code class="docutils literal notranslate"><span class="pre">.taskledger/</span></code>
-layout and root <code class="docutils literal notranslate"><span class="pre">taskledger.toml</span></code> are compatibility and migration inputs only.</p>
+<section id="backup-and-read-only-diagnosis">
+<h2>Backup and read-only diagnosis</h2>
+<p>Before any mutation, create and verify a complete backup/snapshot of the checkout’s
+<code class="docutils literal notranslate"><span class="pre">.ledger/ledger.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">.ledger/taskledger</span></code> configuration, the full resolved
+<code class="docutils literal notranslate"><span class="pre">data</span></code> mount, and relevant <code class="docutils literal notranslate"><span class="pre">indexes</span></code>/recovery data. Find the actual mounts with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>storage<span class="w"> </span>where
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>data
+taskledger<span class="w"> </span>storage<span class="w"> </span>path<span class="w"> </span>indexes
+</pre></div>
+</div>
+<p>Do not assume the durable data is inside the checkout; the default data mount is
+external. Keep the snapshot outside the live mounts and record its location and
+verification evidence. Then inspect without mutating:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>doctor
+taskledger<span class="w"> </span>--json<span class="w"> </span>doctor<span class="w"> </span>schema
+taskledger<span class="w"> </span>--json<span class="w"> </span>doctor<span class="w"> </span>locks
+taskledger<span class="w"> </span>--json<span class="w"> </span>doctor<span class="w"> </span>indexes
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--audit
+taskledger<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span>TASK_UUID
+</pre></div>
+</div>
+<p>Doctor and audit reads do not rebuild indexes. A UUID task show inspects that
+bundle directly and may include relationship diagnostics. Preserve the structured
+outputs, record IDs, source paths, migration receipt, event provenance, and
+fingerprints before deciding whether a repair is safe.</p>
 </section>
-<section id="lifecycle-flow">
-<h2>Lifecycle flow</h2>
-<p><code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">start</span></code> opens planning. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">guidance</span></code> reports the active project
-planning profile. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">template</span></code> writes a fresh plan skeleton, and
-<code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">check</span> <span class="pre">--file</span> <span class="pre">plan.md</span></code> runs the preflight parser in
-<code class="docutils literal notranslate"><span class="pre">taskledger/services/plan_input.py</span></code> without mutating state. <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">upsert</span></code>
-persists the plan; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">lint</span></code> surfaces blocking issues; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">review</span></code>
-produces the approval brief; <code class="docutils literal notranslate"><span class="pre">plan</span> <span class="pre">accept</span> <span class="pre">--note</span> <span class="pre">&quot;...&quot;</span></code> records the
-user-only decision.</p>
-<p><code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">start</span></code> acquires a lock, starts a run, and captures a workspace
-snapshot through <code class="docutils literal notranslate"><span class="pre">taskledger/services/workspace_snapshot.py</span></code>. <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">start</span></code>
-blocks when the current workspace diverges; <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">snapshot</span> <span class="pre">refresh</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code> is the only sanctioned recovery path. Validation checks
-gate completion. Code-review records extend traceability as append-only
-evidence without creating a new lifecycle stage.</p>
+<section id="incomplete-allocation-repair">
+<h2>Incomplete allocation repair</h2>
+<p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">allocations</span></code> is dry-run by default. Review the physical source, display
+alias, quarantine destination, tombstone destination, collision findings, and
+plan fingerprint. Applying requires explicit scope and the exact reviewed plan ID:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--task-id<span class="w"> </span>task-0019
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--task-id<span class="w"> </span>task-0019<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Quarantine the reviewed physical source.&quot;</span>
+</pre></div>
+</div>
+<p>A normal orphan allocation uses <code class="docutils literal notranslate"><span class="pre">quarantine_and_tombstone</span></code>: the physical source is
+preserved in quarantine and a tombstone reserves its retired identity. A stale
+incomplete <code class="docutils literal notranslate"><span class="pre">tasks/task-####/</span></code> directory may instead be shadowed by exactly one live
+UUID bundle whose persisted legacy ID is the same. The dry-run identifies this as
+<code class="docutils literal notranslate"><span class="pre">quarantine_shadowed_legacy_source</span></code>, names the surviving UUID owner, and sets
+<code class="docutils literal notranslate"><span class="pre">planned_tombstone</span></code> to null. Applying that reviewed plan quarantines only the stale
+directory and creates no tombstone, because the identity remains live. Strict identity
+inventory must succeed afterward with that UUID bundle as sole owner.</p>
+<p>Ambiguous ownership—including an existing tombstone, multiple live claimants, a
+non-live claimant, or a changed physical source—is <code class="docutils literal notranslate"><span class="pre">blocked_identity_conflict</span></code> and
+must not be applied. The dry-run reports <code class="docutils literal notranslate"><span class="pre">apply_safe:</span> <span class="pre">false</span></code> and no <code class="docutils literal notranslate"><span class="pre">next_command</span></code>.
+Doctor’s allocation hint begins with the dry-run; apply only the exact plan ID when
+that report says it is safe.</p>
+<p>For a deliberate bulk operation, inspect the complete dry-run and then use
+<code class="docutils literal notranslate"><span class="pre">--all</span> <span class="pre">--apply</span> <span class="pre">--plan-id</span> <span class="pre">PLAN_ID</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code>. Never use an unscoped apply.
+The apply verifies source fingerprints, checks destinations and identity
+postconditions, and rolls back or reports an incomplete transaction on failure.</p>
 </section>
-<section id="command-surface">
-<h2>Command surface</h2>
-<p>The supported command groups are <code class="docutils literal notranslate"><span class="pre">task</span></code>, <code class="docutils literal notranslate"><span class="pre">plan</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span></code>,
-<code class="docutils literal notranslate"><span class="pre">validate</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">intro</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">link</span></code>, <code class="docutils literal notranslate"><span class="pre">require</span></code>, <code class="docutils literal notranslate"><span class="pre">release</span></code>, <code class="docutils literal notranslate"><span class="pre">lock</span></code>,
-<code class="docutils literal notranslate"><span class="pre">handoff</span></code>, <code class="docutils literal notranslate"><span class="pre">context</span></code>, <code class="docutils literal notranslate"><span class="pre">actor</span></code>, <code class="docutils literal notranslate"><span class="pre">harness</span></code>, <code class="docutils literal notranslate"><span class="pre">view</span></code>, <code class="docutils literal notranslate"><span class="pre">tree</span></code>, <code class="docutils literal notranslate"><span class="pre">next-action</span></code>,
-<code class="docutils literal notranslate"><span class="pre">can</span></code>, <code class="docutils literal notranslate"><span class="pre">search</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, <code class="docutils literal notranslate"><span class="pre">symbols</span></code>, <code class="docutils literal notranslate"><span class="pre">deps</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">repair</span></code>,
-<code class="docutils literal notranslate"><span class="pre">migrate</span></code>, <code class="docutils literal notranslate"><span class="pre">init</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">export</span></code>, <code class="docutils literal notranslate"><span class="pre">import</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span></code>,
-<code class="docutils literal notranslate"><span class="pre">sync</span></code>, <code class="docutils literal notranslate"><span class="pre">ledger</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>, <code class="docutils literal notranslate"><span class="pre">commands</span></code>, <code class="docutils literal notranslate"><span class="pre">review</span></code>, <code class="docutils literal notranslate"><span class="pre">monitor</span></code>, <code class="docutils literal notranslate"><span class="pre">usage</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">ref</span></code>. The authoritative source for the complete command surface and flags
-is <code class="docutils literal notranslate"><span class="pre">taskledger/command_inventory.py</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/command_contract.md</span></code>.</p>
+<section id="reconcile-a-previously-misattributed-tombstone">
+<h2>Reconcile a previously misattributed tombstone</h2>
+<p>Use this only when the tombstone’s repair event and preserved quarantine provide
+reviewable provenance for the physical source. The dry-run identifies the old
+and corrected IDs and indicates whether evidence is verified or operator-asserted:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--reconcile-source-id<span class="w"> </span>task-0019<span class="w"> </span>--tombstone-id<span class="w"> </span>task-0037
+</pre></div>
+</div>
+<p>If the evidence, quarantine, and plan are consistent, apply that exact plan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--reconcile-source-id<span class="w"> </span>task-0019<span class="w"> </span>--tombstone-id<span class="w"> </span>task-0037<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Correct the tombstone to the physical source identity.&quot;</span>
+</pre></div>
+</div>
+<p>The prior tombstone is retained in recovery, the corrected tombstone records the
+retired physical source, the quarantine payload is preserved, and an audit event
+records the reconciliation. If provenance does not match the requested physical
+source, do not apply and do not remove the old tombstone manually.</p>
+<p>Prior allocation repairs can be reviewed read-only with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--audit
+</pre></div>
+</div>
 </section>
-<section id="architecture-records">
-<h2>Architecture records</h2>
-<p>Arc42 architecture records live under the canonical Archledger data mount
-<code class="docutils literal notranslate"><span class="pre">.ledger/archledger/data/</span></code> and are the source of <code class="docutils literal notranslate"><span class="pre">docs/architecture.md</span></code>. Skills
-(<code class="docutils literal notranslate"><span class="pre">skills/taskledger/SKILL.md</span></code>) and <code class="docutils literal notranslate"><span class="pre">docs/architecture_taskledger_split.md</span></code> live
-outside the Python package and outside the Archledger build output.</p>
+<section id="backfill-a-known-relationship-uuid">
+<h2>Backfill a known relationship UUID</h2>
+<p>For a selected UUID task bundle, relation repair is also dry-run by default. Review
+the source fingerprint and authoritative target UUID before applying:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>relation<span class="w"> </span>--task-uuid<span class="w"> </span>TASK_UUID<span class="w"> </span>--field<span class="w"> </span>parent_task_uuid
+taskledger<span class="w"> </span>repair<span class="w"> </span>relation<span class="w"> </span>--task-uuid<span class="w"> </span>TASK_UUID<span class="w"> </span>--field<span class="w"> </span>parent_task_uuid<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Backfill the reviewed parent UUID.&quot;</span>
+</pre></div>
+</div>
+<p>For a requirement sidecar, supply <code class="docutils literal notranslate"><span class="pre">--field</span> <span class="pre">required_task_uuid</span></code> and
+<code class="docutils literal notranslate"><span class="pre">--requirement-id</span> <span class="pre">REQUIREMENT_ID</span></code>. The repair refuses ambiguous mapping evidence,
+changed source records, or invalid postconditions.</p>
+</section>
+<section id="verify-and-rebuild-derived-indexes">
+<h2>Verify and rebuild derived indexes</h2>
+<p>After canonical identity, relationships, and schema are healthy, explicitly rebuild
+indexes and inspect them. Do not use index rebuilding as a diagnostic step:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>doctor<span class="w"> </span>schema
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--audit
+taskledger<span class="w"> </span>repair<span class="w"> </span>index
+taskledger<span class="w"> </span>--json<span class="w"> </span>doctor<span class="w"> </span>indexes
+taskledger<span class="w"> </span>--json<span class="w"> </span>doctor
+</pre></div>
+</div>
+<p>Require structured, healthy doctor output and no unresolved identity or relation
+findings before resuming ordinary writes.</p>
+</section>
+<section id="readio-incident-runbook-not-executed-here">
+<h2>Readio incident runbook (not executed here)</h2>
+<p>This section records steps for the operator on the separate Readio machine. No
+Readio checkout, ledger, backup, or external data mount was accessed or changed
+while this procedure was written. The UUIDs below are copied from the supplied
+incident report and must be re-confirmed from that machine’s backup and migration
+receipt before use:</p>
+<ul class="simple">
+<li><p>live task 37: <code class="docutils literal notranslate"><span class="pre">00dc6acf-ac25-76b7-9c95-3e6e51ff322d</span></code></p></li>
+<li><p>child task 38: <code class="docutils literal notranslate"><span class="pre">00dc6acf-ac26-706f-a725-473d7990a711</span></code></p></li>
+<li><p>physical incomplete source: <code class="docutils literal notranslate"><span class="pre">tasks/task-0019</span></code></p></li>
+<li><p>suspect old tombstone: <code class="docutils literal notranslate"><span class="pre">task-0037</span></code></p></li>
+</ul>
+<p>On the Readio machine, stop writers and snapshot the checkout configuration plus
+the full resolved Taskledger data mount and recovery payload before running any
+repair. Then:</p>
+<ol class="arabic simple">
+<li><p>Run the read-only doctor, schema, lock, index, and allocation-audit commands
+above. Directly inspect the two UUID bundles and the v5-to-v6 migration receipt.
+Confirm that task 37’s persisted legacy identity maps to its live UUID and that
+task 38 is its intended follow-up.</p></li>
+<li><p>Review the old tombstone, its allocation-repair event, and the quarantine
+directory as one evidence set. Confirm that the quarantined payload came from
+physical <code class="docutils literal notranslate"><span class="pre">tasks/task-0019</span></code>; do not infer that from display alias <code class="docutils literal notranslate"><span class="pre">task-0037</span></code>.</p></li>
+<li><p>Run the tombstone reconciliation dry-run for source <code class="docutils literal notranslate"><span class="pre">task-0019</span></code> and old
+tombstone <code class="docutils literal notranslate"><span class="pre">task-0037</span></code>. Apply only if its provenance, payload, destination, and
+reviewed plan fingerprint all agree. Otherwise stop and retain the snapshot and
+evidence for manual investigation; never delete the tombstone or payload by
+hand as a shortcut.</p></li>
+<li><p>Run a dry-run relation repair on task 38 for <code class="docutils literal notranslate"><span class="pre">parent_task_uuid</span></code>. Confirm the
+target is the task-37 UUID from the migration receipt and live task record,
+then apply the exact reviewed plan. Do not choose among conflicting targets.</p></li>
+<li><p>Re-run read-only doctor/schema and allocation-provenance checks. Confirm one
+live task-37 identity, a correct task-0019 retirement record, intact recovery
+payload, and UUID-backed task-38 relationship. Only then rebuild indexes
+explicitly and run doctor/schema/index checks again.</p></li>
+<li><p>Inspect every other prior allocation-repair event against its physical source,
+quarantine directory, and tombstone. Do not bulk reverse unrelated repairs;
+reconcile only individually evidenced mismatches.</p></li>
+</ol>
+<p>If any postcondition fails, stop further writes and use the verified snapshot and
+repair audit trail for recovery. This runbook is guidance only; it does not imply
+that the separate Readio recovery was carried out.</p>
 </section>
 </section>
 </div>

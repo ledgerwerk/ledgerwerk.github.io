@@ -5,8 +5,8 @@ permalink: /tools/taskledger/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.7.0"
-docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
+docs_ref: "v0.7.2"
+docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
 search_enabled: true
 ---
 
@@ -773,6 +773,16 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="command_contract/#layout-and-migration-commands">Layout and migration commands</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="recovery_identity/">UUID identity and allocation recovery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#safety-boundary">Safety boundary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#backup-and-read-only-diagnosis">Backup and read-only diagnosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#incomplete-allocation-repair">Incomplete allocation repair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#reconcile-a-previously-misattributed-tombstone">Reconcile a previously misattributed tombstone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#backfill-a-known-relationship-uuid">Backfill a known relationship UUID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#verify-and-rebuild-derived-indexes">Verify and rebuild derived indexes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#readio-incident-runbook-not-executed-here">Readio incident runbook (not executed here)</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="transfer/">Transfer archives</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#what-transfer-archives-include">What transfer archives include</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transfer/#artifact-file-size-policy">Artifact file-size policy</a></li>
@@ -813,6 +823,8 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-2-2026-10-07">[v0.7.2] - 2026-10-07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-1-2026-10-07">[v0.7.1] - 2026-10-07</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-0-2026-10-04">[v0.7.0] - 2026-10-04</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-11-2026-10-02">[v0.6.11] - 2026-10-02</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-6-10-2026-09-26">[v0.6.10] - 2026-09-26</a></li>

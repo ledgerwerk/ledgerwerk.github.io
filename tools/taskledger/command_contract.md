@@ -5,8 +5,8 @@ permalink: /tools/taskledger/command_contract/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.7.0"
-docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
+docs_ref: "v0.7.2"
+docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
 search_enabled: true
 ---
 
@@ -968,9 +968,32 @@ taskledger<span class="w"> </span>repair<span class="w"> </span>locks<span class
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">locks</span></code> is dry-run by default. It reports <code class="docutils literal notranslate"><span class="pre">orphan_missing_task</span></code> separately from expired and dead-process locks, copies the orphan lock to the recovery audit area, removes the runtime lock, and updates derived lock indexes. Inspect the dry-run before applying.</p>
-<p>Doctor also reports nonempty task allocation directories that lack <code class="docutils literal notranslate"><span class="pre">task.md</span></code>. Their repair preserves all files in quarantine and writes a task-ID tombstone so the identifier cannot be reused:</p>
+<p>Doctor also reports nonempty task allocation directories that lack <code class="docutils literal notranslate"><span class="pre">task.md</span></code>. Allocation repair is dry-run by default, and applying requires an explicit <code class="docutils literal notranslate"><span class="pre">--task-id</span></code> or deliberate <code class="docutils literal notranslate"><span class="pre">--all</span></code> scope, the reviewed plan fingerprint, and a reason. Review physical source identity separately from any display alias:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations
-taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--apply<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Quarantine incomplete task allocation after record loss.&quot;</span>
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--task-id<span class="w"> </span>task-0019
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--task-id<span class="w"> </span>task-0019<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Quarantine the reviewed physical source.&quot;</span>
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--audit
+</pre></div>
+</div>
+<p>The dry-run result includes top-level <code class="docutils literal notranslate"><span class="pre">apply_safe</span></code>, <code class="docutils literal notranslate"><span class="pre">plan_id</span></code>, and <code class="docutils literal notranslate"><span class="pre">next_command</span></code>,
+plus <code class="docutils literal notranslate"><span class="pre">incomplete_allocations</span></code> entries containing <code class="docutils literal notranslate"><span class="pre">physical_source</span></code>, <code class="docutils literal notranslate"><span class="pre">source_kind</span></code>,
+<code class="docutils literal notranslate"><span class="pre">legacy_source_id</span></code>, <code class="docutils literal notranslate"><span class="pre">source_fingerprint</span></code>, <code class="docutils literal notranslate"><span class="pre">repair_mode</span></code>, per-entry <code class="docutils literal notranslate"><span class="pre">apply_safe</span></code>,
+<code class="docutils literal notranslate"><span class="pre">collision_findings</span></code>, <code class="docutils literal notranslate"><span class="pre">surviving_identity</span></code>, <code class="docutils literal notranslate"><span class="pre">planned_quarantine</span></code>, and nullable
+<code class="docutils literal notranslate"><span class="pre">planned_tombstone</span></code>. Modes are <code class="docutils literal notranslate"><span class="pre">quarantine_and_tombstone</span></code> for an eligible orphan,
+<code class="docutils literal notranslate"><span class="pre">quarantine_shadowed_legacy_source</span></code> for one stale legacy source with exactly one live
+UUID owner, and <code class="docutils literal notranslate"><span class="pre">blocked_identity_conflict</span></code> for ambiguity. A shadowed-source repair
+preserves the existing live owner and must not create a second tombstone. When any
+selected entry is blocked, top-level <code class="docutils literal notranslate"><span class="pre">apply_safe</span></code> is false and <code class="docutils literal notranslate"><span class="pre">next_command</span></code> is null;
+resolve the ownership ambiguity instead of applying the plan.</p>
+<p>Prior repairs with a misattributed tombstone can be reconciled only when event and quarantine provenance support the physical source. The dry-run is also the required review step:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--reconcile-source-id<span class="w"> </span>task-0019<span class="w"> </span>--tombstone-id<span class="w"> </span>task-0037
+taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--reconcile-source-id<span class="w"> </span>task-0019<span class="w"> </span>--tombstone-id<span class="w"> </span>task-0037<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Correct the tombstone to the physical source ID.&quot;</span>
+</pre></div>
+</div>
+<p>Reconciliation preserves the old tombstone and quarantine payload and records an audit event. Do not delete either by hand. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">allocations</span> <span class="pre">--audit</span></code> to inspect prior repair provenance.</p>
+<p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">relation</span></code> backfills a known relationship UUID for one UUID task bundle or requirement sidecar. It is dry-run by default; apply only the exact reviewed plan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>relation<span class="w"> </span>--task-uuid<span class="w"> </span>TASK_UUID<span class="w"> </span>--field<span class="w"> </span>parent_task_uuid
+taskledger<span class="w"> </span>repair<span class="w"> </span>relation<span class="w"> </span>--task-uuid<span class="w"> </span>TASK_UUID<span class="w"> </span>--field<span class="w"> </span>parent_task_uuid<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Backfill the reviewed parent UUID.&quot;</span>
 </pre></div>
 </div>
 </section>

@@ -5,8 +5,8 @@ permalink: /tools/taskledger/service_boundary_whitelist/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.7.0"
-docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
+docs_ref: "v0.7.2"
+docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
 search_enabled: true
 ---
 
@@ -581,6 +581,11 @@ smaller compatibility facade and move residual helpers into focused modules.</p>
 <li><p>Current reason: Sub-phases of scan_task_integrity with per-task lock, run, and validation checks.</p></li>
 </ul>
 </li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/services/doctor.py::_inspect_v2_project_phases</span></code></p>
+<ul>
+<li><p>Current reason: Project doctor phases collect independent corruption-tolerant diagnostics.</p></li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_sync.py::register_sync_commands</span></code></p>
 <ul>
 <li><p>Current reason: Git-sync and hook commands are registered together in the
@@ -651,6 +656,7 @@ marks guidance viewed via the planning flow service.</p></li>
 resolve completed-by actor metadata.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.agent_transcripts</span></code> — Task
 transcript rendering lives in services.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.agent_logging</span></code> — Task CLI records direct UUID show diagnostics through the agent logger.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.task_reports</span></code> — Task report
 rendering and options are service-owned.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger/cli_task.py:taskledger.services.task_export</span></code> — Task export service

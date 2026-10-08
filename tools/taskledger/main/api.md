@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
+docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
 search_enabled: true
 ---
 

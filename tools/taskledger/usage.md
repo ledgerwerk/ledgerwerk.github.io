@@ -5,8 +5,8 @@ permalink: /tools/taskledger/usage/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.7.0"
-docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
+docs_ref: "v0.7.2"
+docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
 search_enabled: true
 ---
 
@@ -1197,7 +1197,7 @@ taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span
 taskledger<span class="w"> </span>maintenance<span class="w"> </span>gc<span class="w"> </span>--scope<span class="w"> </span>artifacts
 </pre></div>
 </div>
-<p>Forced deactivation clears only a dangling active-task pointer. Run the lock-repair dry-run separately to inspect orphan locks before applying. Allocation repair preserves the partial directory in quarantine and tombstones its ID. Garbage collection is explicit, dry-run by default, and never deletes canonical task history; see <code class="docutils literal notranslate"><span class="pre">docs/command_contract.md</span></code> for scope and retention details.</p>
+<p>Forced deactivation clears only a dangling active-task pointer. Run the lock-repair dry-run separately to inspect orphan locks before applying. Allocation repair is dry-run by default and requires an explicit source or deliberate bulk scope plus a reviewed plan fingerprint before applying. It preserves quarantined payloads and records tombstone provenance. For identity, relationship, and backup-first recovery procedures, see <a class="reference internal" href="../recovery_identity/"><span class="std std-doc">UUID identity and allocation recovery</span></a>. Garbage collection is explicit, dry-run by default, and never deletes canonical task history; see <code class="docutils literal notranslate"><span class="pre">docs/command_contract.md</span></code> for scope and retention details.</p>
 </section>
 <section id="export-and-snapshots">
 <h2>Export and snapshots</h2>

@@ -4,17 +4,17 @@ nav_key: taskledger
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.7.0
-source_commit: c0804535fe3490142decc1cc641dc1ee07224ac7
-source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.0
+source_ref: v0.7.2
+source_commit: 54989ceb32d8fac35df49d476dec1d31766e4add
+source_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.2
 is_default: true
 repo_url: https://github.com/ledgerwerk/taskledger
-release_tag: v0.7.0
-release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.0
+release_tag: v0.7.2
+release_url: https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.2
 versions:
 - name: release
   label: Latest release
-  ref: v0.7.0
+  ref: v0.7.2
   url: /tools/taskledger/
   current: true
 - name: main
@@ -50,6 +50,9 @@ entries:
 - slug: command_contract
   title: taskledger CLI Command Contract
   url: /tools/taskledger/command_contract/
+- slug: recovery_identity
+  title: taskledger UUID identity and allocation recovery
+  url: /tools/taskledger/recovery_identity/
 - slug: transfer
   title: taskledger Transfer archives
   url: /tools/taskledger/transfer/

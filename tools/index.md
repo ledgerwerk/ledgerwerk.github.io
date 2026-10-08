@@ -26,6 +26,9 @@ permalink: /tools/
       <h2 id="tools-index-title">All tools</h2>
     </div>
   </div>
+  <div class="tool-groups catalog-tool-groups">
+<section class="tool-group catalog-tool-group" aria-labelledby="tools-category-1">
+  <h3 id="tools-category-1">Tools</h3>
   <div class="cards tool-cards">
     <article class="card tool-card">
       <p class="card-label">Tool</p>
@@ -41,7 +44,7 @@ permalink: /tools/
       <h3>taskledger</h3>
       <div class="card-links">
         <a href="/tools/taskledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.0" rel="external noopener">Latest release: v0.7.0 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.2" rel="external noopener">Latest release: v0.7.2 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/taskledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -108,6 +111,8 @@ permalink: /tools/
         <a href="https://github.com/ledgerwerk/pyjev" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
+  </div>
+</section>
   </div>
 </section>
 

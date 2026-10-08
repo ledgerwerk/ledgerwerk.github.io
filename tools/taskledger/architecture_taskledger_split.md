@@ -5,8 +5,8 @@ permalink: /tools/taskledger/architecture_taskledger_split/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.7.0"
-docs_commit: "c0804535fe3490142decc1cc641dc1ee07224ac7"
+docs_ref: "v0.7.2"
+docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
 search_enabled: true
 ---
 
