@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_commit: "13619052ee14766fcfa2a83fdd0ed679e615e836"
 search_enabled: true
 ---
 
@@ -542,17 +542,127 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="comparisons">
 <h1>Comparisons</h1>
-<section id="three-layers">
-<h2>Three layers</h2>
+<section id="pyjev-and-typesafe-sdk">
+<h2>pyjev and <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code></h2>
+<p>pyjev depends on and delegates to TypeSafe’s official Python SDK. They are not
+competing transports. Use the SDK to construct and execute System One requests.
+Use pyjev when those requests need application-level identity, offline inspection,
+reuse across runtime surfaces, explicit interpretation or policy, or packaged
+semantic workflows. See <a class="reference internal" href="../why-pyjev/"><span class="std std-doc">Why pyjev?</span></a> for the full product-boundary
+explanation.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Need</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">pyjev</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Make a System One request</p></td>
+<td><p>Yes, the primary API</p></td>
+<td><p>Yes, delegates to the SDK</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sync and async clients</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes, with pyjev decision and recipe APIs</p></td>
+</tr>
+<tr class="row-even"><td><p>Typed questions and answers</p></td>
+<td><p>Yes, SDK models</p></td>
+<td><p>Stable pyjev-facing result and workflow contracts around SDK results</p></td>
+</tr>
+<tr class="row-odd"><td><p>Low-level retry, transport, and request controls</p></td>
+<td><p>Yes</p></td>
+<td><p>Intentionally delegated to the SDK</p></td>
+</tr>
+<tr class="row-even"><td><p>Named project decisions</p></td>
+<td><p>Build your own application abstraction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> declarations</p></td>
+</tr>
+<tr class="row-odd"><td><p>Offline decision validation and request preview</p></td>
+<td><p>Build your own tooling</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">decision</span> <span class="pre">validate</span></code> and <code class="docutils literal notranslate"><span class="pre">compile_decision()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Deterministic decision-spec fingerprint</p></td>
+<td><p>Build your own</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reuse one named decision from Python and shell/CI</p></td>
+<td><p>Build your own</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Shell-safe confidence gate and exit contract</p></td>
+<td><p>Build your own</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Inspectable <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">-&gt;</span> <span class="pre">execute</span> <span class="pre">-&gt;</span> <span class="pre">interpret</span></code> recipes</p></td>
+<td><p>Cookbook or application code</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Bounded, ordered async batch records</p></td>
+<td><p>Build your own</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pyjev.amap</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Latest or lower-level SDK features</p></td>
+<td><p>Yes</p></td>
+<td><p>Use the SDK directly when pyjev does not expose them</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p><strong>Rule of thumb:</strong> If the call is local implementation detail, the SDK is
+usually enough. If the judgment has a stable name, is reviewed or reused, crosses
+Python and shell/CI boundaries, or needs explicit interpretation and policy,
+pyjev starts to pay for itself.</p>
+</div></blockquote>
+</section>
+<section id="architecture">
+<h2>Architecture</h2>
+<p>A named pyjev decision flows through a validated project declaration and back to
+the official SDK for execution:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.pyjev.toml -&gt; schema/discovery -&gt; offline compile -&gt; Jev/AsyncJev -&gt; typesafe-sdk
+</pre></div>
+</div>
+<p>The official SDK owns request and response models, transport, retries,
+authentication, assets, and API error semantics. pyjev adds declaration,
+validation, inspection, result normalization, local interpretation, and caller
+policy without becoming a second transport stack. The underlying client remains
+available through <code class="docutils literal notranslate"><span class="pre">jev.client</span></code>, and callers can inject an SDK client.</p>
+</section>
+<section id="when-to-use-the-sdk-directly">
+<h2>When to use the SDK directly</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code> directly when:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>: the official low-level Python SDK for TypeSafe models,
-transport, retries, and API errors.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pyjev</span></code>: a Python application layer with typed results, named <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code>
-decisions, offline compilation, credentials, CLI behavior, and confidence
-gates.</p></li>
-<li><p>Other higher-level tools: may optimize for a different application, provider,
-agent, or protocol workflow.</p></li>
+<li><p>the application has only a few inline System One calls;</p></li>
+<li><p>the questions are highly dynamic and do not benefit from a named project
+contract;</p></li>
+<li><p>shell/CI reuse or offline declaration validation is not needed;</p></li>
+<li><p>no pyjev recipe matches the workflow;</p></li>
+<li><p>the application already owns its policy, batch, and output layer;</p></li>
+<li><p>low-level SDK controls are needed; or</p></li>
+<li><p>a TypeSafe primitive is not currently exposed by pyjev.</p></li>
 </ul>
+<p>For example, the current pyjev decision model covers Noul, Choice, Score, and
+bundles of those primitives, not TypeSafe’s <code class="docutils literal notranslate"><span class="pre">Box</span></code> primitive. The SDK also exposes
+lower-level request controls that pyjev intentionally does not mirror. Direct SDK
+use is an expected escape hatch, not a promise of complete SDK parity.</p>
+</section>
+<section id="when-pyjev-pays-for-itself">
+<h2>When pyjev pays for itself</h2>
+<p>Use pyjev when a recurring judgment should be a stable, source-controlled
+contract that can be validated and inspected before execution, reused from
+Python and automation, or interpreted through explicit caller-owned policy.</p>
+<p>Its value is the operational pattern around SDK primitives:</p>
+<ul class="simple">
+<li><p>named declarations and deterministic fingerprints;</p></li>
+<li><p>credential-free validation and normalized request previews;</p></li>
+<li><p>pyjev result wrappers that preserve uncertainty and response metadata;</p></li>
+<li><p>reusable Python pipelines and CLI gate/output conventions;</p></li>
+<li><p>semantic recipes with inspectable planning and deterministic interpretation;</p></li>
+<li><p>bounded batch records for independent async work.</p></li>
+</ul>
+<p>These features do not claim that pyjev invented typed questions, async execution,
+confidence, or bundled requests. The value is a consistent application contract
+around those capabilities.</p>
 </section>
 <section id="pyjev-and-jev-cli">
 <h2>pyjev and <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code></h2>
@@ -633,12 +743,16 @@ product.</p>
 </tbody>
 </table>
 <p><code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> retains rich response data where the provider supplies it. pyjev’s
-result wrappers are a stable Python-facing contract; the distinction is not
-that <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> discards uncertainty.</p>
+result wrappers are a stable Python-facing contract; the distinction is not that
+<code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> discards uncertainty.</p>
 </section>
 <section id="pyjev-and-nasrallah-al-jev-cli">
 <h2>pyjev and Nasrallah-AL/jev-cli</h2>
-<p>This is a separate comparison from the <code class="docutils literal notranslate"><span class="pre">tumf/jev-cli</span></code> section above. It covers <code class="docutils literal notranslate"><span class="pre">Nasrallah-AL/jev-cli</span></code>, the TypeScript project distributed as npm package <code class="docutils literal notranslate"><span class="pre">jevctl</span></code> 0.2.3, executable <code class="docutils literal notranslate"><span class="pre">jev</span></code>, at main commit <code class="docutils literal notranslate"><span class="pre">a1e668164e75d7fc80cc4a51aaeb1d0144d8961f</span></code> (reviewed 2026-09-25). It is a dated snapshot, not a winner/loser ranking or a claim about future releases.</p>
+<p>This is a separate comparison from the <code class="docutils literal notranslate"><span class="pre">tumf/jev-cli</span></code> section above. It covers
+<code class="docutils literal notranslate"><span class="pre">Nasrallah-AL/jev-cli</span></code>, the TypeScript project distributed as npm package <code class="docutils literal notranslate"><span class="pre">jevctl</span></code>
+0.2.3, executable <code class="docutils literal notranslate"><span class="pre">jev</span></code>, at main commit
+<code class="docutils literal notranslate"><span class="pre">a1e668164e75d7fc80cc4a51aaeb1d0144d8961f</span></code> (reviewed 2026-09-25). It is a dated
+snapshot, not a winner/loser ranking or a claim about future releases.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Capability</p></th>
@@ -681,45 +795,11 @@ that <code class="docutils literal notranslate"><span class="pre">jev-cli</span>
 </tr>
 </tbody>
 </table>
-<p>The useful lesson is the semantic recipe layer and operational UX, not copying the external CLI’s entire product boundary. pyjev keeps named contracts, offline inspection, typed uncertainty, explicit caller policy, and the official SDK transport boundary. Its recipes compose those foundations without invoking handlers or owning provider behavior.</p>
-</section>
-<section id="architecture">
-<h2>Architecture</h2>
-<p>A pyjev named decision flows through a validated repository declaration:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.pyjev.toml -&gt; schema/discovery -&gt; offline compile -&gt; Jev/AsyncJev -&gt; typesafe-sdk
-</pre></div>
-</div>
-<p>The official SDK owns transport, retries, request models, and API error
-semantics. pyjev adds declaration, validation, result normalization, lifecycle,
-credentials, and caller policy.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">jev-cli</span></code> baseline is closer to:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CLI or MCP tool -&gt; provider selection/translation -&gt; HTTP endpoint -&gt; JSON result
-</pre></div>
-</div>
-<p>That makes it a strong direct shell, agent, MCP, and multi-provider client. It
-also means it owns provider request translation and compatibility behavior.</p>
-</section>
-<section id="when-to-use-which">
-<h2>When to use which</h2>
-<p>Use <strong>pyjev</strong> when you need:</p>
-<ul class="simple">
-<li><p>an embeddable sync or async Python client;</p></li>
-<li><p>dependency injection and caller-owned client lifecycle;</p></li>
-<li><p>typed results with uncertainty and metadata preserved;</p></li>
-<li><p>named decisions reviewed in source control;</p></li>
-<li><p>credential-free validation or request previews;</p></li>
-<li><p>explicit confidence policy at an automation boundary.</p></li>
-</ul>
-<p>Use <strong><code class="docutils literal notranslate"><span class="pre">jev-cli</span></code></strong> when you need:</p>
-<ul class="simple">
-<li><p>a standalone generic shell client;</p></li>
-<li><p>provider selection across the official service, gateways, or a custom endpoint;</p></li>
-<li><p>an MCP server for an agent host;</p></li>
-<li><p>its bundled agent-skill installation workflow;</p></li>
-<li><p>JSON-first direct request tooling.</p></li>
-</ul>
-<p>For a one-off primitive shell judgment, either tool may fit. The syntax and
-output overlap there and should not be treated as the strategic distinction.</p>
+<p>The useful lesson is the semantic recipe layer and operational UX, not copying
+the external CLI’s entire product boundary. pyjev keeps named contracts, offline
+inspection, typed uncertainty, explicit caller policy, and the official SDK
+transport boundary. Its recipes compose those foundations without invoking
+handlers or owning provider behavior.</p>
 </section>
 <section id="exit-codes-are-not-interchangeable">
 <h2>Exit codes are not interchangeable</h2>
@@ -745,17 +825,9 @@ output overlap there and should not be treated as the strategic distinction.</p>
 </tr>
 </tbody>
 </table>
-<p>In particular, pyjev exit code <code class="docutils literal notranslate"><span class="pre">3</span></code> means a policy gate failed after Jev returned a
-valid result. It does <strong>not</strong> mean the API rejected authentication. Do not use
+<p>In particular, pyjev exit code <code class="docutils literal notranslate"><span class="pre">3</span></code> means a policy gate failed after Jev returned
+a valid result. It does <strong>not</strong> mean the API rejected authentication. Do not use
 these numbers as if they were interoperable with another <code class="docutils literal notranslate"><span class="pre">jev</span></code> CLI’s taxonomy.</p>
-</section>
-<section id="why-not-use-the-sdk-directly">
-<h2>Why not use the SDK directly?</h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code> directly when you want maximum control and do not need named
-decisions, pyjev credential ergonomics, shell-safe confidence gates, offline
-inspection, or pyjev result wrappers. Use pyjev when those application and
-workflow abstractions make decisions easier to declare, inspect, validate,
-execute, gate, trace, and reuse.</p>
 </section>
 </section>
 </div>

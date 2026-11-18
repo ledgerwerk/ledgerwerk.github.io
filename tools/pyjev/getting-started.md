@@ -5,8 +5,8 @@ permalink: /tools/pyjev/getting-started/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.2"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_ref: "v0.1.3"
+docs_commit: "a8e1bfd11178fd873a959ec38aab7acc994cd1c7"
 search_enabled: true
 ---
 
@@ -638,6 +638,22 @@ policy.</p>
     <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">jev</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="s2">&quot;ticket-route&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Stripe webhooks fail&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="image-inputs">
+<h2>Image inputs</h2>
+<p>The Python API can pass an SDK <code class="docutils literal notranslate"><span class="pre">Image</span></code> through to TypeSafe. This feature is experimental and requires an explicit opt-in:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Jev</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">noul</span><span class="p">(</span>
+        <span class="s2">&quot;Is a person visible in `photo`?&quot;</span><span class="p">,</span>
+        <span class="n">state</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;photo&quot;</span><span class="p">:</span> <span class="n">Image</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;photo.jpg&quot;</span><span class="p">))},</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Image requests require <code class="docutils literal notranslate"><span class="pre">typesafe-sdk&gt;=0.7.5</span></code> and send the image to the configured API. See <a class="reference internal" href="../images/"><span class="std std-doc">Image inputs</span></a> for named assets, current upstream limits, and data-handling guidance.</p>
 </section>
 <section id="when-to-use-a-direct-primitive">
 <h2>When to use a direct primitive</h2>

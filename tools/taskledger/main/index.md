@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
+docs_commit: "48df72665f5dcf1e9d1d9e190954a6514cdf108c"
 search_enabled: true
 ---
 
@@ -777,6 +777,10 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="recovery_identity/#safety-boundary">Safety boundary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recovery_identity/#backup-and-read-only-diagnosis">Backup and read-only diagnosis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recovery_identity/#incomplete-allocation-repair">Incomplete allocation repair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#dependency-order-and-physical-repair-boundaries">Dependency order and physical repair boundaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#historical-shadowing-tombstone-recovery">Historical shadowing-tombstone recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#coordinated-allocation-batches-and-interrupted-transactions">Coordinated allocation batches and interrupted transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery_identity/#recover-a-damaged-active-task-pointer">Recover a damaged active-task pointer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recovery_identity/#reconcile-a-previously-misattributed-tombstone">Reconcile a previously misattributed tombstone</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recovery_identity/#backfill-a-known-relationship-uuid">Backfill a known relationship UUID</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recovery_identity/#verify-and-rebuild-derived-indexes">Verify and rebuild derived indexes</a></li>
@@ -823,6 +827,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_checklist/">Release checklist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-7-2026-11-13">[v0.7.7] - 2026-11-13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-6-2026-11-03">[v0.7.6] - 2026-11-03</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-5-2026-10-16">[v0.7.5] - 2026-10-16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-4-2026-10-09">[v0.7.4] - 2026-10-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-3-2026-10-08">[v0.7.3] - 2026-10-08</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-2-2026-10-07">[v0.7.2] - 2026-10-07</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-1-2026-10-07">[v0.7.1] - 2026-10-07</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-7-0-2026-10-04">[v0.7.0] - 2026-10-04</a></li>

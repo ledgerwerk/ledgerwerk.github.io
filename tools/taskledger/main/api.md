@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
+docs_commit: "48df72665f5dcf1e9d1d9e190954a6514cdf108c"
 search_enabled: true
 ---
 
@@ -556,6 +556,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.locks</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.handoff</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.releases</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.repair</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.storage</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.sync</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.search</span></code></p></li>
@@ -691,6 +692,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">run_validation_command</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">finish_implementation</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">show_task_run</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resume_validation</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">start_validation</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">add_validation_check</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">validation_status</span></code></p></li>
@@ -784,6 +786,27 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><code class="docutils literal notranslate"><span class="pre">garbage_collect</span></code></p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">garbage_collect(workspace_root,</span> <span class="pre">*,</span> <span class="pre">scope=&quot;all&quot;,</span> <span class="pre">task_id=None,</span> <span class="pre">older_than=None,</span> <span class="pre">apply=False,</span> <span class="pre">reason=&quot;&quot;)</span></code> reports eligible cache, runtime snapshot, and unreferenced artifact files. It is dry-run by default. Evidence/runtime deletion requires <code class="docutils literal notranslate"><span class="pre">apply=True</span></code> and a non-empty <code class="docutils literal notranslate"><span class="pre">reason</span></code>; canonical task records are never targets.</p>
+</section>
+<section id="recovery-api">
+<h3>Recovery API</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">repair_project_identity</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repair_locks</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repair_allocations</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repair_allocation_conflicts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repair_active_task</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list_allocation_repair_transactions</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recover_allocation_repair_transaction</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">audit_allocation_repairs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reconcile_allocation_tombstone</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repair_task_relation</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">repair_allocation_conflicts</span></code> returns a fingerprinted dry-run plan by default and
+applies only that exact plan with a non-empty reason. Unverifiable tombstone
+retirement additionally requires the same explicit override posture at review
+and apply. A committed subset may leave <code class="docutils literal notranslate"><span class="pre">ledger_healthy</span></code> false while returning
+expected <code class="docutils literal notranslate"><span class="pre">remaining_conflicts</span></code>.</p>
+<p>Allocation transaction and active-task recovery use reviewed plans and explicit reasons for mutation. Listing, diagnosis, and dry-run plans are read-only. These are exceptional recovery APIs, not lifecycle shortcuts.</p>
 </section>
 <section id="sync-api">
 <h3>Sync API</h3>

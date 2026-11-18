@@ -44,7 +44,7 @@ permalink: /tools/
       <h3>taskledger</h3>
       <div class="card-links">
         <a href="/tools/taskledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.2" rel="external noopener">Latest release: v0.7.2 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/taskledger/releases/tag/v0.7.7" rel="external noopener">Latest release: v0.7.7 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/taskledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -71,7 +71,7 @@ permalink: /tools/
       <h3>documentledger</h3>
       <div class="card-links">
         <a href="/tools/documentledger/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.1" rel="external noopener">Latest release: v0.2.1 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/documentledger/releases/tag/v0.2.2" rel="external noopener">Latest release: v0.2.2 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/documentledger" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>
@@ -107,7 +107,7 @@ permalink: /tools/
       <h3>pyjev</h3>
       <div class="card-links">
         <a href="/tools/pyjev/">Read docs <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.2" rel="external noopener">Latest release: v0.1.2 <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.3" rel="external noopener">Latest release: v0.1.3 <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/ledgerwerk/pyjev" rel="external noopener">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </article>

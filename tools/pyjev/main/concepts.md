@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_commit: "13619052ee14766fcfa2a83fdd0ed679e615e836"
 search_enabled: true
 ---
 
@@ -584,14 +584,21 @@ production systems: deterministic constraints first, ambiguous judgment second.<
 </section>
 <section id="product-boundary">
 <h2>Product boundary</h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>application / shell / CI
-        pyjev: decisions, confidence-aware output, CLI, credentials, validation
-        typesafe-sdk: models, transport, retries, API errors
-        Jev API
+</section>
+<section id="id1">
+<h2>Product boundary</h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>application effects / policy
+        ↑
+pyjev: decision identity, reusable recipes, local interpretation/gates,
+      output/batch conventions, offline validation/compilation
+        ↑
+typesafe-sdk: request/response models, sync/async clients, assets,
+              retries, transport, authentication, API errors
+        ↑
+TypeSafe System One API / Jev
 </pre></div>
 </div>
-<p>pyjev wraps and preserves TypeSafe/Jev semantics; it does not invent probabilities or
-confidence calculations.</p>
+<p>The key design boundary is that pyjev should make judgments easier to declare, inspect, test, and operationalize without becoming another model API or side-effect framework. TypeSafe and Jev provide the model semantics; the official SDK owns request execution and transport. pyjev adds application-level contracts and workflows around those capabilities. If you only need a few inline requests or low-level SDK controls, use the SDK directly. See <a class="reference internal" href="../why-pyjev/"><span class="std std-doc">Why pyjev?</span></a>.</p>
 </section>
 </section>
 </div>

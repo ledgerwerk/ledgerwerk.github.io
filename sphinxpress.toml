@@ -55,7 +55,7 @@ packages = [
     "repairledger",
     "wikimason",
     "keyring>=25,<26",
-    "typesafe-sdk>=0.7.0,<1",
+    "typesafe-sdk>=0.7.5,<1",
     "platformdirs",
     "sphinxpress",
 ]

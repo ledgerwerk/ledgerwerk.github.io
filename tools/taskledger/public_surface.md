@@ -5,8 +5,8 @@ permalink: /tools/taskledger/public_surface/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.7.2"
-docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
+docs_ref: "v0.7.7"
+docs_commit: "48df72665f5dcf1e9d1d9e190954a6514cdf108c"
 search_enabled: true
 ---
 
@@ -562,7 +562,7 @@ the normal planning/approval path for agents.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">question</span> <span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span> <span class="pre">add-many</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span> <span class="pre">answer</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span> <span class="pre">answer-many</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">question</span> <span class="pre">answers</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">next</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">show</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">done</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span> <span class="pre">status</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">resume</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">change</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">scan-changes</span></code>, <code class="docutils literal notranslate"><span class="pre">implement</span> <span class="pre">finish</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">command</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">check</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">finish</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">resume</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">command</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">check</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span> <span class="pre">finish</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">review</span> <span class="pre">record</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">show</span></code>, <code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">claim</span></code>, <code class="docutils literal notranslate"><span class="pre">handoff</span> <span class="pre">close</span></code></p></li>
 </ul>
@@ -676,6 +676,7 @@ advanced metadata control and compatibility.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.locks</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.handoff</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.releases</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.repair</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.storage</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.sync</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">taskledger.api.search</span></code></p></li>

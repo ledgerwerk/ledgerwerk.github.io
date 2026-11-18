@@ -5,8 +5,8 @@ permalink: /tools/pyjev/python-api/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.2"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_ref: "v0.1.3"
+docs_commit: "a8e1bfd11178fd873a959ec38aab7acc994cd1c7"
 search_enabled: true
 ---
 
@@ -589,6 +589,25 @@ collapsing to a scalar convenience value.</p>
 </div>
 <p>Explicit call model overrides the decision model. Configuration discovery and schema
 rules are described in <a class="reference internal" href="../named-decisions/"><span class="std std-doc">Named decisions</span></a>.</p>
+</section>
+<section id="image-inputs-experimental">
+<h2>Image inputs (experimental)</h2>
+<p>pyjev re-exports the official SDK <code class="docutils literal notranslate"><span class="pre">Image</span></code> class. Image support requires <code class="docutils literal notranslate"><span class="pre">typesafe-sdk&gt;=0.7.5</span></code> and explicit <code class="docutils literal notranslate"><span class="pre">images=True</span></code>; TypeSafe currently describes it as dreamer-ready and experimental. When enabled, pyjev sends the required image opt-in header on every System One request. Inline <code class="docutils literal notranslate"><span class="pre">Image</span></code> objects in state, instructions, and criteria are passed to the SDK unchanged.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Jev</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+        <span class="s2">&quot;Which product matches &lt;reference&gt;?&quot;</span><span class="p">,</span>
+        <span class="n">state</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;candidate&quot;</span><span class="p">:</span> <span class="n">Image</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;candidate.jpg&quot;</span><span class="p">))},</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;same&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;different&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="n">assets</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&lt;reference&gt;&quot;</span><span class="p">:</span> <span class="n">Image</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;reference.jpg&quot;</span><span class="p">))},</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">assets=</span></code> is available on <code class="docutils literal notranslate"><span class="pre">ask</span></code>, <code class="docutils literal notranslate"><span class="pre">noul</span></code>, <code class="docutils literal notranslate"><span class="pre">choice</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code>, <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>, <code class="docutils literal notranslate"><span class="pre">decide</span></code>, and <code class="docutils literal notranslate"><span class="pre">run</span></code>. <code class="docutils literal notranslate"><span class="pre">AsyncJev(images=True)</span></code> exposes the same behavior with native async calls and <code class="docutils literal notranslate"><span class="pre">await</span></code>. The flag also works with an injected SDK client; pyjev does not reconstruct or take ownership of that client.</p>
+<p>For advanced SDK operations such as <code class="docutils literal notranslate"><span class="pre">attach_assets</span></code>, use <code class="docutils literal notranslate"><span class="pre">jev.client</span></code>. Direct structured image placement and <code class="docutils literal notranslate"><span class="pre">assets=</span></code> are the preferred pyjev interfaces. Image support is experimental, and requests send the supplied image data to the configured API. See <a class="reference internal" href="../images/"><span class="std std-doc">Image inputs</span></a> for limits, preparation, errors, and policy considerations.</p>
 </section>
 <section id="mixed-questions">
 <h2>Mixed questions</h2>

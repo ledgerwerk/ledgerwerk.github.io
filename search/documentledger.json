@@ -241,6 +241,18 @@
         {
           "anchor": "",
           "heading": "Added",
+          "text": "Added scan-bound proposal manifests and reviewed import workflows for documentation mappings\n\n\nAdded paginated document build-context output with resumable cursors and completeness metadata",
+          "lower": "added scan-bound proposal manifests and reviewed import workflows for documentation mappings\n\n\nadded paginated document build-context output with resumable cursors and completeness metadata"
+        },
+        {
+          "anchor": "",
+          "heading": "Changed",
+          "text": "Improved the documentation completion workflow with source-root discovery and current-content validation checks",
+          "lower": "improved the documentation completion workflow with source-root discovery and current-content validation checks"
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
           "text": "Documentation generation script for automated CLI reference\n\n\nFreshness tracking module for document staleness detection",
           "lower": "documentation generation script for automated cli reference\n\n\nfreshness tracking module for document staleness detection"
         },
@@ -333,8 +345,8 @@
         {
           "anchor": "",
           "heading": "Arguments and options",
-          "text": "Parameter\n\nRequired\n\nDefault\n\nType\n\n\n\n\n\n--project-name\n\nno\n\n``\n\nstr\n\n\n\n--documentledger-dir\n\nno\n\n'.ledger'\n\nstr\n\n\n\n--hidden-config\n\nno\n\n``\n\nboolean",
-          "lower": "parameter\n\nrequired\n\ndefault\n\ntype\n\n\n\n\n\n--project-name\n\nno\n\n``\n\nstr\n\n\n\n--documentledger-dir\n\nno\n\n'.ledger'\n\nstr\n\n\n\n--hidden-config\n\nno\n\n``\n\nboolean"
+          "text": "Parameter\n\nRequired\n\nDefault\n\nType\n\n\n\n\n\n--project-name\n\nno\n\n``\n\nstr\n\n\n\n--source-root\n\nno\n\n``\n\nstr\n\n\n\n--documentledger-dir\n\nno\n\n'.ledger'\n\nstr\n\n\n\n--hidden-config\n\nno\n\n``\n\nboolean",
+          "lower": "parameter\n\nrequired\n\ndefault\n\ntype\n\n\n\n\n\n--project-name\n\nno\n\n``\n\nstr\n\n\n\n--source-root\n\nno\n\n``\n\nstr\n\n\n\n--documentledger-dir\n\nno\n\n'.ledger'\n\nstr\n\n\n\n--hidden-config\n\nno\n\n``\n\nboolean"
         },
         {
           "anchor": "",
@@ -423,8 +435,8 @@
         {
           "anchor": "",
           "heading": "Arguments and options",
-          "text": "None.",
-          "lower": "none."
+          "text": "Parameter\n\nRequired\n\nDefault\n\nType\n\n\n\n\n\n--strict\n\nno\n\n``\n\nboolean",
+          "lower": "parameter\n\nrequired\n\ndefault\n\ntype\n\n\n\n\n\n--strict\n\nno\n\n``\n\nboolean"
         },
         {
           "anchor": "",
@@ -453,8 +465,8 @@
         {
           "anchor": "",
           "heading": "Arguments and options",
-          "text": "None.",
-          "lower": "none."
+          "text": "Parameter\n\nRequired\n\nDefault\n\nType\n\n\n\n\n\n--complete\n\nno\n\n``\n\nboolean\n\n\n\n--required-page\n\nno\n\n``\n\nstr\n\n\n\n--navigation-target\n\nno\n\n``\n\nstr",
+          "lower": "parameter\n\nrequired\n\ndefault\n\ntype\n\n\n\n\n\n--complete\n\nno\n\n``\n\nboolean\n\n\n\n--required-page\n\nno\n\n``\n\nstr\n\n\n\n--navigation-target\n\nno\n\n``\n\nstr"
         },
         {
           "anchor": "",

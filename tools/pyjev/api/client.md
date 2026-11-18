@@ -5,8 +5,8 @@ permalink: /tools/pyjev/api/client/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.2"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_ref: "v0.1.3"
+docs_commit: "a8e1bfd11178fd873a959ec38aab7acc994cd1c7"
 search_enabled: true
 ---
 
@@ -544,13 +544,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>Client</h1>
 <p>.. py:module:: pyjev.client</p>
 <p>Thin Python convenience API over TypeSafe’s official SDK.</p>
-<p>.. py:class:: Jev(*, api_key=None, model=None, timeout=None, client=None)
+<p>.. py:class:: Jev(*, api_key=None, model=None, timeout=None, images=False, client=None)
 :module: pyjev.client</p>
 <p>Bases: :py:class:<code class="docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Convenience client for common Jev decisions.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Jev</span></code> deliberately delegates transport, retries, validation, and API semantics to
 <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>. It only adds ergonomic request construction and result wrappers.</p>
-<p>.. py:method:: Jev.<strong>init</strong>(*, api_key=None, model=None, timeout=None, client=None)
+<p>.. py:method:: Jev.<strong>init</strong>(*, api_key=None, model=None, timeout=None, images=False, client=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Create a client or wrap a caller-owned SDK client.
 
@@ -564,27 +564,27 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Return the underlying SDK client.
 </pre></div>
 </div>
-<p>.. py:method:: Jev.ask(question, *, state, true=None, false=None, model=None)
+<p>.. py:method:: Jev.ask(question, *, state, true=None, false=None, model=None, assets=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Alias for :meth:`noul`.
 </pre></div>
 </div>
-<p>.. py:method:: Jev.noul(question, *, state, true=None, false=None, model=None)
+<p>.. py:method:: Jev.noul(question, *, state, true=None, false=None, model=None, assets=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate a yes/no question and preserve the probability of true.
 </pre></div>
 </div>
-<p>.. py:method:: Jev.choice(question, *, state, choices, model=None)
+<p>.. py:method:: Jev.choice(question, *, state, choices, model=None, assets=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate a closed-set Choice question.
 </pre></div>
 </div>
-<p>.. py:method:: Jev.score(question, *, state, levels, model=None)
+<p>.. py:method:: Jev.score(question, *, state, levels, model=None, assets=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate state against an ordered Score rubric.
 </pre></div>
 </div>
-<p>.. py:method:: Jev.evaluate(decision, *, state, model=None)
+<p>.. py:method:: Jev.evaluate(decision, *, state, model=None, assets=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate a validated in-memory typed decision declaration.
 
@@ -594,12 +594,12 @@ html[data-theme="dark"] .sphinxpress-doc {
   credentials; only the call to the underlying SDK performs I/O.
 </pre></div>
 </div>
-<p>.. py:method:: Jev.decide(name, *, state, config=None, model=None)
+<p>.. py:method:: Jev.decide(name, *, state, config=None, model=None, assets=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate a named primitive or bundle decision from TOML.
 </pre></div>
 </div>
-<p>.. py:method:: Jev.run(*, state, questions, model=None)
+<p>.. py:method:: Jev.run(*, state, questions, model=None, assets=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate several independent SDK questions in one request.
 </pre></div>
@@ -619,11 +619,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Close only a client created by this instance.
 </pre></div>
 </div>
-<p>.. py:class:: AsyncJev(*, api_key=None, model=None, timeout=None, client=None)
+<p>.. py:class:: AsyncJev(*, api_key=None, model=None, timeout=None, images=False, client=None)
 :module: pyjev.client</p>
 <p>Bases: :py:class:<code class="docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Native async counterpart to :class:<code class="docutils literal notranslate"><span class="pre">Jev</span></code> using the SDK async client.</p>
-<p>.. py:method:: AsyncJev.<strong>init</strong>(*, api_key=None, model=None, timeout=None, client=None)
+<p>.. py:method:: AsyncJev.<strong>init</strong>(*, api_key=None, model=None, timeout=None, images=False, client=None)
 :module: pyjev.client</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Create an async client without simulating async over synchronous I/O.
 </pre></div>
@@ -634,31 +634,31 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Return the underlying native async SDK client.
 </pre></div>
 </div>
-<p>.. py:method:: AsyncJev.ask(question, *, state, true=None, false=None, model=None)
+<p>.. py:method:: AsyncJev.ask(question, *, state, true=None, false=None, model=None, assets=None)
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Async alias for :meth:`noul`.
 </pre></div>
 </div>
-<p>.. py:method:: AsyncJev.noul(question, *, state, true=None, false=None, model=None)
+<p>.. py:method:: AsyncJev.noul(question, *, state, true=None, false=None, model=None, assets=None)
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate Noul through the native async SDK client.
 </pre></div>
 </div>
-<p>.. py:method:: AsyncJev.choice(question, *, state, choices, model=None)
+<p>.. py:method:: AsyncJev.choice(question, *, state, choices, model=None, assets=None)
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate Choice through the native async SDK client.
 </pre></div>
 </div>
-<p>.. py:method:: AsyncJev.score(question, *, state, levels, model=None)
+<p>.. py:method:: AsyncJev.score(question, *, state, levels, model=None, assets=None)
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate Score through the native async SDK client.
 </pre></div>
 </div>
-<p>.. py:method:: AsyncJev.evaluate(decision, *, state, model=None)
+<p>.. py:method:: AsyncJev.evaluate(decision, *, state, model=None, assets=None)
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate an in-memory decision using the native async SDK client.
@@ -667,13 +667,13 @@ html[data-theme="dark"] .sphinxpress-doc {
   questions share one SDK request and retain their primitive result types.
 </pre></div>
 </div>
-<p>.. py:method:: AsyncJev.decide(name, *, state, config=None, model=None)
+<p>.. py:method:: AsyncJev.decide(name, *, state, config=None, model=None, assets=None)
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate a named primitive or bundle asynchronously.
 </pre></div>
 </div>
-<p>.. py:method:: AsyncJev.run(*, state, questions, model=None)
+<p>.. py:method:: AsyncJev.run(*, state, questions, model=None, assets=None)
 :module: pyjev.client
 :async:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Evaluate several SDK questions asynchronously in one request.

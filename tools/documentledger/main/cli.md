@@ -6,7 +6,7 @@ nav_tool: documentledger-main
 docs_project: "documentledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "73cbd79efa9f63d4b2c083699ae3b3677963d03c"
+docs_commit: "cb6e19559142d93cf57e83fdca1fa7a43ffc3cd6"
 search_enabled: true
 ---
 
@@ -610,12 +610,17 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--documentledger-dir</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--source-root</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--documentledger-dir</span></code></p></td>
 <td><p>no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">'.ledger'</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--hidden-config</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--hidden-config</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
@@ -718,9 +723,22 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="id10">
 <h3>Arguments and options</h3>
-<ul class="simple">
-<li><p>None.</p></li>
-</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--strict</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id11">
 <h3>JSON result and errors</h3>
@@ -751,9 +769,32 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="id14">
 <h3>Arguments and options</h3>
-<ul class="simple">
-<li><p>None.</p></li>
-</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--complete</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--required-page</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--navigation-target</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id15">
 <h3>JSON result and errors</h3>
@@ -995,9 +1036,22 @@ html[data-theme="dark"] .sphinxpress-doc {
 </section>
 <section id="id42">
 <h3>Arguments and options</h3>
-<ul class="simple">
-<li><p>None.</p></li>
-</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--strict</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id43">
 <h3>JSON result and errors</h3>
@@ -1390,6 +1444,21 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p><code class="docutils literal notranslate"><span class="pre">250000</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--cursor</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--page-size</span></code></p></td>
+<td><p>no</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">40</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--strict</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1404,6 +1473,57 @@ html[data-theme="dark"] .sphinxpress-doc {
 </div>
 </section>
 </section>
+<section id="document-validate">
+<h2>document validate</h2>
+<p>Run configured validation and record a current-content attestation.</p>
+<ul class="simple">
+<li><p><strong>Effect:</strong> <code class="docutils literal notranslate"><span class="pre">workspace-write</span></code></p></li>
+<li><p><strong>Audience:</strong> <code class="docutils literal notranslate"><span class="pre">agent</span></code></p></li>
+<li><p><strong>Workspace required:</strong> <code class="docutils literal notranslate"><span class="pre">yes</span></code></p></li>
+<li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">validation-command</span></code></p></li>
+<li><p><strong>Compatibility aliases:</strong> None</p></li>
+</ul>
+<section id="id77">
+<h3>Syntax</h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>validate
+</pre></div>
+</div>
+</section>
+<section id="id78">
+<h3>Arguments and options</h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--required-page</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--navigation-target</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id79">
+<h3>JSON result and errors</h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
+</section>
+<section id="id80">
+<h3>Example</h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>validate
+</pre></div>
+</div>
+</section>
+</section>
 <section id="document-mark-fresh">
 <h2>document mark-fresh</h2>
 <p>Mark documentation sections as fresh.</p>
@@ -1414,13 +1534,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">document-or-section</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">mark-fresh</span></code></p></li>
 </ul>
-<section id="id77">
+<section id="id81">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>mark-fresh
 </pre></div>
 </div>
 </section>
-<section id="id78">
+<section id="id82">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1464,11 +1584,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id79">
+<section id="id83">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id80">
+<section id="id84">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>document<span class="w"> </span>mark-fresh
 </pre></div>
@@ -1485,13 +1605,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">sources</span> <span class="pre">list</span></code></p></li>
 </ul>
-<section id="id81">
+<section id="id85">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>list
 </pre></div>
 </div>
 </section>
-<section id="id82">
+<section id="id86">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1550,11 +1670,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id83">
+<section id="id87">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id84">
+<section id="id88">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>list
 </pre></div>
@@ -1571,13 +1691,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">source-unit</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">sources</span> <span class="pre">show</span></code></p></li>
 </ul>
-<section id="id85">
+<section id="id89">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>show
 </pre></div>
 </div>
 </section>
-<section id="id86">
+<section id="id90">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1596,11 +1716,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id87">
+<section id="id91">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id88">
+<section id="id92">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span><span class="nb">source</span><span class="w"> </span>show
 </pre></div>
@@ -1617,23 +1737,23 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">list</span></code></p></li>
 </ul>
-<section id="id89">
+<section id="id93">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>list
 </pre></div>
 </div>
 </section>
-<section id="id90">
+<section id="id94">
 <h3>Arguments and options</h3>
 <ul class="simple">
 <li><p>None.</p></li>
 </ul>
 </section>
-<section id="id91">
+<section id="id95">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id92">
+<section id="id96">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>list
 </pre></div>
@@ -1650,13 +1770,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">add</span></code></p></li>
 </ul>
-<section id="id93">
+<section id="id97">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>add
 </pre></div>
 </div>
 </section>
-<section id="id94">
+<section id="id98">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1685,11 +1805,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id95">
+<section id="id99">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id96">
+<section id="id100">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>add
 </pre></div>
@@ -1706,13 +1826,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">remove</span></code></p></li>
 </ul>
-<section id="id97">
+<section id="id101">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>remove
 </pre></div>
 </div>
 </section>
-<section id="id98">
+<section id="id102">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1736,11 +1856,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id99">
+<section id="id103">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id100">
+<section id="id104">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>remove
 </pre></div>
@@ -1757,13 +1877,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">add-section</span></code></p></li>
 </ul>
-<section id="id101">
+<section id="id105">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>add-section
 </pre></div>
 </div>
 </section>
-<section id="id102">
+<section id="id106">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1807,11 +1927,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id103">
+<section id="id107">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id104">
+<section id="id108">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>add-section
 </pre></div>
@@ -1828,13 +1948,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">remove-section</span></code></p></li>
 </ul>
-<section id="id105">
+<section id="id109">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>remove-section
 </pre></div>
 </div>
 </section>
-<section id="id106">
+<section id="id110">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1863,11 +1983,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id107">
+<section id="id111">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id108">
+<section id="id112">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>remove-section
 </pre></div>
@@ -1884,13 +2004,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">import-map</span></code></p></li>
 </ul>
-<section id="id109">
+<section id="id113">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>import-map
 </pre></div>
 </div>
 </section>
-<section id="id110">
+<section id="id114">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -1926,7 +2046,12 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--replace-section</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--review</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--replace-section</span></code></p></td>
 <td><p>no</p></td>
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
@@ -1934,11 +2059,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id111">
+<section id="id115">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id112">
+<section id="id116">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>import-map
 </pre></div>
@@ -1955,23 +2080,23 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">audit</span></code></p></li>
 </ul>
-<section id="id113">
+<section id="id117">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>audit
 </pre></div>
 </div>
 </section>
-<section id="id114">
+<section id="id118">
 <h3>Arguments and options</h3>
 <ul class="simple">
 <li><p>None.</p></li>
 </ul>
 </section>
-<section id="id115">
+<section id="id119">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id116">
+<section id="id120">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>audit
 </pre></div>
@@ -1988,13 +2113,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">links</span> <span class="pre">propose</span></code></p></li>
 </ul>
-<section id="id117">
+<section id="id121">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>propose
 </pre></div>
 </div>
 </section>
-<section id="id118">
+<section id="id122">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -2020,14 +2145,19 @@ html[data-theme="dark"] .sphinxpress-doc {
 <td><p>``</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--replace-owned-proposals</span></code></p></td>
+<td><p>no</p></td>
+<td><p>``</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
 </tbody>
 </table>
 </section>
-<section id="id119">
+<section id="id123">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id120">
+<section id="id124">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>link<span class="w"> </span>propose
 </pre></div>
@@ -2044,23 +2174,23 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> None</p></li>
 </ul>
-<section id="id121">
+<section id="id125">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>storage<span class="w"> </span>where
 </pre></div>
 </div>
 </section>
-<section id="id122">
+<section id="id126">
 <h3>Arguments and options</h3>
 <ul class="simple">
 <li><p>None.</p></li>
 </ul>
 </section>
-<section id="id123">
+<section id="id127">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id124">
+<section id="id128">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>storage<span class="w"> </span>where
 </pre></div>
@@ -2077,13 +2207,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> <code class="docutils literal notranslate"><span class="pre">storage</span> <span class="pre">verify</span></code></p></li>
 </ul>
-<section id="id125">
+<section id="id129">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>storage<span class="w"> </span>validate
 </pre></div>
 </div>
 </section>
-<section id="id126">
+<section id="id130">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -2102,11 +2232,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id127">
+<section id="id131">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id128">
+<section id="id132">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>storage<span class="w"> </span>validate
 </pre></div>
@@ -2123,23 +2253,23 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> None</p></li>
 </ul>
-<section id="id129">
+<section id="id133">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>status
 </pre></div>
 </div>
 </section>
-<section id="id130">
+<section id="id134">
 <h3>Arguments and options</h3>
 <ul class="simple">
 <li><p>None.</p></li>
 </ul>
 </section>
-<section id="id131">
+<section id="id135">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id132">
+<section id="id136">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>status
 </pre></div>
@@ -2156,13 +2286,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">migration-name</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> None</p></li>
 </ul>
-<section id="id133">
+<section id="id137">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>plan
 </pre></div>
 </div>
 </section>
-<section id="id134">
+<section id="id138">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -2206,11 +2336,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id135">
+<section id="id139">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id136">
+<section id="id140">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>plan
 </pre></div>
@@ -2227,13 +2357,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">migration-name</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> None</p></li>
 </ul>
-<section id="id137">
+<section id="id141">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>apply
 </pre></div>
 </div>
 </section>
-<section id="id138">
+<section id="id142">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -2272,11 +2402,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id139">
+<section id="id143">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id140">
+<section id="id144">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>apply
 </pre></div>
@@ -2293,13 +2423,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> None</p></li>
 </ul>
-<section id="id141">
+<section id="id145">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>recover
 </pre></div>
 </div>
 </section>
-<section id="id142">
+<section id="id146">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -2323,11 +2453,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id143">
+<section id="id147">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id144">
+<section id="id148">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>recover
 </pre></div>
@@ -2344,13 +2474,13 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li><p><strong>Targeting:</strong> <code class="docutils literal notranslate"><span class="pre">migration-name</span></code></p></li>
 <li><p><strong>Compatibility aliases:</strong> None</p></li>
 </ul>
-<section id="id145">
+<section id="id149">
 <h3>Syntax</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>cleanup
 </pre></div>
 </div>
 </section>
-<section id="id146">
+<section id="id150">
 <h3>Arguments and options</h3>
 <table class="docutils align-default">
 <thead>
@@ -2394,11 +2524,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 </tbody>
 </table>
 </section>
-<section id="id147">
+<section id="id151">
 <h3>JSON result and errors</h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">--json</span></code>, the command returns <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">command</span></code>, a command-specific <code class="docutils literal notranslate"><span class="pre">result</span></code>, and <code class="docutils literal notranslate"><span class="pre">events</span></code>. Failures return the normalized <code class="docutils literal notranslate"><span class="pre">error</span></code> object with <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">remediation</span></code>, and <code class="docutils literal notranslate"><span class="pre">details.domain_code</span></code>. Invalid workspace, selector, cursor, link, or migration state is reported before a write when applicable.</p>
 </section>
-<section id="id148">
+<section id="id152">
 <h3>Example</h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>documentledger<span class="w"> </span>migrate<span class="w"> </span>cleanup
 </pre></div>

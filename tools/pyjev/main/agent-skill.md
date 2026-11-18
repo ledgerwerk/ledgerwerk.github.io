@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_commit: "13619052ee14766fcfa2a83fdd0ed679e615e836"
 search_enabled: true
 ---
 
@@ -542,9 +542,11 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="agent-skill">
 <h1>Agent skill</h1>
-<p>The bundled pyjev skill at <code class="docutils literal notranslate"><span class="pre">skills/pyjev/SKILL.md</span></code> teaches an agent to use
+<p>Use <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code> directly for isolated or low-level System One requests that do not need pyjev’s contract, recipe, policy, or automation layers. Prefer pyjev when a judgment has a stable project-level name, must be inspected or validated without execution, should be shared across Python and shell/CI, a recipe encodes the desired semantics, or explicit local review policy matters. pyjev does not replace SDK transport features.
+The bundled pyjev skill at <code class="docutils literal notranslate"><span class="pre">skills/pyjev/SKILL.md</span></code> teaches an agent to use
 named decision contracts without reading pyjev source or adding an MCP
 integration.</p>
+<p>See <a class="reference internal" href="../why-pyjev/"><span class="std std-doc">Why pyjev?</span></a> for the product boundary and when direct SDK use is simpler.</p>
 <p>Its workflow is deliberately inspect-first:</p>
 <ol class="arabic simple">
 <li><p>list and show named decisions;</p></li>

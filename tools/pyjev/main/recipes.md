@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_commit: "13619052ee14766fcfa2a83fdd0ed679e615e836"
 search_enabled: true
 ---
 
@@ -544,6 +544,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <h1>Semantic recipes</h1>
 <p>Semantic recipes package typed pyjev decisions with deterministic input preparation and result interpretation. They are ordinary Python APIs, not a second transport client. Recipe plans can be inspected without credentials or network access; execution uses the caller’s existing <code class="docutils literal notranslate"><span class="pre">Jev</span></code> or <code class="docutils literal notranslate"><span class="pre">AsyncJev</span></code> instance. Recipes preserve their underlying typed results so callers can inspect probability distributions, confidence, usage, model, request ID, and raw response data.</p>
 <p>Thresholds and actions are caller policy. The examples below use illustrative defaults, not universal correctness thresholds. Calibrate against representative local data and account for the consequences of each action.</p>
+<p>The SDK supplies the primitives used by these recipes. pyjev’s contribution is the reusable application pattern around them: deterministic planning, explicit abstention/review semantics, bounded call shapes, typed evidence retention, and deterministic interpretation that can be tested separately from the network call.</p>
 <section id="find-rank-and-independently-test-applicability">
 <h2>Find: rank and independently test applicability</h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">find</span></code> to rank candidate documents or records while separately asking whether any candidate actually answers the query. The Choice ranking alone always has a winner, so it must not be treated as proof that a match exists.</p>

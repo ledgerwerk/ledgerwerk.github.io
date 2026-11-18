@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_commit: "13619052ee14766fcfa2a83fdd0ed679e615e836"
 search_enabled: true
 ---
 
@@ -542,12 +542,9 @@ html[data-theme="dark"] .sphinxpress-doc {
 <div class="sphinxpress-doc">
 <section id="pyjev">
 <h1>pyjev</h1>
-<p><strong>Reusable, inspectable Jev decision contracts for Python applications and automation.</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">pyjev</span></code> is the Python application layer above TypeSafe’s official
-<code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>. It adds typed synchronous and native asynchronous clients,
-version-controlled <code class="docutils literal notranslate"><span class="pre">.pyjev.toml</span></code> decision contracts, offline validation and
-compilation, uncertainty-preserving results, credential ergonomics, and
-confidence-aware application policy.</p>
+<p><strong>Reusable, inspectable Jev decision contracts for Python applications and automation.</strong>
+<code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code> is the execution layer for TypeSafe System One requests. <code class="docutils literal notranslate"><span class="pre">pyjev</span></code> is for decisions that become part of an application’s operating contract: named declarations, offline inspection, reusable interpretation and policy, semantic recipes, and consistent Python/shell/CI behavior.</p>
+<p>If you only need a few inline Jev calls, start with <code class="docutils literal notranslate"><span class="pre">typesafe-sdk</span></code>. Use pyjev when the judgment itself needs to be named, reviewed, reused, tested, or safely automated.</p>
 <section id="why-pyjev">
 <h2>Why pyjev?</h2>
 <ul class="simple">
@@ -606,9 +603,11 @@ abstraction.</p>
 </div>
 <ul class="simple">
 <li><p><a class="reference internal" href="getting-started/"><span class="std std-doc">Getting started</span></a></p></li>
+<li><p><a class="reference internal" href="why-pyjev/"><span class="std std-doc">Why pyjev?</span></a></p></li>
 <li><p><a class="reference internal" href="named-decisions/"><span class="std std-doc">Named decisions</span></a></p></li>
 <li><p><a class="reference internal" href="patterns/"><span class="std std-doc">Decision patterns</span></a></p></li>
 <li><p><a class="reference internal" href="python-api/"><span class="std std-doc">Python API</span></a></p></li>
+<li><p><a class="reference internal" href="images/"><span class="std std-doc">Image inputs</span></a></p></li>
 <li><p><a class="reference internal" href="recipes/"><span class="std std-doc">Semantic recipes</span></a></p></li>
 <li><p><a class="reference internal" href="cli/"><span class="std std-doc">CLI and exit codes</span></a></p></li>
 <li><p><a class="reference internal" href="confidence/"><span class="std std-doc">Confidence policy</span></a></p></li>

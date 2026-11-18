@@ -6,7 +6,7 @@ nav_tool: pyjev-main
 docs_project: "pyjev"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_commit: "13619052ee14766fcfa2a83fdd0ed679e615e836"
 search_enabled: true
 ---
 
@@ -573,6 +573,7 @@ uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </
 </div>
 <p>This is a version-controlled specification. It is not a secret store and must
 not contain API keys.</p>
+<p>The SDK can express this Choice directly in Python. The reason to declare it here is not syntax: <code class="docutils literal notranslate"><span class="pre">ticket-route</span></code> now has project-level identity. pyjev can validate and fingerprint it without credentials, then execute the same declaration from Python or shell automation. See <a class="reference internal" href="../why-pyjev/"><span class="std std-doc">Why pyjev?</span></a> for when this contract layer is useful and when a direct SDK call is simpler.</p>
 </section>
 <section id="inspect-before-execution">
 <h2>Inspect before execution</h2>
@@ -585,6 +586,7 @@ pyjev<span class="w"> </span>decision<span class="w"> </span>compile<span class=
 <p>They do not read credentials, construct a client, or contact the Jev API. The
 compiled output is a normalized request preview with a stable schema marker and
 non-secret decision fingerprint.</p>
+<p>The fingerprint is useful for review, snapshots, distinguishing specification changes from runtime state, and automation evidence. It is not tamper-proofing or a persisted audit log.</p>
 </section>
 <section id="authenticate">
 <h2>Authenticate</h2>
@@ -639,13 +641,29 @@ policy.</p>
 </pre></div>
 </div>
 </section>
+<section id="image-inputs">
+<h2>Image inputs</h2>
+<p>The Python API can pass an SDK <code class="docutils literal notranslate"><span class="pre">Image</span></code> through to TypeSafe. This feature is experimental and requires an explicit opt-in:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyjev</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Jev</span>
+
+<span class="k">with</span> <span class="n">Jev</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">jev</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">jev</span><span class="o">.</span><span class="n">noul</span><span class="p">(</span>
+        <span class="s2">&quot;Is a person visible in `photo`?&quot;</span><span class="p">,</span>
+        <span class="n">state</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;photo&quot;</span><span class="p">:</span> <span class="n">Image</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;photo.jpg&quot;</span><span class="p">))},</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Image requests require <code class="docutils literal notranslate"><span class="pre">typesafe-sdk&gt;=0.7.5</span></code> and send the image to the configured API. See <a class="reference internal" href="../images/"><span class="std std-doc">Image inputs</span></a> for named assets, current upstream limits, and data-handling guidance.</p>
+</section>
 <section id="when-to-use-a-direct-primitive">
 <h2>When to use a direct primitive</h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">jev.choice(...)</span></code>, <code class="docutils literal notranslate"><span class="pre">jev.noul(...)</span></code>, or <code class="docutils literal notranslate"><span class="pre">jev.score(...)</span></code> when criteria are
 computed dynamically from deterministic application state. Keep deterministic
 constraints in normal Python; use a named decision when the judgment contract
 is stable and worth reviewing in source control.</p>
-<p>Continue with <a class="reference internal" href="../named-decisions/"><span class="std std-doc">Named decisions</span></a>, <a class="reference internal" href="../confidence/"><span class="std std-doc">Confidence</span></a>,
+<p>For the product boundary and direct-SDK guidance, see <a class="reference internal" href="../why-pyjev/"><span class="std std-doc">Why pyjev</span></a>. Continue with <a class="reference internal" href="../named-decisions/"><span class="std std-doc">Named decisions</span></a>, <a class="reference internal" href="../confidence/"><span class="std std-doc">Confidence</span></a>,
 <a class="reference internal" href="../authentication/"><span class="std std-doc">Authentication</span></a>, and <a class="reference internal" href="../python-api/"><span class="std std-doc">Python API</span></a>.</p>
 </section>
 </section>

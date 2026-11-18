@@ -5,8 +5,8 @@ permalink: /tools/documentledger/troubleshooting/
 nav_tool: documentledger
 docs_project: "documentledger"
 docs_variant: "release"
-docs_ref: "v0.2.1"
-docs_commit: "9b64a669deec648259b86052992068e658e14fff"
+docs_ref: "v0.2.2"
+docs_commit: "cb6e19559142d93cf57e83fdca1fa7a43ffc3cd6"
 search_enabled: true
 ---
 

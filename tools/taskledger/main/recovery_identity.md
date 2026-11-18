@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
+docs_commit: "48df72665f5dcf1e9d1d9e190954a6514cdf108c"
 search_enabled: true
 ---
 
@@ -604,12 +604,66 @@ inventory must succeed afterward with that UUID bundle as sole owner.</p>
 <p>Ambiguous ownership—including an existing tombstone, multiple live claimants, a
 non-live claimant, or a changed physical source—is <code class="docutils literal notranslate"><span class="pre">blocked_identity_conflict</span></code> and
 must not be applied. The dry-run reports <code class="docutils literal notranslate"><span class="pre">apply_safe:</span> <span class="pre">false</span></code> and no <code class="docutils literal notranslate"><span class="pre">next_command</span></code>.
-Doctor’s allocation hint begins with the dry-run; apply only the exact plan ID when
-that report says it is safe.</p>
+If the allocation dry-run reports protection blockers, do not apply that plan. Resolve an <code class="docutils literal notranslate"><span class="pre">active_task_pointer</span></code> blocker only through an explicit, reviewed rebind to a verified UUID owner, then request a fresh allocation dry-run. Active locks and running runs physically inside a selected source remain blockers; do not bypass them. Apply only the exact fresh plan when it is safe.</p>
+</section>
+<section id="dependency-order-and-physical-repair-boundaries">
+<h2>Dependency order and physical repair boundaries</h2>
+<p>When the identity inventory is invalid, Doctor marks logical scans incomplete but still inspects locks and runs in known physical task bundles. A run is owned by the directory containing its run record; its <code class="docutils literal notranslate"><span class="pre">task_id</span></code> metadata does not transfer ownership to another directory.</p>
+<p>Lock file health, lease state, and identity binding are separate findings. A readable expired lock with unresolved identity is not malformed or automatically repairable, and remains a migration blocker. Do not use lock cleanup to guess its owner. Restore unique identity evidence first, then review a fresh lock plan if cleanup is still required.</p>
+<p>Use this order for a shadowed allocation:</p>
+<ol class="arabic simple">
+<li><p>Back up the canonical configuration and resolved data mount, then inspect Doctor, lock diagnostics, the active-task pointer, and allocation audit.</p></li>
+<li><p>Run an allocation dry-run to identify the exact physical source set and protection blockers. If it reports <code class="docutils literal notranslate"><span class="pre">active_task_pointer</span></code>, stop and review <code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">active-task</span> <span class="pre">--action</span> <span class="pre">rebind</span> <span class="pre">--target-uuid</span> <span class="pre">TARGET_UUID</span></code>. Rebind only to the explicitly verified live UUID owner, using the exact plan ID and a reason. Do not clear a valid or ambiguous pointer to get past the blocker.</p></li>
+<li><p>Request a new allocation dry-run after the rebind. Review all source paths, fingerprints, quarantine destinations, and blockers again. Active locks and running runs physically inside a selected source still block quarantine; runs under other physical UUID bundles do not become blockers from metadata aliases alone.</p></li>
+<li><p>Apply only the exact fresh, blocker-free plan. Verify unchanged UUID owners, quarantined bytes, strict identity resolution, allocation audit, lock diagnostics, and Doctor.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">repair</span> <span class="pre">task-dirs</span></code> is a separate narrow cleanup. It removes only empty slug directories supported by valid physical task records. It does not remove task-ID directories, incomplete allocations, or require global identity uniqueness.</p>
+</section>
+<section id="historical-shadowing-tombstone-recovery">
+<h2>Historical shadowing-tombstone recovery</h2>
+<p>A live migrated UUID task can conflict with a historical allocation tombstone even when no incomplete task directory remains. The supported workflow is a reviewed identity-conflict plan, not an invented <code class="docutils literal notranslate"><span class="pre">--reconcile-source-id</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--conflicts
+taskledger<span class="w"> </span>--json<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--conflicts<span class="w"> </span>--allow-unverifiable
+</pre></div>
+</div>
+<p>Review each action’s claimant set, owner and quarantine fingerprints, historical event evidence, and <code class="docutils literal notranslate"><span class="pre">apply_safe</span></code> state. Evidence-backed rehomes are preferred. An unverifiable shadowing tombstone can be retired only when exactly one live UUID owner and the quarantined recovery payload are validated, and the reviewed plan explicitly includes <code class="docutils literal notranslate"><span class="pre">--allow-unverifiable</span></code>. Apply that same selector/override posture with the exact plan ID and a reason:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--conflicts<span class="w"> </span>--allow-unverifiable<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Operator approved reviewed tombstone retirement.&quot;</span>
+</pre></div>
+</div>
+<p>Retirement moves the original tombstone bytes to transaction-scoped recovery storage, does not modify the quarantine or live owner, creates no replacement tombstone, and leaves the original physical source ID unresolved. The audit event must continue to say <code class="docutils literal notranslate"><span class="pre">unverifiable_physical_source</span></code>; do not call this provenance verified. A selected subset may commit with <code class="docutils literal notranslate"><span class="pre">ledger_healthy:</span> <span class="pre">false</span></code> and exact <code class="docutils literal notranslate"><span class="pre">remaining_conflicts</span></code>. Re-run Doctor and allocation audit after the transaction. Never delete tombstones or infer physical source IDs from recovery directory names.</p>
 <p>For a deliberate bulk operation, inspect the complete dry-run and then use
 <code class="docutils literal notranslate"><span class="pre">--all</span> <span class="pre">--apply</span> <span class="pre">--plan-id</span> <span class="pre">PLAN_ID</span> <span class="pre">--reason</span> <span class="pre">&quot;...&quot;</span></code>. Never use an unscoped apply.
 The apply verifies source fingerprints, checks destinations and identity
 postconditions, and rolls back or reports an incomplete transaction on failure.</p>
+</section>
+<section id="coordinated-allocation-batches-and-interrupted-transactions">
+<h2>Coordinated allocation batches and interrupted transactions</h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">--all</span></code> plan is one coordinated, journaled transaction. The apply path preflights every selected physical source before mutation and verifies the resulting identity state. Review all planned sources and destinations; do not treat partial movement as success. A successful apply reports <code class="docutils literal notranslate"><span class="pre">status:</span> <span class="pre">applied</span></code>, its planned/committed/failed counts, and ledger health. A failure exits non-zero and preserves rollback/audit details in the structured error; inspect the listed physical source IDs and transaction journal before deciding the next step.</p>
+<p>List transaction journals without changing them, then review a specific recovery plan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--transactions
+taskledger<span class="w"> </span>--json<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--recover<span class="w"> </span>TRANSACTION_ID
+</pre></div>
+</div>
+<p>The plan fingerprints both the journal and the observed source, quarantine, and tombstone state. Prepared/staging/rollback-incomplete transactions propose rollback; audit-pending transactions propose idempotent event replay. Apply only the freshly reviewed plan, with a reason:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>allocations<span class="w"> </span>--recover<span class="w"> </span>TRANSACTION_ID<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Recover the reviewed allocation transaction.&quot;</span>
+</pre></div>
+</div>
+<p>Re-run the transaction listing, allocation audit, and Doctor afterward. Do not edit, remove, or replay journal files manually. If recovery reports incomplete rollback or audit, preserve all paths and follow the emitted next step rather than starting another repair.</p>
+</section>
+<section id="recover-a-damaged-active-task-pointer">
+<h2>Recover a damaged active-task pointer</h2>
+<p>Doctor reports active-task references that are missing, ambiguous, malformed, protected, or resolvable. Recovery is dry-run by default and requires an explicit action. A clear is safe only when the pointer names a proven missing task; it must not clear a valid, ambiguous, malformed, or otherwise protected pointer. A rebind requires an explicitly supplied UUIDv7 task that is uniquely verified. Never infer a UUID from a display alias or choose among candidates.</p>
+<p>Review a clear plan or an explicit rebind plan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>--json<span class="w"> </span>repair<span class="w"> </span>active-task<span class="w"> </span>--action<span class="w"> </span>clear
+taskledger<span class="w"> </span>--json<span class="w"> </span>repair<span class="w"> </span>active-task<span class="w"> </span>--action<span class="w"> </span>rebind<span class="w"> </span>--target-uuid<span class="w"> </span>TARGET_UUID
+</pre></div>
+</div>
+<p>Apply only the unchanged plan ID and give a reason:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taskledger<span class="w"> </span>repair<span class="w"> </span>active-task<span class="w"> </span>--action<span class="w"> </span>clear<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Clear the reviewed pointer to a missing task.&quot;</span>
+taskledger<span class="w"> </span>repair<span class="w"> </span>active-task<span class="w"> </span>--action<span class="w"> </span>rebind<span class="w"> </span>--target-uuid<span class="w"> </span>TARGET_UUID<span class="w"> </span>--apply<span class="w"> </span>--plan-id<span class="w"> </span>PLAN_ID<span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Rebind to the explicitly verified UUID task.&quot;</span>
+</pre></div>
+</div>
+<p>The operation compares the raw active-state bytes before mutation, saves an exact-byte backup, journals the change, and emits an audit event. Rebinding preserves historical task references; it does not silently rewrite the task’s identity. Check the backup and transaction result, then rerun Doctor before resuming work. Changed, ambiguous, malformed, or protected state requires investigation, not a weaker plan.</p>
 </section>
 <section id="reconcile-a-previously-misattributed-tombstone">
 <h2>Reconcile a previously misattributed tombstone</h2>

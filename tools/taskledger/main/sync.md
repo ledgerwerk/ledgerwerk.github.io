@@ -6,7 +6,7 @@ nav_tool: taskledger-main
 docs_project: "taskledger"
 docs_variant: "main"
 docs_ref: "main"
-docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
+docs_commit: "48df72665f5dcf1e9d1d9e190954a6514cdf108c"
 search_enabled: true
 ---
 
@@ -578,15 +578,19 @@ taskledger<span class="w"> </span>sync<span class="w"> </span>git<span class="w"
 </section>
 <section id="second-pc-bootstrap">
 <h2>Second PC bootstrap</h2>
-<p>Indexes are checkout-local derived state and are not synchronized between PCs.
-After opening a project on a new machine, deleting the local cache, or allowing
-the cache to be evicted, read-only commands continue to use canonical records.
-The first mutating command creates the local Ledgercore cache binding and
-rebuilds the indexes automatically; no second <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> is required.
-If a non-empty unbound cache is found, Taskledger preserves it as an
-<code class="docutils literal notranslate"><span class="pre">indexes.quarantine-*</span></code> sibling before rebuilding. Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code>
-for explicit cache health repair.</p>
-<p>Clone both repositories as siblings:</p>
+<p>The project UUID and durable data are portable. Copy or pull both the project checkout
+and its external <code class="docutils literal notranslate"><span class="pre">../ledger</span></code> store, preserving their sibling layout. On each PC,
+Ledgercore resolves <code class="docutils literal notranslate"><span class="pre">runtime</span></code>, <code class="docutils literal notranslate"><span class="pre">logs</span></code>, and <code class="docutils literal notranslate"><span class="pre">indexes</span></code> under that machine’s configured
+user-data and cache roots; those local paths are not transferred with the project.</p>
+<p>After copying or pulling the project and data store, run <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">init</span></code> on the new
+PC before starting mutations. Init is idempotent: it preserves the project UUID and
+existing task numbering, creates missing canonical and machine-local runtime/log
+directories, then initializes or rebuilds the local indexes cache. A non-empty
+unbound cache is preserved as an <code class="docutils literal notranslate"><span class="pre">indexes.quarantine-*</span></code> sibling before rebuilding.</p>
+<p>If the project is already initialized on that PC and only the indexes cache is
+missing or evicted, the first mutation can initialize or rebuild it automatically.
+Use <code class="docutils literal notranslate"><span class="pre">taskledger</span> <span class="pre">repair</span> <span class="pre">index</span></code> for explicit cache health repair.
+Clone both repositories as siblings:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/src
 git<span class="w"> </span>clone<span class="w"> </span>&lt;source-repo-url&gt;<span class="w"> </span>project-a
 git<span class="w"> </span>clone<span class="w"> </span>&lt;private-state-repo-url&gt;<span class="w"> </span>taskledger-state

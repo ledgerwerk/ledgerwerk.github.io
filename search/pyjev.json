@@ -29,8 +29,8 @@
         {
           "anchor": "",
           "heading": "Client",
-          "text": ".. py:module:: pyjev.client\n\nThin Python convenience API over TypeSafe’s official SDK.\n\n.. py:class:: Jev(*, api_key=None, model=None, timeout=None, client=None)\n:module: pyjev.client\n\nBases: :py:class:object\n\nConvenience client for common Jev decisions.\n\nJev deliberately delegates transport, retries, validation, and API semantics to\ntypesafe-sdk. It only adds ergonomic request construction and result wrappers.\n\n.. py:method:: Jev.init(*, api_key=None, model=None, timeout=None, client=None)\n:module: pyjev.client\n\n  Create a client or wrap a caller-owned SDK client.\n\n  An injected client cannot be combined with `api_key`, `model`, or `timeout`,\n  and is never closed by :meth:`close`.\n\n\n\n\n.. py:property:: Jev.client\n:module: pyjev.client\n:type: ~typesafe_sdk._core.client.sync.client.TypeSaf…",
-          "lower": ".. py:module:: pyjev.client\n\nthin python convenience api over typesafe’s official sdk.\n\n.. py:class:: jev(*, api_key=none, model=none, timeout=none, client=none)\n:module: pyjev.client\n\nbases: :py:class:object\n\nconvenience client for common jev decisions.\n\njev deliberately delegates transport, retries, validation, and api semantics to\ntypesafe-sdk. it only adds ergonomic request construction and result wrappers.\n\n.. py:method:: jev.init(*, api_key=none, model=none, timeout=none, client=none)\n:module: pyjev.client\n\n  create a client or wrap a caller-owned sdk client.\n\n  an injected client cannot be combined with `api_key`, `model`, or `timeout`,\n  and is never closed by :meth:`close`.\n\n\n\n\n.. py:property:: jev.client\n:module: pyjev.client\n:type: ~typesafe_sdk._core.client.sync.client.typesaf…"
+          "text": ".. py:module:: pyjev.client\n\nThin Python convenience API over TypeSafe’s official SDK.\n\n.. py:class:: Jev(*, api_key=None, model=None, timeout=None, images=False, client=None)\n:module: pyjev.client\n\nBases: :py:class:object\n\nConvenience client for common Jev decisions.\n\nJev deliberately delegates transport, retries, validation, and API semantics to\ntypesafe-sdk. It only adds ergonomic request construction and result wrappers.\n\n.. py:method:: Jev.init(*, api_key=None, model=None, timeout=None, images=False, client=None)\n:module: pyjev.client\n\n  Create a client or wrap a caller-owned SDK client.\n\n  An injected client cannot be combined with `api_key`, `model`, or `timeout`,\n  and is never closed by :meth:`close`.\n\n\n\n\n.. py:property:: Jev.client\n:module: pyjev.client\n:type: ~typesafe_sdk._cor…",
+          "lower": ".. py:module:: pyjev.client\n\nthin python convenience api over typesafe’s official sdk.\n\n.. py:class:: jev(*, api_key=none, model=none, timeout=none, images=false, client=none)\n:module: pyjev.client\n\nbases: :py:class:object\n\nconvenience client for common jev decisions.\n\njev deliberately delegates transport, retries, validation, and api semantics to\ntypesafe-sdk. it only adds ergonomic request construction and result wrappers.\n\n.. py:method:: jev.init(*, api_key=none, model=none, timeout=none, images=false, client=none)\n:module: pyjev.client\n\n  create a client or wrap a caller-owned sdk client.\n\n  an injected client cannot be combined with `api_key`, `model`, or `timeout`,\n  and is never closed by :meth:`close`.\n\n\n\n\n.. py:property:: jev.client\n:module: pyjev.client\n:type: ~typesafe_sdk._cor…"
         }
       ]
     },
@@ -95,6 +95,12 @@
           "heading": "Changelog",
           "text": "This page is generated from project release records by releaseledger. Do not edit it\nmanually; regenerate it through the release workflow.",
           "lower": "this page is generated from project release records by releaseledger. do not edit it\nmanually; regenerate it through the release workflow."
+        },
+        {
+          "anchor": "",
+          "heading": "Added",
+          "text": "Added experimental image inputs to the Python API with explicit opt-in and named asset support",
+          "lower": "added experimental image inputs to the python api with explicit opt-in and named asset support"
         },
         {
           "anchor": "",
@@ -378,6 +384,18 @@
           "heading": "Emoji Jev",
           "text": "emoji_jev.py is an interactive named-bundle example. A single request evaluates a 64-way emoji Choice plus tone questions. The terminal displays the selected emoji, top alternatives from the Choice probability distribution, typed side signals, request metadata, token usage, and client-observed round-trip time.\n\nThe top-N display is deterministic Python over Jev’s preserved probability distribution; it is not a second model call.",
           "lower": "emoji_jev.py is an interactive named-bundle example. a single request evaluates a 64-way emoji choice plus tone questions. the terminal displays the selected emoji, top alternatives from the choice probability distribution, typed side signals, request metadata, token usage, and client-observed round-trip time.\n\nthe top-n display is deterministic python over jev’s preserved probability distribution; it is not a second model call."
+        },
+        {
+          "anchor": "",
+          "heading": "Image inspection",
+          "text": "image_inspection.py demonstrates an inline SDK Image in structured state and a pyjev Choice with the required experimental opt-in.\n\npython examples/image_inspection.py path/to/photo.jpg",
+          "lower": "image_inspection.py demonstrates an inline sdk image in structured state and a pyjev choice with the required experimental opt-in.\n\npython examples/image_inspection.py path/to/photo.jpg"
+        },
+        {
+          "anchor": "",
+          "heading": "Image comparison",
+          "text": "image_compare.py demonstrates a candidate image plus a named assets= reference for a Noul comparison. Its returned probability is a model judgment, not an identity or authorization guarantee.\n\npython examples/image_compare.py path/to/candidate.jpg path/to/reference.jpg\n\n\n\n\nBoth examples send the supplied images to the configured TypeSafe-compatible API and require credentials. See Image inputs for details.",
+          "lower": "image_compare.py demonstrates a candidate image plus a named assets= reference for a noul comparison. its returned probability is a model judgment, not an identity or authorization guarantee.\n\npython examples/image_compare.py path/to/candidate.jpg path/to/reference.jpg\n\n\n\n\nboth examples send the supplied images to the configured typesafe-compatible api and require credentials. see image inputs for details."
         }
       ]
     },
@@ -430,9 +448,88 @@
         },
         {
           "anchor": "",
+          "heading": "Image inputs",
+          "text": "The Python API can pass an SDK Image through to TypeSafe. This feature is experimental and requires an explicit opt-in:\n\nfrom pathlib import Path\n\nfrom pyjev import Image, Jev\n\nwith Jev(images=True) as jev:\n    result = jev.noul(\n        \"Is a person visible in `photo`?\",\n        state={\"photo\": Image(Path(\"photo.jpg\"))},\n    )\n\n\n\n\nImage requests require typesafe-sdk>=0.7.5 and send the image to the configured API. See Image inputs for named assets, current upstream limits, and data-handling guidance.",
+          "lower": "the python api can pass an sdk image through to typesafe. this feature is experimental and requires an explicit opt-in:\n\nfrom pathlib import path\n\nfrom pyjev import image, jev\n\nwith jev(images=true) as jev:\n    result = jev.noul(\n        \"is a person visible in `photo`?\",\n        state={\"photo\": image(path(\"photo.jpg\"))},\n    )\n\n\n\n\nimage requests require typesafe-sdk>=0.7.5 and send the image to the configured api. see image inputs for named assets, current upstream limits, and data-handling guidance."
+        },
+        {
+          "anchor": "",
           "heading": "When to use a direct primitive",
           "text": "Use jev.choice(...), jev.noul(...), or jev.score(...) when criteria are\ncomputed dynamically from deterministic application state. Keep deterministic\nconstraints in normal Python; use a named decision when the judgment contract\nis stable and worth reviewing in source control.\n\nContinue with Named decisions, Confidence,\nAuthentication, and Python API.",
           "lower": "use jev.choice(...), jev.noul(...), or jev.score(...) when criteria are\ncomputed dynamically from deterministic application state. keep deterministic\nconstraints in normal python; use a named decision when the judgment contract\nis stable and worth reviewing in source control.\n\ncontinue with named decisions, confidence,\nauthentication, and python api."
+        }
+      ]
+    },
+    {
+      "url": "/tools/pyjev/images/",
+      "title": "pyjev Image inputs",
+      "snippet": "Image inputs are currently a dreamer-ready, experimental TypeSafe feature. They require explicit opt-in with images=True; request, answer, a …",
+      "sections": [
+        {
+          "anchor": "",
+          "heading": "Experimental status",
+          "text": "Image inputs are currently a dreamer-ready, experimental TypeSafe feature. They require explicit opt-in with images=True; request, answer, and limit behavior may change upstream. Do not treat this feature as production-ready. pyjev re-exports the SDK’s Image object and forwards image requests. The official typesafe-sdk owns asset references, serialization, uploads, and transport.\n\nIf images=True is omitted, an image-bearing request may be rejected by the API. pyjev does not automatically enable the feature when it encounters an Image object.",
+          "lower": "image inputs are currently a dreamer-ready, experimental typesafe feature. they require explicit opt-in with images=true; request, answer, and limit behavior may change upstream. do not treat this feature as production-ready. pyjev re-exports the sdk’s image object and forwards image requests. the official typesafe-sdk owns asset references, serialization, uploads, and transport.\n\nif images=true is omitted, an image-bearing request may be rejected by the api. pyjev does not automatically enable the feature when it encounters an image object."
+        },
+        {
+          "anchor": "",
+          "heading": "Installation and image construction",
+          "text": "Image support requires typesafe-sdk>=0.7.5. Passing a path or bytes does not require an optional dependency:\n\nfrom pathlib import Path\n\nfrom pyjev import Image\n\nphoto = Image(Path(\"photo.jpg\"))\n\n\n\n\nThe SDK also provides Image.from_base64(...). Image.from_pil(...) is available when Pillow is installed through the optional SDK extra:\n\npip install 'typesafe-sdk[pil]>=0.7.5,<1'\n\n\n\n\nPillow is not a pyjev or base SDK dependency.",
+          "lower": "image support requires typesafe-sdk>=0.7.5. passing a path or bytes does not require an optional dependency:\n\nfrom pathlib import path\n\nfrom pyjev import image\n\nphoto = image(path(\"photo.jpg\"))\n\n\n\n\nthe sdk also provides image.from_base64(...). image.from_pil(...) is available when pillow is installed through the optional sdk extra:\n\npip install 'typesafe-sdk[pil]>=0.7.5,<1'\n\n\n\n\npillow is not a pyjev or base sdk dependency."
+        },
+        {
+          "anchor": "",
+          "heading": "First image decision",
+          "text": "from pathlib import Path\n\nfrom pyjev import Image, Jev\n\nwith Jev(images=True) as jev:\n    result = jev.noul(\n        \"Is a person visible in `photo`?\",\n        state={\"photo\": Image(Path(\"door-camera.jpg\"))},\n    )\n\nprint(\"probability true:\", result.value)\n\n\n\n\nNoulResult.value is the model’s probability signal for true, not a correctness guarantee. Image requests send the explicit TypeSafe-Danger-Zone-Images: true opt-in header through the official SDK.",
+          "lower": "from pathlib import path\n\nfrom pyjev import image, jev\n\nwith jev(images=true) as jev:\n    result = jev.noul(\n        \"is a person visible in `photo`?\",\n        state={\"photo\": image(path(\"door-camera.jpg\"))},\n    )\n\nprint(\"probability true:\", result.value)\n\n\n\n\nnoulresult.value is the model’s probability signal for true, not a correctness guarantee. image requests send the explicit typesafe-danger-zone-images: true opt-in header through the official sdk."
+        },
+        {
+          "anchor": "",
+          "heading": "Where images can go",
+          "text": "Pass SDK Image objects directly in SDK-valid structured content. pyjev preserves them; it does not recursively rewrite content or read image bytes itself. Images can be placed in state, direct primitive instructions, Noul criteria, Choice criteria, and Score levels. For example:\n\nfrom pathlib import Path\n\nfrom pyjev import Image, Jev\n\ncandidate = Image(Path(\"candidate.jpg\"))\nred_reference = Image(Path(\"red.jpg\"))\nblue_reference = Image(Path(\"blue.jpg\"))\n\nwith Jev(images=True) as jev:\n    result = jev.choice(\n        \"Which reference example best matches `candidate`?\",\n        state={\"candidate\": candidate},\n        choices={\n            \"red\": red_reference,\n            \"blue\": blue_reference,\n            \"other\": \"Neither reference\",\n        },\n    )\n\n\n\n\nUse structured content rather tha…",
+          "lower": "pass sdk image objects directly in sdk-valid structured content. pyjev preserves them; it does not recursively rewrite content or read image bytes itself. images can be placed in state, direct primitive instructions, noul criteria, choice criteria, and score levels. for example:\n\nfrom pathlib import path\n\nfrom pyjev import image, jev\n\ncandidate = image(path(\"candidate.jpg\"))\nred_reference = image(path(\"red.jpg\"))\nblue_reference = image(path(\"blue.jpg\"))\n\nwith jev(images=true) as jev:\n    result = jev.choice(\n        \"which reference example best matches `candidate`?\",\n        state={\"candidate\": candidate},\n        choices={\n            \"red\": red_reference,\n            \"blue\": blue_reference,\n            \"other\": \"neither reference\",\n        },\n    )\n\n\n\n\nuse structured content rather tha…"
+        },
+        {
+          "anchor": "",
+          "heading": "Named references with assets=",
+          "text": "Use named references when the question contains a stable textual placeholder, including for a named decision:\n\nfrom pathlib import Path\n\nfrom pyjev import Image, Jev\n\nwith Jev(images=True) as jev:\n    result = jev.decide(\n        \"returned-product\",\n        state={\"returned\": Image(Path(\"returned.jpg\"))},\n        assets={\"<catalog-photo>\": Image(Path(\"catalog.jpg\"))},\n    )\n\n\n\n\nThe decision can remain portable text in .pyjev.toml:\n\n[decision.returned-product]\ntype = \"noul\"\nquestion = \"Does the product in `returned` match <catalog-photo>?\"\n\n\n\n\nSupply the actual SDK Image in assets= at execution time. Do not place binary data or base64 image blobs in decision TOML. assets= is available on the sync and native async decision methods; see Python API.",
+          "lower": "use named references when the question contains a stable textual placeholder, including for a named decision:\n\nfrom pathlib import path\n\nfrom pyjev import image, jev\n\nwith jev(images=true) as jev:\n    result = jev.decide(\n        \"returned-product\",\n        state={\"returned\": image(path(\"returned.jpg\"))},\n        assets={\"<catalog-photo>\": image(path(\"catalog.jpg\"))},\n    )\n\n\n\n\nthe decision can remain portable text in .pyjev.toml:\n\n[decision.returned-product]\ntype = \"noul\"\nquestion = \"does the product in `returned` match <catalog-photo>?\"\n\n\n\n\nsupply the actual sdk image in assets= at execution time. do not place binary data or base64 image blobs in decision toml. assets= is available on the sync and native async decision methods; see python api."
+        },
+        {
+          "anchor": "",
+          "heading": "Text interpolation with attach_assets",
+          "text": "For advanced string interpolation, use the SDK client’s attach_assets context manager. Direct structured placement is simpler and preferred:\n\nfrom pathlib import Path\n\nfrom pyjev import Image, Jev\n\nphoto = Image(Path(\"photo.jpg\"))\n\nwith Jev(images=True) as jev:\n    with jev.client.attach_assets(photo):\n        result = jev.noul(\n            f\"Is the product shown here damaged: {photo}?\",\n            state=\"returned item\",\n        )\n\n\n\n\nThe SDK’s async client provides the same context-manager interface:\n\nfrom pathlib import Path\n\nfrom pyjev import AsyncJev, Image\n\nphoto = Image(Path(\"photo.jpg\"))\n\nasync with AsyncJev(images=True) as jev:\n    with jev.client.attach_assets(photo):\n        result = await jev.noul(\n            f\"Is the product shown here damaged: {photo}?\",\n            state=\"…",
+          "lower": "for advanced string interpolation, use the sdk client’s attach_assets context manager. direct structured placement is simpler and preferred:\n\nfrom pathlib import path\n\nfrom pyjev import image, jev\n\nphoto = image(path(\"photo.jpg\"))\n\nwith jev(images=true) as jev:\n    with jev.client.attach_assets(photo):\n        result = jev.noul(\n            f\"is the product shown here damaged: {photo}?\",\n            state=\"returned item\",\n        )\n\n\n\n\nthe sdk’s async client provides the same context-manager interface:\n\nfrom pathlib import path\n\nfrom pyjev import asyncjev, image\n\nphoto = image(path(\"photo.jpg\"))\n\nasync with asyncjev(images=true) as jev:\n    with jev.client.attach_assets(photo):\n        result = await jev.noul(\n            f\"is the product shown here damaged: {photo}?\",\n            state=\"…"
+        },
+        {
+          "anchor": "",
+          "heading": "Image preparation and limits",
+          "text": "The current TypeSafe image API accepts PNG and JPEG still images. Documented limits include:\n\n\nat most 16 MiB per image;\n\n\neach side between 280 and 1568 pixels;\n\n\ntotal image area between 78,400 and 2,458,624 pixels;\n\n\na 32 MiB request-body limit and 32 MiB aggregate/expanded image limits.\n\n\n\nThe API does not apply EXIF orientation. Prepare pixels upright before sending. These limits are upstream behavior and may change; pyjev does not duplicate them with its own validator. See the TypeSafe image documentation for current requirements and errors.",
+          "lower": "the current typesafe image api accepts png and jpeg still images. documented limits include:\n\n\nat most 16 mib per image;\n\n\neach side between 280 and 1568 pixels;\n\n\ntotal image area between 78,400 and 2,458,624 pixels;\n\n\na 32 mib request-body limit and 32 mib aggregate/expanded image limits.\n\n\n\nthe api does not apply exif orientation. prepare pixels upright before sending. these limits are upstream behavior and may change; pyjev does not duplicate them with its own validator. see the typesafe image documentation for current requirements and errors."
+        },
+        {
+          "anchor": "",
+          "heading": "Cost and repeated references",
+          "text": "Image input contributes to input tokens. Reusing a reference in several places can expand the model input each time. When multiple questions use the same image, place it once in state and refer to its state path where possible.",
+          "lower": "image input contributes to input tokens. reusing a reference in several places can expand the model input each time. when multiple questions use the same image, place it once in state and refer to its state path where possible."
+        },
+        {
+          "anchor": "",
+          "heading": "Named decisions and offline compilation",
+          "text": "compile_decision(...) remains an offline, JSON-like request preview. It does not read image files or preview multipart data. For image-backed named decisions, compile and inspect textual placeholders such as <catalog-photo>, then provide the actual Image through assets= only during execution. Runtime image objects are not part of the named-decision schema or its fingerprint.",
+          "lower": "compile_decision(...) remains an offline, json-like request preview. it does not read image files or preview multipart data. for image-backed named decisions, compile and inspect textual placeholders such as <catalog-photo>, then provide the actual image through assets= only during execution. runtime image objects are not part of the named-decision schema or its fingerprint."
+        },
+        {
+          "anchor": "",
+          "heading": "Errors",
+          "text": "The upstream API may reject requests when image support was not enabled, when an image format or dimensions are invalid, a named asset is not referenced, or a request exceeds size limits. Let official SDK errors retain their status, request ID, and validation details. See the TypeSafe image documentation for current error guidance.",
+          "lower": "the upstream api may reject requests when image support was not enabled, when an image format or dimensions are invalid, a named asset is not referenced, or a request exceeds size limits. let official sdk errors retain their status, request id, and validation details. see the typesafe image documentation for current error guidance."
+        },
+        {
+          "anchor": "",
+          "heading": "Security and policy",
+          "text": "Visual similarity is not authentication, identity proof, or authorization.\n\n\nConfidence is a model signal, not the probability that an answer is correct.\n\n\nImages may contain sensitive data and are sent to the configured TypeSafe-compatible API.\n\n\nApply the same data-handling and access policies used for other request content.\n\n\n\nThis initial image integration is a Python API feature. pyjev’s CLI does not add image path flags or image transport.",
+          "lower": "visual similarity is not authentication, identity proof, or authorization.\n\n\nconfidence is a model signal, not the probability that an answer is correct.\n\n\nimages may contain sensitive data and are sent to the configured typesafe-compatible api.\n\n\napply the same data-handling and access policies used for other request content.\n\n\n\nthis initial image integration is a python api feature. pyjev’s cli does not add image path flags or image transport."
         }
       ]
     },
@@ -468,8 +565,8 @@
         {
           "anchor": "",
           "heading": "Documentation",
-          "text": "Getting started\n\n\nNamed decisions\n\n\nDecision patterns\n\n\nPython API\n\n\nSemantic recipes\n\n\nCLI and exit codes\n\n\nConfidence policy\n\n\nAuthentication\n\n\nAgent skill\n\n\npyjev vs jev-cli\n\n\nRunnable examples",
-          "lower": "getting started\n\n\nnamed decisions\n\n\ndecision patterns\n\n\npython api\n\n\nsemantic recipes\n\n\ncli and exit codes\n\n\nconfidence policy\n\n\nauthentication\n\n\nagent skill\n\n\npyjev vs jev-cli\n\n\nrunnable examples"
+          "text": "Getting started\n\n\nNamed decisions\n\n\nDecision patterns\n\n\nPython API\n\n\nImage inputs\n\n\nSemantic recipes\n\n\nCLI and exit codes\n\n\nConfidence policy\n\n\nAuthentication\n\n\nAgent skill\n\n\npyjev vs jev-cli\n\n\nRunnable examples",
+          "lower": "getting started\n\n\nnamed decisions\n\n\ndecision patterns\n\n\npython api\n\n\nimage inputs\n\n\nsemantic recipes\n\n\ncli and exit codes\n\n\nconfidence policy\n\n\nauthentication\n\n\nagent skill\n\n\npyjev vs jev-cli\n\n\nrunnable examples"
         }
       ]
     },
@@ -641,6 +738,12 @@
           "heading": "Named decisions",
           "text": "result = jev.decide(\"ticket-route\", state=ticket, config=\"ops/.pyjev.toml\")\n\n\n\n\nExplicit call model overrides the decision model. Configuration discovery and schema\nrules are described in Named decisions.",
           "lower": "result = jev.decide(\"ticket-route\", state=ticket, config=\"ops/.pyjev.toml\")\n\n\n\n\nexplicit call model overrides the decision model. configuration discovery and schema\nrules are described in named decisions."
+        },
+        {
+          "anchor": "",
+          "heading": "Image inputs (experimental)",
+          "text": "pyjev re-exports the official SDK Image class. Image support requires typesafe-sdk>=0.7.5 and explicit images=True; TypeSafe currently describes it as dreamer-ready and experimental. When enabled, pyjev sends the required image opt-in header on every System One request. Inline Image objects in state, instructions, and criteria are passed to the SDK unchanged.\n\nfrom pathlib import Path\n\nfrom pyjev import Image, Jev\n\nwith Jev(images=True) as jev:\n    result = jev.choice(\n        \"Which product matches <reference>?\",\n        state={\"candidate\": Image(Path(\"candidate.jpg\"))},\n        choices={\"same\": None, \"different\": None},\n        assets={\"<reference>\": Image(Path(\"reference.jpg\"))},\n    )\n\n\n\n\nassets= is available on ask, noul, choice, score, evaluate, decide, and run. AsyncJev(images=True…",
+          "lower": "pyjev re-exports the official sdk image class. image support requires typesafe-sdk>=0.7.5 and explicit images=true; typesafe currently describes it as dreamer-ready and experimental. when enabled, pyjev sends the required image opt-in header on every system one request. inline image objects in state, instructions, and criteria are passed to the sdk unchanged.\n\nfrom pathlib import path\n\nfrom pyjev import image, jev\n\nwith jev(images=true) as jev:\n    result = jev.choice(\n        \"which product matches <reference>?\",\n        state={\"candidate\": image(path(\"candidate.jpg\"))},\n        choices={\"same\": none, \"different\": none},\n        assets={\"<reference>\": image(path(\"reference.jpg\"))},\n    )\n\n\n\n\nassets= is available on ask, noul, choice, score, evaluate, decide, and run. asyncjev(images=true…"
         },
         {
           "anchor": "",

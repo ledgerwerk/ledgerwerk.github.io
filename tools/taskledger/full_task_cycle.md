@@ -5,8 +5,8 @@ permalink: /tools/taskledger/full_task_cycle/
 nav_tool: taskledger
 docs_project: "taskledger"
 docs_variant: "release"
-docs_ref: "v0.7.2"
-docs_commit: "54989ceb32d8fac35df49d476dec1d31766e4add"
+docs_ref: "v0.7.7"
+docs_commit: "48df72665f5dcf1e9d1d9e190954a6514cdf108c"
 search_enabled: true
 ---
 

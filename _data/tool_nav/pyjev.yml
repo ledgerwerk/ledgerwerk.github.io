@@ -4,17 +4,17 @@ nav_key: pyjev
 variant: release
 variant_label: Latest release
 variant_kind: release
-source_ref: v0.1.2
-source_commit: 1bf1b09753773aa6ac13276f3bfd97e2f46d7db8
-source_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.2
+source_ref: v0.1.3
+source_commit: a8e1bfd11178fd873a959ec38aab7acc994cd1c7
+source_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.3
 is_default: true
 repo_url: https://github.com/ledgerwerk/pyjev
-release_tag: v0.1.2
-release_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.2
+release_tag: v0.1.3
+release_url: https://github.com/ledgerwerk/pyjev/releases/tag/v0.1.3
 versions:
 - name: release
   label: Latest release
-  ref: v0.1.2
+  ref: v0.1.3
   url: /tools/pyjev/
   current: true
 - name: main
@@ -68,6 +68,9 @@ entries:
 - slug: getting-started
   title: pyjev Getting started
   url: /tools/pyjev/getting-started/
+- slug: images
+  title: pyjev Image inputs
+  url: /tools/pyjev/images/
 - slug: named-decisions
   title: pyjev Named decisions
   url: /tools/pyjev/named-decisions/

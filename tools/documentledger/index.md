@@ -5,8 +5,8 @@ permalink: /tools/documentledger/
 nav_tool: documentledger
 docs_project: "documentledger"
 docs_variant: "release"
-docs_ref: "v0.2.1"
-docs_commit: "9b64a669deec648259b86052992068e658e14fff"
+docs_ref: "v0.2.2"
+docs_commit: "cb6e19559142d93cf57e83fdca1fa7a43ffc3cd6"
 search_enabled: true
 ---
 
@@ -649,6 +649,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 <li class="toctree-l2"><a class="reference internal" href="cli/#document-affected">document affected</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#document-stale">document stale</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#document-build-context">document build-context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/#document-validate">document validate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#document-mark-fresh">document mark-fresh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#source-list">source list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/#source-show">source show</a></li>
@@ -754,6 +755,7 @@ html[data-theme="dark"] .sphinxpress-doc {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-2-2026-10-09">[v0.2.2] - 2026-10-09</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-1-2026-08-20">[v0.2.1] - 2026-08-20</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-2-0-2026-07-28">[v0.2.0] - 2026-07-28</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog/#v0-1-1-2026-07-11">[v0.1.1] - 2026-07-11</a></li>

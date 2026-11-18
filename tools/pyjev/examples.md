@@ -5,8 +5,8 @@ permalink: /tools/pyjev/examples/
 nav_tool: pyjev
 docs_project: "pyjev"
 docs_variant: "release"
-docs_ref: "v0.1.2"
-docs_commit: "1bf1b09753773aa6ac13276f3bfd97e2f46d7db8"
+docs_ref: "v0.1.3"
+docs_commit: "a8e1bfd11178fd873a959ec38aab7acc994cd1c7"
 search_enabled: true
 ---
 
@@ -587,6 +587,21 @@ python<span class="w"> </span>examples/semantic_linter.py<span class="w"> </span
 <h2>Emoji Jev</h2>
 <p><code class="docutils literal notranslate"><span class="pre">emoji_jev.py</span></code> is an interactive named-bundle example. A single request evaluates a 64-way emoji Choice plus tone questions. The terminal displays the selected emoji, top alternatives from the Choice probability distribution, typed side signals, request metadata, token usage, and client-observed round-trip time.</p>
 <p>The top-N display is deterministic Python over Jev’s preserved probability distribution; it is not a second model call.</p>
+</section>
+<section id="image-inspection">
+<h2>Image inspection</h2>
+<p><code class="docutils literal notranslate"><span class="pre">image_inspection.py</span></code> demonstrates an inline SDK <code class="docutils literal notranslate"><span class="pre">Image</span></code> in structured state and a pyjev Choice with the required experimental opt-in.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/image_inspection.py<span class="w"> </span>path/to/photo.jpg
+</pre></div>
+</div>
+</section>
+<section id="image-comparison">
+<h2>Image comparison</h2>
+<p><code class="docutils literal notranslate"><span class="pre">image_compare.py</span></code> demonstrates a candidate image plus a named <code class="docutils literal notranslate"><span class="pre">assets=</span></code> reference for a Noul comparison. Its returned probability is a model judgment, not an identity or authorization guarantee.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/image_compare.py<span class="w"> </span>path/to/candidate.jpg<span class="w"> </span>path/to/reference.jpg
+</pre></div>
+</div>
+<p>Both examples send the supplied images to the configured TypeSafe-compatible API and require credentials. See <a class="reference internal" href="../images/"><span class="std std-doc">Image inputs</span></a> for details.</p>
 </section>
 </section>
 </div>
